@@ -1,0 +1,286 @@
+
+    <!DOCTYPE html>
+    <html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Matchs de Ligue des Champions</title>
+        <style>
+            body {
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                background-color: #f4f7f6;
+                color: #333;
+                margin: 0;
+                padding: 20px;
+            }
+            h1 {
+                text-align: center;
+                color: #0c1c38; /* Bleu Ligue des Champions */
+            }
+            .container {
+                max-width: 800px;
+                margin: 0 auto;
+            }
+            .match-card {
+                background: white;
+                border-radius: 10px;
+                box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+                margin-bottom: 20px;
+                padding: 20px;
+                text-align: center;
+                transition: transform 0.2s;
+            }
+            .match-card:hover {
+                transform: translateY(-5px);
+            }
+            .date-time {
+                font-size: 0.9em;
+                color: #777;
+                margin-bottom: 15px;
+                font-weight: bold;
+            }
+            .teams {
+                display: flex;
+                justify-content: space-around;
+                align-items: center;
+            }
+            .team {
+                width: 40%;
+            }
+            .team img {
+                width: 80px;
+                height: 80px;
+                object-fit: contain;
+                margin-bottom: 10px;
+            }
+            .team-name {
+                font-size: 1.1em;
+                font-weight: bold;
+                display: block;
+            }
+            .vs {
+                font-size: 1.5em;
+                font-weight: bold;
+                color: #ccc;
+                width: 20%;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h1>🏆 Prochains Matchs - Ligue des Champions</h1>
+    
+            <div class="match-card">
+                <div class="date-time">2026-07-21 - 17:00</div>
+                <div class="teams">
+                    <div class="team">
+                        <img src="https://r2.thesportsdb.com/images/media/team/badge/vxuuts1473535487.png" alt="Logo AGF Aarhus">
+                        <span class="team-name">AGF Aarhus</span>
+                    </div>
+                    <div class="vs">VS</div>
+                    <div class="team">
+                        <img src="https://r2.thesportsdb.com/images/media/team/badge/8zfxyx1685597440.png" alt="Logo Lech Poznań">
+                        <span class="team-name">Lech Poznań</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="match-card">
+                <div class="date-time">2026-07-21 - 18:00</div>
+                <div class="teams">
+                    <div class="team">
+                        <img src="https://r2.thesportsdb.com/images/media/team/badge/twxxvs1448199691.png" alt="Logo Fenerbahçe">
+                        <span class="team-name">Fenerbahçe</span>
+                    </div>
+                    <div class="vs">VS</div>
+                    <div class="team">
+                        <img src="https://r2.thesportsdb.com/images/media/team/badge/fk1fam1767928408.png" alt="Logo Górnik Zabrze">
+                        <span class="team-name">Górnik Zabrze</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="match-card">
+                <div class="date-time">2026-07-21 - 18:30</div>
+                <div class="teams">
+                    <div class="team">
+                        <img src="https://r2.thesportsdb.com/images/media/team/badge/ppg0j71578585847.png" alt="Logo Sturm Graz">
+                        <span class="team-name">Sturm Graz</span>
+                    </div>
+                    <div class="vs">VS</div>
+                    <div class="team">
+                        <img src="https://r2.thesportsdb.com/images/media/team/badge/twqvyt1447597939.png" alt="Logo Heart of Midlothian">
+                        <span class="team-name">Heart of Midlothian</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="match-card">
+                <div class="date-time">2026-07-21 - 18:00</div>
+                <div class="teams">
+                    <div class="team">
+                        <img src="https://r2.thesportsdb.com/images/media/team/badge/sovjgl1699462359.png" alt="Logo Thun">
+                        <span class="team-name">Thun</span>
+                    </div>
+                    <div class="vs">VS</div>
+                    <div class="team">
+                        <img src="https://r2.thesportsdb.com/images/media/team/badge/araidi1579955395.png" alt="Logo Dinamo Zagreb">
+                        <span class="team-name">Dinamo Zagreb</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="match-card">
+                <div class="date-time">2026-07-21 - 19:00</div>
+                <div class="teams">
+                    <div class="team">
+                        <img src="https://r2.thesportsdb.com/images/media/team/badge/srhq2w1579111270.png" alt="Logo Víkingur Reykjavík">
+                        <span class="team-name">Víkingur Reykjavík</span>
+                    </div>
+                    <div class="vs">VS</div>
+                    <div class="team">
+                        <img src="https://r2.thesportsdb.com/images/media/team/badge/ar5zft1781239007.png" alt="Logo Hapoel Be'er Sheva">
+                        <span class="team-name">Hapoel Be'er Sheva</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="match-card">
+                <div class="date-time">2026-07-21 - 16:00</div>
+                <div class="teams">
+                    <div class="team">
+                        <img src="https://r2.thesportsdb.com/images/media/team/badge/ruwqxv1430239112.png" alt="Logo Mjällby">
+                        <span class="team-name">Mjällby</span>
+                    </div>
+                    <div class="vs">VS</div>
+                    <div class="team">
+                        <img src="https://r2.thesportsdb.com/images/media/team/badge/w1d87s1594393899.png" alt="Logo Lincoln Red Imps">
+                        <span class="team-name">Lincoln Red Imps</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="match-card">
+                <div class="date-time">2026-07-21 - 16:00</div>
+                <div class="teams">
+                    <div class="team">
+                        <img src="https://r2.thesportsdb.com/images/media/team/badge/ifxpmk1615900731.png" alt="Logo Iberia 1999">
+                        <span class="team-name">Iberia 1999</span>
+                    </div>
+                    <div class="vs">VS</div>
+                    <div class="team">
+                        <img src="https://r2.thesportsdb.com/images/media/team/badge/uzkg701781199823.png" alt="Logo Slovan Bratislava">
+                        <span class="team-name">Slovan Bratislava</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="match-card">
+                <div class="date-time">2026-07-21 - 16:00</div>
+                <div class="teams">
+                    <div class="team">
+                        <img src="https://r2.thesportsdb.com/images/media/team/badge/g396se1596470244.png" alt="Logo Ararat-Armenia">
+                        <span class="team-name">Ararat-Armenia</span>
+                    </div>
+                    <div class="vs">VS</div>
+                    <div class="team">
+                        <img src="https://r2.thesportsdb.com/images/media/team/badge/u1zowj1491504381.png" alt="Logo Shamrock Rovers">
+                        <span class="team-name">Shamrock Rovers</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="match-card">
+                <div class="date-time">2026-07-21 - 19:00</div>
+                <div class="teams">
+                    <div class="team">
+                        <img src="https://r2.thesportsdb.com/images/media/team/badge/pg8k1v1615586095.png" alt="Logo Larne">
+                        <span class="team-name">Larne</span>
+                    </div>
+                    <div class="vs">VS</div>
+                    <div class="team">
+                        <img src="https://r2.thesportsdb.com/images/media/team/badge/osgmbz1781157114.png" alt="Logo Crvena Zvezda">
+                        <span class="team-name">Crvena Zvezda</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="match-card">
+                <div class="date-time">2026-07-21 - 16:00</div>
+                <div class="teams">
+                    <div class="team">
+                        <img src="https://r2.thesportsdb.com/images/media/team/badge/5cw7q91723051971.png" alt="Logo Sabah Baku">
+                        <span class="team-name">Sabah Baku</span>
+                    </div>
+                    <div class="vs">VS</div>
+                    <div class="team">
+                        <img src="https://r2.thesportsdb.com/images/media/team/badge/qmrrop1717396470.png" alt="Logo KuPS">
+                        <span class="team-name">KuPS</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="match-card">
+                <div class="date-time">2026-07-21 - 18:45</div>
+                <div class="teams">
+                    <div class="team">
+                        <img src="https://r2.thesportsdb.com/images/media/team/badge/4vq0i41579294709.png" alt="Logo KÍ Klaksvík">
+                        <span class="team-name">KÍ Klaksvík</span>
+                    </div>
+                    <div class="vs">VS</div>
+                    <div class="team">
+                        <img src="https://r2.thesportsdb.com/images/media/team/badge/yf8m3t1714153414.png" alt="Logo Kauno Žalgiris">
+                        <span class="team-name">Kauno Žalgiris</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="match-card">
+                <div class="date-time">2026-07-22 - 17:30</div>
+                <div class="teams">
+                    <div class="team">
+                        <img src="https://r2.thesportsdb.com/images/media/team/badge/9krgx71781149189.png" alt="Logo Levski Sofia">
+                        <span class="team-name">Levski Sofia</span>
+                    </div>
+                    <div class="vs">VS</div>
+                    <div class="team">
+                        <img src="https://r2.thesportsdb.com/images/media/team/badge/1jdz2y1579793710.png" alt="Logo Universitatea Craiova">
+                        <span class="team-name">Universitatea Craiova</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="match-card">
+                <div class="date-time">2026-07-22 - 19:00</div>
+                <div class="teams">
+                    <div class="team">
+                        <img src="https://r2.thesportsdb.com/images/media/team/badge/4tufos1639086825.png" alt="Logo Egnatia">
+                        <span class="team-name">Egnatia</span>
+                    </div>
+                    <div class="vs">VS</div>
+                    <div class="team">
+                        <img src="https://r2.thesportsdb.com/images/media/team/badge/amvs371681106952.png" alt="Logo Celje">
+                        <span class="team-name">Celje</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="match-card">
+                <div class="date-time">2026-07-22 - 17:00</div>
+                <div class="teams">
+                    <div class="team">
+                        <img src="https://r2.thesportsdb.com/images/media/team/badge/nmd7vt1779579017.png" alt="Logo Omonia Nicosia">
+                        <span class="team-name">Omonia Nicosia</span>
+                    </div>
+                    <div class="vs">VS</div>
+                    <div class="team">
+                        <img src="https://r2.thesportsdb.com/images/media/team/badge/sz5y1m1579285078.png" alt="Logo Kairat Almaty">
+                        <span class="team-name">Kairat Almaty</span>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </body>
+    </html>
+    

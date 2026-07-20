@@ -1,0 +1,34 @@
+<div class="container">
+  <h1>Prochains Matchs - Ligue des Champions</h1>
+
+  @if (isLoading) {
+    <p class="text-center">Recherche des matchs en cours...</p>
+  } @else if (matches.length === 0) {
+    <p class="text-center">Aucun match prévu dans les 7 prochains jours.</p>
+  } @else {
+    @for (match of matches; track match.idEvent) {
+      <div class="match-card" [routerLink]="['/match', match.idEvent]" style="cursor: pointer;">
+        
+        <div class="date-time">
+          {{ match.localDateTime | date:'EEEE' | titlecase }} {{ match.localDateTime | date:'d MMMM yyyy à HH:mm' }}
+        </div>
+        <div class="teams">
+          <!-- Équipe Domicile -->
+          <div class="team">
+            <img [src]="match.strHomeTeamBadge || 'https://via.placeholder.com/80?text=Logo'" [alt]="'Logo ' + match.strHomeTeam">
+            <span class="team-name">{{ match.strHomeTeam }}</span>
+          </div>
+          
+          <div class="vs">VS</div>
+          
+          <!-- Équipe Extérieur -->
+          <div class="team">
+            <img [src]="match.strAwayTeamBadge || 'https://via.placeholder.com/80?text=Logo'" [alt]="'Logo ' + match.strAwayTeam">
+            <span class="team-name">{{ match.strAwayTeam }}</span>
+          </div>
+        </div>
+        
+      </div>
+    }
+  }
+</div>

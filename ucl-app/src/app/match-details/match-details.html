@@ -1,0 +1,113 @@
+<div class="container" style="max-width: 900px; margin: 0 auto; text-align: center; font-family: sans-serif;">
+  
+  <div style="text-align: left; margin-bottom: 20px;">
+    <button [routerLink]="['/']" style="padding: 10px 15px; border-radius: 5px; cursor: pointer; border: none; background-color: #0c1c38; color: white;">
+      ← Retour aux matchs
+    </button>
+  </div>
+
+  @if (isLoading) {
+    <p>Chargement des données du match...</p>
+  } @else if (match) {
+    <!-- En-tête du match actuel -->
+    <div style="background: white; padding: 40px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+      <h2 style="color: #0c1c38; margin-top: 0;">{{ match.strEvent }}</h2>
+      
+      <div style="display: flex; justify-content: space-around; align-items: center; margin: 40px 0;">
+        <div>
+          <img [src]="match.strHomeTeamBadge" alt="Domicile" style="width: 120px; height: 120px; object-fit: contain;">
+          <h3>
+            @if (getFlagUrl(match.strHomeCountry); as flag) {
+              <img [src]="flag" [alt]="match.strHomeCountry" style="width: 20px; vertical-align: middle; margin-right: 6px;">
+            }
+            {{ match.strHomeTeam }}
+          </h3>
+        </div>
+        <div style="font-size: 2em; font-weight: bold; color: #ccc;">VS</div>
+        <div>
+          <img [src]="match.strAwayTeamBadge" alt="Extérieur" style="width: 120px; height: 120px; object-fit: contain;">
+          <h3>
+            {{ match.strAwayTeam }}
+            @if (getFlagUrl(match.strAwayCountry); as flag) {
+              <img [src]="flag" [alt]="match.strAwayCountry" style="width: 20px; vertical-align: middle; margin-left: 6px;">
+            }
+          </h3>
+        </div>
+      </div>
+      
+      <p><strong>Stade :</strong> {{ match.strVenue || 'Non renseigné' }}</p>
+      <p><strong>Statut :</strong> {{ match.strStatus }}</p>
+    </div>
+
+    <!-- Section Historique -->
+    <div style="display: flex; gap: 20px; text-align: left; margin-top: 30px;">
+      
+      <!-- Colonne Domicile -->
+      <div style="flex: 1; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+        <h3 style="color: #0c1c38; text-align: center; margin-top: 0;">Historique - {{ match.strHomeTeam }}</h3>
+        
+        @if (historiqueDomicile.length === 0) {
+          <p style="text-align: center; color: #666; font-size: 0.9em;">Aucun historique récent trouvé.</p>
+        } @else {
+          <ul style="list-style: none; padding: 0; margin: 0;">
+            @for (hist of historiqueDomicile; track hist.idEvent) {
+              <li style="display: flex; align-items: center; justify-content: center; gap: 8px; padding: 10px 0; border-bottom: 1px solid #eee; font-size: 0.9em;">
+                <span style="color: #888; font-weight: bold; margin-right: auto;">{{ hist.dateEvent | date:'yyyy' }}</span> 
+                
+                <!-- Logo et nom Domicile -->
+                <img [src]="hist.strHomeTeamFlag || 'https://via.placeholder.com/20?text=Logo'" alt="Logo" style="width: 20px; height: 20px; object-fit: contain;">
+                @if (getFlagUrl(hist.strHomeCountry); as flag) {
+                  <img [src]="flag" [alt]="hist.strHomeCountry" title="{{ hist.strHomeCountry }}" style="width: 16px; height: 16px; object-fit: contain; border-radius: 2px;">
+                }
+                <span style="text-align: right; flex: 1;">{{ hist.strHomeTeam }}</span>
+
+                <!-- Score -->
+                <strong style="white-space: nowrap;">{{ hist.intHomeScore ?? '-' }} - {{ hist.intAwayScore ?? '-' }}</strong>
+
+                <!-- Nom et logo Extérieur -->
+                <span style="text-align: left; flex: 1;">{{ hist.strAwayTeam }}</span>
+                @if (getFlagUrl(hist.strAwayCountry); as flag) {
+                  <img [src]="flag" [alt]="hist.strAwayCountry" title="{{ hist.strAwayCountry }}" style="width: 16px; height: 16px; object-fit: contain; border-radius: 2px;">
+                }
+                <img [src]="hist.strAwayTeamFlag || 'https://via.placeholder.com/20?text=Logo'" alt="Logo" style="width: 20px; height: 20px; object-fit: contain;">
+              </li>
+            }
+          </ul>
+        }
+      </div>
+
+      <!-- Colonne Extérieur -->
+      <div style="flex: 1; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+        <h3 style="color: #0c1c38; text-align: center; margin-top: 0;">Historique - {{ match.strAwayTeam }}</h3>
+        
+        @if (historiqueExterieur.length === 0) {
+          <p style="text-align: center; color: #666; font-size: 0.9em;">Aucun historique récent trouvé.</p>
+        } @else {
+          <ul style="list-style: none; padding: 0; margin: 0;">
+            @for (hist of historiqueExterieur; track hist.idEvent) {
+              <li style="display: flex; align-items: center; justify-content: center; gap: 8px; padding: 10px 0; border-bottom: 1px solid #eee; font-size: 0.9em;">
+                <span style="color: #888; font-weight: bold; margin-right: auto;">{{ hist.dateEvent | date:'yyyy' }}</span> 
+                
+                <!-- Logo et nom Domicile -->
+                @if (getFlagUrl(hist.strHomeCountry); as flag) {
+                  <img [src]="flag" [alt]="hist.strHomeCountry" title="{{ hist.strHomeCountry }}" style="width: 16px; height: 16px; object-fit: contain; border-radius: 2px;">
+                }
+                <span style="text-align: right; flex: 1;">{{ hist.strHomeTeam }}</span>
+
+                <!-- Score -->
+                <strong style="white-space: nowrap;">{{ hist.intHomeScore ?? '-' }} - {{ hist.intAwayScore ?? '-' }}</strong>
+
+                <!-- Nom et logo Extérieur -->
+                <span style="text-align: left; flex: 1;">{{ hist.strAwayTeam }}</span>
+                @if (getFlagUrl(hist.strAwayCountry); as flag) {
+                  <img [src]="flag" [alt]="hist.strAwayCountry" title="{{ hist.strAwayCountry }}" style="width: 16px; height: 16px; object-fit: contain; border-radius: 2px;">
+                }
+              </li>
+            }
+          </ul>
+        }
+      </div>
+
+    </div>
+  }
+</div>

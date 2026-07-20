@@ -1,0 +1,61 @@
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+h1 {
+    text-align: center;
+    color: #0c1c38; /* Bleu nuit Ligue des Champions */
+}
+.text-center {
+    text-align: center;
+    color: #666;
+}
+.match-card {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+    padding: 20px;
+    text-align: center;
+    transition: transform 0.2s;
+}
+.match-card:hover {
+    transform: translateY(-5px); /* Petit effet de soulèvement au survol */
+}
+.date-time {
+    font-size: 0.9em;
+    color: #777;
+    margin-bottom: 15px;
+    font-weight: bold;
+}
+.teams {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.team {
+    width: 40%;
+}
+.team img {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    margin-bottom: 10px;
+}
+.team-name {
+    font-size: 1.1em;
+    font-weight: bold;
+    display: block;
+}
+.vs {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #ccc;
+    width: 20%;
+}
+.round-info {
+    margin-top: 15px;
+    font-size: 0.85em;
+    color: #999;
+}
