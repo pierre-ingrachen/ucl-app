@@ -57,6 +57,26 @@ def sauvegarder_cache(fichier, data):
     except IOError:
         pass
 
+def obtenir_pays_equipe(team_id, cache_teams):
+    """Retourne le pays d'une équipe, en interrogeant l'API si absent du cache permanent."""
+    if not team_id:
+        return ""
+    if team_id in cache_teams and cache_teams[team_id]:
+        return cache_teams[team_id]
+
+    url = f"https://www.thesportsdb.com/api/v1/json/{API_KEY}/lookupteam.php?id={team_id}"
+    try:
+        resp = requests.get(url)
+        if resp.status_code == 200 and resp.json().get("teams"):
+            pays = resp.json()["teams"][0].get("strCountry", "")
+            cache_teams[team_id] = pays
+            return pays
+    except requests.exceptions.RequestException:
+        pass
+
+    cache_teams.setdefault(team_id, "")
+    return cache_teams[team_id]
+
 @app.get("/api/matchs/a-venir")
 def get_matchs_a_venir():
     matchs = charger_cache(CACHE_SEASON_FILE)
@@ -104,11 +124,12 @@ def get_match_details(event_id: str):
         
         if data.get("events") and len(data["events"]) > 0:
             match_data = data["events"][0]
-            
-            # Injection des pays pour le match cliqué
-            match_data["strHomeCountry"] = cache_teams.get(match_data.get("idHomeTeam"), "")
-            match_data["strAwayCountry"] = cache_teams.get(match_data.get("idAwayTeam"), "")
-            
+
+            # Injection des pays pour le match cliqué (recherche via l'API si absent du cache)
+            match_data["strHomeCountry"] = obtenir_pays_equipe(match_data.get("idHomeTeam"), cache_teams)
+            match_data["strAwayCountry"] = obtenir_pays_equipe(match_data.get("idAwayTeam"), cache_teams)
+            sauvegarder_cache_permanent(CACHE_TEAMS_FILE, cache_teams)
+
             cache_details[event_id] = match_data
             sauvegarder_cache(CACHE_DETAILS_FILE, cache_details)
             return match_data

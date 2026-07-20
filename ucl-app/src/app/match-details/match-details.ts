@@ -33,6 +33,8 @@ export class MatchDetails implements OnInit {
   isLoading = true;
   historiqueDomicile: any[] = [];
   historiqueExterieur: any[] = [];
+  historiquePaysDomicile: any[] = [];
+  historiquePaysExterieur: any[] = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -66,10 +68,22 @@ export class MatchDetails implements OnInit {
         );
         
         // Filtre pour l'équipe à l'extérieur
-        this.historiqueExterieur = historique.filter(m => 
+        this.historiqueExterieur = historique.filter(m =>
           m.strHomeTeam === this.match.strAwayTeam || m.strAwayTeam === this.match.strAwayTeam
         );
-        
+
+        // Filtre pour les équipes du même pays que l'équipe à domicile (hors historique déjà affiché)
+        this.historiquePaysDomicile = !!this.match.strHomeCountry ? historique.filter(m =>
+          (m.strHomeCountry === this.match.strHomeCountry || m.strAwayCountry === this.match.strHomeCountry)
+          && m.strHomeTeam !== this.match.strHomeTeam && m.strAwayTeam !== this.match.strHomeTeam
+        ) : [];
+
+        // Filtre pour les équipes du même pays que l'équipe à l'extérieur (hors historique déjà affiché)
+        this.historiquePaysExterieur = !!this.match.strAwayCountry ? historique.filter(m =>
+          (m.strHomeCountry === this.match.strAwayCountry || m.strAwayCountry === this.match.strAwayCountry)
+          && m.strHomeTeam !== this.match.strAwayTeam && m.strAwayTeam !== this.match.strAwayTeam
+        ) : [];
+
         this.isLoading = false;
       },
       error: (err) => {
