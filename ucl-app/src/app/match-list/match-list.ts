@@ -13,13 +13,16 @@ import { RouterLink } from '@angular/router';
   styleUrl: './match-list.css'
 })
 export class MatchListComponent implements OnInit {
-  matches: Match[] = [];
   isLoading = true;
 
   constructor(
     private sportsApi: SportsApiService,
     private state: MatchListState
   ) {}
+
+  get matches(): Match[] {
+    return this.state.matches;
+  }
 
   get competitionSelectionnee(): 'toutes' | '4480' | '5071' {
     return this.state.competitionSelectionnee;
@@ -30,9 +33,18 @@ export class MatchListComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    // Si on revient sur la page (retour depuis un match), on réutilise les données déjà
+    // chargées : sinon le contenu se recharge et change de hauteur, ce qui empêche
+    // la restauration de la position de scroll.
+    if (this.state.aDejaCharge) {
+      this.isLoading = false;
+      return;
+    }
+
     this.sportsApi.getUpcomingMatches().subscribe({
       next: (data) => {
-        this.matches = data;
+        this.state.matches = data;
+        this.state.aDejaCharge = true;
         this.isLoading = false;
       },
       error: (err) => {

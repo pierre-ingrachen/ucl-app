@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { CommonModule, Location } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
 import { SportsApiService } from '../services/sports-api';
 
 const COUNTRY_TO_ISO: { [key: string]: string } = {
@@ -24,7 +24,7 @@ const COUNTRY_TO_ISO: { [key: string]: string } = {
 @Component({
   selector: 'app-match-details',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule],
   templateUrl: './match-details.html',
   styleUrls: ['./match-details.css']
 })
@@ -41,8 +41,13 @@ export class MatchDetails implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private sportsApi: SportsApiService
+    private sportsApi: SportsApiService,
+    private location: Location
   ) {}
+
+  retourAuxMatchs(): void {
+    this.location.back();
+  }
 
   ngOnInit(): void {
     const matchId = this.route.snapshot.paramMap.get('id');
