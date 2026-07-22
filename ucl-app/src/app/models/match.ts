@@ -7,6 +7,7 @@ export interface Match {
   strHomeTeamBadge: string;
   strAwayTeamBadge: string;
   intRound: string;
+  idLeague?: string;
   strLeague?: string;
   strLeagueBadge?: string;
   localDateTime?: Date;

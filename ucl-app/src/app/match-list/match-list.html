@@ -1,12 +1,37 @@
 <div class="container">
   <h1>Prochains Matchs - Coupes d'Europe</h1>
 
+  @if (!isLoading && matches.length > 0) {
+    <div style="display: flex; justify-content: center; gap: 8px; margin-bottom: 20px;">
+      <button (click)="competitionSelectionnee = 'toutes'"
+              [style.background-color]="competitionSelectionnee === 'toutes' ? '#0c1c38' : '#eee'"
+              [style.color]="competitionSelectionnee === 'toutes' ? 'white' : '#333'"
+              style="padding: 8px 16px; border-radius: 15px; border: none; cursor: pointer; font-size: 0.9em;">
+        Toutes
+      </button>
+      <button (click)="competitionSelectionnee = '4480'"
+              [style.background-color]="competitionSelectionnee === '4480' ? '#0c1c38' : '#eee'"
+              [style.color]="competitionSelectionnee === '4480' ? 'white' : '#333'"
+              style="padding: 8px 16px; border-radius: 15px; border: none; cursor: pointer; font-size: 0.9em;">
+        Champions League
+      </button>
+      <button (click)="competitionSelectionnee = '5071'"
+              [style.background-color]="competitionSelectionnee === '5071' ? '#0c1c38' : '#eee'"
+              [style.color]="competitionSelectionnee === '5071' ? 'white' : '#333'"
+              style="padding: 8px 16px; border-radius: 15px; border: none; cursor: pointer; font-size: 0.9em;">
+        Conference League
+      </button>
+    </div>
+  }
+
   @if (isLoading) {
     <p class="text-center">Recherche des matchs en cours...</p>
   } @else if (matches.length === 0) {
     <p class="text-center">Aucun match prévu dans les 7 prochains jours.</p>
+  } @else if (matchesFiltres.length === 0) {
+    <p class="text-center">Aucun match pour cette compétition dans les 7 prochains jours.</p>
   } @else {
-    @for (match of matches; track match.idEvent) {
+    @for (match of matchesFiltres; track match.idEvent) {
       <div class="match-card" [routerLink]="['/match', match.idEvent]" style="cursor: pointer;">
         
         <div class="date-time">

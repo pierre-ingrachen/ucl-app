@@ -15,6 +15,8 @@ export class MatchListComponent implements OnInit {
   matches: Match[] = [];
   isLoading = true;
 
+  competitionSelectionnee: 'toutes' | '4480' | '5071' = 'toutes';
+
   constructor(private sportsApi: SportsApiService) {}
 
   ngOnInit(): void {
@@ -28,5 +30,10 @@ export class MatchListComponent implements OnInit {
         this.isLoading = false;
       }
     });
+  }
+
+  get matchesFiltres(): Match[] {
+    if (this.competitionSelectionnee === 'toutes') return this.matches;
+    return this.matches.filter(m => m.idLeague === this.competitionSelectionnee);
   }
 }
