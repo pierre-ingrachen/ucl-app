@@ -65,10 +65,12 @@ export class MatchDetails implements OnInit {
   chargerHistorique(): void {
     this.sportsApi.getHistoriqueQualifications().subscribe({
       next: (historiqueComplet) => {
-        // On ne compare le match qu'à des confrontations de la même phase
+        // On ne compare le match qu'à des confrontations de la même compétition
+        // (Champions League / Conference League) et de la même phase équivalente
         // (qualifications / phase de groupe-poule-championnat / phase finale)
         const phaseActuelle = this.getPhase(this.match.intRound, this.match.strEvent, this.match.strFilename);
         const historique = historiqueComplet.filter(m =>
+          m.idLeague === this.match.idLeague &&
           this.getPhase(m.intRound, m.strEvent, m.strFilename) === phaseActuelle
         );
 
@@ -126,35 +128,58 @@ export class MatchDetails implements OnInit {
     return code ? `https://flagcdn.com/w40/${code}.png` : null;
   }
 
-  get groupedDomicile(): { annee: string; matchs: any[] }[] {
+  get groupedDomicile(): { annee: string; equipes: { nom: string; matchs: any[] }[] }[] {
     const source = this.modeDomicile === 'national'
       ? [...this.historiqueDomicile, ...this.historiquePaysDomicile]
       : this.historiqueDomicile;
-    return this.groupParAnnee(source);
+    return this.grouperParAnneeEtEquipe(source, this.match.strHomeTeam, this.match.strHomeCountry);
   }
 
-  get groupedExterieur(): { annee: string; matchs: any[] }[] {
+  get groupedExterieur(): { annee: string; equipes: { nom: string; matchs: any[] }[] }[] {
     const source = this.modeExterieur === 'national'
       ? [...this.historiqueExterieur, ...this.historiquePaysExterieur]
       : this.historiqueExterieur;
-    return this.groupParAnnee(source);
+    return this.grouperParAnneeEtEquipe(source, this.match.strAwayTeam, this.match.strAwayCountry);
   }
 
-  private groupParAnnee(matchs: any[]): { annee: string; matchs: any[] }[] {
+  /** Détermine, pour un match d'historique, quelle équipe est "concernée"
+   * (l'équipe du club suivi, ou l'équipe du pays en mode national). */
+  private getEquipeConcernee(hist: any, equipeRef: string, paysRef: string | null | undefined): string {
+    if (hist.strHomeTeam === equipeRef || hist.strAwayTeam === equipeRef) return equipeRef;
+    if (paysRef) {
+      if (hist.strHomeCountry === paysRef) return hist.strHomeTeam;
+      if (hist.strAwayCountry === paysRef) return hist.strAwayTeam;
+    }
+    return hist.strHomeTeam;
+  }
+
+  private grouperParAnneeEtEquipe(
+    matchs: any[],
+    equipeRef: string,
+    paysRef: string | null | undefined
+  ): { annee: string; equipes: { nom: string; matchs: any[] }[] }[] {
     const tries = [...matchs].sort((a, b) =>
       new Date(a.dateEvent).getTime() - new Date(b.dateEvent).getTime()
     );
 
-    const groupes = new Map<string, any[]>();
+    const groupesAnnee = new Map<string, Map<string, any[]>>();
     for (const m of tries) {
       const annee = m.dateEvent ? m.dateEvent.substring(0, 4) : '?';
-      if (!groupes.has(annee)) groupes.set(annee, []);
-      groupes.get(annee)!.push(m);
+      const equipe = this.getEquipeConcernee(m, equipeRef, paysRef);
+      if (!groupesAnnee.has(annee)) groupesAnnee.set(annee, new Map<string, any[]>());
+      const groupesEquipe = groupesAnnee.get(annee)!;
+      if (!groupesEquipe.has(equipe)) groupesEquipe.set(equipe, []);
+      groupesEquipe.get(equipe)!.push(m);
     }
 
-    return Array.from(groupes.entries())
+    return Array.from(groupesAnnee.entries())
       .sort((a, b) => b[0].localeCompare(a[0]))
-      .map(([annee, matchs]) => ({ annee, matchs }));
+      .map(([annee, groupesEquipe]) => ({
+        annee,
+        equipes: Array.from(groupesEquipe.entries())
+          .sort((a, b) => (a[0] === equipeRef ? -1 : b[0] === equipeRef ? 1 : a[0].localeCompare(b[0])))
+          .map(([nom, matchs]) => ({ nom, matchs }))
+      }));
   }
 
   getDateJourMois(dateEvent: string | undefined): string {

@@ -1,5 +1,5 @@
 <div class="container">
-  <h1>Prochains Matchs - Ligue des Champions</h1>
+  <h1>Prochains Matchs - Coupes d'Europe</h1>
 
   @if (isLoading) {
     <p class="text-center">Recherche des matchs en cours...</p>
@@ -12,6 +12,14 @@
         <div class="date-time">
           {{ match.localDateTime | date:'EEEE' | titlecase }} {{ match.localDateTime | date:'d MMMM yyyy à HH:mm' }}
         </div>
+        @if (match.strLeague) {
+          <div class="league" style="text-align:center; font-size:0.8em; color:#666; margin-bottom:4px;">
+            @if (match.strLeagueBadge) {
+              <img [src]="match.strLeagueBadge" [alt]="match.strLeague" style="height:16px; vertical-align:middle; margin-right:6px;">
+            }
+            {{ match.strLeague }}
+          </div>
+        }
         <div class="teams">
           <!-- Équipe Domicile -->
           <div class="team">

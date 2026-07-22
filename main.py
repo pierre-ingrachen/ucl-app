@@ -17,7 +17,7 @@ app.add_middleware(
 )
 
 API_KEY = "REDACTED_SPORTSDB_API_KEY"
-LEAGUE_ID = "4480"
+LEAGUE_IDS = ["4480", "5071"]  # UEFA Champions League, UEFA Conference League
 SEASON = "2026-2027"
 PAST_SEASONS = ["2023-2024", "2024-2025", "2025-2026"]
 
@@ -101,16 +101,18 @@ def obtenir_pays_equipe(team_id, cache_teams):
 @app.get("/api/matchs/a-venir")
 def get_matchs_a_venir():
     matchs = charger_cache(CACHE_SEASON_FILE)
-    
+
     if matchs is None:
-        url = f"https://www.thesportsdb.com/api/v1/json/{API_KEY}/eventsseason.php?id={LEAGUE_ID}&s={SEASON}"
-        try:
-            response = requests.get(url)
-            response.raise_for_status()
-            matchs = response.json().get("events", [])
-            sauvegarder_cache(CACHE_SEASON_FILE, matchs)
-        except requests.exceptions.RequestException:
-            raise HTTPException(status_code=500, detail="Erreur lors de la communication avec TheSportsDB")
+        matchs = []
+        for league_id in LEAGUE_IDS:
+            url = f"https://www.thesportsdb.com/api/v1/json/{API_KEY}/eventsseason.php?id={league_id}&s={SEASON}"
+            try:
+                response = requests.get(url)
+                response.raise_for_status()
+                matchs.extend(response.json().get("events", []) or [])
+            except requests.exceptions.RequestException:
+                raise HTTPException(status_code=500, detail="Erreur lors de la communication avec TheSportsDB")
+        sauvegarder_cache(CACHE_SEASON_FILE, matchs)
     
     aujourd_hui = datetime.now()
     dans_7_jours = aujourd_hui + timedelta(days=7)
@@ -170,21 +172,22 @@ def get_historique_qualifications():
         historique = []
         equipes_uniques = set()
         
-        for season in PAST_SEASONS:
-            url = f"https://www.thesportsdb.com/api/v1/json/{API_KEY}/eventsseason.php?id={LEAGUE_ID}&s={season}"
-            try:
-                response = requests.get(url)
-                response.raise_for_status()
-                matchs = response.json().get("events", [])
-                
-                if matchs:
-                    for match in matchs:
-                        match["strPhase"] = categoriser_phase(match)
-                        historique.append(match)
-                        equipes_uniques.add(match.get("idHomeTeam"))
-                        equipes_uniques.add(match.get("idAwayTeam"))
-            except requests.exceptions.RequestException:
-                continue
+        for league_id in LEAGUE_IDS:
+            for season in PAST_SEASONS:
+                url = f"https://www.thesportsdb.com/api/v1/json/{API_KEY}/eventsseason.php?id={league_id}&s={season}"
+                try:
+                    response = requests.get(url)
+                    response.raise_for_status()
+                    matchs = response.json().get("events", [])
+
+                    if matchs:
+                        for match in matchs:
+                            match["strPhase"] = categoriser_phase(match)
+                            historique.append(match)
+                            equipes_uniques.add(match.get("idHomeTeam"))
+                            equipes_uniques.add(match.get("idAwayTeam"))
+                except requests.exceptions.RequestException:
+                    continue
                 
         # Recherche des pays avec sécurité anti-blocage (0.6s par équipe manquante)
         for team_id in equipes_uniques:

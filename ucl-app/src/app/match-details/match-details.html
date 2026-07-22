@@ -11,6 +11,9 @@
   } @else if (match) {
     <!-- En-tête du match actuel -->
     <div style="background: white; padding: 40px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+      @if (match.strLeague) {
+        <p style="color: #888; margin: 0 0 5px 0; font-size: 0.9em;">{{ match.strLeague }}</p>
+      }
       <h2 style="color: #0c1c38; margin-top: 0;">{{ match.strEvent }}</h2>
       
       <div style="display: flex; justify-content: space-around; align-items: center; margin: 40px 0;">
@@ -66,28 +69,33 @@
         } @else {
           @for (groupe of groupedDomicile; track groupe.annee) {
             <h4 style="color: #0c1c38; margin: 15px 0 5px 0; font-size: 0.95em;">{{ groupe.annee }}</h4>
-            <ul style="list-style: none; padding: 0; margin: 0;">
-              @for (hist of groupe.matchs; track hist.idEvent) {
-                <li style="display: flex; align-items: center; justify-content: center; gap: 8px; padding: 10px 0; border-bottom: 1px solid #eee; font-size: 0.9em;">
-                  <span style="color: #888; font-weight: bold; margin-right: auto;">{{ getDateJourMois(hist.dateEvent) }}</span>
-
-                  <!-- Logo et nom Domicile -->
-                  @if (getFlagUrl(hist.strHomeCountry); as flag) {
-                    <img [src]="flag" [alt]="hist.strHomeCountry" title="{{ hist.strHomeCountry }}" style="width: 16px; height: 16px; object-fit: contain; border-radius: 2px;">
-                  }
-                  <span style="text-align: right; flex: 1;">{{ hist.strHomeTeam }}</span>
-
-                  <!-- Score -->
-                  <strong style="white-space: nowrap;">{{ hist.intHomeScore ?? '-' }} - {{ hist.intAwayScore ?? '-' }}</strong>
-
-                  <!-- Nom et logo Extérieur -->
-                  <span style="text-align: left; flex: 1;">{{ hist.strAwayTeam }}</span>
-                  @if (getFlagUrl(hist.strAwayCountry); as flag) {
-                    <img [src]="flag" [alt]="hist.strAwayCountry" title="{{ hist.strAwayCountry }}" style="width: 16px; height: 16px; object-fit: contain; border-radius: 2px;">
-                  }
-                </li>
+            @for (parEquipe of groupe.equipes; track parEquipe.nom) {
+              @if (groupe.equipes.length > 1) {
+                <div style="color: #666; font-weight: bold; font-size: 0.8em; margin: 8px 0 2px 0;">{{ parEquipe.nom }}</div>
               }
-            </ul>
+              <ul style="list-style: none; padding: 0; margin: 0;">
+                @for (hist of parEquipe.matchs; track hist.idEvent) {
+                  <li style="display: flex; align-items: center; justify-content: center; gap: 8px; padding: 10px 0; border-bottom: 1px solid #eee; font-size: 0.9em;">
+                    <span style="color: #888; font-weight: bold; margin-right: auto;">{{ getDateJourMois(hist.dateEvent) }}</span>
+
+                    <!-- Logo et nom Domicile -->
+                    @if (getFlagUrl(hist.strHomeCountry); as flag) {
+                      <img [src]="flag" [alt]="hist.strHomeCountry" title="{{ hist.strHomeCountry }}" style="width: 16px; height: 16px; object-fit: contain; border-radius: 2px;">
+                    }
+                    <span style="text-align: right; flex: 1;">{{ hist.strHomeTeam }}</span>
+
+                    <!-- Score -->
+                    <strong style="white-space: nowrap;">{{ hist.intHomeScore ?? '-' }} - {{ hist.intAwayScore ?? '-' }}</strong>
+
+                    <!-- Nom et logo Extérieur -->
+                    <span style="text-align: left; flex: 1;">{{ hist.strAwayTeam }}</span>
+                    @if (getFlagUrl(hist.strAwayCountry); as flag) {
+                      <img [src]="flag" [alt]="hist.strAwayCountry" title="{{ hist.strAwayCountry }}" style="width: 16px; height: 16px; object-fit: contain; border-radius: 2px;">
+                    }
+                  </li>
+                }
+              </ul>
+            }
           }
         }
       </div>
@@ -116,28 +124,33 @@
         } @else {
           @for (groupe of groupedExterieur; track groupe.annee) {
             <h4 style="color: #0c1c38; margin: 15px 0 5px 0; font-size: 0.95em;">{{ groupe.annee }}</h4>
-            <ul style="list-style: none; padding: 0; margin: 0;">
-              @for (hist of groupe.matchs; track hist.idEvent) {
-                <li style="display: flex; align-items: center; justify-content: center; gap: 8px; padding: 10px 0; border-bottom: 1px solid #eee; font-size: 0.9em;">
-                  <span style="color: #888; font-weight: bold; margin-right: auto;">{{ getDateJourMois(hist.dateEvent) }}</span>
-
-                  <!-- Logo et nom Domicile -->
-                  @if (getFlagUrl(hist.strHomeCountry); as flag) {
-                    <img [src]="flag" [alt]="hist.strHomeCountry" title="{{ hist.strHomeCountry }}" style="width: 16px; height: 16px; object-fit: contain; border-radius: 2px;">
-                  }
-                  <span style="text-align: right; flex: 1;">{{ hist.strHomeTeam }}</span>
-
-                  <!-- Score -->
-                  <strong style="white-space: nowrap;">{{ hist.intHomeScore ?? '-' }} - {{ hist.intAwayScore ?? '-' }}</strong>
-
-                  <!-- Nom et logo Extérieur -->
-                  <span style="text-align: left; flex: 1;">{{ hist.strAwayTeam }}</span>
-                  @if (getFlagUrl(hist.strAwayCountry); as flag) {
-                    <img [src]="flag" [alt]="hist.strAwayCountry" title="{{ hist.strAwayCountry }}" style="width: 16px; height: 16px; object-fit: contain; border-radius: 2px;">
-                  }
-                </li>
+            @for (parEquipe of groupe.equipes; track parEquipe.nom) {
+              @if (groupe.equipes.length > 1) {
+                <div style="color: #666; font-weight: bold; font-size: 0.8em; margin: 8px 0 2px 0;">{{ parEquipe.nom }}</div>
               }
-            </ul>
+              <ul style="list-style: none; padding: 0; margin: 0;">
+                @for (hist of parEquipe.matchs; track hist.idEvent) {
+                  <li style="display: flex; align-items: center; justify-content: center; gap: 8px; padding: 10px 0; border-bottom: 1px solid #eee; font-size: 0.9em;">
+                    <span style="color: #888; font-weight: bold; margin-right: auto;">{{ getDateJourMois(hist.dateEvent) }}</span>
+
+                    <!-- Logo et nom Domicile -->
+                    @if (getFlagUrl(hist.strHomeCountry); as flag) {
+                      <img [src]="flag" [alt]="hist.strHomeCountry" title="{{ hist.strHomeCountry }}" style="width: 16px; height: 16px; object-fit: contain; border-radius: 2px;">
+                    }
+                    <span style="text-align: right; flex: 1;">{{ hist.strHomeTeam }}</span>
+
+                    <!-- Score -->
+                    <strong style="white-space: nowrap;">{{ hist.intHomeScore ?? '-' }} - {{ hist.intAwayScore ?? '-' }}</strong>
+
+                    <!-- Nom et logo Extérieur -->
+                    <span style="text-align: left; flex: 1;">{{ hist.strAwayTeam }}</span>
+                    @if (getFlagUrl(hist.strAwayCountry); as flag) {
+                      <img [src]="flag" [alt]="hist.strAwayCountry" title="{{ hist.strAwayCountry }}" style="width: 16px; height: 16px; object-fit: contain; border-radius: 2px;">
+                    }
+                  </li>
+                }
+              </ul>
+            }
           }
         }
       </div>
