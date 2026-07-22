@@ -36,6 +36,9 @@ export class MatchDetails implements OnInit {
   historiquePaysDomicile: any[] = [];
   historiquePaysExterieur: any[] = [];
 
+  modeDomicile: 'club' | 'national' = 'club';
+  modeExterieur: 'club' | 'national' = 'club';
+
   constructor(
     private route: ActivatedRoute,
     private sportsApi: SportsApiService
@@ -97,6 +100,46 @@ export class MatchDetails implements OnInit {
     if (!country) return null;
     const code = COUNTRY_TO_ISO[country];
     return code ? `https://flagcdn.com/w40/${code}.png` : null;
+  }
+
+  get groupedDomicile(): { annee: string; matchs: any[] }[] {
+    const source = this.modeDomicile === 'national'
+      ? [...this.historiqueDomicile, ...this.historiquePaysDomicile]
+      : this.historiqueDomicile;
+    return this.groupParAnnee(source);
+  }
+
+  get groupedExterieur(): { annee: string; matchs: any[] }[] {
+    const source = this.modeExterieur === 'national'
+      ? [...this.historiqueExterieur, ...this.historiquePaysExterieur]
+      : this.historiqueExterieur;
+    return this.groupParAnnee(source);
+  }
+
+  private groupParAnnee(matchs: any[]): { annee: string; matchs: any[] }[] {
+    const tries = [...matchs].sort((a, b) =>
+      new Date(a.dateEvent).getTime() - new Date(b.dateEvent).getTime()
+    );
+
+    const groupes = new Map<string, any[]>();
+    for (const m of tries) {
+      const annee = m.dateEvent ? m.dateEvent.substring(0, 4) : '?';
+      if (!groupes.has(annee)) groupes.set(annee, []);
+      groupes.get(annee)!.push(m);
+    }
+
+    return Array.from(groupes.entries())
+      .sort((a, b) => b[0].localeCompare(a[0]))
+      .map(([annee, matchs]) => ({ annee, matchs }));
+  }
+
+  getDateJourMois(dateEvent: string | undefined): string {
+    if (!dateEvent) return '';
+    const d = new Date(dateEvent);
+    if (isNaN(d.getTime())) return '';
+    const jour = d.getDate().toString().padStart(2, '0');
+    const mois = (d.getMonth() + 1).toString().padStart(2, '0');
+    return `${jour}/${mois}`;
   }
 
 }
