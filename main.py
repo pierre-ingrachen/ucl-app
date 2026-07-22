@@ -57,6 +57,27 @@ def sauvegarder_cache(fichier, data):
     except IOError:
         pass
 
+def categoriser_phase(match):
+    """Classe un match dans une des 3 phases equivalentes d'une campagne de C1 :
+    qualifications, phase de groupe/poule/championnat, ou phase finale (a partir des 8es)."""
+    round_num = match.get("intRound")
+    event_name = (match.get("strEvent") or "").lower()
+    filename = (match.get("strFilename") or "").lower()
+
+    if round_num == "400" or "qual" in event_name or "qual" in filename:
+        return "qualifications"
+
+    try:
+        r = int(round_num)
+    except (TypeError, ValueError):
+        return "qualifications"
+
+    if r in (16, 32, 125, 150, 160, 200):
+        return "finale"
+    if 1 <= r <= 15:
+        return "groupe"
+    return "qualifications"
+
 def obtenir_pays_equipe(team_id, cache_teams):
     """Retourne le pays d'une équipe, en interrogeant l'API si absent du cache permanent."""
     if not team_id:
@@ -128,6 +149,7 @@ def get_match_details(event_id: str):
             # Injection des pays pour le match cliqué (recherche via l'API si absent du cache)
             match_data["strHomeCountry"] = obtenir_pays_equipe(match_data.get("idHomeTeam"), cache_teams)
             match_data["strAwayCountry"] = obtenir_pays_equipe(match_data.get("idAwayTeam"), cache_teams)
+            match_data["strPhase"] = categoriser_phase(match_data)
             sauvegarder_cache_permanent(CACHE_TEAMS_FILE, cache_teams)
 
             cache_details[event_id] = match_data
@@ -157,16 +179,10 @@ def get_historique_qualifications():
                 
                 if matchs:
                     for match in matchs:
-                        round_num = match.get("intRound")
-                        event_name = match.get("strEvent", "").lower()
-                        filename = match.get("strFilename", "").lower()
-                        
-                        is_qualif = (round_num == "400") or ("qual" in event_name) or ("qual" in filename)
-                        
-                        if is_qualif:
-                            historique.append(match)
-                            equipes_uniques.add(match.get("idHomeTeam"))
-                            equipes_uniques.add(match.get("idAwayTeam"))
+                        match["strPhase"] = categoriser_phase(match)
+                        historique.append(match)
+                        equipes_uniques.add(match.get("idHomeTeam"))
+                        equipes_uniques.add(match.get("idAwayTeam"))
             except requests.exceptions.RequestException:
                 continue
                 

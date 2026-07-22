@@ -64,12 +64,19 @@ export class MatchDetails implements OnInit {
 
   chargerHistorique(): void {
     this.sportsApi.getHistoriqueQualifications().subscribe({
-      next: (historique) => {
+      next: (historiqueComplet) => {
+        // On ne compare le match qu'à des confrontations de la même phase
+        // (qualifications / phase de groupe-poule-championnat / phase finale)
+        const phaseActuelle = this.getPhase(this.match.intRound, this.match.strEvent, this.match.strFilename);
+        const historique = historiqueComplet.filter(m =>
+          this.getPhase(m.intRound, m.strEvent, m.strFilename) === phaseActuelle
+        );
+
         // Filtre pour l'équipe à domicile
-        this.historiqueDomicile = historique.filter(m => 
+        this.historiqueDomicile = historique.filter(m =>
           m.strHomeTeam === this.match.strHomeTeam || m.strAwayTeam === this.match.strHomeTeam
         );
-        
+
         // Filtre pour l'équipe à l'extérieur
         this.historiqueExterieur = historique.filter(m =>
           m.strHomeTeam === this.match.strAwayTeam || m.strAwayTeam === this.match.strAwayTeam
@@ -94,6 +101,23 @@ export class MatchDetails implements OnInit {
         this.isLoading = false;
       }
     });
+  }
+
+  /** Classe un match dans l'une des 3 phases équivalentes d'une campagne de C1 :
+   * qualifications, phase de groupe/poule/championnat, ou phase finale (à partir des 8es). */
+  private getPhase(intRound: string | undefined, strEvent?: string, strFilename?: string): 'qualifications' | 'groupe' | 'finale' {
+    const eventName = (strEvent || '').toLowerCase();
+    const filename = (strFilename || '').toLowerCase();
+
+    if (intRound === '400' || eventName.includes('qual') || filename.includes('qual')) {
+      return 'qualifications';
+    }
+
+    const r = Number(intRound);
+    if (isNaN(r)) return 'qualifications';
+    if ([16, 32, 125, 150, 160, 200].includes(r)) return 'finale';
+    if (r >= 1 && r <= 15) return 'groupe';
+    return 'qualifications';
   }
 
   getFlagUrl(country: string | undefined | null): string | null {
