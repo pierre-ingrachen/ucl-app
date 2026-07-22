@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SportsApiService } from '../services/sports-api';
+import { MatchListState } from '../services/match-list-state';
 import { Match } from '../models/match';
 import { RouterLink } from '@angular/router';
 
@@ -15,9 +16,18 @@ export class MatchListComponent implements OnInit {
   matches: Match[] = [];
   isLoading = true;
 
-  competitionSelectionnee: 'toutes' | '4480' | '5071' = 'toutes';
+  constructor(
+    private sportsApi: SportsApiService,
+    private state: MatchListState
+  ) {}
 
-  constructor(private sportsApi: SportsApiService) {}
+  get competitionSelectionnee(): 'toutes' | '4480' | '5071' {
+    return this.state.competitionSelectionnee;
+  }
+
+  set competitionSelectionnee(valeur: 'toutes' | '4480' | '5071') {
+    this.state.competitionSelectionnee = valeur;
+  }
 
   ngOnInit(): void {
     this.sportsApi.getUpcomingMatches().subscribe({

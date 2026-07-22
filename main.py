@@ -173,7 +173,7 @@ def get_historique_qualifications():
         equipes_uniques = set()
         
         for league_id in LEAGUE_IDS:
-            for season in PAST_SEASONS:
+            for season in PAST_SEASONS + [SEASON]:
                 url = f"https://www.thesportsdb.com/api/v1/json/{API_KEY}/eventsseason.php?id={league_id}&s={season}"
                 try:
                     response = requests.get(url)
@@ -182,6 +182,9 @@ def get_historique_qualifications():
 
                     if matchs:
                         for match in matchs:
+                            # Pour la saison en cours, seuls les matchs déjà joués comptent comme historique
+                            if season == SEASON and match.get("intHomeScore") is None:
+                                continue
                             match["strPhase"] = categoriser_phase(match)
                             historique.append(match)
                             equipes_uniques.add(match.get("idHomeTeam"))
