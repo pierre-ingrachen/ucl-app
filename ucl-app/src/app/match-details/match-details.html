@@ -25,6 +25,11 @@
             }
             {{ match.strHomeTeam }}
           </h3>
+          @if (match.classementDomicile; as classement) {
+            <p style="color: #888; font-size: 0.85em; margin: 0;">
+              {{ classement.position }}<sup>e</sup> / {{ classement.total }} en {{ classement.ligue }} ({{ classement.saison }})
+            </p>
+          }
         </div>
         <div style="font-size: 2em; font-weight: bold; color: #ccc;">VS</div>
         <div>
@@ -35,9 +40,14 @@
               <img [src]="flag" [alt]="match.strAwayCountry" style="width: 20px; vertical-align: middle; margin-left: 6px;">
             }
           </h3>
+          @if (match.classementExterieur; as classement) {
+            <p style="color: #888; font-size: 0.85em; margin: 0;">
+              {{ classement.position }}<sup>e</sup> / {{ classement.total }} en {{ classement.ligue }} ({{ classement.saison }})
+            </p>
+          }
         </div>
       </div>
-      
+
       <p><strong>Stade :</strong> {{ match.strVenue || 'Non renseigné' }}</p>
       <p><strong>Statut :</strong> {{ match.strStatus }}</p>
     </div>

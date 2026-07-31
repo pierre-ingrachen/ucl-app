@@ -25,6 +25,7 @@ CACHE_SEASON_FILE = "cache_season.json"
 CACHE_DETAILS_FILE = "cache_details.json"
 CACHE_HISTORY_FILE = "cache_history_qualifs.json"
 CACHE_TEAMS_FILE = "cache_teams.json"
+CACHE_CLASSEMENT_FILE = "cache_classement.json"
 
 def charger_cache_permanent(fichier):
     if os.path.exists(fichier):
@@ -98,6 +99,58 @@ def obtenir_pays_equipe(team_id, cache_teams):
     cache_teams.setdefault(team_id, "")
     return cache_teams[team_id]
 
+def obtenir_classement_national(team_id, cache_classement):
+    """Retourne la position du club dans son championnat national lors de la saison
+    domestique précédente (ex: 2e / 12), en interrogeant l'API si absent du cache permanent.
+    Le format de saison des championnats nationaux n'est pas uniforme (2025-2026 ou 2025
+    selon les pays) : on essaie donc les deux formats possibles."""
+    if not team_id:
+        return None
+    if team_id in cache_classement:
+        return cache_classement[team_id]
+
+    resultat = None
+    id_ligue_nationale = None
+    nom_ligue_nationale = None
+
+    try:
+        url_equipe = f"https://www.thesportsdb.com/api/v1/json/{API_KEY}/lookupteam.php?id={team_id}"
+        resp = requests.get(url_equipe)
+        equipes = resp.json().get("teams") if resp.status_code == 200 else None
+        id_ligue_nationale = equipes[0].get("idLeague") if equipes else None
+        nom_ligue_nationale = equipes[0].get("strLeague") if equipes else None
+    except requests.exceptions.RequestException:
+        id_ligue_nationale = None
+
+    if id_ligue_nationale:
+        annee = int(SEASON.split("-")[0])
+        # Le format de saison varie selon les pays (ex: "2025-2026" en Europe de l'Ouest,
+        # "2025" pour les championnats en année civile) : chaque candidat est essayé
+        # indépendamment pour qu'un format invalide n'empêche pas de tester l'autre.
+        for saison_candidate in (f"{annee - 1}-{annee}", str(annee - 1)):
+            try:
+                url_classement = f"https://www.thesportsdb.com/api/v1/json/{API_KEY}/lookuptable.php?l={id_ligue_nationale}&s={saison_candidate}"
+                resp_classement = requests.get(url_classement)
+                table = resp_classement.json().get("table") if resp_classement.status_code == 200 else None
+            except requests.exceptions.RequestException:
+                continue
+
+            if not table:
+                continue
+
+            ligne_equipe = next((ligne for ligne in table if ligne.get("idTeam") == team_id), None)
+            if ligne_equipe:
+                resultat = {
+                    "position": int(ligne_equipe["intRank"]),
+                    "total": len(table),
+                    "saison": saison_candidate,
+                    "ligue": nom_ligue_nationale
+                }
+                break
+
+    cache_classement[team_id] = resultat
+    return resultat
+
 @app.get("/api/matchs/a-venir")
 def get_matchs_a_venir():
     matchs = charger_cache(CACHE_SEASON_FILE)
@@ -134,17 +187,18 @@ def get_matchs_a_venir():
 def get_match_details(event_id: str):
     cache_details = charger_cache(CACHE_DETAILS_FILE) or {}
     cache_teams = charger_cache_permanent(CACHE_TEAMS_FILE)
-    
+    cache_classement = charger_cache_permanent(CACHE_CLASSEMENT_FILE)
+
     if event_id in cache_details:
         return cache_details[event_id]
-        
+
     url = f"https://www.thesportsdb.com/api/v1/json/{API_KEY}/lookupevent.php?id={event_id}"
-    
+
     try:
         response = requests.get(url)
         response.raise_for_status()
         data = response.json()
-        
+
         if data.get("events") and len(data["events"]) > 0:
             match_data = data["events"][0]
 
@@ -153,6 +207,12 @@ def get_match_details(event_id: str):
             match_data["strAwayCountry"] = obtenir_pays_equipe(match_data.get("idAwayTeam"), cache_teams)
             match_data["strPhase"] = categoriser_phase(match_data)
             sauvegarder_cache_permanent(CACHE_TEAMS_FILE, cache_teams)
+
+            # Position en championnat national la saison précédente, uniquement pour la Conference League
+            if match_data.get("idLeague") == "5071":
+                match_data["classementDomicile"] = obtenir_classement_national(match_data.get("idHomeTeam"), cache_classement)
+                match_data["classementExterieur"] = obtenir_classement_national(match_data.get("idAwayTeam"), cache_classement)
+                sauvegarder_cache_permanent(CACHE_CLASSEMENT_FILE, cache_classement)
 
             cache_details[event_id] = match_data
             sauvegarder_cache(CACHE_DETAILS_FILE, cache_details)
