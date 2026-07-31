@@ -17,7 +17,7 @@ app.add_middleware(
 )
 
 API_KEY = "REDACTED_SPORTSDB_API_KEY"
-LEAGUE_IDS = ["4480", "5071"]  # UEFA Champions League, UEFA Conference League
+LEAGUE_IDS = ["4480", "4481", "5071"]  # UEFA Champions League, UEFA Europa League, UEFA Conference League
 SEASON = "2026-2027"
 PAST_SEASONS = ["2023-2024", "2024-2025", "2025-2026"]
 

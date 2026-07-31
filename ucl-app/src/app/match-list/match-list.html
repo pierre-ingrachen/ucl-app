@@ -15,6 +15,12 @@
               style="padding: 8px 16px; border-radius: 15px; border: none; cursor: pointer; font-size: 0.9em;">
         Champions League
       </button>
+      <button (click)="competitionSelectionnee = '4481'"
+              [style.background-color]="competitionSelectionnee === '4481' ? '#0c1c38' : '#eee'"
+              [style.color]="competitionSelectionnee === '4481' ? 'white' : '#333'"
+              style="padding: 8px 16px; border-radius: 15px; border: none; cursor: pointer; font-size: 0.9em;">
+        Europa League
+      </button>
       <button (click)="competitionSelectionnee = '5071'"
               [style.background-color]="competitionSelectionnee === '5071' ? '#0c1c38' : '#eee'"
               [style.color]="competitionSelectionnee === '5071' ? 'white' : '#333'"

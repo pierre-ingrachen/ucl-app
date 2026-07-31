@@ -24,11 +24,11 @@ export class MatchListComponent implements OnInit {
     return this.state.matches;
   }
 
-  get competitionSelectionnee(): 'toutes' | '4480' | '5071' {
+  get competitionSelectionnee(): 'toutes' | '4480' | '4481' | '5071' {
     return this.state.competitionSelectionnee;
   }
 
-  set competitionSelectionnee(valeur: 'toutes' | '4480' | '5071') {
+  set competitionSelectionnee(valeur: 'toutes' | '4480' | '4481' | '5071') {
     this.state.competitionSelectionnee = valeur;
   }
 
