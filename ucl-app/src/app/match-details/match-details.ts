@@ -31,13 +31,21 @@ const COUNTRY_TO_ISO: { [key: string]: string } = {
 export class MatchDetails implements OnInit {
   match: any;
   isLoading = true;
-  historiqueDomicile: any[] = [];
-  historiqueExterieur: any[] = [];
-  historiquePaysDomicile: any[] = [];
-  historiquePaysExterieur: any[] = [];
+
+  // Historique de toutes les compétitions confondues (mais restreint à la même phase
+  // équivalente que le match affiché) : sert de base au mode "club" et au mode "national"
+  // quand on choisit "toutes compétitions".
+  private historiqueMemePhase: any[] = [];
+  // Sous-ensemble ci-dessus, restreint à la compétition du match affiché : sert de base
+  // au mode "national" quand on choisit "compétition du match".
+  private historiqueMemePhaseMemeCompetition: any[] = [];
 
   modeDomicile: 'club' | 'national' = 'club';
   modeExterieur: 'club' | 'national' = 'club';
+
+  // Uniquement pertinent en mode "national" : périmètre des compétitions comparées.
+  filtreNationalDomicile: 'match' | 'toutes' = 'match';
+  filtreNationalExterieur: 'match' | 'toutes' = 'match';
 
   constructor(
     private route: ActivatedRoute,
@@ -70,36 +78,15 @@ export class MatchDetails implements OnInit {
   chargerHistorique(): void {
     this.sportsApi.getHistoriqueQualifications().subscribe({
       next: (historiqueComplet) => {
-        // On ne compare le match qu'à des confrontations de la même compétition
-        // (Champions League / Conference League) et de la même phase équivalente
+        // On ne compare le match qu'à des confrontations de la même phase équivalente
         // (qualifications / phase de groupe-poule-championnat / phase finale)
         const phaseActuelle = this.getPhase(this.match.intRound, this.match.strEvent, this.match.strFilename);
-        const historique = historiqueComplet.filter(m =>
-          m.idLeague === this.match.idLeague &&
+        this.historiqueMemePhase = historiqueComplet.filter(m =>
           this.getPhase(m.intRound, m.strEvent, m.strFilename) === phaseActuelle
         );
-
-        // Filtre pour l'équipe à domicile
-        this.historiqueDomicile = historique.filter(m =>
-          m.strHomeTeam === this.match.strHomeTeam || m.strAwayTeam === this.match.strHomeTeam
+        this.historiqueMemePhaseMemeCompetition = this.historiqueMemePhase.filter(m =>
+          m.idLeague === this.match.idLeague
         );
-
-        // Filtre pour l'équipe à l'extérieur
-        this.historiqueExterieur = historique.filter(m =>
-          m.strHomeTeam === this.match.strAwayTeam || m.strAwayTeam === this.match.strAwayTeam
-        );
-
-        // Filtre pour les équipes du même pays que l'équipe à domicile (hors historique déjà affiché)
-        this.historiquePaysDomicile = !!this.match.strHomeCountry ? historique.filter(m =>
-          (m.strHomeCountry === this.match.strHomeCountry || m.strAwayCountry === this.match.strHomeCountry)
-          && m.strHomeTeam !== this.match.strHomeTeam && m.strAwayTeam !== this.match.strHomeTeam
-        ) : [];
-
-        // Filtre pour les équipes du même pays que l'équipe à l'extérieur (hors historique déjà affiché)
-        this.historiquePaysExterieur = !!this.match.strAwayCountry ? historique.filter(m =>
-          (m.strHomeCountry === this.match.strAwayCountry || m.strAwayCountry === this.match.strAwayCountry)
-          && m.strHomeTeam !== this.match.strAwayTeam && m.strAwayTeam !== this.match.strAwayTeam
-        ) : [];
 
         this.isLoading = false;
       },
@@ -108,6 +95,19 @@ export class MatchDetails implements OnInit {
         this.isLoading = false;
       }
     });
+  }
+
+  // Historique club : toutes compétitions confondues, même phase équivalente.
+  get historiqueDomicile(): any[] {
+    return this.historiqueMemePhase.filter(m =>
+      m.strHomeTeam === this.match.strHomeTeam || m.strAwayTeam === this.match.strHomeTeam
+    );
+  }
+
+  get historiqueExterieur(): any[] {
+    return this.historiqueMemePhase.filter(m =>
+      m.strHomeTeam === this.match.strAwayTeam || m.strAwayTeam === this.match.strAwayTeam
+    );
   }
 
   /** Classe un match dans l'une des 3 phases équivalentes d'une campagne de C1 :
@@ -133,18 +133,56 @@ export class MatchDetails implements OnInit {
     return code ? `https://flagcdn.com/w40/${code}.png` : null;
   }
 
+  private static readonly ABREGE_COMPETITION: { [idLeague: string]: string } = {
+    '4480': 'UCL',
+    '4481': 'UEL',
+    '5071': 'UECL'
+  };
+
+  getAbregeCompetition(hist: any): string {
+    return MatchDetails.ABREGE_COMPETITION[hist.idLeague] || hist.strLeague || '';
+  }
+
   get groupedDomicile(): { annee: string; equipes: { nom: string; matchs: any[] }[] }[] {
-    const source = this.modeDomicile === 'national'
-      ? [...this.historiqueDomicile, ...this.historiquePaysDomicile]
-      : this.historiqueDomicile;
-    return this.grouperParAnneeEtEquipe(source, this.match.strHomeTeam, this.match.strHomeCountry);
+    if (this.modeDomicile === 'national') {
+      return this.grouperNational(this.match.strHomeTeam, this.match.strHomeCountry, this.filtreNationalDomicile);
+    }
+    // Mode club : toutes compétitions confondues, on précise donc dans quelle compétition
+    // se déroulait chaque partie du parcours.
+    return this.grouperParAnnee(this.historiqueDomicile, m => m.strLeague || 'Compétition inconnue', this.match.strLeague);
   }
 
   get groupedExterieur(): { annee: string; equipes: { nom: string; matchs: any[] }[] }[] {
-    const source = this.modeExterieur === 'national'
-      ? [...this.historiqueExterieur, ...this.historiquePaysExterieur]
-      : this.historiqueExterieur;
-    return this.grouperParAnneeEtEquipe(source, this.match.strAwayTeam, this.match.strAwayCountry);
+    if (this.modeExterieur === 'national') {
+      return this.grouperNational(this.match.strAwayTeam, this.match.strAwayCountry, this.filtreNationalExterieur);
+    }
+    return this.grouperParAnnee(this.historiqueExterieur, m => m.strLeague || 'Compétition inconnue', this.match.strLeague);
+  }
+
+  /** Historique national : l'équipe suivie ET les autres équipes du pays sont puisées dans
+   * la MÊME source (restreinte à la compétition du match, ou toutes selon le bouton choisi) —
+   * sinon l'équipe suivie affichait ses matchs toutes compétitions confondues même en mode
+   * "compétition du match". */
+  private grouperNational(
+    equipeRef: string,
+    paysRef: string | null | undefined,
+    filtre: 'match' | 'toutes'
+  ): { annee: string; equipes: { nom: string; matchs: any[] }[] }[] {
+    const source = filtre === 'toutes' ? this.historiqueMemePhase : this.historiqueMemePhaseMemeCompetition;
+
+    const matchsEquipe = source.filter(m =>
+      m.strHomeTeam === equipeRef || m.strAwayTeam === equipeRef
+    );
+    const matchsAutresEquipesDuPays = paysRef ? source.filter(m =>
+      (m.strHomeCountry === paysRef || m.strAwayCountry === paysRef)
+      && m.strHomeTeam !== equipeRef && m.strAwayTeam !== equipeRef
+    ) : [];
+
+    return this.grouperParAnnee(
+      [...matchsEquipe, ...matchsAutresEquipesDuPays],
+      m => this.getEquipeConcernee(m, equipeRef, paysRef),
+      equipeRef
+    );
   }
 
   /** Détermine, pour un match d'historique, quelle équipe est "concernée"
@@ -158,10 +196,13 @@ export class MatchDetails implements OnInit {
     return hist.strHomeTeam;
   }
 
-  private grouperParAnneeEtEquipe(
+  /** Groupe une liste de matchs par année (la plus récente d'abord), puis par sous-clé
+   * (équipe concernée en mode national, compétition en mode club). La sous-clé prioritaire
+   * (équipe suivie / compétition du match affiché) est toujours affichée en premier. */
+  private grouperParAnnee(
     matchs: any[],
-    equipeRef: string,
-    paysRef: string | null | undefined
+    resolverClef: (hist: any) => string,
+    clefPrioritaire: string
   ): { annee: string; equipes: { nom: string; matchs: any[] }[] }[] {
     const tries = [...matchs].sort((a, b) =>
       new Date(a.dateEvent).getTime() - new Date(b.dateEvent).getTime()
@@ -170,19 +211,19 @@ export class MatchDetails implements OnInit {
     const groupesAnnee = new Map<string, Map<string, any[]>>();
     for (const m of tries) {
       const annee = m.dateEvent ? m.dateEvent.substring(0, 4) : '?';
-      const equipe = this.getEquipeConcernee(m, equipeRef, paysRef);
+      const clef = resolverClef(m);
       if (!groupesAnnee.has(annee)) groupesAnnee.set(annee, new Map<string, any[]>());
-      const groupesEquipe = groupesAnnee.get(annee)!;
-      if (!groupesEquipe.has(equipe)) groupesEquipe.set(equipe, []);
-      groupesEquipe.get(equipe)!.push(m);
+      const sousGroupes = groupesAnnee.get(annee)!;
+      if (!sousGroupes.has(clef)) sousGroupes.set(clef, []);
+      sousGroupes.get(clef)!.push(m);
     }
 
     return Array.from(groupesAnnee.entries())
       .sort((a, b) => b[0].localeCompare(a[0]))
-      .map(([annee, groupesEquipe]) => ({
+      .map(([annee, sousGroupes]) => ({
         annee,
-        equipes: Array.from(groupesEquipe.entries())
-          .sort((a, b) => (a[0] === equipeRef ? -1 : b[0] === equipeRef ? 1 : a[0].localeCompare(b[0])))
+        equipes: Array.from(sousGroupes.entries())
+          .sort((a, b) => (a[0] === clefPrioritaire ? -1 : b[0] === clefPrioritaire ? 1 : a[0].localeCompare(b[0])))
           .map(([nom, matchs]) => ({ nom, matchs }))
       }));
   }

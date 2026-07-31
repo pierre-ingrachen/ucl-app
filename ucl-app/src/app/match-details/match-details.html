@@ -74,19 +74,39 @@
           </button>
         </div>
 
+        @if (modeDomicile === 'national') {
+          <div style="display: flex; justify-content: center; gap: 8px; margin-bottom: 15px;">
+            <button (click)="filtreNationalDomicile = 'match'"
+                    [style.background-color]="filtreNationalDomicile === 'match' ? '#0c1c38' : '#eee'"
+                    [style.color]="filtreNationalDomicile === 'match' ? 'white' : '#333'"
+                    style="padding: 5px 12px; border-radius: 15px; border: none; cursor: pointer; font-size: 0.78em;">
+              Compétition du match
+            </button>
+            <button (click)="filtreNationalDomicile = 'toutes'"
+                    [style.background-color]="filtreNationalDomicile === 'toutes' ? '#0c1c38' : '#eee'"
+                    [style.color]="filtreNationalDomicile === 'toutes' ? 'white' : '#333'"
+                    style="padding: 5px 12px; border-radius: 15px; border: none; cursor: pointer; font-size: 0.78em;">
+              Toutes compétitions
+            </button>
+          </div>
+        }
+
         @if (groupedDomicile.length === 0) {
           <p style="text-align: center; color: #666; font-size: 0.9em;">Aucun historique trouvé.</p>
         } @else {
           @for (groupe of groupedDomicile; track groupe.annee) {
             <h4 style="color: #0c1c38; margin: 15px 0 5px 0; font-size: 0.95em;">{{ groupe.annee }}</h4>
             @for (parEquipe of groupe.equipes; track parEquipe.nom) {
-              @if (groupe.equipes.length > 1) {
+              @if (modeDomicile === 'club' || groupe.equipes.length > 1) {
                 <div style="color: #666; font-weight: bold; font-size: 0.8em; margin: 8px 0 2px 0;">{{ parEquipe.nom }}</div>
               }
               <ul style="list-style: none; padding: 0; margin: 0;">
                 @for (hist of parEquipe.matchs; track hist.idEvent) {
                   <li style="display: flex; align-items: center; justify-content: center; gap: 8px; padding: 10px 0; border-bottom: 1px solid #eee; font-size: 0.9em;">
                     <span style="color: #888; font-weight: bold; margin-right: auto;">{{ getDateJourMois(hist.dateEvent) }}</span>
+                    @if (modeDomicile === 'national' && filtreNationalDomicile === 'toutes') {
+                      <span style="color: #aaa; font-size: 0.8em; font-weight: bold;">{{ getAbregeCompetition(hist) }}</span>
+                    }
 
                     <!-- Logo et nom Domicile -->
                     @if (getFlagUrl(hist.strHomeCountry); as flag) {
@@ -129,19 +149,39 @@
           </button>
         </div>
 
+        @if (modeExterieur === 'national') {
+          <div style="display: flex; justify-content: center; gap: 8px; margin-bottom: 15px;">
+            <button (click)="filtreNationalExterieur = 'match'"
+                    [style.background-color]="filtreNationalExterieur === 'match' ? '#0c1c38' : '#eee'"
+                    [style.color]="filtreNationalExterieur === 'match' ? 'white' : '#333'"
+                    style="padding: 5px 12px; border-radius: 15px; border: none; cursor: pointer; font-size: 0.78em;">
+              Compétition du match
+            </button>
+            <button (click)="filtreNationalExterieur = 'toutes'"
+                    [style.background-color]="filtreNationalExterieur === 'toutes' ? '#0c1c38' : '#eee'"
+                    [style.color]="filtreNationalExterieur === 'toutes' ? 'white' : '#333'"
+                    style="padding: 5px 12px; border-radius: 15px; border: none; cursor: pointer; font-size: 0.78em;">
+              Toutes compétitions
+            </button>
+          </div>
+        }
+
         @if (groupedExterieur.length === 0) {
           <p style="text-align: center; color: #666; font-size: 0.9em;">Aucun historique trouvé.</p>
         } @else {
           @for (groupe of groupedExterieur; track groupe.annee) {
             <h4 style="color: #0c1c38; margin: 15px 0 5px 0; font-size: 0.95em;">{{ groupe.annee }}</h4>
             @for (parEquipe of groupe.equipes; track parEquipe.nom) {
-              @if (groupe.equipes.length > 1) {
+              @if (modeExterieur === 'club' || groupe.equipes.length > 1) {
                 <div style="color: #666; font-weight: bold; font-size: 0.8em; margin: 8px 0 2px 0;">{{ parEquipe.nom }}</div>
               }
               <ul style="list-style: none; padding: 0; margin: 0;">
                 @for (hist of parEquipe.matchs; track hist.idEvent) {
                   <li style="display: flex; align-items: center; justify-content: center; gap: 8px; padding: 10px 0; border-bottom: 1px solid #eee; font-size: 0.9em;">
                     <span style="color: #888; font-weight: bold; margin-right: auto;">{{ getDateJourMois(hist.dateEvent) }}</span>
+                    @if (modeExterieur === 'national' && filtreNationalExterieur === 'toutes') {
+                      <span style="color: #aaa; font-size: 0.8em; font-weight: bold;">{{ getAbregeCompetition(hist) }}</span>
+                    }
 
                     <!-- Logo et nom Domicile -->
                     @if (getFlagUrl(hist.strHomeCountry); as flag) {
