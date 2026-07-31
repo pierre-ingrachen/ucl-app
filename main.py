@@ -208,11 +208,10 @@ def get_match_details(event_id: str):
             match_data["strPhase"] = categoriser_phase(match_data)
             sauvegarder_cache_permanent(CACHE_TEAMS_FILE, cache_teams)
 
-            # Position en championnat national la saison précédente, uniquement pour la Conference League
-            if match_data.get("idLeague") == "5071":
-                match_data["classementDomicile"] = obtenir_classement_national(match_data.get("idHomeTeam"), cache_classement)
-                match_data["classementExterieur"] = obtenir_classement_national(match_data.get("idAwayTeam"), cache_classement)
-                sauvegarder_cache_permanent(CACHE_CLASSEMENT_FILE, cache_classement)
+            # Position en championnat national la saison précédente, pour toutes les compétitions
+            match_data["classementDomicile"] = obtenir_classement_national(match_data.get("idHomeTeam"), cache_classement)
+            match_data["classementExterieur"] = obtenir_classement_national(match_data.get("idAwayTeam"), cache_classement)
+            sauvegarder_cache_permanent(CACHE_CLASSEMENT_FILE, cache_classement)
 
             cache_details[event_id] = match_data
             sauvegarder_cache(CACHE_DETAILS_FILE, cache_details)

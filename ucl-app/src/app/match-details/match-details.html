@@ -80,7 +80,7 @@
                     [style.background-color]="filtreNationalDomicile === 'match' ? '#0c1c38' : '#eee'"
                     [style.color]="filtreNationalDomicile === 'match' ? 'white' : '#333'"
                     style="padding: 5px 12px; border-radius: 15px; border: none; cursor: pointer; font-size: 0.78em;">
-              Compétition du match
+              {{ match.strLeague }}
             </button>
             <button (click)="filtreNationalDomicile = 'toutes'"
                     [style.background-color]="filtreNationalDomicile === 'toutes' ? '#0c1c38' : '#eee'"
@@ -155,7 +155,7 @@
                     [style.background-color]="filtreNationalExterieur === 'match' ? '#0c1c38' : '#eee'"
                     [style.color]="filtreNationalExterieur === 'match' ? 'white' : '#333'"
                     style="padding: 5px 12px; border-radius: 15px; border: none; cursor: pointer; font-size: 0.78em;">
-              Compétition du match
+              {{ match.strLeague }}
             </button>
             <button (click)="filtreNationalExterieur = 'toutes'"
                     [style.background-color]="filtreNationalExterieur === 'toutes' ? '#0c1c38' : '#eee'"

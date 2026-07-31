@@ -415,5 +415,41 @@
         "total": 12,
         "saison": "2025-2026",
         "ligue": "Slovak First Football League"
+    },
+    "138082": {
+        "position": 1,
+        "total": 16,
+        "saison": "2025-2026",
+        "ligue": "San-Marino Campionato"
+    },
+    "140098": {
+        "position": 1,
+        "total": 10,
+        "saison": "2025-2026",
+        "ligue": "Kosovan Superleague"
+    },
+    "133898": {
+        "position": 7,
+        "total": 12,
+        "saison": "2025-2026",
+        "ligue": "Danish Superliga"
+    },
+    "140180": {
+        "position": 3,
+        "total": 16,
+        "saison": "2025-2026",
+        "ligue": "Ukrainian Premier League"
+    },
+    "133978": {
+        "position": 1,
+        "total": 10,
+        "saison": "2025",
+        "ligue": "Irish Premier Division"
+    },
+    "140667": {
+        "position": 3,
+        "total": 10,
+        "saison": "2025-2026",
+        "ligue": "Albanian Superliga"
     }
 }
