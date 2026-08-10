@@ -855,5 +855,17 @@
         "total": 10,
         "saison": "2025-2026",
         "ligue": "Croatian First Football League"
+    },
+    "134090": {
+        "position": 1,
+        "total": 12,
+        "saison": "2025-2026",
+        "ligue": "Slovak First Football League"
+    },
+    "134164": {
+        "position": 5,
+        "total": 16,
+        "saison": "2025-2026",
+        "ligue": "Swedish Allsvenskan"
     }
 }

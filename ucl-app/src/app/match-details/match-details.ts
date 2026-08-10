@@ -267,9 +267,11 @@ export class MatchDetails implements OnInit {
   get groupedDomicile(): { annee: string; equipes: { nom: string; idEquipe: string; matchs: any[] }[]; directes: string[] }[] {
     const idEquipe = this.match?.idHomeTeam;
     if (this.modeDomicile === 'national') {
+      // "Qualifié directement" ne concerne que les parcours de club en coupe d'Europe :
+      // ce libellé n'a pas de sens pour une sélection nationale, on ne le fusionne donc pas ici.
       return this.fusionnerAvecDirectes(
         this.grouperNational(idEquipe, this.match.strHomeCountry, this.filtreNationalDomicile),
-        this.campagnesDirectesParAnnee(idEquipe)
+        new Map()
       );
     }
     // Mode club : toutes compétitions confondues, on précise donc dans quelle compétition
@@ -283,9 +285,11 @@ export class MatchDetails implements OnInit {
   get groupedExterieur(): { annee: string; equipes: { nom: string; idEquipe: string; matchs: any[] }[]; directes: string[] }[] {
     const idEquipe = this.match?.idAwayTeam;
     if (this.modeExterieur === 'national') {
+      // "Qualifié directement" ne concerne que les parcours de club en coupe d'Europe :
+      // ce libellé n'a pas de sens pour une sélection nationale, on ne le fusionne donc pas ici.
       return this.fusionnerAvecDirectes(
         this.grouperNational(idEquipe, this.match.strAwayCountry, this.filtreNationalExterieur),
-        this.campagnesDirectesParAnnee(idEquipe)
+        new Map()
       );
     }
     return this.fusionnerAvecDirectes(
