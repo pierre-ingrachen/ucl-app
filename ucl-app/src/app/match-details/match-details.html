@@ -20,8 +20,10 @@
         <div>
           <img [src]="match.strHomeTeamBadge" alt="Domicile" style="width: 120px; height: 120px; object-fit: contain;">
           <h3>
-            @if (getFlagUrl(match.strHomeCountry); as flag) {
-              <img [src]="flag" [alt]="match.strHomeCountry" style="width: 20px; vertical-align: middle; margin-right: 6px;">
+            @if (!estChampionnatNational) {
+              @if (getFlagUrl(match.strHomeCountry); as flag) {
+                <img [src]="flag" [alt]="match.strHomeCountry" style="width: 20px; vertical-align: middle; margin-right: 6px;">
+              }
             }
             {{ match.strHomeTeam }}
           </h3>
@@ -36,8 +38,10 @@
           <img [src]="match.strAwayTeamBadge" alt="Extérieur" style="width: 120px; height: 120px; object-fit: contain;">
           <h3>
             {{ match.strAwayTeam }}
-            @if (getFlagUrl(match.strAwayCountry); as flag) {
-              <img [src]="flag" [alt]="match.strAwayCountry" style="width: 20px; vertical-align: middle; margin-left: 6px;">
+            @if (!estChampionnatNational) {
+              @if (getFlagUrl(match.strAwayCountry); as flag) {
+                <img [src]="flag" [alt]="match.strAwayCountry" style="width: 20px; vertical-align: middle; margin-left: 6px;">
+              }
             }
           </h3>
           @if (match.classementExterieur; as classement) {
@@ -52,9 +56,225 @@
       <p><strong>Statut :</strong> {{ match.strStatus }}</p>
     </div>
 
+    <!-- Section Prédictions -->
+    @if (match.probaVictoireDomicile !== undefined) {
+      <div style="background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); margin-top: 20px;">
+        @if (!predictionsRevelees) {
+          <button (click)="predictionsRevelees = true"
+                  style="padding: 10px 20px; border-radius: 20px; border: none; cursor: pointer; background-color: #0c1c38; color: white; font-size: 0.95em;">
+            Révéler les prédictions
+          </button>
+        } @else {
+          <!-- Bloc 1 : prédictions du modèle -->
+          <h3 style="color: #0c1c38; margin-top: 0;">Prédictions du modèle</h3>
+
+          <div style="display: flex; height: 12px; border-radius: 6px; overflow: hidden; margin-bottom: 10px;">
+            <div [style.width.%]="match.probaVictoireDomicile * 100" style="background-color: #0c1c38;"></div>
+            <div [style.width.%]="match.probaNul * 100" style="background-color: #ccc;"></div>
+            <div [style.width.%]="match.probaVictoireExterieure * 100" style="background-color: #8a94a6;"></div>
+          </div>
+
+          <div style="display: flex; justify-content: space-around; text-align: center; font-size: 0.9em;">
+            <div>
+              <div style="font-weight: bold; color: #0c1c38;">{{ match.probaVictoireDomicile * 100 | number:'1.0-0' }}%</div>
+              <div style="color: #888; font-size: 0.85em;">{{ match.strHomeTeam }}</div>
+              <div style="color: #333; margin-top: 4px;">Cote {{ cote(match.probaVictoireDomicile) }}</div>
+            </div>
+            <div>
+              <div style="font-weight: bold; color: #999;">{{ match.probaNul * 100 | number:'1.0-0' }}%</div>
+              <div style="color: #888; font-size: 0.85em;">Nul</div>
+              <div style="color: #333; margin-top: 4px;">Cote {{ cote(match.probaNul) }}</div>
+            </div>
+            <div>
+              <div style="font-weight: bold; color: #8a94a6;">{{ match.probaVictoireExterieure * 100 | number:'1.0-0' }}%</div>
+              <div style="color: #888; font-size: 0.85em;">{{ match.strAwayTeam }}</div>
+              <div style="color: #333; margin-top: 4px;">Cote {{ cote(match.probaVictoireExterieure) }}</div>
+            </div>
+          </div>
+
+          <!-- Bloc 2 : cotes du bookmaker (Winamax en priorite, sinon Betclic, sinon Unibet),
+               meme format pour comparaison directe. `coteBookmaker` present a None signifie
+               que le match est suivi mais qu'aucun des 3 bookmakers n'a encore de cote. -->
+          @if (match.coteBookmaker !== undefined) {
+            @if (probasBookmaker; as pb) {
+              <h3 style="color: #7c3aed; margin: 24px 0 0 0; padding-top: 20px; border-top: 1px solid #eee;">Cotes {{ match.coteBookmaker }}</h3>
+
+              <div style="display: flex; height: 12px; border-radius: 6px; overflow: hidden; margin-bottom: 10px;">
+                <div [style.width.%]="pb.domicile * 100" style="background-color: #7c3aed;"></div>
+                <div [style.width.%]="pb.nul * 100" style="background-color: #ccc;"></div>
+                <div [style.width.%]="pb.exterieure * 100" style="background-color: #c4b5fd;"></div>
+              </div>
+
+              <div style="display: flex; justify-content: space-around; text-align: center; font-size: 0.9em;">
+                <div>
+                  <div style="font-weight: bold; color: #7c3aed;">{{ pb.domicile * 100 | number:'1.0-0' }}%</div>
+                  <div style="color: #888; font-size: 0.85em;">{{ match.strHomeTeam }}</div>
+                  <div style="color: #333; margin-top: 4px;">Cote {{ match.coteDomicile }}</div>
+                </div>
+                <div>
+                  <div style="font-weight: bold; color: #999;">{{ pb.nul * 100 | number:'1.0-0' }}%</div>
+                  <div style="color: #888; font-size: 0.85em;">Nul</div>
+                  <div style="color: #333; margin-top: 4px;">Cote {{ match.coteNul }}</div>
+                </div>
+                <div>
+                  <div style="font-weight: bold; color: #c4b5fd;">{{ pb.exterieure * 100 | number:'1.0-0' }}%</div>
+                  <div style="color: #888; font-size: 0.85em;">{{ match.strAwayTeam }}</div>
+                  <div style="color: #333; margin-top: 4px;">Cote {{ match.coteExterieure }}</div>
+                </div>
+              </div>
+            } @else {
+              <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid #eee; text-align: center; color: #999; font-size: 0.9em;">
+                Cote indisponible pour l'instant chez Winamax, Betclic et Unibet.
+              </div>
+            }
+          }
+        }
+      </div>
+    }
+
     <!-- Section Historique -->
+    @if (estChampionnatNational) {
+      <div style="display: flex; gap: 20px; text-align: left; margin-top: 30px;">
+
+        <!-- Colonne Domicile -->
+        <div style="flex: 1; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+          <h3 style="color: #0c1c38; text-align: center; margin-top: 0;">Historique - {{ match.strHomeTeam }}</h3>
+
+          @if (!match.historiqueDomicile || match.historiqueDomicile.length === 0) {
+            <p style="text-align: center; color: #666; font-size: 0.9em;">Aucun historique trouvé (l'équipe n'était peut-être pas encore dans la compétition).</p>
+          } @else {
+            <ul style="list-style: none; padding: 0; margin: 0;">
+              @for (hist of match.historiqueDomicile; track hist.idEvent) {
+                <li style="display: flex; align-items: center; justify-content: center; gap: 8px; padding: 10px 0; border-bottom: 1px solid #eee; font-size: 0.9em;">
+                  <span style="color: #888; font-weight: bold;">{{ getDateJourMois(hist.dateEvent) }}</span>
+                  <span [style.background-color]="couleurResultat(resultatEquipe(hist, match.idHomeTeam))"
+                        style="display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; border-radius: 50%; color: white; font-size: 0.7em; font-weight: bold; margin-right: auto; flex-shrink: 0;">
+                    {{ resultatEquipe(hist, match.idHomeTeam) }}
+                  </span>
+                  <span style="text-align: right; flex: 1;" [style.font-weight]="estAdversaire(hist, match.idHomeTeam, 'home') ? 'normal' : 'bold'">
+                    {{ hist.strHomeTeam }}
+                    @if (estAdversaire(hist, match.idHomeTeam, 'home') && hist.classementAdversaire; as c) {
+                      <span style="background: #e0e7ff; color: #1e3a8a; font-weight: bold; font-size: 0.75em; padding: 2px 7px; border-radius: 10px; margin-left: 6px; white-space: nowrap;">{{ c.position }}<sup>e</sup>/{{ c.total }}</span>
+                    }
+                  </span>
+                  <strong style="white-space: nowrap;">{{ hist.intHomeScore ?? '-' }} - {{ hist.intAwayScore ?? '-' }}</strong>
+                  <span style="text-align: left; flex: 1;" [style.font-weight]="estAdversaire(hist, match.idHomeTeam, 'away') ? 'normal' : 'bold'">
+                    {{ hist.strAwayTeam }}
+                    @if (estAdversaire(hist, match.idHomeTeam, 'away') && hist.classementAdversaire; as c) {
+                      <span style="background: #e0e7ff; color: #1e3a8a; font-weight: bold; font-size: 0.75em; padding: 2px 7px; border-radius: 10px; margin-left: 6px; white-space: nowrap;">{{ c.position }}<sup>e</sup>/{{ c.total }}</span>
+                    }
+                  </span>
+                </li>
+              }
+            </ul>
+          }
+        </div>
+
+        <!-- Colonne Extérieur -->
+        <div style="flex: 1; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+          <h3 style="color: #0c1c38; text-align: center; margin-top: 0;">Historique - {{ match.strAwayTeam }}</h3>
+
+          @if (!match.historiqueExterieur || match.historiqueExterieur.length === 0) {
+            <p style="text-align: center; color: #666; font-size: 0.9em;">Aucun historique trouvé (l'équipe n'était peut-être pas encore dans la compétition).</p>
+          } @else {
+            <ul style="list-style: none; padding: 0; margin: 0;">
+              @for (hist of match.historiqueExterieur; track hist.idEvent) {
+                <li style="display: flex; align-items: center; justify-content: center; gap: 8px; padding: 10px 0; border-bottom: 1px solid #eee; font-size: 0.9em;">
+                  <span style="color: #888; font-weight: bold;">{{ getDateJourMois(hist.dateEvent) }}</span>
+                  <span [style.background-color]="couleurResultat(resultatEquipe(hist, match.idAwayTeam))"
+                        style="display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; border-radius: 50%; color: white; font-size: 0.7em; font-weight: bold; margin-right: auto; flex-shrink: 0;">
+                    {{ resultatEquipe(hist, match.idAwayTeam) }}
+                  </span>
+                  <span style="text-align: right; flex: 1;" [style.font-weight]="estAdversaire(hist, match.idAwayTeam, 'home') ? 'normal' : 'bold'">
+                    {{ hist.strHomeTeam }}
+                    @if (estAdversaire(hist, match.idAwayTeam, 'home') && hist.classementAdversaire; as c) {
+                      <span style="background: #e0e7ff; color: #1e3a8a; font-weight: bold; font-size: 0.75em; padding: 2px 7px; border-radius: 10px; margin-left: 6px; white-space: nowrap;">{{ c.position }}<sup>e</sup>/{{ c.total }}</span>
+                    }
+                  </span>
+                  <strong style="white-space: nowrap;">{{ hist.intHomeScore ?? '-' }} - {{ hist.intAwayScore ?? '-' }}</strong>
+                  <span style="text-align: left; flex: 1;" [style.font-weight]="estAdversaire(hist, match.idAwayTeam, 'away') ? 'normal' : 'bold'">
+                    {{ hist.strAwayTeam }}
+                    @if (estAdversaire(hist, match.idAwayTeam, 'away') && hist.classementAdversaire; as c) {
+                      <span style="background: #e0e7ff; color: #1e3a8a; font-weight: bold; font-size: 0.75em; padding: 2px 7px; border-radius: 10px; margin-left: 6px; white-space: nowrap;">{{ c.position }}<sup>e</sup>/{{ c.total }}</span>
+                    }
+                  </span>
+                </li>
+              }
+            </ul>
+          }
+        </div>
+
+      </div>
+
+      <!-- Classement -->
+      <div style="background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); margin-top: 20px; text-align: left;">
+        <h3 style="color: #0c1c38; text-align: center; margin-top: 0;">Classement - {{ match.strLeague }}</h3>
+
+        @if (isLoadingClassement) {
+          <p style="text-align: center; color: #666; font-size: 0.9em;">Recherche du classement en cours...</p>
+        } @else if (!classement) {
+          <p style="text-align: center; color: #666; font-size: 0.9em;">Classement indisponible.</p>
+        } @else {
+          <div style="display: flex; justify-content: center; gap: 8px; margin-bottom: 15px;">
+            <button (click)="saisonClassementAffichee = 'actuelle'"
+                    [style.background-color]="saisonClassementAffichee === 'actuelle' ? '#0c1c38' : '#eee'"
+                    [style.color]="saisonClassementAffichee === 'actuelle' ? 'white' : '#333'"
+                    style="padding: 6px 14px; border-radius: 15px; border: none; cursor: pointer; font-size: 0.85em;">
+              Saison actuelle
+            </button>
+            <button (click)="saisonClassementAffichee = 'precedente'"
+                    [style.background-color]="saisonClassementAffichee === 'precedente' ? '#0c1c38' : '#eee'"
+                    [style.color]="saisonClassementAffichee === 'precedente' ? 'white' : '#333'"
+                    style="padding: 6px 14px; border-radius: 15px; border: none; cursor: pointer; font-size: 0.85em;">
+              Saison dernière
+            </button>
+          </div>
+
+          @if (classementAffiche.length === 0) {
+            <p style="text-align: center; color: #666; font-size: 0.9em;">Classement pas encore disponible pour la saison {{ saisonClassementLibelle }}.</p>
+          } @else {
+            <div style="overflow-x: auto;">
+              <table style="width: 100%; border-collapse: collapse; font-size: 0.85em; min-width: 480px;">
+                <thead>
+                  <tr style="text-align: center; color: #888; border-bottom: 2px solid #eee;">
+                    <th style="padding: 8px 4px; text-align: left;">#</th>
+                    <th style="padding: 8px 4px; text-align: left;">Équipe</th>
+                    <th style="padding: 8px 4px;">J</th>
+                    <th style="padding: 8px 4px;">V</th>
+                    <th style="padding: 8px 4px;">N</th>
+                    <th style="padding: 8px 4px;">D</th>
+                    <th style="padding: 8px 4px;">+/-</th>
+                    <th style="padding: 8px 4px;">Pts</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @for (ligne of classementAffiche; track ligne.idTeam) {
+                    <tr [style.border-left]="'4px solid ' + couleurZone(ligne.strDescription)"
+                        [style.font-weight]="(ligne.idTeam === match.idHomeTeam || ligne.idTeam === match.idAwayTeam) ? 'bold' : 'normal'"
+                        style="text-align: center; border-bottom: 1px solid #f2f2f2;">
+                      <td style="padding: 8px 4px; text-align: left; color: #666;">{{ ligne.intRank }}</td>
+                      <td style="padding: 8px 4px; text-align: left;">
+                        <img [src]="ligne.strBadge" [alt]="ligne.strTeam" style="width: 18px; height: 18px; object-fit: contain; vertical-align: middle; margin-right: 6px;">
+                        {{ ligne.strTeam }}
+                      </td>
+                      <td style="padding: 8px 4px;">{{ ligne.intPlayed }}</td>
+                      <td style="padding: 8px 4px;">{{ ligne.intWin }}</td>
+                      <td style="padding: 8px 4px;">{{ ligne.intDraw }}</td>
+                      <td style="padding: 8px 4px;">{{ ligne.intLoss }}</td>
+                      <td style="padding: 8px 4px;">{{ ligne.intGoalDifference }}</td>
+                      <td style="padding: 8px 4px; color: #0c1c38;">{{ ligne.intPoints }}</td>
+                    </tr>
+                  }
+                </tbody>
+              </table>
+            </div>
+          }
+        }
+      </div>
+
+    } @else {
     <div style="display: flex; gap: 20px; text-align: left; margin-top: 30px;">
-      
+
       <!-- Colonne Domicile -->
       <div style="flex: 1; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
         <h3 style="color: #0c1c38; text-align: center; margin-top: 0;">Historique - {{ match.strHomeTeam }}</h3>
@@ -96,6 +316,15 @@
         } @else {
           @for (groupe of groupedDomicile; track groupe.annee) {
             <h4 style="color: #0c1c38; margin: 15px 0 5px 0; font-size: 0.95em;">{{ groupe.annee }}</h4>
+            @if (groupe.directes.length > 0) {
+              <ul style="list-style: none; padding: 0; margin: 0;">
+                @for (competition of groupe.directes; track competition) {
+                  <li style="display: flex; align-items: center; justify-content: center; gap: 8px; padding: 10px 0; border-bottom: 1px solid #eee; font-size: 0.9em; color: #15803d; font-weight: bold;">
+                    Qualifié directement — {{ competition }}
+                  </li>
+                }
+              </ul>
+            }
             @for (parEquipe of groupe.equipes; track parEquipe.nom) {
               @if (modeDomicile === 'club' || groupe.equipes.length > 1) {
                 <div style="color: #666; font-weight: bold; font-size: 0.8em; margin: 8px 0 2px 0;">{{ parEquipe.nom }}</div>
@@ -171,6 +400,15 @@
         } @else {
           @for (groupe of groupedExterieur; track groupe.annee) {
             <h4 style="color: #0c1c38; margin: 15px 0 5px 0; font-size: 0.95em;">{{ groupe.annee }}</h4>
+            @if (groupe.directes.length > 0) {
+              <ul style="list-style: none; padding: 0; margin: 0;">
+                @for (competition of groupe.directes; track competition) {
+                  <li style="display: flex; align-items: center; justify-content: center; gap: 8px; padding: 10px 0; border-bottom: 1px solid #eee; font-size: 0.9em; color: #15803d; font-weight: bold;">
+                    Qualifié directement — {{ competition }}
+                  </li>
+                }
+              </ul>
+            }
             @for (parEquipe of groupe.equipes; track parEquipe.nom) {
               @if (modeExterieur === 'club' || groupe.equipes.length > 1) {
                 <div style="color: #666; font-weight: bold; font-size: 0.8em; margin: 8px 0 2px 0;">{{ parEquipe.nom }}</div>
@@ -206,5 +444,6 @@
       </div>
 
     </div>
+    }
   }
 </div>

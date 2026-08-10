@@ -1,0 +1,67 @@
+<div class="container">
+  <h1>Prochains Matchs - Championnats</h1>
+
+  @if (!isLoading && matches.length > 0) {
+    <div style="display: flex; justify-content: center; margin-bottom: 20px;">
+      <details class="championnat-filtre">
+        <summary style="padding: 8px 16px; border-radius: 15px; border: 1px solid #ccc; background-color: white; color: #333; font-size: 0.9em; cursor: pointer;">
+          {{ libelleSelection }}
+        </summary>
+        <div style="position: absolute; margin-top: 6px; background: white; border: 1px solid #ccc; border-radius: 10px; padding: 10px 14px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); z-index: 10; min-width: 220px; text-align: left;">
+          <label style="display: flex; align-items: center; gap: 8px; padding: 5px 0; font-weight: bold; cursor: pointer;">
+            <input type="checkbox" [checked]="competitionsSelectionnees.length === 0" (change)="toutSelectionner()">
+            Tous les championnats
+          </label>
+          <hr style="border: none; border-top: 1px solid #eee; margin: 4px 0;">
+          @for (championnat of championnats; track championnat.id) {
+            <label style="display: flex; align-items: center; gap: 8px; padding: 5px 0; cursor: pointer;">
+              <input type="checkbox" [checked]="estSelectionne(championnat.id)" (change)="toggleChampionnat(championnat.id)">
+              {{ championnat.nom }}
+            </label>
+          }
+        </div>
+      </details>
+    </div>
+  }
+
+  @if (isLoading) {
+    <p class="text-center">Recherche des matchs en cours...</p>
+  } @else if (matches.length === 0) {
+    <p class="text-center">Aucun match prévu dans les 7 prochains jours.</p>
+  } @else if (matchesFiltres.length === 0) {
+    <p class="text-center">Aucun match pour ce championnat dans les 7 prochains jours.</p>
+  } @else {
+    @for (match of matchesFiltres; track match.idEvent) {
+      <div class="match-card" [routerLink]="['/match', match.idEvent]" style="cursor: pointer;">
+
+        <div class="date-time">
+          {{ match.localDateTime | date:'EEEE' | titlecase }} {{ match.localDateTime | date:'d MMMM yyyy à HH:mm' }}
+        </div>
+        @if (match.strLeague) {
+          <div class="league" style="text-align:center; font-size:0.8em; color:#666; margin-bottom:4px;">
+            @if (match.strLeagueBadge) {
+              <img [src]="match.strLeagueBadge" [alt]="match.strLeague" style="height:16px; vertical-align:middle; margin-right:6px;">
+            }
+            {{ match.strLeague }}
+          </div>
+        }
+        <div class="teams">
+          <!-- Équipe Domicile -->
+          <div class="team">
+            <img [src]="match.strHomeTeamBadge || 'https://via.placeholder.com/80?text=Logo'" [alt]="'Logo ' + match.strHomeTeam">
+            <span class="team-name">{{ match.strHomeTeam }}</span>
+          </div>
+
+          <div class="vs">VS</div>
+
+          <!-- Équipe Extérieur -->
+          <div class="team">
+            <img [src]="match.strAwayTeamBadge || 'https://via.placeholder.com/80?text=Logo'" [alt]="'Logo ' + match.strAwayTeam">
+            <span class="team-name">{{ match.strAwayTeam }}</span>
+          </div>
+        </div>
+
+      </div>
+    }
+  }
+</div>

@@ -3,4 +3,16 @@
     Vous êtes hors ligne — affichage des dernières données enregistrées.
   </div>
 }
+
+<nav style="display: flex; justify-content: center; gap: 8px; padding: 16px 8px; background: #f5f5f5; border-bottom: 1px solid #ddd;">
+  <a routerLink="/" routerLinkActive="tab-active" [routerLinkActiveOptions]="{ exact: true }"
+     style="padding: 8px 20px; border-radius: 15px; text-decoration: none; font-size: 0.95em; font-weight: bold; color: #333; background: #eee;">
+    Coupes d'Europe
+  </a>
+  <a routerLink="/championnats" routerLinkActive="tab-active"
+     style="padding: 8px 20px; border-radius: 15px; text-decoration: none; font-size: 0.95em; font-weight: bold; color: #333; background: #eee;">
+    Championnats
+  </a>
+</nav>
+
 <router-outlet></router-outlet>
