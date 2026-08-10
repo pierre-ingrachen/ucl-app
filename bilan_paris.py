@@ -1,19 +1,21 @@
-"""Bilan quotidien des paris "value" sur les matchs du jour.
+"""Bilan quotidien des paris "value" sur les matchs du jour, en deux etapes distinctes
+(deux appels separes dans le workflow GitHub Actions, cf. `python bilan_paris.py <etape>`) :
 
-Chaque execution (prevue chaque matin via GitHub Actions, independamment de toute machine
-allumee) fait deux choses :
-1. Resout les paris encore "en_attente" des jours precedents des que le resultat du match
-   correspondant est connu (victoire/defaite, gain net calcule).
-2. Repere, parmi les matchs du jour, les cas ou la cote du bookmaker (Winamax, sinon
-   Betclic, sinon Unibet - cf. odds.py) depasse d'au moins 15% la cote implicite du modele
-   (0.9 / probabilite, meme formule que le frontend) : un tel ecart est enregistre comme un
-   pari pris, mise = 1 / cote du bookmaker.
+1. `cotes`  : recupere les cotes de la semaine (n'appelle reellement The Odds API que le
+   lundi, ou en relance ciblee - cf. main.obtenir_cotes_semaine).
+2. `paris`  : resout les paris "en_attente" des jours precedents des que le resultat du
+   match est connu (gain net calcule), puis repere parmi les matchs du jour les cas ou la
+   cote du bookmaker (Winamax, sinon Betclic, sinon Unibet - cf. odds.py) depasse d'au
+   moins 15% la cote implicite du modele (0.9 / probabilite, meme formule que le frontend) :
+   un tel ecart est enregistre comme un pari pris, mise = 1 / cote du bookmaker.
 
-Le journal complet est persiste dans cache_paris.json (commit automatique par le workflow).
-Ce script s'appuie sur les fonctions deja existantes de main.py/rating.py/odds.py : il ne
-reimplemente aucune logique de recuperation de donnees ou de calcul de probabilite.
+`tout` (par defaut, pratique en local) enchaine les deux etapes. Le journal complet est
+persiste dans cache_paris.json (commit automatique par le workflow). Ce script s'appuie sur
+les fonctions deja existantes de main.py/rating.py/odds.py : il ne reimplemente aucune
+logique de recuperation de donnees ou de calcul de probabilite.
 """
 
+import sys
 from datetime import date
 
 from main import (
@@ -22,6 +24,7 @@ from main import (
     obtenir_pays_equipe, charger_cache_permanent, sauvegarder_cache_permanent,
     charger_historique_championnat, charger_cache,
     LEAGUE_IDS, DOMESTIC_LEAGUES, CACHE_TEAMS_FILE, CACHE_CHAMPIONNAT_HISTORIQUE_FILE,
+    CACHE_COTES_FILE,
 )
 from rating import predire_resultat
 
@@ -90,9 +93,8 @@ def predictions_du_match(match, cache_teams, cache_championnat_historique):
     return None
 
 
-def chercher_nouveaux_paris(bilan):
+def chercher_nouveaux_paris(bilan, cotes_semaine):
     deja_paries = {(p["idEvent"], p["issue"]) for p in bilan}
-    cotes_semaine = obtenir_cotes_semaine()
     cache_teams = charger_cache_permanent(CACHE_TEAMS_FILE)
     cache_championnat_historique = charger_cache(CACHE_CHAMPIONNAT_HISTORIQUE_FILE) or {}
 
@@ -157,13 +159,44 @@ def afficher_bilan(bilan):
                   f"mise {p['mise']}")
 
 
-if __name__ == "__main__":
+def etape_cotes():
+    """Etape 1 : recupere (ou relit) les cotes de la semaine. N'appelle reellement The Odds
+    API que le lundi (releve complet) ou pour une relance ciblee sur un match du lendemain
+    encore sans cote (cf. main.obtenir_cotes_semaine) — les autres jours, relit juste le
+    cache local sans consommer de quota."""
+    cotes = obtenir_cotes_semaine()
+    quota = charger_cache_permanent(CACHE_COTES_FILE).get("quota") or {}
+    avec_cote = sum(1 for c in cotes.values() if c.get("bookmaker"))
+
+    print(f"## Cotes — {date.today()}\n")
+    print(f"- Matchs suivis avec une cote trouvee : {avec_cote}/{len(cotes)}")
+    print(f"- Quota The Odds API restant : {quota.get('restant', 'inconnu')}\n")
+    return cotes
+
+
+def etape_paris(cotes_semaine):
+    """Etape 2 : resout les paris en attente puis choisit les paris du jour, a partir des
+    cotes deja recuperees a l'etape precedente (aucun nouvel appel a The Odds API ici)."""
     bilan = charger_cache_permanent(CACHE_PARIS_FILE)
     if not isinstance(bilan, list):
         bilan = []
 
     resoudre_paris_en_attente(bilan)
-    chercher_nouveaux_paris(bilan)
+    chercher_nouveaux_paris(bilan, cotes_semaine)
 
     sauvegarder_cache_permanent(CACHE_PARIS_FILE, bilan)
     afficher_bilan(bilan)
+
+
+if __name__ == "__main__":
+    etape = sys.argv[1] if len(sys.argv) > 1 else "tout"
+
+    if etape == "cotes":
+        etape_cotes()
+    elif etape == "paris":
+        etape_paris(obtenir_cotes_semaine())
+    elif etape == "tout":
+        etape_paris(etape_cotes())
+    else:
+        print(f"Etape inconnue : {etape!r} (attendu : cotes, paris, ou tout)")
+        sys.exit(1)
