@@ -81,6 +81,7 @@ CACHE_CHAMPIONNAT_HISTORIQUE_FILE = "cache_championnat_historique.json"
 CACHE_CLASSEMENT_SAISON_FILE = "cache_classement_saison.json"
 CACHE_CLASSEMENT_ACTUELLE_FILE = "cache_classement_actuelle.json"
 CACHE_COTES_FILE = "cache_cotes_winamax.json"
+CACHE_PARIS_FILE = "cache_paris.json"
 
 def charger_cache_permanent(fichier):
     if os.path.exists(fichier):
@@ -581,6 +582,15 @@ def get_match_details(event_id: str):
             raise HTTPException(status_code=404, detail="Match introuvable")
     except requests.exceptions.RequestException:
         raise HTTPException(status_code=500, detail="Erreur API")
+
+@app.get("/api/paris")
+def get_paris():
+    """Journal des paris "value" repere par bilan_paris.py (execute chaque matin via GitHub
+    Actions), le plus recent en premier."""
+    bilan = charger_cache_permanent(CACHE_PARIS_FILE)
+    if not isinstance(bilan, list):
+        bilan = []
+    return {"paris": sorted(bilan, key=lambda p: p.get("date", ""), reverse=True)}
 
 def obtenir_historique_qualifications():
     """Historique complet (3 dernieres saisons + saison en cours deja jouee)

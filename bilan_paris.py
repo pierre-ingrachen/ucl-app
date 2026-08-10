@@ -24,11 +24,10 @@ from main import (
     obtenir_pays_equipe, charger_cache_permanent, sauvegarder_cache_permanent,
     charger_historique_championnat, charger_cache,
     LEAGUE_IDS, DOMESTIC_LEAGUES, CACHE_TEAMS_FILE, CACHE_CHAMPIONNAT_HISTORIQUE_FILE,
-    CACHE_COTES_FILE,
+    CACHE_COTES_FILE, CACHE_PARIS_FILE,
 )
 from rating import predire_resultat
 
-CACHE_PARIS_FILE = "cache_paris.json"
 SEUIL_VALUE = 1.15  # cote bookmaker >= 15% au-dessus de la cote du modele
 
 

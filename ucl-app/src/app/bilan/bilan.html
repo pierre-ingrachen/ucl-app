@@ -1,0 +1,55 @@
+<div class="container">
+  <h1>Bilan des paris</h1>
+
+  @if (isLoading) {
+    <p class="text-center">Chargement du bilan...</p>
+  } @else if (paris.length === 0) {
+    <p class="text-center">Aucun pari enregistré pour l'instant.</p>
+  } @else {
+    <div style="display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin-bottom: 24px;">
+      <div class="stat-card">
+        <div class="stat-valeur">{{ paris.length }}</div>
+        <div class="stat-label">Paris au total</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-valeur">{{ gagnes }} / {{ resolus.length }}</div>
+        <div class="stat-label">Gagnés</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-valeur">{{ enAttente }}</div>
+        <div class="stat-label">En attente</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-valeur" [style.color]="roi === null ? '#333' : (roi >= 0 ? '#16a34a' : '#dc2626')">
+          {{ roi !== null ? (roi | number:'1.1-1') + '%' : '—' }}
+        </div>
+        <div class="stat-label">ROI</div>
+      </div>
+    </div>
+
+    <ul style="list-style: none; padding: 0; margin: 0;">
+      @for (pari of paris; track pari.idEvent + pari.issue) {
+        <li class="pari-card">
+          <div style="display: flex; justify-content: space-between; align-items: center; gap: 8px;">
+            <span style="font-weight: bold;">{{ pari.equipeDomicile }} vs {{ pari.equipeExterieur }}</span>
+            <span [style.color]="couleurStatut(pari.statut)" style="font-weight: bold; font-size: 0.85em; white-space: nowrap;">
+              {{ libelleStatut(pari.statut) }}
+            </span>
+          </div>
+          <div style="color: #666; font-size: 0.85em; margin-top: 4px;">
+            {{ pari.date }} — {{ libelleIssue(pari.issue) }}
+          </div>
+          <div style="display: flex; justify-content: space-between; margin-top: 8px; font-size: 0.9em; color: #333;">
+            <span>Cote {{ pari.bookmaker }} {{ pari.coteBookmaker }} <span style="color: #999;">(modèle {{ pari.coteModele }})</span></span>
+            <span>Mise {{ pari.mise }}</span>
+          </div>
+          @if (pari.statut !== 'en_attente') {
+            <div style="text-align: right; margin-top: 4px; font-weight: bold;" [style.color]="couleurStatut(pari.statut)">
+              {{ pari.gain >= 0 ? '+' : '' }}{{ pari.gain | number:'1.2-2' }}
+            </div>
+          }
+        </li>
+      }
+    </ul>
+  }
+</div>

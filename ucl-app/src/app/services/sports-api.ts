@@ -66,4 +66,10 @@ export class SportsApiService {
       map(response => response.events || [])
     );
   }
+
+  getParis(): Observable<any[]> {
+    return this.http.get<any>('http://localhost:8000/api/paris').pipe(
+      map(response => response.paris || [])
+    );
+  }
 }
