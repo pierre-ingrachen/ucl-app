@@ -1,0 +1,15 @@
+[
+    {
+        "idEvent": "2513939",
+        "date": "2026-08-10",
+        "equipeDomicile": "Santa Clara",
+        "equipeExterieur": "Nacional de Madeira",
+        "issue": "nul",
+        "coteBookmaker": 3.2,
+        "bookmaker": "Winamax",
+        "coteModele": 2.518,
+        "mise": 0.3125,
+        "statut": "en_attente",
+        "gain": null
+    }
+]
