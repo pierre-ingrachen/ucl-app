@@ -3,6 +3,14 @@ setlocal
 
 set "ROOT=C:\Users\pierr\OneDrive - Fondation EPF\F\UCL\"
 
+echo Recuperation des dernieres mises a jour ^(git pull^)...
+cd /d "%ROOT%"
+git pull
+if errorlevel 1 (
+    echo Attention : la mise a jour Git a echoue ^(pas de connexion, modifications locales en conflit, etc.^).
+    echo Demarrage avec les fichiers actuels.
+)
+
 echo Demarrage du backend (FastAPI)...
 start "UCL-Backend" cmd /c "cd /d "%ROOT%" && python -m uvicorn main:app --reload"
 
