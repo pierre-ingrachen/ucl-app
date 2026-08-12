@@ -22,8 +22,8 @@
         "bookmaker": "Unibet",
         "coteModele": 1.204,
         "mise": 0.6993,
-        "statut": "en_attente",
-        "gain": null
+        "statut": "gagne",
+        "gain": 0.3007
     },
     {
         "idEvent": "2544175",
@@ -35,8 +35,8 @@
         "bookmaker": "Unibet",
         "coteModele": 1.291,
         "mise": 0.6369,
-        "statut": "en_attente",
-        "gain": null
+        "statut": "gagne",
+        "gain": 0.363
     },
     {
         "idEvent": "2551403",
@@ -48,8 +48,8 @@
         "bookmaker": "Unibet",
         "coteModele": 4.622,
         "mise": 0.1538,
-        "statut": "en_attente",
-        "gain": null
+        "statut": "perdu",
+        "gain": -0.1538
     },
     {
         "idEvent": "2552938",
@@ -61,8 +61,8 @@
         "bookmaker": "Unibet",
         "coteModele": 3.232,
         "mise": 0.2667,
-        "statut": "en_attente",
-        "gain": null
+        "statut": "perdu",
+        "gain": -0.2667
     },
     {
         "idEvent": "2552939",
@@ -74,8 +74,8 @@
         "bookmaker": "Unibet",
         "coteModele": 3.366,
         "mise": 0.2381,
-        "statut": "en_attente",
-        "gain": null
+        "statut": "perdu",
+        "gain": -0.2381
     },
     {
         "idEvent": "2552940",
@@ -87,7 +87,7 @@
         "bookmaker": "Unibet",
         "coteModele": 2.112,
         "mise": 0.3846,
-        "statut": "en_attente",
-        "gain": null
+        "statut": "gagne",
+        "gain": 0.6154
     }
 ]
