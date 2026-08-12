@@ -1,5 +1,5 @@
 {
-    "date": "2026-08-10",
+    "date": "2026-08-12",
     "data": [
         {
             "idEvent": "2513940",
@@ -271,8 +271,8 @@
             "idHomeTeam": "136192",
             "idAwayTeam": "134109",
             "intRound": "1",
-            "intHomeScore": null,
-            "intAwayScore": null,
+            "intHomeScore": "2",
+            "intAwayScore": "2",
             "strTimestamp": "2026-08-10T19:15:00",
             "dateEvent": "2026-08-10",
             "dateEventLocal": "2026-08-10",
@@ -287,7 +287,7 @@
             "strVideo": "",
             "strPostponed": "no",
             "strFilename": "Portuguese Primeira Liga 2026-08-10 Santa Clara vs Nacional de Madeira",
-            "strStatus": "NS"
+            "strStatus": "FT"
         },
         {
             "idEvent": "2513946",

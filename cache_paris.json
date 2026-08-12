@@ -35,8 +35,8 @@
         "bookmaker": "Unibet",
         "coteModele": 1.291,
         "mise": 0.6369,
-        "statut": "gagne",
-        "gain": 0.363
+        "statut": "perdu",
+        "gain": -0.6369
     },
     {
         "idEvent": "2551403",
