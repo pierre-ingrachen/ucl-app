@@ -464,12 +464,15 @@ export class MatchDetails implements OnInit {
       .sort((a, b) => b[0].localeCompare(a[0]))
       .map(([annee, sousGroupes]) => ({
         annee,
+        // Les sous-groupes sont dans `sousGroupes` par ordre d'apparition dans `tries` (donc
+        // deja chronologique, cf. le tri en debut de fonction) : seul le groupe prioritaire est
+        // remonte en tete, le reste garde cet ordre chronologique (tri stable) plutot qu'un tri
+        // alphabetique, qui inverserait par exemple Europa League/Conference League ("C" < "L").
         equipes: Array.from(sousGroupes.entries())
           .sort((a, b) => {
             const aPrioritaire = a[1].some(estPrioritaire);
             const bPrioritaire = b[1].some(estPrioritaire);
-            if (aPrioritaire !== bPrioritaire) return aPrioritaire ? -1 : 1;
-            return a[0].localeCompare(b[0]);
+            return aPrioritaire === bPrioritaire ? 0 : (aPrioritaire ? -1 : 1);
           })
           .map(([nom, matchs]) => ({ nom, idEquipe: resolverId(matchs[0]), matchs }))
       }));

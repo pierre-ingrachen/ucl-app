@@ -50,9 +50,15 @@ DOMESTIC_LEAGUES = {
 DOMESTIC_SEASON = "2026-2027"
 DOMESTIC_PAST_SEASONS = ["2025-2026"]
 
-# The Odds API (cotes Winamax) : cle du compte de l'utilisateur, a n'appeler qu'une fois par
-# semaine (cf. obtenir_cotes_semaine) pour rester tres largement sous le quota gratuit.
+# The Odds API (cotes Winamax) : cle du compte de l'utilisateur, a n'appeler qu'aux jours
+# convenus (cf. obtenir_cotes_semaine) pour rester tres largement sous le quota gratuit.
 ODDS_API_KEY = _variable_environnement_requise("ODDS_API_KEY")
+
+# Releve complet des cotes le mardi et le vendredi matin (avant le choix des paris du jour) :
+# mardi couvre les matchs europeens du mardi/mercredi (C1) et se rapproche des matchs du jeudi
+# (Europa/Conference League), vendredi couvre le week-end des championnats nationaux et une
+# derniere chance de capter des cotes Europa/Conference publiees tardivement par les books.
+JOURS_RELEVE_COMPLET = {1, 4}  # lundi=0 ... mardi=1 ... vendredi=4
 
 # Correspondance entre nos identifiants de ligue (TheSportsDB) et les cles de competition
 # The Odds API. La Champions League a deux cles distinctes cote Odds API (qualifications et
@@ -192,21 +198,24 @@ def _grouper_matchs_par_ligue(matchs):
 def obtenir_cotes_semaine():
     """Cotes Winamax des matchs de la semaine (europeens + championnats suivis).
 
-    Releve complet une seule fois par semaine, le lundi. Les jours suivants, une relance
-    ciblee et minimale : uniquement pour les competitions ayant un match LE LENDEMAIN et
-    encore sans cote Winamax trouvee (certaines competitions, notamment les qualifications
-    europeennes, ont un delai de synchronisation entre le site Winamax et The Odds API).
-    Chaque competition n'est relancee au plus qu'une fois par jour. Le reste du temps, on
-    relit juste le fichier de cache sans appeler l'API, pour rester tres largement sous le
-    quota gratuit (1 requete par competition, jamais une requete par match)."""
+    Releve complet le mardi et le vendredi matin, au plus une fois par jour (cf.
+    JOURS_RELEVE_COMPLET), toujours avant le choix des paris du jour. Les autres jours, une
+    relance ciblee et minimale : uniquement pour les competitions ayant un match LE LENDEMAIN
+    et encore sans cote Winamax trouvee (certaines competitions, notamment les qualifications
+    europeennes, ont un delai de synchronisation entre le site Winamax et The Odds API - voire
+    aucune cote publiee du tout par les books tant que le tour n'approche pas). Chaque
+    competition n'est relancee au plus qu'une fois par jour. Le reste du temps, on relit juste
+    le fichier de cache sans appeler l'API, pour rester tres largement sous le quota gratuit
+    (1 requete par competition, jamais une requete par match)."""
     cache = charger_cache_permanent(CACHE_COTES_FILE)
     semaine_actuelle = list(date.today().isocalendar()[:2])
 
     if cache.get("semaine") != semaine_actuelle:
         cache = {"semaine": semaine_actuelle, "data": {}, "quota": None,
-                  "releve_initial_fait": False, "relances_faites": []}
+                  "dernier_releve_complet": None, "relances_faites": []}
 
     aujourd_hui = date.today()
+    cle_jour = str(aujourd_hui)
     matchs_semaine = (
         filtrer_matchs_semaine(obtenir_matchs_a_venir())
         + filtrer_matchs_semaine(obtenir_matchs_championnats_a_venir())
@@ -215,12 +224,11 @@ def obtenir_cotes_semaine():
 
     a_interroger = {}
 
-    if not cache["releve_initial_fait"] and aujourd_hui.weekday() == 0:
+    if aujourd_hui.weekday() in JOURS_RELEVE_COMPLET and cache.get("dernier_releve_complet") != cle_jour:
         a_interroger = ODDS_API_SPORT_KEYS
-        cache["releve_initial_fait"] = True
-    elif cache["releve_initial_fait"]:
+        cache["dernier_releve_complet"] = cle_jour
+    elif cache.get("dernier_releve_complet"):
         demain_str = str(aujourd_hui + timedelta(days=1))
-        cle_jour = str(aujourd_hui)
         for id_ligue, sport_keys in ODDS_API_SPORT_KEYS.items():
             cle_relance = f"{id_ligue}:{cle_jour}"
             match_demain_sans_cote = any(

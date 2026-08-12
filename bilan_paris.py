@@ -2,7 +2,7 @@
 (deux appels separes dans le workflow GitHub Actions, cf. `python bilan_paris.py <etape>`) :
 
 1. `cotes`  : recupere les cotes de la semaine (n'appelle reellement The Odds API que le
-   lundi, ou en relance ciblee - cf. main.obtenir_cotes_semaine).
+   mardi et le vendredi matin, ou en relance ciblee - cf. main.obtenir_cotes_semaine).
 2. `paris`  : resout les paris "en_attente" des jours precedents des que le resultat du
    match est connu (gain net calcule), puis repere parmi les matchs du jour les cas ou la
    cote du bookmaker (Winamax, sinon Betclic, sinon Unibet - cf. odds.py) depasse d'au
@@ -160,9 +160,9 @@ def afficher_bilan(bilan):
 
 def etape_cotes():
     """Etape 1 : recupere (ou relit) les cotes de la semaine. N'appelle reellement The Odds
-    API que le lundi (releve complet) ou pour une relance ciblee sur un match du lendemain
-    encore sans cote (cf. main.obtenir_cotes_semaine) — les autres jours, relit juste le
-    cache local sans consommer de quota."""
+    API que le mardi et le vendredi (releve complet) ou pour une relance ciblee sur un match
+    du lendemain encore sans cote (cf. main.obtenir_cotes_semaine) — les autres jours, relit
+    juste le cache local sans consommer de quota."""
     cotes = obtenir_cotes_semaine()
     quota = charger_cache_permanent(CACHE_COTES_FILE).get("quota") or {}
     avec_cote = sum(1 for c in cotes.values() if c.get("bookmaker"))
