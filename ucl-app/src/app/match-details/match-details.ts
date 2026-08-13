@@ -276,8 +276,13 @@ export class MatchDetails implements OnInit {
     }
     // Mode club : toutes compétitions confondues, on précise donc dans quelle compétition
     // se déroulait chaque partie du parcours.
+    const competitionMatchAffiche = this.nomCompetitionCanonique(this.match.strLeague);
     return this.fusionnerAvecDirectes(
-      this.grouperParAnnee(this.historiqueDomicile, m => m.strLeague || 'Compétition inconnue', m => (m.strLeague || 'Compétition inconnue') === this.match.strLeague, () => idEquipe),
+      this.grouperParAnnee(
+        this.historiqueDomicile, m => this.nomCompetitionCanonique(m.strLeague),
+        m => this.nomCompetitionCanonique(m.strLeague) === competitionMatchAffiche, () => idEquipe,
+        nom => this.rangCompetition(nom)
+      ),
       this.campagnesDirectesParAnnee(idEquipe)
     );
   }
@@ -292,10 +297,40 @@ export class MatchDetails implements OnInit {
         new Map()
       );
     }
+    const competitionMatchAffiche = this.nomCompetitionCanonique(this.match.strLeague);
     return this.fusionnerAvecDirectes(
-      this.grouperParAnnee(this.historiqueExterieur, m => m.strLeague || 'Compétition inconnue', m => (m.strLeague || 'Compétition inconnue') === this.match.strLeague, () => idEquipe),
+      this.grouperParAnnee(
+        this.historiqueExterieur, m => this.nomCompetitionCanonique(m.strLeague),
+        m => this.nomCompetitionCanonique(m.strLeague) === competitionMatchAffiche, () => idEquipe,
+        nom => this.rangCompetition(nom)
+      ),
       this.campagnesDirectesParAnnee(idEquipe)
     );
+  }
+
+  /** Nom affiche pour une competition europeenne, normalise entre les variantes utilisees
+   * selon la saison par TheSportsDB (ex: la Conference League s'appelait "UEFA Conference
+   * League" avant le rebranding UEFA en "UEFA Europa Conference League") : sans ca, les matchs
+   * d'une meme competition se retrouvent scindes en deux groupes distincts dans l'historique. */
+  private nomCompetitionCanonique(nom: string | undefined): string {
+    const alias: { [nom: string]: string } = {
+      'UEFA Conference League': 'UEFA Europa Conference League',
+    };
+    const brut = nom || 'Compétition inconnue';
+    return alias[brut] || brut;
+  }
+
+  /** Ordre d'affichage fixe des competitions europeennes dans l'historique club (Champions
+   * League, puis Europa League, puis Conference League), independant de la chronologie : une
+   * equipe reversee de C1 en C3 la meme annee civile doit quand meme apparaitre C1 avant C3.
+   * Attend un nom deja normalise via `nomCompetitionCanonique`. */
+  private rangCompetition(nomCompetition: string): number {
+    const rangs: { [nom: string]: number } = {
+      'UEFA Champions League': 0,
+      'UEFA Europa League': 1,
+      'UEFA Europa Conference League': 2,
+    };
+    return rangs[nomCompetition] ?? 99;
   }
 
   /** Historique national : l'équipe suivie ET les autres équipes du pays sont puisées dans
@@ -444,7 +479,8 @@ export class MatchDetails implements OnInit {
     matchs: any[],
     resolverClef: (hist: any) => string,
     estPrioritaire: (hist: any) => boolean,
-    resolverId: (hist: any) => string
+    resolverId: (hist: any) => string,
+    resolverRang?: (clef: string) => number
   ): { annee: string; equipes: { nom: string; idEquipe: string; matchs: any[] }[] }[] {
     const tries = [...matchs].sort((a, b) =>
       new Date(a.dateEvent).getTime() - new Date(b.dateEvent).getTime()
@@ -464,12 +500,18 @@ export class MatchDetails implements OnInit {
       .sort((a, b) => b[0].localeCompare(a[0]))
       .map(([annee, sousGroupes]) => ({
         annee,
-        // Les sous-groupes sont dans `sousGroupes` par ordre d'apparition dans `tries` (donc
-        // deja chronologique, cf. le tri en debut de fonction) : seul le groupe prioritaire est
-        // remonte en tete, le reste garde cet ordre chronologique (tri stable) plutot qu'un tri
-        // alphabetique, qui inverserait par exemple Europa League/Conference League ("C" < "L").
+        // Si un ordre fixe est fourni (mode club : Champions League puis Europa League puis
+        // Conference League), il prime toujours sur la chronologie — une équipe reversée de C1
+        // en C3 la même année civile doit quand même afficher C1 avant C3. Sans ordre fixe
+        // (mode national : équipes du pays), le groupe prioritaire est remonté en tête et le
+        // reste garde l'ordre chronologique d'apparition dans `sousGroupes` (tri stable, cf. le
+        // tri de `tries` en début de fonction) plutôt qu'un tri alphabétique.
         equipes: Array.from(sousGroupes.entries())
           .sort((a, b) => {
+            if (resolverRang) {
+              const diff = resolverRang(a[0]) - resolverRang(b[0]);
+              if (diff !== 0) return diff;
+            }
             const aPrioritaire = a[1].some(estPrioritaire);
             const bPrioritaire = b[1].some(estPrioritaire);
             return aPrioritaire === bPrioritaire ? 0 : (aPrioritaire ? -1 : 1);
