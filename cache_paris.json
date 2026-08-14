@@ -89,5 +89,31 @@
         "mise": 0.3846,
         "statut": "gagne",
         "gain": 0.6154
+    },
+    {
+        "idEvent": "2489075",
+        "date": "2026-08-14",
+        "equipeDomicile": "Telstar",
+        "equipeExterieur": "Sparta Rotterdam",
+        "issue": "domicile",
+        "coteBookmaker": 2.0,
+        "bookmaker": "Winamax",
+        "coteModele": 1.466,
+        "mise": 0.5,
+        "statut": "en_attente",
+        "gain": null
+    },
+    {
+        "idEvent": "2496699",
+        "date": "2026-08-14",
+        "equipeDomicile": "Cercle Brugge",
+        "equipeExterieur": "Sint-Truiden",
+        "issue": "exterieure",
+        "coteBookmaker": 2.7,
+        "bookmaker": "Winamax",
+        "coteModele": 1.986,
+        "mise": 0.3704,
+        "statut": "en_attente",
+        "gain": null
     }
 ]
