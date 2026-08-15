@@ -89,6 +89,16 @@ CACHE_CLASSEMENT_ACTUELLE_FILE = "cache_classement_actuelle.json"
 CACHE_COTES_FILE = "cache_cotes_winamax.json"
 CACHE_PARIS_FILE = "cache_paris.json"
 
+def requete_api_avec_retry(url, tentatives=3, delai=1.5):
+    """GET avec quelques nouvelles tentatives en cas d'indisponibilite ponctuelle de
+    TheSportsDB (503), frequente sur l'offre gratuite. Laisse remonter le dernier echec."""
+    for tentative in range(tentatives):
+        response = requests.get(url)
+        if response.status_code != 503 or tentative == tentatives - 1:
+            return response
+        time.sleep(delai)
+    return response
+
 def charger_cache_permanent(fichier):
     if os.path.exists(fichier):
         try:
@@ -382,8 +392,11 @@ def obtenir_classement_equipe_pour_saison(team_id, league_id, league_name, seaso
     ligne = next((l for l in table if l.get("idTeam") == team_id), None)
     if not ligne:
         return None
+    rang = ligne.get("intRank")
+    if rang is None:
+        return None
     return {
-        "position": int(ligne["intRank"]),
+        "position": int(rang),
         "total": len(table),
         "saison": season,
         "ligue": league_name
@@ -534,7 +547,7 @@ def get_match_details(event_id: str):
     url = f"https://www.thesportsdb.com/api/v1/json/{API_KEY}/lookupevent.php?id={event_id}"
 
     try:
-        response = requests.get(url)
+        response = requete_api_avec_retry(url)
         response.raise_for_status()
         data = response.json()
 
