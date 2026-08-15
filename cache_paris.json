@@ -100,8 +100,8 @@
         "bookmaker": "Winamax",
         "coteModele": 1.466,
         "mise": 0.5,
-        "statut": "en_attente",
-        "gain": null
+        "statut": "perdu",
+        "gain": -0.5
     },
     {
         "idEvent": "2496699",
@@ -113,6 +113,97 @@
         "bookmaker": "Winamax",
         "coteModele": 1.986,
         "mise": 0.3704,
+        "statut": "perdu",
+        "gain": -0.3704
+    },
+    {
+        "idEvent": "2513947",
+        "date": "2026-08-15",
+        "equipeDomicile": "Acad\u00e9mico de Viseu",
+        "equipeExterieur": "Santa Clara",
+        "issue": "domicile",
+        "coteBookmaker": 2.7,
+        "bookmaker": "Winamax",
+        "coteModele": 1.613,
+        "mise": 0.3704,
+        "statut": "en_attente",
+        "gain": null
+    },
+    {
+        "idEvent": "2513951",
+        "date": "2026-08-15",
+        "equipeDomicile": "Alverca",
+        "equipeExterieur": "Estrela Amadora",
+        "issue": "nul",
+        "coteBookmaker": 3.1,
+        "bookmaker": "Winamax",
+        "coteModele": 2.477,
+        "mise": 0.3226,
+        "statut": "en_attente",
+        "gain": null
+    },
+    {
+        "idEvent": "2489076",
+        "date": "2026-08-15",
+        "equipeDomicile": "Willem II",
+        "equipeExterieur": "NEC Nijmegen",
+        "issue": "domicile",
+        "coteBookmaker": 4.3,
+        "bookmaker": "Winamax",
+        "coteModele": 3.428,
+        "mise": 0.2326,
+        "statut": "en_attente",
+        "gain": null
+    },
+    {
+        "idEvent": "2489076",
+        "date": "2026-08-15",
+        "equipeDomicile": "Willem II",
+        "equipeExterieur": "NEC Nijmegen",
+        "issue": "nul",
+        "coteBookmaker": 4.3,
+        "bookmaker": "Winamax",
+        "coteModele": 2.88,
+        "mise": 0.2326,
+        "statut": "en_attente",
+        "gain": null
+    },
+    {
+        "idEvent": "2489077",
+        "date": "2026-08-15",
+        "equipeDomicile": "Utrecht",
+        "equipeExterieur": "AZ Alkmaar",
+        "issue": "domicile",
+        "coteBookmaker": 2.5,
+        "bookmaker": "Winamax",
+        "coteModele": 1.816,
+        "mise": 0.4,
+        "statut": "en_attente",
+        "gain": null
+    },
+    {
+        "idEvent": "2489077",
+        "date": "2026-08-15",
+        "equipeDomicile": "Utrecht",
+        "equipeExterieur": "AZ Alkmaar",
+        "issue": "nul",
+        "coteBookmaker": 3.55,
+        "bookmaker": "Winamax",
+        "coteModele": 3.069,
+        "mise": 0.2817,
+        "statut": "en_attente",
+        "gain": null
+    },
+    {
+        "idEvent": "2489078",
+        "date": "2026-08-15",
+        "equipeDomicile": "Excelsior",
+        "equipeExterieur": "PSV Eindhoven",
+        "issue": "nul",
+        "coteBookmaker": 4.3,
+        "bookmaker": "Winamax",
+        "coteModele": 3.576,
+        "mise": 0.2326,
         "statut": "en_attente",
         "gain": null
     }
