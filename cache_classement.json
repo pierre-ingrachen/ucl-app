@@ -867,5 +867,199 @@
         "total": 16,
         "saison": "2025-2026",
         "ligue": "Swedish Allsvenskan"
+    },
+    "135702": {
+        "position": 2,
+        "total": 12,
+        "saison": "2025-2026",
+        "ligue": "Azerbaijani Premier League"
+    },
+    "133944": {
+        "position": 4,
+        "total": 16,
+        "saison": "2025-2026",
+        "ligue": "Ukrainian Premier League"
+    },
+    "137792": {
+        "position": 1,
+        "total": 9,
+        "saison": "2025-2026",
+        "ligue": "Andorran 1a Divisi\u00f3"
+    },
+    "137985": {
+        "position": 2,
+        "total": 10,
+        "saison": "2025",
+        "ligue": "Latvian Higher League"
+    },
+    "133891": {
+        "position": 2,
+        "total": 12,
+        "saison": "2025-2026",
+        "ligue": "Danish Superliga"
+    },
+    "133997": {
+        "position": 3,
+        "total": 16,
+        "saison": "2025",
+        "ligue": "Norwegian Eliteserien"
+    },
+    "134731": {
+        "position": 13,
+        "total": 16,
+        "saison": "2025-2026",
+        "ligue": "Swedish Allsvenskan"
+    },
+    "134065": {
+        "position": 3,
+        "total": 10,
+        "saison": "2025",
+        "ligue": "Faroe Islands Premier League"
+    },
+    "136037": {
+        "position": 3,
+        "total": 12,
+        "saison": "2025-2026",
+        "ligue": "Swiss Super League"
+    },
+    "133794": {
+        "position": 4,
+        "total": 18,
+        "saison": "2025-2026",
+        "ligue": "Turkish Super Lig"
+    },
+    "141109": {
+        "position": 4,
+        "total": 16,
+        "saison": "2025-2026",
+        "ligue": "Czech First League"
+    },
+    "133970": {
+        "position": 2,
+        "total": 12,
+        "saison": "2025-2026",
+        "ligue": "Austrian Bundesliga"
+    },
+    "137928": {
+        "position": 4,
+        "total": 14,
+        "saison": "2025-2026",
+        "ligue": "Cypriot First Division"
+    },
+    "135296": {
+        "position": 2,
+        "total": 18,
+        "saison": "2025-2026",
+        "ligue": "Polish Ekstraklasa"
+    },
+    "134620": {
+        "position": 2,
+        "total": 12,
+        "saison": "2025-2026",
+        "ligue": "Hungarian NB I"
+    },
+    "133986": {
+        "position": 1,
+        "total": 14,
+        "saison": "2025-2026",
+        "ligue": "Cypriot First Division"
+    },
+    "140040": {
+        "position": 2,
+        "total": 12,
+        "saison": "2025-2026",
+        "ligue": "Gibraltarian National League"
+    },
+    "137974": null,
+    "134394": {
+        "position": 1,
+        "total": 12,
+        "saison": "2025-2026",
+        "ligue": "Swiss Super League"
+    },
+    "138051": {
+        "position": 1,
+        "total": 10,
+        "saison": "2025",
+        "ligue": "Faroe Islands Premier League"
+    },
+    "134010": {
+        "position": 1,
+        "total": 18,
+        "saison": "2025-2026",
+        "ligue": "Polish Ekstraklasa"
+    },
+    "134088": {
+        "position": 4,
+        "total": 16,
+        "saison": "2025-2026",
+        "ligue": "Bulgarian First League"
+    },
+    "134315": {
+        "position": 3,
+        "total": 14,
+        "saison": "2025-2026",
+        "ligue": "Israeli Premier League"
+    },
+    "133749": {
+        "position": 3,
+        "total": 14,
+        "saison": "2025-2026",
+        "ligue": "Greek Superleague Greece"
+    },
+    "134406": {
+        "position": 2,
+        "total": 12,
+        "saison": "2025-2026",
+        "ligue": "Swiss Super League"
+    },
+    "133962": {
+        "position": 3,
+        "total": 7,
+        "saison": "2025-2026",
+        "ligue": "Moldovan National Division"
+    },
+    "133646": {
+        "position": 5,
+        "total": 12,
+        "saison": "2025-2026",
+        "ligue": "Scottish Premier League"
+    },
+    "137984": {
+        "position": 1,
+        "total": 10,
+        "saison": "2025",
+        "ligue": "Latvian Higher League"
+    },
+    "133953": {
+        "position": 3,
+        "total": 12,
+        "saison": "2025",
+        "ligue": "Finnish Veikkausliiga"
+    },
+    "140666": {
+        "position": 4,
+        "total": 10,
+        "saison": "2025-2026",
+        "ligue": "Albanian Superliga"
+    },
+    "134221": {
+        "position": 14,
+        "total": 20,
+        "saison": "2025-2026",
+        "ligue": "Spanish La Liga"
+    },
+    "133731": null,
+    "133735": {
+        "position": 13,
+        "total": 20,
+        "saison": "2025-2026",
+        "ligue": "Spanish La Liga"
+    },
+    "133728": {
+        "position": 8,
+        "total": 20,
+        "saison": "2025-2026",
+        "ligue": "Spanish La Liga"
     }
 }

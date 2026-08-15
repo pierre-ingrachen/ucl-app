@@ -355,7 +355,7 @@ def obtenir_table_saison(league_id, season, cache_tables):
     """Retourne le classement complet (tous les clubs) d'un championnat pour une saison
     donnée, en interrogeant l'API si absent du cache permanent."""
     clef = f"{league_id}_{season}"
-    if clef in cache_tables:
+    if cache_tables.get(clef):
         return cache_tables[clef]
 
     table = None
@@ -367,7 +367,8 @@ def obtenir_table_saison(league_id, season, cache_tables):
     except requests.exceptions.RequestException:
         pass
 
-    cache_tables[clef] = table
+    if table:
+        cache_tables[clef] = table
     return table
 
 def obtenir_classement_equipe_pour_saison(team_id, league_id, league_name, season, cache_tables):
