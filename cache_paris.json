@@ -349,5 +349,57 @@
         "mise": 0.2817,
         "statut": "gagne",
         "gain": 0.7183
+    },
+    {
+        "idEvent": "2570473",
+        "date": "2026-08-18",
+        "equipeDomicile": "Fenerbah\u00e7e",
+        "equipeExterieur": "Lyon",
+        "issue": "exterieure",
+        "coteBookmaker": 3.6,
+        "bookmaker": "Unibet",
+        "coteModele": 2.509,
+        "mise": 0.2778,
+        "statut": "en_attente",
+        "gain": null
+    },
+    {
+        "idEvent": "2570474",
+        "date": "2026-08-18",
+        "equipeDomicile": "Dinamo Zagreb",
+        "equipeExterieur": "Viking",
+        "issue": "nul",
+        "coteBookmaker": 4.2,
+        "bookmaker": "Unibet",
+        "coteModele": 3.34,
+        "mise": 0.2381,
+        "statut": "en_attente",
+        "gain": null
+    },
+    {
+        "idEvent": "2570474",
+        "date": "2026-08-18",
+        "equipeDomicile": "Dinamo Zagreb",
+        "equipeExterieur": "Viking",
+        "issue": "exterieure",
+        "coteBookmaker": 4.55,
+        "bookmaker": "Unibet",
+        "coteModele": 2.761,
+        "mise": 0.2198,
+        "statut": "en_attente",
+        "gain": null
+    },
+    {
+        "idEvent": "2570475",
+        "date": "2026-08-18",
+        "equipeDomicile": "Levski Sofia",
+        "equipeExterieur": "AEK Athens",
+        "issue": "domicile",
+        "coteBookmaker": 3.1,
+        "bookmaker": "Unibet",
+        "coteModele": 2.564,
+        "mise": 0.3226,
+        "statut": "en_attente",
+        "gain": null
     }
 ]
