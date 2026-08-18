@@ -363,7 +363,29 @@ def filtrer_matchs_semaine(matchs):
 
 def obtenir_table_saison(league_id, season, cache_tables):
     """Retourne le classement complet (tous les clubs) d'un championnat pour une saison
-    donnée, en interrogeant l'API si absent du cache permanent."""
+    donnée, en interrogeant l'API si absent du cache.
+
+    La saison en cours évolue à chaque journée jouée : elle est donc rafraîchie tous les
+    jours (cache quotidien), contrairement aux saisons passées, figées, qui profitent d'un
+    cache permanent."""
+    if season == DOMESTIC_SEASON:
+        cache_actuelle = charger_cache(CACHE_CLASSEMENT_ACTUELLE_FILE) or {}
+        if league_id in cache_actuelle:
+            return cache_actuelle[league_id]
+
+        table = None
+        try:
+            url = f"https://www.thesportsdb.com/api/v1/json/{API_KEY}/lookuptable.php?l={league_id}&s={season}"
+            resp = requests.get(url)
+            if resp.status_code == 200:
+                table = resp.json().get("table")
+        except requests.exceptions.RequestException:
+            pass
+
+        cache_actuelle[league_id] = table
+        sauvegarder_cache(CACHE_CLASSEMENT_ACTUELLE_FILE, cache_actuelle)
+        return table
+
     clef = f"{league_id}_{season}"
     if cache_tables.get(clef):
         return cache_tables[clef]
@@ -506,16 +528,7 @@ def get_classement_championnat(league_id: str):
     cache_tables = charger_cache_permanent(CACHE_CLASSEMENT_SAISON_FILE)
     saison_precedente = DOMESTIC_PAST_SEASONS[-1]
 
-    # La saison en cours n'est mise en cache que pour la journée (le classement évolue à
-    # chaque journée jouée) ; les saisons passées, figées, profitent du cache permanent.
-    cache_actuelle = charger_cache(CACHE_CLASSEMENT_ACTUELLE_FILE) or {}
-    if league_id in cache_actuelle:
-        table_actuelle = cache_actuelle[league_id]
-    else:
-        table_actuelle = obtenir_table_saison(league_id, DOMESTIC_SEASON, {})
-        cache_actuelle[league_id] = table_actuelle
-        sauvegarder_cache(CACHE_CLASSEMENT_ACTUELLE_FILE, cache_actuelle)
-
+    table_actuelle = obtenir_table_saison(league_id, DOMESTIC_SEASON, cache_tables)
     table_precedente = obtenir_table_saison(league_id, saison_precedente, cache_tables)
     sauvegarder_cache_permanent(CACHE_CLASSEMENT_SAISON_FILE, cache_tables)
 
