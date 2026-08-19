@@ -360,8 +360,8 @@
         "bookmaker": "Unibet",
         "coteModele": 2.509,
         "mise": 0.2778,
-        "statut": "en_attente",
-        "gain": null
+        "statut": "perdu",
+        "gain": -0.2778
     },
     {
         "idEvent": "2570474",
@@ -373,8 +373,8 @@
         "bookmaker": "Unibet",
         "coteModele": 3.34,
         "mise": 0.2381,
-        "statut": "en_attente",
-        "gain": null
+        "statut": "gagne",
+        "gain": 0.7619
     },
     {
         "idEvent": "2570474",
@@ -386,8 +386,8 @@
         "bookmaker": "Unibet",
         "coteModele": 2.761,
         "mise": 0.2198,
-        "statut": "en_attente",
-        "gain": null
+        "statut": "perdu",
+        "gain": -0.2198
     },
     {
         "idEvent": "2570475",
@@ -399,6 +399,58 @@
         "bookmaker": "Unibet",
         "coteModele": 2.564,
         "mise": 0.3226,
+        "statut": "perdu",
+        "gain": -0.3226
+    },
+    {
+        "idEvent": "2570477",
+        "date": "2026-08-19",
+        "equipeDomicile": "Hapoel Be'er Sheva",
+        "equipeExterieur": "Sabah Baku",
+        "issue": "domicile",
+        "coteBookmaker": 2.3,
+        "bookmaker": "Unibet",
+        "coteModele": 1.973,
+        "mise": 0.4348,
+        "statut": "en_attente",
+        "gain": null
+    },
+    {
+        "idEvent": "2570478",
+        "date": "2026-08-19",
+        "equipeDomicile": "Slovan Bratislava",
+        "equipeExterieur": "Celje",
+        "issue": "exterieure",
+        "coteBookmaker": 4.3,
+        "bookmaker": "Unibet",
+        "coteModele": 2.942,
+        "mise": 0.2326,
+        "statut": "en_attente",
+        "gain": null
+    },
+    {
+        "idEvent": "2506170",
+        "date": "2026-08-19",
+        "equipeDomicile": "Atl\u00e9tico Madrid",
+        "equipeExterieur": "M\u00e1laga",
+        "issue": "nul",
+        "coteBookmaker": 5.6,
+        "bookmaker": "Winamax",
+        "coteModele": 4.014,
+        "mise": 0.1786,
+        "statut": "en_attente",
+        "gain": null
+    },
+    {
+        "idEvent": "2506170",
+        "date": "2026-08-19",
+        "equipeDomicile": "Atl\u00e9tico Madrid",
+        "equipeExterieur": "M\u00e1laga",
+        "issue": "exterieure",
+        "coteBookmaker": 9.0,
+        "bookmaker": "Winamax",
+        "coteModele": 6.248,
+        "mise": 0.1111,
         "statut": "en_attente",
         "gain": null
     }
