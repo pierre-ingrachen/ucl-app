@@ -453,5 +453,57 @@
         "mise": 0.1111,
         "statut": "perdu",
         "gain": -0.1111
+    },
+    {
+        "idEvent": "2494000",
+        "date": "2026-08-21",
+        "equipeDomicile": "Arsenal",
+        "equipeExterieur": "Coventry City",
+        "issue": "nul",
+        "coteBookmaker": 7.5,
+        "bookmaker": "Winamax",
+        "coteModele": 4.865,
+        "mise": 0.1333,
+        "statut": "en_attente",
+        "gain": null
+    },
+    {
+        "idEvent": "2494000",
+        "date": "2026-08-21",
+        "equipeDomicile": "Arsenal",
+        "equipeExterieur": "Coventry City",
+        "issue": "exterieure",
+        "coteBookmaker": 13.5,
+        "bookmaker": "Winamax",
+        "coteModele": 10.141,
+        "mise": 0.0741,
+        "statut": "en_attente",
+        "gain": null
+    },
+    {
+        "idEvent": "2489463",
+        "date": "2026-08-21",
+        "equipeDomicile": "Marseille",
+        "equipeExterieur": "Strasbourg",
+        "issue": "nul",
+        "coteBookmaker": 4.1,
+        "bookmaker": "Winamax",
+        "coteModele": 3.146,
+        "mise": 0.2439,
+        "statut": "en_attente",
+        "gain": null
+    },
+    {
+        "idEvent": "2506184",
+        "date": "2026-08-21",
+        "equipeDomicile": "Real Betis",
+        "equipeExterieur": "Real Sociedad",
+        "issue": "domicile",
+        "coteBookmaker": 2.0,
+        "bookmaker": "Winamax",
+        "coteModele": 1.475,
+        "mise": 0.5,
+        "statut": "en_attente",
+        "gain": null
     }
 ]
