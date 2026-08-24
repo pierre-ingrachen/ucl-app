@@ -815,8 +815,8 @@
         "bookmaker": "Winamax",
         "coteModele": 2.41,
         "mise": 0.3509,
-        "statut": "en_attente",
-        "gain": null
+        "statut": "perdu",
+        "gain": -0.3509
     },
     {
         "idEvent": "2489088",
@@ -828,8 +828,8 @@
         "bookmaker": "Unibet",
         "coteModele": 1.338,
         "mise": 0.6135,
-        "statut": "en_attente",
-        "gain": null
+        "statut": "gagne",
+        "gain": 0.3865
     },
     {
         "idEvent": "2489090",
@@ -841,8 +841,8 @@
         "bookmaker": "Winamax",
         "coteModele": 3.947,
         "mise": 0.1786,
-        "statut": "en_attente",
-        "gain": null
+        "statut": "perdu",
+        "gain": -0.1786
     },
     {
         "idEvent": "2496714",
@@ -854,8 +854,8 @@
         "bookmaker": "Winamax",
         "coteModele": 1.445,
         "mise": 0.4167,
-        "statut": "en_attente",
-        "gain": null
+        "statut": "gagne",
+        "gain": 0.5834
     },
     {
         "idEvent": "2494007",
@@ -867,8 +867,8 @@
         "bookmaker": "Winamax",
         "coteModele": 2.93,
         "mise": 0.2778,
-        "statut": "en_attente",
-        "gain": null
+        "statut": "perdu",
+        "gain": -0.2778
     },
     {
         "idEvent": "2494008",
@@ -880,8 +880,8 @@
         "bookmaker": "Winamax",
         "coteModele": 2.459,
         "mise": 0.2817,
-        "statut": "en_attente",
-        "gain": null
+        "statut": "perdu",
+        "gain": -0.2817
     },
     {
         "idEvent": "2494008",
@@ -893,8 +893,8 @@
         "bookmaker": "Winamax",
         "coteModele": 2.82,
         "mise": 0.2532,
-        "statut": "en_attente",
-        "gain": null
+        "statut": "gagne",
+        "gain": 0.7469
     },
     {
         "idEvent": "2489462",
@@ -906,8 +906,8 @@
         "bookmaker": "Winamax",
         "coteModele": 3.076,
         "mise": 0.2632,
-        "statut": "en_attente",
-        "gain": null
+        "statut": "perdu",
+        "gain": -0.2632
     },
     {
         "idEvent": "2489468",
@@ -919,8 +919,8 @@
         "bookmaker": "Winamax",
         "coteModele": 2.8,
         "mise": 0.274,
-        "statut": "en_attente",
-        "gain": null
+        "statut": "perdu",
+        "gain": -0.274
     },
     {
         "idEvent": "2489468",
@@ -932,8 +932,8 @@
         "bookmaker": "Winamax",
         "coteModele": 2.824,
         "mise": 0.2532,
-        "statut": "en_attente",
-        "gain": null
+        "statut": "perdu",
+        "gain": -0.2532
     },
     {
         "idEvent": "2506179",
@@ -945,8 +945,8 @@
         "bookmaker": "Winamax",
         "coteModele": 3.104,
         "mise": 0.274,
-        "statut": "en_attente",
-        "gain": null
+        "statut": "gagne",
+        "gain": 0.7261
     },
     {
         "idEvent": "2506188",
@@ -958,8 +958,8 @@
         "bookmaker": "Winamax",
         "coteModele": 4.153,
         "mise": 0.1754,
-        "statut": "en_attente",
-        "gain": null
+        "statut": "perdu",
+        "gain": -0.1754
     },
     {
         "idEvent": "2482141",
@@ -971,8 +971,8 @@
         "bookmaker": "Winamax",
         "coteModele": 3.229,
         "mise": 0.2273,
-        "statut": "en_attente",
-        "gain": null
+        "statut": "perdu",
+        "gain": -0.2273
     },
     {
         "idEvent": "2482141",
@@ -984,8 +984,8 @@
         "bookmaker": "Winamax",
         "coteModele": 4.405,
         "mise": 0.1786,
-        "statut": "en_attente",
-        "gain": null
+        "statut": "perdu",
+        "gain": -0.1786
     },
     {
         "idEvent": "2482143",
@@ -997,8 +997,8 @@
         "bookmaker": "Winamax",
         "coteModele": 3.257,
         "mise": 0.2667,
-        "statut": "en_attente",
-        "gain": null
+        "statut": "perdu",
+        "gain": -0.2667
     },
     {
         "idEvent": "2482145",
@@ -1010,8 +1010,8 @@
         "bookmaker": "Winamax",
         "coteModele": 4.037,
         "mise": 0.1538,
-        "statut": "en_attente",
-        "gain": null
+        "statut": "perdu",
+        "gain": -0.1538
     },
     {
         "idEvent": "2482145",
@@ -1023,8 +1023,8 @@
         "bookmaker": "Winamax",
         "coteModele": 3.127,
         "mise": 0.2128,
-        "statut": "en_attente",
-        "gain": null
+        "statut": "perdu",
+        "gain": -0.2128
     },
     {
         "idEvent": "2482146",
@@ -1036,7 +1036,7 @@
         "bookmaker": "Winamax",
         "coteModele": 1.719,
         "mise": 0.4545,
-        "statut": "en_attente",
-        "gain": null
+        "statut": "perdu",
+        "gain": -0.4545
     }
 ]
