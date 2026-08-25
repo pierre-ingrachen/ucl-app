@@ -1038,5 +1038,31 @@
         "mise": 0.4545,
         "statut": "perdu",
         "gain": -0.4545
+    },
+    {
+        "idEvent": "2558134",
+        "date": "2026-08-25",
+        "equipeDomicile": "LASK",
+        "equipeExterieur": "Celtic",
+        "issue": "nul",
+        "coteBookmaker": 4.1,
+        "bookmaker": "Unibet",
+        "coteModele": 3.307,
+        "mise": 0.2439,
+        "statut": "en_attente",
+        "gain": null
+    },
+    {
+        "idEvent": "2558134",
+        "date": "2026-08-25",
+        "equipeDomicile": "LASK",
+        "equipeExterieur": "Celtic",
+        "issue": "exterieure",
+        "coteBookmaker": 3.6,
+        "bookmaker": "Unibet",
+        "coteModele": 2.009,
+        "mise": 0.2778,
+        "statut": "en_attente",
+        "gain": null
     }
 ]
