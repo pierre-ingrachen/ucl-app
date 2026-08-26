@@ -1049,8 +1049,8 @@
         "bookmaker": "Unibet",
         "coteModele": 3.307,
         "mise": 0.2439,
-        "statut": "en_attente",
-        "gain": null
+        "statut": "perdu",
+        "gain": -0.2439
     },
     {
         "idEvent": "2558134",
@@ -1062,6 +1062,45 @@
         "bookmaker": "Unibet",
         "coteModele": 2.009,
         "mise": 0.2778,
+        "statut": "perdu",
+        "gain": -0.2778
+    },
+    {
+        "idEvent": "2570481",
+        "date": "2026-08-26",
+        "equipeDomicile": "Celje",
+        "equipeExterieur": "Slovan Bratislava",
+        "issue": "domicile",
+        "coteBookmaker": 2.4,
+        "bookmaker": "Unibet",
+        "coteModele": 1.502,
+        "mise": 0.4167,
+        "statut": "en_attente",
+        "gain": null
+    },
+    {
+        "idEvent": "2570482",
+        "date": "2026-08-26",
+        "equipeDomicile": "Lyon",
+        "equipeExterieur": "Fenerbah\u00e7e",
+        "issue": "domicile",
+        "coteBookmaker": 1.84,
+        "bookmaker": "Unibet",
+        "coteModele": 1.406,
+        "mise": 0.5435,
+        "statut": "en_attente",
+        "gain": null
+    },
+    {
+        "idEvent": "2570484",
+        "date": "2026-08-26",
+        "equipeDomicile": "Viking",
+        "equipeExterieur": "Dinamo Zagreb",
+        "issue": "domicile",
+        "coteBookmaker": 2.25,
+        "bookmaker": "Unibet",
+        "coteModele": 1.411,
+        "mise": 0.4444,
         "statut": "en_attente",
         "gain": null
     }
