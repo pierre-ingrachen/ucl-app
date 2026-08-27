@@ -1075,8 +1075,8 @@
         "bookmaker": "Unibet",
         "coteModele": 1.502,
         "mise": 0.4167,
-        "statut": "en_attente",
-        "gain": null
+        "statut": "perdu",
+        "gain": -0.4167
     },
     {
         "idEvent": "2570482",
@@ -1088,8 +1088,8 @@
         "bookmaker": "Unibet",
         "coteModele": 1.406,
         "mise": 0.5435,
-        "statut": "en_attente",
-        "gain": null
+        "statut": "perdu",
+        "gain": -0.5435
     },
     {
         "idEvent": "2570484",
@@ -1101,6 +1101,32 @@
         "bookmaker": "Unibet",
         "coteModele": 1.411,
         "mise": 0.4444,
+        "statut": "gagne",
+        "gain": 0.5555
+    },
+    {
+        "idEvent": "2506169",
+        "date": "2026-08-27",
+        "equipeDomicile": "Barcelona",
+        "equipeExterieur": "Athletic Bilbao",
+        "issue": "domicile",
+        "coteBookmaker": 1.18,
+        "bookmaker": "Winamax",
+        "coteModele": 0.973,
+        "mise": 0.8475,
+        "statut": "en_attente",
+        "gain": null
+    },
+    {
+        "idEvent": "2506173",
+        "date": "2026-08-27",
+        "equipeDomicile": "Celta Vigo",
+        "equipeExterieur": "Osasuna",
+        "issue": "domicile",
+        "coteBookmaker": 1.88,
+        "bookmaker": "Winamax",
+        "coteModele": 1.478,
+        "mise": 0.5319,
         "statut": "en_attente",
         "gain": null
     }
