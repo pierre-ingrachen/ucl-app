@@ -1371,5 +1371,220 @@
         "total": 20,
         "saison": "2025-2026",
         "ligue": "Spanish La Liga"
+    },
+    "133600": {
+        "position": 11,
+        "total": 20,
+        "saison": "2025-2026",
+        "ligue": "English Premier League"
+    },
+    "133610": {
+        "position": 10,
+        "total": 20,
+        "saison": "2025-2026",
+        "ligue": "English Premier League"
+    },
+    "133681": {
+        "position": 1,
+        "total": 20,
+        "saison": "2025-2026",
+        "ligue": "Italian Serie A"
+    },
+    "134270": null,
+    "133679": {
+        "position": 10,
+        "total": 20,
+        "saison": "2025-2026",
+        "ligue": "Italian Serie A"
+    },
+    "134243": {
+        "position": 4,
+        "total": 20,
+        "saison": "2025-2026",
+        "ligue": "Italian Serie A"
+    },
+    "133675": {
+        "position": 16,
+        "total": 20,
+        "saison": "2025-2026",
+        "ligue": "Italian Serie A"
+    },
+    "133670": {
+        "position": 2,
+        "total": 20,
+        "saison": "2025-2026",
+        "ligue": "Italian Serie A"
+    },
+    "135728": {
+        "position": 13,
+        "total": 20,
+        "saison": "2025-2026",
+        "ligue": "Italian Serie A"
+    },
+    "134783": {
+        "position": 14,
+        "total": 20,
+        "saison": "2025-2026",
+        "ligue": "Italian Serie A"
+    },
+    "133818": null,
+    "133676": {
+        "position": 6,
+        "total": 20,
+        "saison": "2025-2026",
+        "ligue": "Italian Serie A"
+    },
+    "134234": null,
+    "133678": {
+        "position": 17,
+        "total": 20,
+        "saison": "2025-2026",
+        "ligue": "Italian Serie A"
+    },
+    "133687": {
+        "position": 12,
+        "total": 20,
+        "saison": "2025-2026",
+        "ligue": "Italian Serie A"
+    },
+    "133667": {
+        "position": 5,
+        "total": 20,
+        "saison": "2025-2026",
+        "ligue": "Italian Serie A"
+    },
+    "134782": {
+        "position": 7,
+        "total": 20,
+        "saison": "2025-2026",
+        "ligue": "Italian Serie A"
+    },
+    "133701": {
+        "position": 11,
+        "total": 20,
+        "saison": "2025-2026",
+        "ligue": "Italian Serie A"
+    },
+    "134781": {
+        "position": 8,
+        "total": 20,
+        "saison": "2025-2026",
+        "ligue": "Italian Serie A"
+    },
+    "133668": {
+        "position": 9,
+        "total": 20,
+        "saison": "2025-2026",
+        "ligue": "Italian Serie A"
+    },
+    "133682": {
+        "position": 3,
+        "total": 20,
+        "saison": "2025-2026",
+        "ligue": "Italian Serie A"
+    },
+    "133674": {
+        "position": 15,
+        "total": 20,
+        "saison": "2025-2026",
+        "ligue": "Italian Serie A"
+    },
+    "133730": {
+        "position": 17,
+        "total": 20,
+        "saison": "2025-2026",
+        "ligue": "Spanish La Liga"
+    },
+    "133714": {
+        "position": 1,
+        "total": 18,
+        "saison": "2025-2026",
+        "ligue": "French Ligue 1"
+    },
+    "133719": {
+        "position": 6,
+        "total": 18,
+        "saison": "2025-2026",
+        "ligue": "French Ligue 1"
+    },
+    "133664": {
+        "position": 1,
+        "total": 18,
+        "saison": "2025-2026",
+        "ligue": "German Bundesliga"
+    },
+    "133660": {
+        "position": 4,
+        "total": 18,
+        "saison": "2025-2026",
+        "ligue": "German Bundesliga"
+    },
+    "133665": {
+        "position": 10,
+        "total": 18,
+        "saison": "2025-2026",
+        "ligue": "German Bundesliga"
+    },
+    "134551": null,
+    "138411": null,
+    "133666": {
+        "position": 6,
+        "total": 18,
+        "saison": "2025-2026",
+        "ligue": "German Bundesliga"
+    },
+    "134695": {
+        "position": 3,
+        "total": 18,
+        "saison": "2025-2026",
+        "ligue": "German Bundesliga"
+    },
+    "134779": {
+        "position": 12,
+        "total": 18,
+        "saison": "2025-2026",
+        "ligue": "German Bundesliga"
+    },
+    "133654": {
+        "position": 14,
+        "total": 18,
+        "saison": "2025-2026",
+        "ligue": "German Bundesliga"
+    },
+    "133657": {
+        "position": 5,
+        "total": 18,
+        "saison": "2025-2026",
+        "ligue": "German Bundesliga"
+    },
+    "134690": {
+        "position": 11,
+        "total": 18,
+        "saison": "2025-2026",
+        "ligue": "German Bundesliga"
+    },
+    "133814": {
+        "position": 8,
+        "total": 18,
+        "saison": "2025-2026",
+        "ligue": "German Bundesliga"
+    },
+    "133650": {
+        "position": 2,
+        "total": 18,
+        "saison": "2025-2026",
+        "ligue": "German Bundesliga"
+    },
+    "133651": {
+        "position": 13,
+        "total": 18,
+        "saison": "2025-2026",
+        "ligue": "German Bundesliga"
+    },
+    "133662": {
+        "position": 15,
+        "total": 18,
+        "saison": "2025-2026",
+        "ligue": "German Bundesliga"
     }
 }
