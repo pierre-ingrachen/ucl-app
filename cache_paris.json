@@ -1114,8 +1114,8 @@
         "bookmaker": "Winamax",
         "coteModele": 0.973,
         "mise": 0.8475,
-        "statut": "en_attente",
-        "gain": null
+        "statut": "gagne",
+        "gain": 0.1525
     },
     {
         "idEvent": "2506173",
@@ -1127,6 +1127,84 @@
         "bookmaker": "Winamax",
         "coteModele": 1.478,
         "mise": 0.5319,
+        "statut": "perdu",
+        "gain": -0.5319
+    },
+    {
+        "idEvent": "2489091",
+        "date": "2026-08-28",
+        "equipeDomicile": "Groningen",
+        "equipeExterieur": "Fortuna Sittard",
+        "issue": "nul",
+        "coteBookmaker": 4.5,
+        "bookmaker": "Winamax",
+        "coteModele": 3.41,
+        "mise": 0.2222,
+        "statut": "en_attente",
+        "gain": null
+    },
+    {
+        "idEvent": "2496716",
+        "date": "2026-08-28",
+        "equipeDomicile": "Genk",
+        "equipeExterieur": "Beveren",
+        "issue": "nul",
+        "coteBookmaker": 4.5,
+        "bookmaker": "Winamax",
+        "coteModele": 3.829,
+        "mise": 0.2222,
+        "statut": "en_attente",
+        "gain": null
+    },
+    {
+        "idEvent": "2489479",
+        "date": "2026-08-28",
+        "equipeDomicile": "Lille",
+        "equipeExterieur": "Paris Saint-Germain",
+        "issue": "domicile",
+        "coteBookmaker": 4.6,
+        "bookmaker": "Winamax",
+        "coteModele": 3.616,
+        "mise": 0.2174,
+        "statut": "en_attente",
+        "gain": null
+    },
+    {
+        "idEvent": "2489479",
+        "date": "2026-08-28",
+        "equipeDomicile": "Lille",
+        "equipeExterieur": "Paris Saint-Germain",
+        "issue": "nul",
+        "coteBookmaker": 3.95,
+        "bookmaker": "Winamax",
+        "coteModele": 2.928,
+        "mise": 0.2532,
+        "statut": "en_attente",
+        "gain": null
+    },
+    {
+        "idEvent": "2506198",
+        "date": "2026-08-28",
+        "equipeDomicile": "Racing de Santander",
+        "equipeExterieur": "Elche",
+        "issue": "domicile",
+        "coteBookmaker": 2.05,
+        "bookmaker": "Winamax",
+        "coteModele": 1.567,
+        "mise": 0.4878,
+        "statut": "en_attente",
+        "gain": null
+    },
+    {
+        "idEvent": "2482150",
+        "date": "2026-08-28",
+        "equipeDomicile": "AC Milan",
+        "equipeExterieur": "Venezia",
+        "issue": "nul",
+        "coteBookmaker": 4.5,
+        "bookmaker": "Winamax",
+        "coteModele": 3.888,
+        "mise": 0.2222,
         "statut": "en_attente",
         "gain": null
     }
