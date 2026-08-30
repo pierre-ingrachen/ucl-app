@@ -49,6 +49,11 @@ export class Bilan implements OnInit {
     return (gainTotal / miseResolue) * 100;
   }
 
+  /** Gain net cumulé, en unités (une unité = une mise de 1/cote), sur les paris déjà résolus. */
+  get gainTotal(): number {
+    return this.resolus.reduce((somme, p) => somme + (p.gain || 0), 0);
+  }
+
   couleurStatut(statut: string): string {
     if (statut === 'gagne') return '#16a34a';
     if (statut === 'perdu') return '#dc2626';

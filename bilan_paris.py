@@ -6,8 +6,9 @@
 2. `paris`  : resout les paris "en_attente" des jours precedents des que le resultat du
    match est connu (gain net calcule), puis repere parmi les matchs du jour les cas ou la
    cote du bookmaker (Winamax, sinon Betclic, sinon Unibet - cf. odds.py) depasse d'au
-   moins 15% la cote implicite du modele (0.9 / probabilite, meme formule que le frontend) :
-   un tel ecart est enregistre comme un pari pris, mise = 1 / cote du bookmaker.
+   moins 15% la cote implicite du modele (0.9 / probabilite, meme formule que le frontend) et
+   que la cote du bookmaker depasse 3.00 : un tel ecart est enregistre comme un pari pris,
+   mise = 1 / cote du bookmaker.
 
 `tout` (par defaut, pratique en local) enchaine les deux etapes. Le journal complet est
 persiste dans cache_paris.json (commit automatique par le workflow). Ce script s'appuie sur
@@ -29,6 +30,7 @@ from main import (
 from rating import predire_resultat
 
 SEUIL_VALUE = 1.15  # cote bookmaker >= 15% au-dessus de la cote du modele
+COTE_MIN = 3.00  # cote bookmaker minimale pour prendre le pari
 
 
 def cote_modele(probabilite):
@@ -118,6 +120,8 @@ def chercher_nouveaux_paris(bilan, cotes_semaine):
             c_modele = cote_modele(predictions.get(cle_proba))
             c_bookmaker = cotes.get(cle_cote)
             if not c_modele or not c_bookmaker or c_bookmaker < SEUIL_VALUE * c_modele:
+                continue
+            if c_bookmaker <= COTE_MIN:
                 continue
 
             bilan.append({

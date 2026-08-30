@@ -8,22 +8,24 @@
   } @else {
     <div style="display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin-bottom: 24px;">
       <div class="stat-card">
-        <div class="stat-valeur">{{ paris.length }}</div>
-        <div class="stat-label">Paris au total</div>
+        <div class="stat-valeur">{{ paris.length }} ({{ enAttente }})</div>
+        <div class="stat-label">Paris au total (En attente)</div>
       </div>
       <div class="stat-card">
         <div class="stat-valeur">{{ gagnes }} / {{ resolus.length }}</div>
         <div class="stat-label">Gagnés</div>
       </div>
       <div class="stat-card">
-        <div class="stat-valeur">{{ enAttente }}</div>
-        <div class="stat-label">En attente</div>
-      </div>
-      <div class="stat-card">
         <div class="stat-valeur" [style.color]="roi === null ? '#333' : (roi >= 0 ? '#16a34a' : '#dc2626')">
           {{ roi !== null ? (roi | number:'1.1-1') + '%' : '—' }}
         </div>
         <div class="stat-label">ROI</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-valeur" [style.color]="gainTotal >= 0 ? '#16a34a' : '#dc2626'">
+          {{ gainTotal >= 0 ? '+' : '' }}{{ gainTotal | number:'1.2-2' }}
+        </div>
+        <div class="stat-label">Unités de bénéfice</div>
       </div>
     </div>
 
