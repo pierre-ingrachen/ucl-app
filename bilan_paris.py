@@ -183,6 +183,7 @@ def etape_paris(cotes_semaine):
     bilan = charger_cache_permanent(CACHE_PARIS_FILE)
     if not isinstance(bilan, list):
         bilan = []
+    bilan = [p for p in bilan if p.get("coteBookmaker", 0) >= COTE_MIN]
 
     resoudre_paris_en_attente(bilan)
     chercher_nouveaux_paris(bilan, cotes_semaine)
