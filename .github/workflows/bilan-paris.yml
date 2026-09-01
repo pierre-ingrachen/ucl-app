@@ -2,8 +2,8 @@ name: Bilan quotidien des paris
 
 on:
   schedule:
-    # 6h UTC = 8h a Paris en ete, 7h en hiver
-    - cron: "0 6 * * *"
+    # 6h17 UTC = 8h17 a Paris en ete, 7h17 en hiver (minute impaire pour eviter la file d'attente des cron ronds)
+    - cron: "17 6 * * *"
   workflow_dispatch: {}
 
 permissions:
