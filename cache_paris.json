@@ -117,19 +117,6 @@
         "gain": -0.2326
     },
     {
-        "idEvent": "2513943",
-        "date": "2026-08-16",
-        "equipeDomicile": "Braga",
-        "equipeExterieur": "Gil Vicente",
-        "issue": "nul",
-        "coteBookmaker": 3.6,
-        "bookmaker": "Winamax",
-        "coteModele": 3.094,
-        "mise": 0.2778,
-        "statut": "en_attente",
-        "gain": null
-    },
-    {
         "idEvent": "2513944",
         "date": "2026-08-16",
         "equipeDomicile": "Nacional de Madeira",
