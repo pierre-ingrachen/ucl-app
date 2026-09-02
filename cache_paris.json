@@ -1376,5 +1376,44 @@
         "mise": 0.274,
         "statut": "perdu",
         "gain": -0.274
+    },
+    {
+        "idEvent": "2481826",
+        "date": "2026-09-02",
+        "equipeDomicile": "AGF Aarhus",
+        "equipeExterieur": "FC Midtjylland",
+        "issue": "domicile",
+        "coteBookmaker": 60.0,
+        "bookmaker": "Winamax",
+        "coteModele": 2.63,
+        "mise": 0.0167,
+        "statut": "en_attente",
+        "gain": null
+    },
+    {
+        "idEvent": "2481826",
+        "date": "2026-09-02",
+        "equipeDomicile": "AGF Aarhus",
+        "equipeExterieur": "FC Midtjylland",
+        "issue": "nul",
+        "coteBookmaker": 4.7,
+        "bookmaker": "Winamax",
+        "coteModele": 3.191,
+        "mise": 0.2128,
+        "statut": "en_attente",
+        "gain": null
+    },
+    {
+        "idEvent": "2493359",
+        "date": "2026-09-02",
+        "equipeDomicile": "Grasshoppers",
+        "equipeExterieur": "St. Gallen",
+        "issue": "exterieure",
+        "coteBookmaker": 5.0,
+        "bookmaker": "Winamax",
+        "coteModele": 1.594,
+        "mise": 0.2,
+        "statut": "en_attente",
+        "gain": null
     }
 ]
