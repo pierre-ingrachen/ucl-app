@@ -198,6 +198,7 @@ export class MatchDetails implements OnInit {
   chargerHistorique(): void {
     this.sportsApi.getHistoriqueQualifications().subscribe({
       next: (historiqueComplet) => {
+        this._memoGroupes.clear();
         this.historiqueComplet = historiqueComplet;
         // On ne compare le match qu'à des confrontations de la même phase équivalente
         // (qualifications / phase de groupe-poule-championnat / phase finale)
@@ -267,7 +268,28 @@ export class MatchDetails implements OnInit {
     return MatchDetails.ABREGE_COMPETITION[hist.idLeague] || hist.strLeague || '';
   }
 
+  // Le template lit groupedDomicile / groupedExterieur plusieurs fois par cycle de détection
+  // de changement, et chaque calcul reparcourt tout l'historique (filtre + tri + regroupement).
+  // On mémorise le résultat par (mode + filtre) : l'historique ne change qu'une fois, après
+  // son chargement (cf. chargerHistorique, qui vide ce cache).
+  private _memoGroupes = new Map<string, any[]>();
+
+  private grouperMemoise(cle: string, calcul: () => any[]): any[] {
+    const existant = this._memoGroupes.get(cle);
+    if (existant) return existant;
+    const resultat = calcul();
+    this._memoGroupes.set(cle, resultat);
+    return resultat;
+  }
+
   get groupedDomicile(): { annee: string; equipes: { nom: string; idEquipe: string; matchs: any[] }[]; directes: string[] }[] {
+    return this.grouperMemoise(
+      `dom|${this.modeDomicile}|${this.filtreNationalDomicile}`,
+      () => this.calculerGroupedDomicile()
+    );
+  }
+
+  private calculerGroupedDomicile(): { annee: string; equipes: { nom: string; idEquipe: string; matchs: any[] }[]; directes: string[] }[] {
     const idEquipe = this.match?.idHomeTeam;
     if (this.modeDomicile === 'national') {
       // "Qualifié directement" ne concerne que les parcours de club en coupe d'Europe :
@@ -291,6 +313,13 @@ export class MatchDetails implements OnInit {
   }
 
   get groupedExterieur(): { annee: string; equipes: { nom: string; idEquipe: string; matchs: any[] }[]; directes: string[] }[] {
+    return this.grouperMemoise(
+      `ext|${this.modeExterieur}|${this.filtreNationalExterieur}`,
+      () => this.calculerGroupedExterieur()
+    );
+  }
+
+  private calculerGroupedExterieur(): { annee: string; equipes: { nom: string; idEquipe: string; matchs: any[] }[]; directes: string[] }[] {
     const idEquipe = this.match?.idAwayTeam;
     if (this.modeExterieur === 'national') {
       // "Qualifié directement" ne concerne que les parcours de club en coupe d'Europe :

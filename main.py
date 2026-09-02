@@ -1,5 +1,6 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.middleware.gzip import GZipMiddleware
 import requests
 from datetime import datetime, timedelta, date
 import json
@@ -22,6 +23,10 @@ def _variable_environnement_requise(nom):
     return valeur
 
 app = FastAPI(title="Champions League API")
+
+# Compression des reponses JSON : l'historique complet des qualifications fait plusieurs Mo
+# en clair, gzip le divise par ~10 sur le reseau sans rien changer cote client.
+app.add_middleware(GZipMiddleware, minimum_size=1000)
 
 app.add_middleware(
     CORSMiddleware,
@@ -158,7 +163,39 @@ def charger_cache(fichier):
                 if cache.get("date") == aujourd_hui_str:
                     return cache.get("data")
         except (json.JSONDecodeError, IOError):
-            pass 
+            pass
+    return None
+
+# Cache mémoire des fichiers JSON volumineux (season, championnats, historique des qualifs) :
+# sans ça, chaque requête re-parse plusieurs Mo depuis le disque (l'ouverture d'une fiche de
+# match en relit ~9 Mo rien que pour regrouper les matchs de la semaine). Invalidé
+# automatiquement dès que le fichier change sur disque (mtime + taille), donc transparent
+# vis-à-vis du rafraîchissement quotidien et des `git pull`.
+_cache_memoire_json = {}
+
+def _lire_json_memoise(fichier):
+    try:
+        st = os.stat(fichier)
+    except OSError:
+        return None
+    signature = (st.st_mtime_ns, st.st_size)
+    entree = _cache_memoire_json.get(fichier)
+    if entree is not None and entree[0] == signature:
+        return entree[1]
+    try:
+        with open(fichier, "r", encoding="utf-8") as f:
+            data = json.load(f)
+    except (json.JSONDecodeError, IOError, OSError):
+        return None
+    _cache_memoire_json[fichier] = (signature, data)
+    return data
+
+def charger_cache_memoise(fichier):
+    """Comme `charger_cache` mais en gardant le contenu parsé en mémoire tant que le fichier
+    sur disque est inchangé. Réservé aux fichiers volumineux relus en lecture seule."""
+    cache = _lire_json_memoise(fichier)
+    if isinstance(cache, dict) and cache.get("date") == str(date.today()):
+        return cache.get("data")
     return None
 
 def sauvegarder_cache(fichier, data):
@@ -264,6 +301,19 @@ def obtenir_cotes_semaine():
 
     aujourd_hui = date.today()
     cle_jour = str(aujourd_hui)
+
+    est_jour_releve_complet = (
+        aujourd_hui.weekday() in JOURS_RELEVE_COMPLET
+        and cache.get("dernier_releve_complet") != cle_jour
+    )
+    peut_relancer = not est_jour_releve_complet and bool(cache.get("dernier_releve_complet"))
+
+    # La plupart des jours, aucune interrogation de The Odds API n'est possible : on relit
+    # alors juste le cache sans reconstruire la liste des matchs de la semaine (qui parse
+    # plusieurs Mo de JSON).
+    if not est_jour_releve_complet and not peut_relancer:
+        return cache.get("data", {})
+
     matchs_semaine = (
         filtrer_matchs_semaine(obtenir_matchs_a_venir())
         + filtrer_matchs_semaine(obtenir_matchs_championnats_a_venir())
@@ -272,10 +322,10 @@ def obtenir_cotes_semaine():
 
     a_interroger = {}
 
-    if aujourd_hui.weekday() in JOURS_RELEVE_COMPLET and cache.get("dernier_releve_complet") != cle_jour:
+    if est_jour_releve_complet:
         a_interroger = ODDS_API_SPORT_KEYS
         cache["dernier_releve_complet"] = cle_jour
-    elif cache.get("dernier_releve_complet"):
+    elif peut_relancer:
         demain_str = str(aujourd_hui + timedelta(days=1))
         for id_ligue, sport_keys in ODDS_API_SPORT_KEYS.items():
             cle_relance = f"{id_ligue}:{cle_jour}"
@@ -513,7 +563,7 @@ def obtenir_derniers_matchs_championnat(team_id, league_id, league_name, avant_d
 def obtenir_matchs_a_venir():
     """Tous les matchs de la saison en cours des 3 competitions europeennes
     (pas seulement ceux de la semaine), avec mise en cache quotidienne."""
-    matchs = charger_cache(CACHE_SEASON_FILE)
+    matchs = charger_cache_memoise(CACHE_SEASON_FILE)
 
     if matchs is None:
         matchs = []
@@ -536,7 +586,7 @@ def get_matchs_a_venir():
 def obtenir_matchs_championnats_a_venir():
     """Tous les matchs de la saison en cours des championnats nationaux suivis (pas seulement
     ceux de la semaine), avec mise en cache quotidienne."""
-    matchs = charger_cache(CACHE_CHAMPIONNAT_SEASON_FILE)
+    matchs = charger_cache_memoise(CACHE_CHAMPIONNAT_SEASON_FILE)
 
     if matchs is None:
         matchs = []
@@ -567,9 +617,13 @@ def get_classement_championnat(league_id: str):
     saison_actuelle = saison_actuelle_ligue(league_id)
     saison_precedente = saisons_passees_ligue(league_id)[-1]
 
+    cles_avant = set(cache_tables)
     table_actuelle = obtenir_table_saison(league_id, saison_actuelle, cache_tables)
     table_precedente = obtenir_table_saison(league_id, saison_precedente, cache_tables)
-    sauvegarder_cache_permanent(CACHE_CLASSEMENT_SAISON_FILE, cache_tables)
+    # `obtenir_table_saison` n'ajoute une entree qu'en cas de cache manquant : inutile de
+    # reecrire le fichier (144 Ko) a chaque consultation d'un match si rien n'a change.
+    if set(cache_tables) != cles_avant:
+        sauvegarder_cache_permanent(CACHE_CLASSEMENT_SAISON_FILE, cache_tables)
 
     return {
         "ligue": DOMESTIC_LEAGUES[league_id],
@@ -589,8 +643,12 @@ def get_match_details(event_id: str):
         # sans prediction jusqu'au renouvellement du cache le lendemain).
         if "probaVictoireDomicile" not in match_data:
             cache_championnat_historique = charger_cache(CACHE_CHAMPIONNAT_HISTORIQUE_FILE) or {}
+            cles_avant = set(cache_championnat_historique)
             injecter_predictions(match_data, cache_championnat_historique)
-            sauvegarder_cache(CACHE_CHAMPIONNAT_HISTORIQUE_FILE, cache_championnat_historique)
+            # Pour un match europeen, `injecter_predictions` ne touche pas ce cache : on evite
+            # alors de reecrire 1 Mo de JSON pour rien.
+            if set(cache_championnat_historique) != cles_avant:
+                sauvegarder_cache(CACHE_CHAMPIONNAT_HISTORIQUE_FILE, cache_championnat_historique)
             cache_details[event_id] = match_data
             sauvegarder_cache(CACHE_DETAILS_FILE, cache_details)
         injecter_cotes(match_data, event_id, obtenir_cotes_semaine())
@@ -670,7 +728,7 @@ def obtenir_historique_qualifications():
     """Historique complet (3 dernieres saisons + saison en cours deja jouee)
     des matchs de qualification/groupe/finale des 3 competitions europeennes,
     avec pays de chaque equipe injecte. Mise en cache quotidienne."""
-    historique = charger_cache(CACHE_HISTORY_FILE)
+    historique = charger_cache_memoise(CACHE_HISTORY_FILE)
     cache_teams = charger_cache_permanent(CACHE_TEAMS_FILE)
     teams_updated = False
 

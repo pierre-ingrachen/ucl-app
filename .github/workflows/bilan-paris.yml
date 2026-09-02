@@ -1,43 +1,93 @@
 name: Bilan quotidien des paris
 
 on:
+  # Declenchement principal : planificateur externe (cron-job.org) via l'API
+  # workflow_dispatch -> execution immediate, sans file d'attente GitHub.
+  workflow_dispatch:
+    inputs:
+      source:
+        description: "Origine du declenchement (trace)"
+        required: false
+        default: "manuel"
+  # Filet de securite : cron natif GitHub, plus tard dans la journee, au cas ou
+  # cron-job.org serait indisponible. Souvent en retard mais le script est
+  # idempotent (commit seulement si diff, releve des cotes seulement mardi/vendredi)
+  # et se rattrape tout seul (relance ciblee sur les matchs encore sans cote).
   schedule:
-    # 6h17 UTC = 8h17 a Paris en ete, 7h17 en hiver (minute impaire pour eviter la file d'attente des cron ronds)
-    - cron: "17 6 * * *"
-  workflow_dispatch: {}
+    - cron: "43 10 * * *"
 
 permissions:
   contents: write
 
+# Une seule execution a la fois : evite toute course sur le git push si le
+# declenchement principal et le filet de securite se chevauchent.
+concurrency:
+  group: bilan-paris
+  cancel-in-progress: false
+
 jobs:
   bilan:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     steps:
+      - name: Tracer l'origine du declenchement
+        run: echo "Declenche par - event=${{ github.event_name }} source=${{ inputs.source || 'schedule' }}"
+
       - uses: actions/checkout@v4
 
       - uses: actions/setup-python@v5
         with:
           python-version: "3.13"
+          cache: pip
 
-      - name: Installer les dependances
-        run: pip install -r requirements.txt
+      - name: Installer les dependances (avec reessais reseau)
+        run: |
+          for tentative in 1 2 3; do
+            pip install -r requirements.txt && break
+            echo "Echec pip (tentative $tentative), nouvelle tentative dans 15 s..."
+            sleep 15
+          done
+          pip install -r requirements.txt
 
       - name: Recuperer les cotes (uniquement le lundi, ou relance ciblee)
         env:
           SPORTSDB_API_KEY: ${{ secrets.SPORTSDB_API_KEY }}
           ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
-        run: python bilan_paris.py cotes | tee -a "$GITHUB_STEP_SUMMARY"
+        run: |
+          for tentative in 1 2 3; do
+            python bilan_paris.py cotes | tee -a "$GITHUB_STEP_SUMMARY" && exit 0
+            echo "Echec etape cotes (tentative $tentative), nouvelle tentative dans 30 s..."
+            sleep 30
+          done
+          python bilan_paris.py cotes | tee -a "$GITHUB_STEP_SUMMARY"
 
       - name: Choisir les paris du jour
         env:
           SPORTSDB_API_KEY: ${{ secrets.SPORTSDB_API_KEY }}
           ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
-        run: python bilan_paris.py paris | tee -a "$GITHUB_STEP_SUMMARY"
+        run: |
+          for tentative in 1 2 3; do
+            python bilan_paris.py paris | tee -a "$GITHUB_STEP_SUMMARY" && exit 0
+            echo "Echec etape paris (tentative $tentative), nouvelle tentative dans 30 s..."
+            sleep 30
+          done
+          python bilan_paris.py paris | tee -a "$GITHUB_STEP_SUMMARY"
 
       - name: Committer le bilan mis a jour
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add cache_paris.json cache_cotes_winamax.json cache_teams.json
-          git diff --cached --quiet || git commit -m "Bilan paris automatique $(date -u +%Y-%m-%d)"
-          git push
+          git add cache_paris.json cache_cotes_winamax.json cache_teams.json cache_championnat_historique.json
+          if git diff --cached --quiet; then
+            echo "Aucune modification a committer." | tee -a "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+          git commit -m "Bilan paris automatique $(date -u +%Y-%m-%d)"
+          # Rebase avant push : evite un rejet non-fast-forward si un autre
+          # commit est arrive entre le checkout et maintenant.
+          for tentative in 1 2 3; do
+            git pull --rebase --autostash origin master && git push origin HEAD:master && exit 0
+            echo "Echec push (tentative $tentative), nouvelle tentative dans 10 s..."
+            sleep 10
+          done
+          exit 1
