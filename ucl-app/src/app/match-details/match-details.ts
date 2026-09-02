@@ -84,7 +84,10 @@ export class MatchDetails implements OnInit {
     this.location.back();
   }
 
-  private static readonly DOMESTIC_LEAGUE_IDS = ['4344', '4337', '4338', '4328', '4334', '4335', '4332', '4331']; // Primeira Liga, Eredivisie, Pro League, Premier League, Ligue 1, La Liga, Serie A, Bundesliga
+  private static readonly DOMESTIC_LEAGUE_IDS = [
+    '4344', '4337', '4338', '4328', '4334', '4335', '4332', '4331', '4339', '4422', // Primeira Liga, Eredivisie, Pro League, Premier League, Ligue 1, La Liga, Serie A, Bundesliga, Süper Lig, Ekstraklasa
+    '4631', '4336', '4358', '4340', '4630', '4675', '4621', '4690', '4330', '4347', // Tchéquie, Grèce, Norvège, Danemark, Chypre, Suisse, Autriche, Hongrie, Écosse, Suède
+  ];
 
   get estChampionnatNational(): boolean {
     return !!this.match && MatchDetails.DOMESTIC_LEAGUE_IDS.includes(this.match.idLeague);

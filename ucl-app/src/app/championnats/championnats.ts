@@ -15,6 +15,16 @@ import { Match } from '../models/match';
 export class Championnats implements OnInit {
   isLoading = true;
 
+  // Les onglets regroupent les championnats par niveau ; l'ordre des ids fixe aussi l'ordre
+  // d'affichage dans la liste déroulante.
+  // Top 5 : Premier League, La Liga, Bundesliga, Serie A, Ligue 1.
+  private static readonly TOP5_LEAGUE_IDS = ['4328', '4335', '4331', '4332', '4334'];
+  // 6-10 : Pro League (Belgique), Eredivisie (Pays-Bas), Primeira Liga (Portugal),
+  // Süper Lig (Turquie), Ekstraklasa (Pologne).
+  private static readonly G610_LEAGUE_IDS = ['4338', '4337', '4344', '4339', '4422'];
+  // 11-20 : Tchéquie, Grèce, Norvège, Danemark, Chypre, Suisse, Autriche, Hongrie, Écosse, Suède.
+  private static readonly G1120_LEAGUE_IDS = ['4631', '4336', '4358', '4340', '4630', '4675', '4621', '4690', '4330', '4347'];
+
   constructor(
     private sportsApi: SportsApiService,
     private state: ChampionnatListState
@@ -28,16 +38,41 @@ export class Championnats implements OnInit {
     return this.state.competitionsSelectionnees;
   }
 
-  // Liste des championnats disponibles, déduite des matchs reçus (triée par nom)
-  // pour éviter de dupliquer côté front la liste des championnats gérés par l'API.
+  get ongletActif(): 'top5' | 'g610' | 'g1120' {
+    return this.state.ongletActif;
+  }
+
+  changerOnglet(onglet: 'top5' | 'g610' | 'g1120'): void {
+    if (this.state.ongletActif === onglet) return;
+    this.state.ongletActif = onglet;
+    this.state.competitionsSelectionnees = [];
+  }
+
+  private get ongletLeagueIds(): string[] {
+    switch (this.ongletActif) {
+      case 'g610': return Championnats.G610_LEAGUE_IDS;
+      case 'g1120': return Championnats.G1120_LEAGUE_IDS;
+      default: return Championnats.TOP5_LEAGUE_IDS;
+    }
+  }
+
+  private get matchesOnglet(): Match[] {
+    const ids = this.ongletLeagueIds;
+    return this.matches.filter(m => !!m.idLeague && ids.includes(m.idLeague));
+  }
+
+  // Liste des championnats disponibles, déduite des matchs reçus, dans l'ordre défini
+  // pour l'onglet actif (pas alphabétique).
   get championnats(): { id: string; nom: string }[] {
+    const ordre = this.ongletLeagueIds;
     const vus = new Map<string, string>();
-    for (const m of this.matches) {
+    for (const m of this.matchesOnglet) {
       if (m.idLeague && m.strLeague && !vus.has(m.idLeague)) {
         vus.set(m.idLeague, m.strLeague);
       }
     }
-    return Array.from(vus, ([id, nom]) => ({ id, nom })).sort((a, b) => a.nom.localeCompare(b.nom));
+    return Array.from(vus, ([id, nom]) => ({ id, nom }))
+      .sort((a, b) => ordre.indexOf(a.id) - ordre.indexOf(b.id));
   }
 
   get libelleSelection(): string {
@@ -63,8 +98,8 @@ export class Championnats implements OnInit {
   }
 
   get matchesFiltres(): Match[] {
-    if (this.competitionsSelectionnees.length === 0) return this.matches;
-    return this.matches.filter(m => m.idLeague && this.competitionsSelectionnees.includes(m.idLeague));
+    if (this.competitionsSelectionnees.length === 0) return this.matchesOnglet;
+    return this.matchesOnglet.filter(m => m.idLeague && this.competitionsSelectionnees.includes(m.idLeague));
   }
 
   ngOnInit(): void {

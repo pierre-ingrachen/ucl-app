@@ -22,26 +22,25 @@ echo "Demarrage du frontend (Angular)..."
 FRONTEND_PID=$!
 
 cleanup() {
+    echo ""
     echo "Arret des serveurs..."
     kill "$BACKEND_PID" "$FRONTEND_PID" 2>/dev/null
     wait "$BACKEND_PID" "$FRONTEND_PID" 2>/dev/null
     echo "Termine."
 }
-trap cleanup EXIT
+trap cleanup EXIT INT TERM
 
 echo "Attente que le frontend soit pret sur http://localhost:4200 ..."
 until curl -s -o /dev/null "http://localhost:4200"; do
     sleep 2
 done
 
-echo "Ouverture de Chrome..."
-open -na "Google Chrome" --args --new-window "http://localhost:4200"
+echo ""
+echo "  Site pret : http://localhost:4200"
+echo "  Ctrl+C pour arreter les serveurs."
+echo ""
 
-echo "Site ouvert dans Chrome."
-echo "Les serveurs s'arreteront automatiquement a la fermeture de Chrome."
+open "http://localhost:4200"
 
-while pgrep -x "Google Chrome" >/dev/null; do
-    sleep 3
-done
-
-echo "Chrome ferme. Arret des serveurs..."
+# On reste au premier plan tant que les serveurs tournent.
+wait

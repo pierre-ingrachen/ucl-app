@@ -54,6 +54,27 @@ h1 {
     color: #ccc;
     width: 20%;
 }
+.onglets {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin: 0 0 20px;
+}
+.onglets button {
+    padding: 8px 20px;
+    border-radius: 15px;
+    border: 1px solid #ccc;
+    background: #eee;
+    color: #333;
+    font-size: 0.95em;
+    font-weight: bold;
+    cursor: pointer;
+}
+.onglets button.actif {
+    background: #0c1c38;
+    border-color: #0c1c38;
+    color: white;
+}
 .championnat-filtre {
     position: relative;
 }

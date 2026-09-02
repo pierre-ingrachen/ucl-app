@@ -45,10 +45,38 @@ DOMESTIC_LEAGUES = {
     "4334": "Ligue 1",             # France
     "4335": "La Liga",             # Espagne
     "4332": "Serie A",             # Italie
-    "4331": "Bundesliga"           # Allemagne
+    "4331": "Bundesliga",          # Allemagne
+    "4339": "Süper Lig",           # Turquie
+    "4422": "Ekstraklasa",         # Pologne
+    "4631": "Czech First League",  # Tchéquie
+    "4336": "Super League",        # Grèce
+    "4358": "Eliteserien",         # Norvège
+    "4340": "Superliga",           # Danemark
+    "4630": "First Division",      # Chypre
+    "4675": "Super League",        # Suisse
+    "4621": "Bundesliga",          # Autriche
+    "4690": "NB I",                # Hongrie
+    "4330": "Premiership",         # Écosse
+    "4347": "Allsvenskan"          # Suède
 }
 DOMESTIC_SEASON = "2026-2027"
 DOMESTIC_PAST_SEASONS = ["2025-2026"]
+
+# Championnats à année civile (calendrier printemps-automne) : leur saison TheSportsDB
+# est une simple année, pas un intervalle "AAAA-AAAA".
+DOMESTIC_LEAGUES_ANNEE_CIVILE = {"4358", "4347"}  # Norvège, Suède
+DOMESTIC_SEASON_ANNEE_CIVILE = "2026"
+DOMESTIC_PAST_SEASONS_ANNEE_CIVILE = ["2025"]
+
+def saison_actuelle_ligue(league_id):
+    if league_id in DOMESTIC_LEAGUES_ANNEE_CIVILE:
+        return DOMESTIC_SEASON_ANNEE_CIVILE
+    return DOMESTIC_SEASON
+
+def saisons_passees_ligue(league_id):
+    if league_id in DOMESTIC_LEAGUES_ANNEE_CIVILE:
+        return DOMESTIC_PAST_SEASONS_ANNEE_CIVILE
+    return DOMESTIC_PAST_SEASONS
 
 # The Odds API (cotes Winamax) : cle du compte de l'utilisateur, a n'appeler qu'aux jours
 # convenus (cf. obtenir_cotes_semaine) pour rester tres largement sous le quota gratuit.
@@ -75,6 +103,16 @@ ODDS_API_SPORT_KEYS = {
     "4335": ["soccer_spain_la_liga"],
     "4332": ["soccer_italy_serie_a"],
     "4331": ["soccer_germany_bundesliga"],
+    "4339": ["soccer_turkey_super_league"],
+    "4422": ["soccer_poland_ekstraklasa"],
+    "4336": ["soccer_greece_super_league"],
+    "4358": ["soccer_norway_eliteserien"],
+    "4340": ["soccer_denmark_superliga"],
+    "4675": ["soccer_switzerland_superleague"],
+    "4621": ["soccer_austria_bundesliga"],
+    "4330": ["soccer_spl"],
+    "4347": ["soccer_sweden_allsvenskan"],
+    # Pas de cotes The Odds API publiées pour la Tchéquie, Chypre et la Hongrie.
 }
 
 CACHE_SEASON_FILE = "cache_season.json"
@@ -368,7 +406,7 @@ def obtenir_table_saison(league_id, season, cache_tables):
     La saison en cours évolue à chaque journée jouée : elle est donc rafraîchie tous les
     jours (cache quotidien), contrairement aux saisons passées, figées, qui profitent d'un
     cache permanent."""
-    if season == DOMESTIC_SEASON:
+    if season == saison_actuelle_ligue(league_id):
         cache_actuelle = charger_cache(CACHE_CLASSEMENT_ACTUELLE_FILE) or {}
         if league_id in cache_actuelle:
             return cache_actuelle[league_id]
@@ -431,7 +469,7 @@ def charger_historique_championnat(league_id, cache_historique):
         return cache_historique[league_id]
 
     matchs = []
-    for season in DOMESTIC_PAST_SEASONS + [DOMESTIC_SEASON]:
+    for season in saisons_passees_ligue(league_id) + [saison_actuelle_ligue(league_id)]:
         url = f"https://www.thesportsdb.com/api/v1/json/{API_KEY}/eventsseason.php?id={league_id}&s={season}"
         try:
             resp = requests.get(url)
@@ -503,7 +541,7 @@ def obtenir_matchs_championnats_a_venir():
     if matchs is None:
         matchs = []
         for league_id in DOMESTIC_LEAGUES:
-            url = f"https://www.thesportsdb.com/api/v1/json/{API_KEY}/eventsseason.php?id={league_id}&s={DOMESTIC_SEASON}"
+            url = f"https://www.thesportsdb.com/api/v1/json/{API_KEY}/eventsseason.php?id={league_id}&s={saison_actuelle_ligue(league_id)}"
             try:
                 response = requests.get(url)
                 response.raise_for_status()
@@ -526,15 +564,16 @@ def get_classement_championnat(league_id: str):
         raise HTTPException(status_code=404, detail="Championnat inconnu")
 
     cache_tables = charger_cache_permanent(CACHE_CLASSEMENT_SAISON_FILE)
-    saison_precedente = DOMESTIC_PAST_SEASONS[-1]
+    saison_actuelle = saison_actuelle_ligue(league_id)
+    saison_precedente = saisons_passees_ligue(league_id)[-1]
 
-    table_actuelle = obtenir_table_saison(league_id, DOMESTIC_SEASON, cache_tables)
+    table_actuelle = obtenir_table_saison(league_id, saison_actuelle, cache_tables)
     table_precedente = obtenir_table_saison(league_id, saison_precedente, cache_tables)
     sauvegarder_cache_permanent(CACHE_CLASSEMENT_SAISON_FILE, cache_tables)
 
     return {
         "ligue": DOMESTIC_LEAGUES[league_id],
-        "saisonActuelle": {"saison": DOMESTIC_SEASON, "classement": table_actuelle},
+        "saisonActuelle": {"saison": saison_actuelle, "classement": table_actuelle},
         "saisonPrecedente": {"saison": saison_precedente, "classement": table_precedente}
     }
 
