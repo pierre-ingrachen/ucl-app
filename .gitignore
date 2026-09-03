@@ -1,3 +1,20 @@
 .env
 __pycache__/
 *.pyc
+
+# Caches regenerables via l'API : versionnes uniquement sur la branche
+# orpheline `cache-snapshot` (rafraichie chaque lundi par le workflow), pas sur
+# master. Une machine qui repart de zero les recupere avec :
+#   git fetch origin cache-snapshot
+#   git checkout origin/cache-snapshot -- 'cache_*.json'
+#   git restore --source=HEAD cache_paris.json cache_cotes_winamax.json
+# Les caches irremplaçables (paris passes, snapshots de cotes) restent sur master.
+cache_championnat_historique.json
+cache_championnat_season.json
+cache_classement.json
+cache_classement_actuelle.json
+cache_classement_saison.json
+cache_details.json
+cache_history_qualifs.json
+cache_season.json
+cache_teams.json

@@ -40,6 +40,22 @@ jobs:
           python-version: "3.13"
           cache: pip
 
+      - name: Restaurer les caches regenerables (branche cache-snapshot)
+        # master ne versionne que les caches irremplaçables (paris, cotes). Les
+        # gros caches API vivent sur la branche orpheline `cache-snapshot`. On
+        # les recupere ici pour eviter de recharger toute l'API a chaque run.
+        # Si la branche n'existe pas encore, le script se rattrape via l'API.
+        run: |
+          if ! git fetch --depth=1 origin cache-snapshot 2>/dev/null; then
+            echo "Pas de branche cache-snapshot : les caches seront reconstruits via l'API." | tee -a "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+          for f in cache_championnat_historique.json cache_championnat_season.json \
+                   cache_classement.json cache_classement_actuelle.json cache_classement_saison.json \
+                   cache_details.json cache_history_qualifs.json cache_season.json cache_teams.json; do
+            git show FETCH_HEAD:"$f" > "$f" 2>/dev/null && echo "restaure $f" || { rm -f "$f"; echo "absent dans le snapshot : $f"; }
+          done
+
       - name: Installer les dependances (avec reessais reseau)
         run: |
           for tentative in 1 2 3; do
@@ -77,7 +93,9 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add cache_paris.json cache_cotes_winamax.json cache_teams.json cache_championnat_historique.json
+          # Seuls les caches irremplaçables sont versionnes sur master ; les
+          # autres sont ignores (.gitignore) et pousses sur cache-snapshot.
+          git add cache_paris.json cache_cotes_winamax.json
           if git diff --cached --quiet; then
             echo "Aucune modification a committer." | tee -a "$GITHUB_STEP_SUMMARY"
             exit 0
@@ -88,6 +106,25 @@ jobs:
           for tentative in 1 2 3; do
             git pull --rebase --autostash origin master && git push origin HEAD:master && exit 0
             echo "Echec push (tentative $tentative), nouvelle tentative dans 10 s..."
+            sleep 10
+          done
+          exit 1
+
+      - name: Rafraichir la branche cache-snapshot (le lundi, ou si absente)
+        run: |
+          if [ "$(date -u +%u)" != "1" ] && git ls-remote --exit-code --heads origin cache-snapshot >/dev/null 2>&1; then
+            echo "Pas lundi et branche cache-snapshot deja presente : rien a faire." | tee -a "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+          # Branche orpheline reecrite entierement (force-push) : elle ne
+          # contient qu'un commit, donc aucun historique cumulatif de blobs.
+          git checkout --orphan snapshot-tmp
+          git reset
+          git add -f cache_*.json
+          git commit -m "Snapshot des caches $(date -u +%Y-%m-%d)"
+          for tentative in 1 2 3; do
+            git push -f origin snapshot-tmp:cache-snapshot && exit 0
+            echo "Echec push snapshot (tentative $tentative), nouvelle tentative dans 10 s..."
             sleep 10
           done
           exit 1
