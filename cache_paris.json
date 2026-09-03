@@ -1376,5 +1376,31 @@
         "mise": 0.274,
         "statut": "perdu",
         "gain": -0.274
+    },
+    {
+        "idEvent": "2490227",
+        "date": "2026-09-03",
+        "equipeDomicile": "Lech Pozna\u0144",
+        "equipeExterieur": "Jagiellonia Bia\u0142ystok",
+        "issue": "nul",
+        "coteBookmaker": 4.0,
+        "bookmaker": "Winamax",
+        "coteModele": 3.239,
+        "mise": 0.25,
+        "statut": "en_attente",
+        "gain": null
+    },
+    {
+        "idEvent": "2398828",
+        "date": "2026-09-03",
+        "equipeDomicile": "Mj\u00e4llby",
+        "equipeExterieur": "Djurg\u00e5rden",
+        "issue": "domicile",
+        "coteBookmaker": 3.85,
+        "bookmaker": "Winamax",
+        "coteModele": 2.569,
+        "mise": 0.2597,
+        "statut": "en_attente",
+        "gain": null
     }
 ]
