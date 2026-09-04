@@ -22,6 +22,13 @@ déclenché une fois par jour) :
 Le script est idempotent : relancé le même jour, il ne recrée pas un pari déjà
 présent (déduplication sur le couple `(idEvent, issue)`).
 
+Depuis 2026-09, l'étape `paris` tient **trois journaux en parallèle**, un par
+modèle de probabilité — `rating` (`cache_paris.json`, décrit ici), `ml`
+(`cache_paris_ml.json`) et `ensemble` (`cache_paris_ensemble.json`) — afin de
+comparer leurs performances dans l'onglet Bilan. Le critère de sélection et la
+mise sont identiques ; seule la probabilité (donc la cote du modèle) change. Le
+2ᵉ modèle est décrit dans [`ALGORITHME_ML.md`](ALGORITHME_ML.md).
+
 ## 1. Estimation de la probabilité de chaque issue
 
 Pour un match donné, le modèle produit trois probabilités qui somment à 1 :

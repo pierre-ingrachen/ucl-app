@@ -25,9 +25,12 @@ from main import (
     obtenir_pays_equipe, charger_cache_permanent, sauvegarder_cache_permanent,
     charger_historique_championnat, charger_cache,
     LEAGUE_IDS, DOMESTIC_LEAGUES, CACHE_TEAMS_FILE, CACHE_CHAMPIONNAT_HISTORIQUE_FILE,
-    CACHE_COTES_FILE, CACHE_PARIS_FILE,
+    CACHE_COTES_FILE, FICHIERS_PARIS,
 )
 from rating import predire_resultat
+from predictions_ml import predire_match_ml, ensemble_probas
+
+MODELES = ("rating", "ml", "ensemble")
 
 SEUIL_VALUE = 1.15  # cote bookmaker >= 15% au-dessus de la cote du modele
 COTE_MIN = 3.00  # cote bookmaker minimale pour prendre le pari
@@ -80,7 +83,7 @@ def resoudre_paris_en_attente(bilan):
             pari["gain"] = round(-pari["mise"], 4)
 
 
-def predictions_du_match(match, cache_teams, cache_championnat_historique):
+def _predictions_rating(match, cache_teams, cache_championnat_historique):
     id_ligue = match.get("idLeague")
     if id_ligue in LEAGUE_IDS:
         home_pays = obtenir_pays_equipe(match.get("idHomeTeam"), cache_teams)
@@ -94,8 +97,27 @@ def predictions_du_match(match, cache_teams, cache_championnat_historique):
     return None
 
 
-def chercher_nouveaux_paris(bilan, cotes_semaine):
-    deja_paries = {(p["idEvent"], p["issue"]) for p in bilan}
+def predictions_par_modele(match, cache_teams, cache_championnat_historique):
+    """{modele: {probaVictoireDomicile, probaNul, probaVictoireExterieure}} pour
+    les trois modeles ('rating', 'ml', 'ensemble'), ou None si le match est hors
+    perimetre. Les entrees d'un modele indisponible sont None."""
+    rating = _predictions_rating(match, cache_teams, cache_championnat_historique)
+    if rating is None:
+        return None
+    try:
+        ml = predire_match_ml(match)
+    except Exception as e:  # noqa: BLE001 - un echec ML ne doit pas bloquer le journal rating
+        print(f"  ! modele ML indisponible pour {match.get('idEvent')} : {e}")
+        ml = None
+    return {
+        "rating": rating,
+        "ml": ml,
+        "ensemble": ensemble_probas(rating, ml) if ml else None,
+    }
+
+
+def chercher_nouveaux_paris(journaux, cotes_semaine):
+    deja_paries = {m: {(p["idEvent"], p["issue"]) for p in journaux[m]} for m in MODELES}
     cache_teams = charger_cache_permanent(CACHE_TEAMS_FILE)
     cache_championnat_historique = charger_cache(CACHE_CHAMPIONNAT_HISTORIQUE_FILE) or {}
 
@@ -110,45 +132,50 @@ def chercher_nouveaux_paris(bilan, cotes_semaine):
         if not cotes or not cotes.get("bookmaker"):
             continue
 
-        predictions = predictions_du_match(match, cache_teams, cache_championnat_historique)
+        predictions = predictions_par_modele(match, cache_teams, cache_championnat_historique)
         if not predictions:
             continue
 
-        for issue, cle_proba, cle_cote in issues:
-            if (match["idEvent"], issue) in deja_paries:
+        for modele in MODELES:
+            probas = predictions.get(modele)
+            if not probas:
                 continue
-            c_modele = cote_modele(predictions.get(cle_proba))
-            c_bookmaker = cotes.get(cle_cote)
-            if not c_modele or not c_bookmaker or c_bookmaker < SEUIL_VALUE * c_modele:
-                continue
-            if c_bookmaker <= COTE_MIN:
-                continue
+            bilan = journaux[modele]
+            for issue, cle_proba, cle_cote in issues:
+                if (match["idEvent"], issue) in deja_paries[modele]:
+                    continue
+                c_modele = cote_modele(probas.get(cle_proba))
+                c_bookmaker = cotes.get(cle_cote)
+                if not c_modele or not c_bookmaker or c_bookmaker < SEUIL_VALUE * c_modele:
+                    continue
+                if c_bookmaker <= COTE_MIN:
+                    continue
 
-            bilan.append({
-                "idEvent": match["idEvent"],
-                "date": match.get("dateEvent"),
-                "equipeDomicile": match.get("strHomeTeam"),
-                "equipeExterieur": match.get("strAwayTeam"),
-                "issue": issue,
-                "coteBookmaker": c_bookmaker,
-                "bookmaker": cotes.get("bookmaker"),
-                "coteModele": round(c_modele, 3),
-                "mise": round(1 / c_bookmaker, 4),
-                "statut": "en_attente",
-                "gain": None,
-            })
+                bilan.append({
+                    "idEvent": match["idEvent"],
+                    "date": match.get("dateEvent"),
+                    "equipeDomicile": match.get("strHomeTeam"),
+                    "equipeExterieur": match.get("strAwayTeam"),
+                    "issue": issue,
+                    "coteBookmaker": c_bookmaker,
+                    "bookmaker": cotes.get("bookmaker"),
+                    "coteModele": round(c_modele, 3),
+                    "mise": round(1 / c_bookmaker, 4),
+                    "statut": "en_attente",
+                    "gain": None,
+                })
 
     sauvegarder_cache_permanent(CACHE_TEAMS_FILE, cache_teams)
     sauvegarder_cache_permanent(CACHE_CHAMPIONNAT_HISTORIQUE_FILE, cache_championnat_historique)
 
 
-def afficher_bilan(bilan):
+def afficher_bilan(bilan, titre="Bilan des paris"):
     resolus = [p for p in bilan if p["statut"] != "en_attente"]
     gain_total = sum(p["gain"] for p in resolus)
     gagnes = sum(1 for p in resolus if p["statut"] == "gagne")
     en_attente = sum(1 for p in bilan if p["statut"] == "en_attente")
 
-    print(f"## Bilan des paris — {date.today()}\n")
+    print(f"## {titre} — {date.today()}\n")
     print(f"- Paris resolus : {len(resolus)} ({gagnes} gagnes, {len(resolus) - gagnes} perdus)")
     print(f"- Gain net cumule : {gain_total:+.2f} unites")
     print(f"- Paris en attente : {en_attente}\n")
@@ -177,19 +204,29 @@ def etape_cotes():
     return cotes
 
 
+TITRES = {"rating": "Bilan des paris (modele rating)",
+          "ml": "Bilan des paris (modele IA)",
+          "ensemble": "Bilan des paris (ensemble)"}
+
+
 def etape_paris(cotes_semaine):
-    """Etape 2 : resout les paris en attente puis choisit les paris du jour, a partir des
-    cotes deja recuperees a l'etape precedente (aucun nouvel appel a The Odds API ici)."""
-    bilan = charger_cache_permanent(CACHE_PARIS_FILE)
-    if not isinstance(bilan, list):
-        bilan = []
-    bilan = [p for p in bilan if p.get("coteBookmaker", 0) >= COTE_MIN]
+    """Etape 2 : resout les paris en attente puis choisit les paris du jour, pour les trois
+    modeles de probabilite (journaux distincts), a partir des cotes deja recuperees a l'etape
+    precedente (aucun nouvel appel a The Odds API ici)."""
+    journaux = {}
+    for modele in MODELES:
+        bilan = charger_cache_permanent(FICHIERS_PARIS[modele])
+        if not isinstance(bilan, list):
+            bilan = []
+        journaux[modele] = [p for p in bilan if p.get("coteBookmaker", 0) >= COTE_MIN]
+        resoudre_paris_en_attente(journaux[modele])
 
-    resoudre_paris_en_attente(bilan)
-    chercher_nouveaux_paris(bilan, cotes_semaine)
+    chercher_nouveaux_paris(journaux, cotes_semaine)
 
-    sauvegarder_cache_permanent(CACHE_PARIS_FILE, bilan)
-    afficher_bilan(bilan)
+    for modele in MODELES:
+        sauvegarder_cache_permanent(FICHIERS_PARIS[modele], journaux[modele])
+        afficher_bilan(journaux[modele], TITRES[modele])
+        print()
 
 
 if __name__ == "__main__":

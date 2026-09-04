@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SportsApiService } from '../services/sports-api';
 
+type ModeleParis = 'rating' | 'ml' | 'ensemble';
+
 @Component({
   selector: 'app-bilan',
   standalone: true,
@@ -13,16 +15,35 @@ export class Bilan implements OnInit {
   isLoading = true;
   paris: any[] = [];
 
+  readonly modeles: { cle: ModeleParis; libelle: string }[] = [
+    { cle: 'rating', libelle: 'Rating' },
+    { cle: 'ml', libelle: 'IA' },
+    { cle: 'ensemble', libelle: 'Ensemble' },
+  ];
+  modeleActif: ModeleParis = 'rating';
+
   constructor(private sportsApi: SportsApiService) {}
 
   ngOnInit(): void {
-    this.sportsApi.getParis().subscribe({
+    this.charger();
+  }
+
+  changerModele(modele: ModeleParis): void {
+    if (modele === this.modeleActif) return;
+    this.modeleActif = modele;
+    this.charger();
+  }
+
+  private charger(): void {
+    this.isLoading = true;
+    this.sportsApi.getParis(this.modeleActif).subscribe({
       next: (data) => {
         this.paris = data;
         this.isLoading = false;
       },
       error: (err) => {
         console.error('Erreur de récupération API :', err);
+        this.paris = [];
         this.isLoading = false;
       }
     });

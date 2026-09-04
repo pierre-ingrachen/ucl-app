@@ -10,6 +10,8 @@ __pycache__/
 #   git restore --source=HEAD cache_paris.json cache_cotes_winamax.json
 # Les caches irremplaçables (paris passes, snapshots de cotes) restent sur master.
 cache_championnat_historique.json
+cache_ml_matchs.json
+cache_modele_ml.pkl
 cache_championnat_season.json
 cache_classement.json
 cache_classement_actuelle.json

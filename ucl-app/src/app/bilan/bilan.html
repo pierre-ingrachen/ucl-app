@@ -1,6 +1,17 @@
 <div class="container">
   <h1>Bilan des paris</h1>
 
+  <div style="display: flex; justify-content: center; gap: 6px; margin-bottom: 20px;">
+    @for (m of modeles; track m.cle) {
+      <button type="button" (click)="changerModele(m.cle)"
+        [style.background]="m.cle === modeleActif ? '#1d4ed8' : '#eee'"
+        [style.color]="m.cle === modeleActif ? '#fff' : '#333'"
+        style="padding: 6px 16px; border: none; border-radius: 14px; font-size: 0.9em; font-weight: bold; cursor: pointer;">
+        {{ m.libelle }}
+      </button>
+    }
+  </div>
+
   @if (isLoading) {
     <p class="text-center">Chargement du bilan...</p>
   } @else if (paris.length === 0) {

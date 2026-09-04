@@ -131,6 +131,15 @@ CACHE_CLASSEMENT_SAISON_FILE = "cache_classement_saison.json"
 CACHE_CLASSEMENT_ACTUELLE_FILE = "cache_classement_actuelle.json"
 CACHE_COTES_FILE = "cache_cotes_winamax.json"
 CACHE_PARIS_FILE = "cache_paris.json"
+CACHE_PARIS_ML_FILE = "cache_paris_ml.json"
+CACHE_PARIS_ENSEMBLE_FILE = "cache_paris_ensemble.json"
+
+# Journaux de paris : un par modèle de probabilité (comparaison de performance).
+FICHIERS_PARIS = {
+    "rating": CACHE_PARIS_FILE,
+    "ml": CACHE_PARIS_ML_FILE,
+    "ensemble": CACHE_PARIS_ENSEMBLE_FILE,
+}
 
 def requete_api_avec_retry(url, tentatives=3, delai=1.5):
     """GET avec quelques nouvelles tentatives en cas d'indisponibilite ponctuelle de
@@ -254,6 +263,36 @@ def obtenir_modele_championnat(league_id, historique_ligue):
         _modeles_championnat[league_id] = construire_modele_championnat(historique_ligue)
     return _modeles_championnat[league_id]
 
+def _injecter_predictions_ml(match_data):
+    """Ajoute les probabilites du modele d'apprentissage (probaML*) et celles de
+    l'ensemble (probaEns*). Import paresseux : scikit-learn n'est charge que si une
+    fiche de match est reellement consultee. Toute erreur est silencieuse - la
+    fiche reste utilisable avec le seul modele de rating."""
+    if "probaMLVictoireDomicile" in match_data:
+        return
+    try:
+        from predictions_ml import predire_match_ml, ensemble_probas
+        p_ml = predire_match_ml(match_data)
+    except Exception:
+        return
+    match_data["probaMLVictoireDomicile"] = p_ml["probaVictoireDomicile"]
+    match_data["probaMLNul"] = p_ml["probaNul"]
+    match_data["probaMLVictoireExterieure"] = p_ml["probaVictoireExterieure"]
+    match_data["lambdaMLDomicile"] = p_ml.get("lambdaDomicile")
+    match_data["lambdaMLExterieure"] = p_ml.get("lambdaExterieure")
+
+    rating = {
+        "probaVictoireDomicile": match_data.get("probaVictoireDomicile"),
+        "probaNul": match_data.get("probaNul"),
+        "probaVictoireExterieure": match_data.get("probaVictoireExterieure"),
+    }
+    ens = ensemble_probas(rating, p_ml)
+    if ens:
+        match_data["probaEnsVictoireDomicile"] = ens["probaVictoireDomicile"]
+        match_data["probaEnsNul"] = ens["probaNul"]
+        match_data["probaEnsVictoireExterieure"] = ens["probaVictoireExterieure"]
+
+
 def injecter_predictions(match_data, cache_championnat_historique):
     """Ajoute les probabilites de resultat a une fiche de match, europeen ou national, si ce
     n'est pas deja fait. Ne fait rien pour les competitions hors perimetre des modeles."""
@@ -273,6 +312,10 @@ def injecter_predictions(match_data, cache_championnat_historique):
         match_data.update(predire_resultat(
             modele, match_data.get("idHomeTeam"), match_data.get("idAwayTeam"), "", ""
         ))
+    else:
+        return
+
+    _injecter_predictions_ml(match_data)
 
 def _grouper_matchs_par_ligue(matchs):
     groupes = {}
@@ -641,10 +684,16 @@ def get_match_details(event_id: str):
         match_data = cache_details[event_id]
         # Comble une fiche mise en cache avant l'ajout des probabilites (sinon elle resterait
         # sans prediction jusqu'au renouvellement du cache le lendemain).
-        if "probaVictoireDomicile" not in match_data:
+        besoin_rating = "probaVictoireDomicile" not in match_data
+        besoin_ml = ("probaVictoireDomicile" in match_data
+                     and "probaMLVictoireDomicile" not in match_data)
+        if besoin_rating or besoin_ml:
             cache_championnat_historique = charger_cache(CACHE_CHAMPIONNAT_HISTORIQUE_FILE) or {}
             cles_avant = set(cache_championnat_historique)
-            injecter_predictions(match_data, cache_championnat_historique)
+            if besoin_rating:
+                injecter_predictions(match_data, cache_championnat_historique)
+            else:
+                _injecter_predictions_ml(match_data)
             # Pour un match europeen, `injecter_predictions` ne touche pas ce cache : on evite
             # alors de reecrire 1 Mo de JSON pour rien.
             if set(cache_championnat_historique) != cles_avant:
@@ -716,10 +765,14 @@ def get_match_details(event_id: str):
         raise HTTPException(status_code=500, detail="Erreur API")
 
 @app.get("/api/paris")
-def get_paris():
+def get_paris(modele: str = "rating"):
     """Journal des paris "value" repere par bilan_paris.py (execute chaque matin via GitHub
-    Actions), le plus recent en premier."""
-    bilan = charger_cache_permanent(CACHE_PARIS_FILE)
+    Actions), le plus recent en premier. `modele` : rating (defaut), ml ou ensemble - un
+    journal distinct par modele de probabilite, pour comparer leurs performances."""
+    fichier = FICHIERS_PARIS.get(modele)
+    if fichier is None:
+        raise HTTPException(status_code=404, detail="Modele de paris inconnu")
+    bilan = charger_cache_permanent(fichier)
     if not isinstance(bilan, list):
         bilan = []
     return {"paris": sorted(bilan, key=lambda p: p.get("date", ""), reverse=True)}

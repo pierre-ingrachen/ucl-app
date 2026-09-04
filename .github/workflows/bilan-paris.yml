@@ -52,7 +52,8 @@ jobs:
           fi
           for f in cache_championnat_historique.json cache_championnat_season.json \
                    cache_classement.json cache_classement_actuelle.json cache_classement_saison.json \
-                   cache_details.json cache_history_qualifs.json cache_season.json cache_teams.json; do
+                   cache_details.json cache_history_qualifs.json cache_season.json cache_teams.json \
+                   cache_ml_matchs.json; do
             git show FETCH_HEAD:"$f" > "$f" 2>/dev/null && echo "restaure $f" || { rm -f "$f"; echo "absent dans le snapshot : $f"; }
           done
 
@@ -77,6 +78,26 @@ jobs:
           done
           python bilan_paris.py cotes | tee -a "$GITHUB_STEP_SUMMARY"
 
+      - name: Rafraichir l'historique du modele IA (le lundi, ou si absent)
+        # cache_ml_matchs.json = historique profond (5 saisons) du 2e modele de
+        # prediction. Reconstruit via l'API une fois par semaine seulement (~120
+        # requetes) ; les autres jours, dataset_ml.py comble les derniers
+        # resultats a partir des caches quotidiens deja charges (aucun appel).
+        env:
+          SPORTSDB_API_KEY: ${{ secrets.SPORTSDB_API_KEY }}
+          ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
+        run: |
+          if [ "$(date -u +%u)" != "1" ] && [ -f cache_ml_matchs.json ]; then
+            echo "Pas lundi et cache_ml_matchs.json present : rien a faire." | tee -a "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+          for tentative in 1 2 3; do
+            python construire_cache_ml.py | tee -a "$GITHUB_STEP_SUMMARY" && exit 0
+            echo "Echec construction cache IA (tentative $tentative), nouvelle tentative dans 30 s..."
+            sleep 30
+          done
+          echo "Construction cache IA en echec : le modele s'appuiera sur les caches du site." | tee -a "$GITHUB_STEP_SUMMARY"
+
       - name: Choisir les paris du jour
         env:
           SPORTSDB_API_KEY: ${{ secrets.SPORTSDB_API_KEY }}
@@ -95,7 +116,7 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           # Seuls les caches irremplaçables sont versionnes sur master ; les
           # autres sont ignores (.gitignore) et pousses sur cache-snapshot.
-          git add cache_paris.json cache_cotes_winamax.json
+          git add cache_paris.json cache_paris_ml.json cache_paris_ensemble.json cache_cotes_winamax.json
           if git diff --cached --quiet; then
             echo "Aucune modification a committer." | tee -a "$GITHUB_STEP_SUMMARY"
             exit 0

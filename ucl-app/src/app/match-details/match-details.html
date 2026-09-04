@@ -92,6 +92,41 @@
             </div>
           </div>
 
+          <!-- Bloc 1 bis : prédictions du modèle IA (régression Poisson) -->
+          @if (match.probaMLVictoireDomicile !== undefined) {
+            <h3 style="color: #0d9488; margin: 24px 0 0 0; padding-top: 20px; border-top: 1px solid #eee;">Prédictions IA</h3>
+
+            <div style="display: flex; height: 12px; border-radius: 6px; overflow: hidden; margin-bottom: 10px;">
+              <div [style.width.%]="match.probaMLVictoireDomicile * 100" style="background-color: #0d9488;"></div>
+              <div [style.width.%]="match.probaMLNul * 100" style="background-color: #ccc;"></div>
+              <div [style.width.%]="match.probaMLVictoireExterieure * 100" style="background-color: #5eead4;"></div>
+            </div>
+
+            <div style="display: flex; justify-content: space-around; text-align: center; font-size: 0.9em;">
+              <div>
+                <div style="font-weight: bold; color: #0d9488;">{{ match.probaMLVictoireDomicile * 100 | number:'1.0-0' }}%</div>
+                <div style="color: #888; font-size: 0.85em;">{{ match.strHomeTeam }}</div>
+                <div style="color: #333; margin-top: 4px;">Cote {{ cote(match.probaMLVictoireDomicile) }}</div>
+              </div>
+              <div>
+                <div style="font-weight: bold; color: #999;">{{ match.probaMLNul * 100 | number:'1.0-0' }}%</div>
+                <div style="color: #888; font-size: 0.85em;">Nul</div>
+                <div style="color: #333; margin-top: 4px;">Cote {{ cote(match.probaMLNul) }}</div>
+              </div>
+              <div>
+                <div style="font-weight: bold; color: #5eead4;">{{ match.probaMLVictoireExterieure * 100 | number:'1.0-0' }}%</div>
+                <div style="color: #888; font-size: 0.85em;">{{ match.strAwayTeam }}</div>
+                <div style="color: #333; margin-top: 4px;">Cote {{ cote(match.probaMLVictoireExterieure) }}</div>
+              </div>
+            </div>
+
+            @if (match.lambdaMLDomicile) {
+              <div style="text-align: center; color: #888; font-size: 0.85em; margin-top: 8px;">
+                Buts attendus : {{ match.lambdaMLDomicile | number:'1.1-1' }} – {{ match.lambdaMLExterieure | number:'1.1-1' }}
+              </div>
+            }
+          }
+
           <!-- Bloc 2 : cotes du bookmaker (Winamax en priorite, sinon Betclic, sinon Unibet),
                meme format pour comparaison directe. `coteBookmaker` present a None signifie
                que le match est suivi mais qu'aucun des 3 bookmakers n'a encore de cote. -->

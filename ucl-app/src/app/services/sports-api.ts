@@ -67,8 +67,9 @@ export class SportsApiService {
     );
   }
 
-  getParis(): Observable<any[]> {
-    return this.http.get<any>('http://localhost:8000/api/paris').pipe(
+  /** Journal des paris d'un modèle : 'rating' (défaut), 'ml' ou 'ensemble'. */
+  getParis(modele: 'rating' | 'ml' | 'ensemble' = 'rating'): Observable<any[]> {
+    return this.http.get<any>(`http://localhost:8000/api/paris?modele=${modele}`).pipe(
       map(response => response.paris || [])
     );
   }
