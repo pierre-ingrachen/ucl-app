@@ -18,7 +18,6 @@ Usage :
 import json
 import os
 import sys
-import time
 
 import requests
 from dotenv import load_dotenv
@@ -30,6 +29,7 @@ from main import (
     categoriser_phase,
     charger_cache_permanent,
     sauvegarder_cache_permanent,
+    requete_api_avec_retry,
 )
 
 load_dotenv()
@@ -92,7 +92,8 @@ def _normaliser(m, est_europe, cache_teams):
 
 
 def _completer_pays(matchs, cache_teams):
-    """Renseigne le pays des équipes européennes encore inconnues (0.6 s / équipe)."""
+    """Renseigne le pays des équipes européennes encore inconnues (throttlé par
+    requete_api_avec_retry, cf. main.py)."""
     manquantes = {
         m["homeId"] for m in matchs if m["typeCompetition"] == "europe" and not m["homePays"]
     } | {
@@ -106,14 +107,13 @@ def _completer_pays(matchs, cache_teams):
     for team_id in manquantes:
         url = f"https://www.thesportsdb.com/api/v1/json/{API_KEY}/lookupteam.php?id={team_id}"
         try:
-            resp = requests.get(url, timeout=15)
+            resp = requete_api_avec_retry(url)
             if resp.status_code == 200 and resp.json().get("teams"):
                 cache_teams[team_id] = resp.json()["teams"][0].get("strCountry", "") or ""
             else:
                 cache_teams[team_id] = ""
         except requests.exceptions.RequestException:
             cache_teams[team_id] = ""
-        time.sleep(0.6)
 
     for m in matchs:
         if m["typeCompetition"] != "europe":
@@ -134,7 +134,7 @@ def construire(dry_run=False):
     for league_id, est_europe in ligues:
         for saison in _saisons(league_id, est_europe):
             try:
-                resp = requests.get(_url_saison(league_id, saison), timeout=30)
+                resp = requete_api_avec_retry(_url_saison(league_id, saison))
                 resp.raise_for_status()
                 events = resp.json().get("events") or []
             except requests.exceptions.RequestException as e:
@@ -149,7 +149,6 @@ def construire(dry_run=False):
                     par_id[norm["idEvent"]] = norm
                     n += 1
             print(f"  {league_id:>6} {saison} : {n:>4} matchs terminés")
-            time.sleep(0.2)
 
     matchs = sorted(par_id.values(), key=lambda m: (m["timestamp"], m["idEvent"]))
     teams_maj = _completer_pays(matchs, cache_teams)

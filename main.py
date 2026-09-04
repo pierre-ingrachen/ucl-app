@@ -144,11 +144,33 @@ FICHIERS_PARIS = {
     "ensemble": CACHE_PARIS_ENSEMBLE_FILE,
 }
 
+_DERNIER_APPEL_SPORTSDB = [0.0]
+DELAI_MIN_ENTRE_APPELS_SPORTSDB = 0.3  # secondes entre deux appels, pour rester sous la
+# limite de débit de l'offre gratuite TheSportsDB (déclenchée dans le passé quand tous
+# les appels d'un run partaient sans aucun espacement).
+
 def requete_api_avec_retry(url, tentatives=3, delai=1.5):
-    """GET avec quelques nouvelles tentatives en cas d'indisponibilite ponctuelle de
-    TheSportsDB (503), frequente sur l'offre gratuite. Laisse remonter le dernier echec."""
+    """GET vers TheSportsDB avec espacement global entre appels (throttling) et
+    nouvelles tentatives en cas d'indisponibilite ponctuelle (503, frequent sur l'offre
+    gratuite) ou de limitation de debit (429, respecte l'en-tete Retry-After si present).
+    Point de passage unique pour tous les appels a l'API : ne pas utiliser requests.get
+    directement ailleurs, sous peine de recreer le probleme de sur-appel."""
     for tentative in range(tentatives):
-        response = requests.get(url)
+        attente = DELAI_MIN_ENTRE_APPELS_SPORTSDB - (time.monotonic() - _DERNIER_APPEL_SPORTSDB[0])
+        if attente > 0:
+            time.sleep(attente)
+        response = requests.get(url, timeout=20)
+        _DERNIER_APPEL_SPORTSDB[0] = time.monotonic()
+
+        if response.status_code == 429:
+            if tentative == tentatives - 1:
+                return response
+            try:
+                attente_429 = float(response.headers.get("Retry-After", delai * (tentative + 1) * 3))
+            except ValueError:
+                attente_429 = delai * (tentative + 1) * 3
+            time.sleep(attente_429)
+            continue
         if response.status_code != 503 or tentative == tentatives - 1:
             return response
         time.sleep(delai)
@@ -414,7 +436,7 @@ def obtenir_pays_equipe(team_id, cache_teams):
 
     url = f"https://www.thesportsdb.com/api/v1/json/{API_KEY}/lookupteam.php?id={team_id}"
     try:
-        resp = requests.get(url)
+        resp = requete_api_avec_retry(url)
         if resp.status_code == 200 and resp.json().get("teams"):
             pays = resp.json()["teams"][0].get("strCountry", "")
             cache_teams[team_id] = pays
@@ -441,7 +463,7 @@ def obtenir_classement_national(team_id, cache_classement):
 
     try:
         url_equipe = f"https://www.thesportsdb.com/api/v1/json/{API_KEY}/lookupteam.php?id={team_id}"
-        resp = requests.get(url_equipe)
+        resp = requete_api_avec_retry(url_equipe)
         equipes = resp.json().get("teams") if resp.status_code == 200 else None
         id_ligue_nationale = equipes[0].get("idLeague") if equipes else None
         nom_ligue_nationale = equipes[0].get("strLeague") if equipes else None
@@ -456,7 +478,7 @@ def obtenir_classement_national(team_id, cache_classement):
         for saison_candidate in (f"{annee - 1}-{annee}", str(annee - 1)):
             try:
                 url_classement = f"https://www.thesportsdb.com/api/v1/json/{API_KEY}/lookuptable.php?l={id_ligue_nationale}&s={saison_candidate}"
-                resp_classement = requests.get(url_classement)
+                resp_classement = requete_api_avec_retry(url_classement)
                 table = resp_classement.json().get("table") if resp_classement.status_code == 200 else None
             except requests.exceptions.RequestException:
                 continue
@@ -510,7 +532,7 @@ def obtenir_table_saison(league_id, season, cache_tables):
         table = None
         try:
             url = f"https://www.thesportsdb.com/api/v1/json/{API_KEY}/lookuptable.php?l={league_id}&s={season}"
-            resp = requests.get(url)
+            resp = requete_api_avec_retry(url)
             if resp.status_code == 200:
                 table = resp.json().get("table")
         except requests.exceptions.RequestException:
@@ -527,7 +549,7 @@ def obtenir_table_saison(league_id, season, cache_tables):
     table = None
     try:
         url = f"https://www.thesportsdb.com/api/v1/json/{API_KEY}/lookuptable.php?l={league_id}&s={season}"
-        resp = requests.get(url)
+        resp = requete_api_avec_retry(url)
         if resp.status_code == 200:
             table = resp.json().get("table")
     except requests.exceptions.RequestException:
@@ -568,7 +590,7 @@ def charger_historique_championnat(league_id, cache_historique):
     for season in saisons_passees_ligue(league_id) + [saison_actuelle_ligue(league_id)]:
         url = f"https://www.thesportsdb.com/api/v1/json/{API_KEY}/eventsseason.php?id={league_id}&s={season}"
         try:
-            resp = requests.get(url)
+            resp = requete_api_avec_retry(url)
             resp.raise_for_status()
             for m in resp.json().get("events", []) or []:
                 if m.get("intHomeScore") is None or m.get("intAwayScore") is None:
@@ -616,7 +638,7 @@ def obtenir_matchs_a_venir():
         for league_id in LEAGUE_IDS:
             url = f"https://www.thesportsdb.com/api/v1/json/{API_KEY}/eventsseason.php?id={league_id}&s={SEASON}"
             try:
-                response = requests.get(url)
+                response = requete_api_avec_retry(url)
                 response.raise_for_status()
                 matchs.extend(response.json().get("events", []) or [])
             except requests.exceptions.RequestException:
@@ -639,7 +661,7 @@ def obtenir_matchs_championnats_a_venir():
         for league_id in DOMESTIC_LEAGUES:
             url = f"https://www.thesportsdb.com/api/v1/json/{API_KEY}/eventsseason.php?id={league_id}&s={saison_actuelle_ligue(league_id)}"
             try:
-                response = requests.get(url)
+                response = requete_api_avec_retry(url)
                 response.raise_for_status()
                 matchs.extend(response.json().get("events", []) or [])
             except requests.exceptions.RequestException:
@@ -801,7 +823,7 @@ def obtenir_historique_qualifications():
             for season in PAST_SEASONS + [SEASON]:
                 url = f"https://www.thesportsdb.com/api/v1/json/{API_KEY}/eventsseason.php?id={league_id}&s={season}"
                 try:
-                    response = requests.get(url)
+                    response = requete_api_avec_retry(url)
                     response.raise_for_status()
                     matchs = response.json().get("events", [])
 
@@ -822,7 +844,7 @@ def obtenir_historique_qualifications():
             if team_id and team_id not in cache_teams:
                 url = f"https://www.thesportsdb.com/api/v1/json/{API_KEY}/lookupteam.php?id={team_id}"
                 try:
-                    resp = requests.get(url)
+                    resp = requete_api_avec_retry(url)
                     if resp.status_code == 200 and resp.json().get("teams"):
                         cache_teams[team_id] = resp.json()["teams"][0].get("strCountry", "")
                         teams_updated = True

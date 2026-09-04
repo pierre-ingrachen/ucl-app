@@ -1,26 +1,23 @@
 name: Bilan quotidien des paris
 
 on:
-  # Declenchement principal : planificateur externe (cron-job.org) via l'API
+  # Declenchement unique : planificateur externe (cron-job.org) via l'API
   # workflow_dispatch -> execution immediate, sans file d'attente GitHub.
+  # (Le cron natif GitHub a ete retire : il se declenchait en plus du run du
+  # matin, doublant tous les appels a TheSportsDB et provoquant un refus de
+  # l'API par depassement de quota.)
   workflow_dispatch:
     inputs:
       source:
         description: "Origine du declenchement (trace)"
         required: false
         default: "manuel"
-  # Filet de securite : cron natif GitHub, plus tard dans la journee, au cas ou
-  # cron-job.org serait indisponible. Souvent en retard mais le script est
-  # idempotent (commit seulement si diff, releve des cotes seulement mardi/vendredi)
-  # et se rattrape tout seul (relance ciblee sur les matchs encore sans cote).
-  schedule:
-    - cron: "43 10 * * *"
 
 permissions:
   contents: write
 
-# Une seule execution a la fois : evite toute course sur le git push si le
-# declenchement principal et le filet de securite se chevauchent.
+# Une seule execution a la fois : evite toute course sur le git push si deux
+# declenchements manuels se chevauchent.
 concurrency:
   group: bilan-paris
   cancel-in-progress: false
