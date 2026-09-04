@@ -37,5 +37,31 @@
         "mise": 0.1887,
         "statut": "en_attente",
         "gain": null
+    },
+    {
+        "idEvent": "2496726",
+        "date": "2026-09-04",
+        "equipeDomicile": "Lommel",
+        "equipeExterieur": "Club Brugge",
+        "issue": "nul",
+        "coteBookmaker": 5.9,
+        "bookmaker": "Winamax",
+        "coteModele": 4.904,
+        "mise": 0.1695,
+        "statut": "en_attente",
+        "gain": null
+    },
+    {
+        "idEvent": "2399145",
+        "date": "2026-09-04",
+        "equipeDomicile": "Fredrikstad",
+        "equipeExterieur": "Bod\u00f8/Glimt",
+        "issue": "nul",
+        "coteBookmaker": 5.8,
+        "bookmaker": "Winamax",
+        "coteModele": 5.039,
+        "mise": 0.1724,
+        "statut": "en_attente",
+        "gain": null
     }
 ]
