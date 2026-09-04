@@ -25,7 +25,7 @@ from main import (
     obtenir_pays_equipe, charger_cache_permanent, sauvegarder_cache_permanent,
     charger_historique_championnat, charger_cache,
     LEAGUE_IDS, DOMESTIC_LEAGUES, CACHE_TEAMS_FILE, CACHE_CHAMPIONNAT_HISTORIQUE_FILE,
-    CACHE_COTES_FILE, FICHIERS_PARIS,
+    CACHE_COTES_FILE, FICHIERS_PARIS, CACHE_PARIS_ANALYSES_FILE,
 )
 from rating import predire_resultat
 from predictions_ml import predire_match_ml, ensemble_probas
@@ -127,6 +127,7 @@ def chercher_nouveaux_paris(journaux, cotes_semaine):
         ("exterieure", "probaVictoireExterieure", "exterieure"),
     ]
 
+    nb_analyses = 0
     for match in matchs_du_jour():
         cotes = cotes_semaine.get(match["idEvent"])
         if not cotes or not cotes.get("bookmaker"):
@@ -135,6 +136,7 @@ def chercher_nouveaux_paris(journaux, cotes_semaine):
         predictions = predictions_par_modele(match, cache_teams, cache_championnat_historique)
         if not predictions:
             continue
+        nb_analyses += 1
 
         for modele in MODELES:
             probas = predictions.get(modele)
@@ -167,15 +169,19 @@ def chercher_nouveaux_paris(journaux, cotes_semaine):
 
     sauvegarder_cache_permanent(CACHE_TEAMS_FILE, cache_teams)
     sauvegarder_cache_permanent(CACHE_CHAMPIONNAT_HISTORIQUE_FILE, cache_championnat_historique)
+    return nb_analyses
 
 
-def afficher_bilan(bilan, titre="Bilan des paris"):
+def afficher_bilan(bilan, titre="Bilan des paris", matchs_analyses=None, matchs_analyses_jour=None):
     resolus = [p for p in bilan if p["statut"] != "en_attente"]
     gain_total = sum(p["gain"] for p in resolus)
     gagnes = sum(1 for p in resolus if p["statut"] == "gagne")
     en_attente = sum(1 for p in bilan if p["statut"] == "en_attente")
 
     print(f"## {titre} — {date.today()}\n")
+    if matchs_analyses is not None:
+        detail_jour = f" (+{matchs_analyses_jour} aujourd'hui)" if matchs_analyses_jour else ""
+        print(f"- Matchs analyses : {matchs_analyses}{detail_jour}")
     print(f"- Paris resolus : {len(resolus)} ({gagnes} gagnes, {len(resolus) - gagnes} perdus)")
     print(f"- Gain net cumule : {gain_total:+.2f} unites")
     print(f"- Paris en attente : {en_attente}\n")
@@ -221,11 +227,18 @@ def etape_paris(cotes_semaine):
         journaux[modele] = [p for p in bilan if p.get("coteBookmaker", 0) >= COTE_MIN]
         resoudre_paris_en_attente(journaux[modele])
 
-    chercher_nouveaux_paris(journaux, cotes_semaine)
+    nb_analyses_jour = chercher_nouveaux_paris(journaux, cotes_semaine)
+
+    analyses = charger_cache_permanent(CACHE_PARIS_ANALYSES_FILE)
+    if not isinstance(analyses, dict):
+        analyses = {}
+    analyses[str(date.today())] = nb_analyses_jour
+    sauvegarder_cache_permanent(CACHE_PARIS_ANALYSES_FILE, analyses)
+    nb_analyses_total = sum(analyses.values())
 
     for modele in MODELES:
         sauvegarder_cache_permanent(FICHIERS_PARIS[modele], journaux[modele])
-        afficher_bilan(journaux[modele], TITRES[modele])
+        afficher_bilan(journaux[modele], TITRES[modele], nb_analyses_total, nb_analyses_jour)
         print()
 
 

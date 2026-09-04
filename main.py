@@ -133,6 +133,9 @@ CACHE_COTES_FILE = "cache_cotes_winamax.json"
 CACHE_PARIS_FILE = "cache_paris.json"
 CACHE_PARIS_ML_FILE = "cache_paris_ml.json"
 CACHE_PARIS_ENSEMBLE_FILE = "cache_paris_ensemble.json"
+# Nombre de matchs reellement analyses par jour (memes matchs pour les 3 modeles) :
+# {date -> nb}. Sert a afficher "X matchs analyses" a cote du bilan.
+CACHE_PARIS_ANALYSES_FILE = "cache_paris_analyses.json"
 
 # Journaux de paris : un par modèle de probabilité (comparaison de performance).
 FICHIERS_PARIS = {
@@ -775,7 +778,12 @@ def get_paris(modele: str = "rating"):
     bilan = charger_cache_permanent(fichier)
     if not isinstance(bilan, list):
         bilan = []
-    return {"paris": sorted(bilan, key=lambda p: p.get("date", ""), reverse=True)}
+    analyses = charger_cache_permanent(CACHE_PARIS_ANALYSES_FILE)
+    nb_analyses = sum(analyses.values()) if isinstance(analyses, dict) else 0
+    return {
+        "paris": sorted(bilan, key=lambda p: p.get("date", ""), reverse=True),
+        "matchsAnalyses": nb_analyses,
+    }
 
 def obtenir_historique_qualifications():
     """Historique complet (3 dernieres saisons + saison en cours deja jouee)

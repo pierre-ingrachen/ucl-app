@@ -1,1 +1,41 @@
-[]
+[
+    {
+        "idEvent": "2489484",
+        "date": "2026-09-04",
+        "equipeDomicile": "Paris Saint-Germain",
+        "equipeExterieur": "Monaco",
+        "issue": "nul",
+        "coteBookmaker": 5.8,
+        "bookmaker": "Winamax",
+        "coteModele": 4.754,
+        "mise": 0.1724,
+        "statut": "en_attente",
+        "gain": null
+    },
+    {
+        "idEvent": "2506205",
+        "date": "2026-09-04",
+        "equipeDomicile": "Real Betis",
+        "equipeExterieur": "Real Madrid",
+        "issue": "domicile",
+        "coteBookmaker": 6.5,
+        "bookmaker": "Winamax",
+        "coteModele": 4.043,
+        "mise": 0.1538,
+        "statut": "en_attente",
+        "gain": null
+    },
+    {
+        "idEvent": "2506205",
+        "date": "2026-09-04",
+        "equipeDomicile": "Real Betis",
+        "equipeExterieur": "Real Madrid",
+        "issue": "nul",
+        "coteBookmaker": 5.3,
+        "bookmaker": "Winamax",
+        "coteModele": 3.859,
+        "mise": 0.1887,
+        "statut": "en_attente",
+        "gain": null
+    }
+]

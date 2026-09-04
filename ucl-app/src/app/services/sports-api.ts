@@ -68,9 +68,12 @@ export class SportsApiService {
   }
 
   /** Journal des paris d'un modèle : 'rating' (défaut), 'ml' ou 'ensemble'. */
-  getParis(modele: 'rating' | 'ml' | 'ensemble' = 'rating'): Observable<any[]> {
+  getParis(modele: 'rating' | 'ml' | 'ensemble' = 'rating'): Observable<{ paris: any[]; matchsAnalyses: number }> {
     return this.http.get<any>(`http://localhost:8000/api/paris?modele=${modele}`).pipe(
-      map(response => response.paris || [])
+      map(response => ({
+        paris: response.paris || [],
+        matchsAnalyses: response.matchsAnalyses || 0,
+      }))
     );
   }
 }

@@ -16,8 +16,15 @@
     <p class="text-center">Chargement du bilan...</p>
   } @else if (paris.length === 0) {
     <p class="text-center">Aucun pari enregistré pour l'instant.</p>
+    @if (matchsAnalyses > 0) {
+      <p class="text-center" style="color: #888; font-size: 0.9em;">{{ matchsAnalyses }} matchs analysés</p>
+    }
   } @else {
     <div style="display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin-bottom: 24px;">
+      <div class="stat-card">
+        <div class="stat-valeur">{{ matchsAnalyses }}</div>
+        <div class="stat-label">Matchs analysés</div>
+      </div>
       <div class="stat-card">
         <div class="stat-valeur">{{ paris.length }} ({{ enAttente }})</div>
         <div class="stat-label">Paris au total (En attente)</div>

@@ -14,6 +14,7 @@ type ModeleParis = 'rating' | 'ml' | 'ensemble';
 export class Bilan implements OnInit {
   isLoading = true;
   paris: any[] = [];
+  matchsAnalyses = 0;
 
   readonly modeles: { cle: ModeleParis; libelle: string }[] = [
     { cle: 'rating', libelle: 'Rating' },
@@ -38,12 +39,14 @@ export class Bilan implements OnInit {
     this.isLoading = true;
     this.sportsApi.getParis(this.modeleActif).subscribe({
       next: (data) => {
-        this.paris = data;
+        this.paris = data.paris;
+        this.matchsAnalyses = data.matchsAnalyses;
         this.isLoading = false;
       },
       error: (err) => {
         console.error('Erreur de récupération API :', err);
         this.paris = [];
+        this.matchsAnalyses = 0;
         this.isLoading = false;
       }
     });
