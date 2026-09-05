@@ -314,13 +314,25 @@
                     @if (getFlagUrl(hist.strHomeCountry); as flag) {
                       <img [src]="flag" [alt]="hist.strHomeCountry" title="{{ hist.strHomeCountry }}" style="width: 16px; height: 16px; object-fit: contain; border-radius: 2px;">
                     }
-                    <span style="text-align: right; flex: 1;">{{ hist.strHomeTeam }}</span>
+                    <span style="text-align: right; flex: 1;"
+                          [style.font-weight]="estAdversaire(hist, parEquipe.idEquipe, 'home') ? 'normal' : 'bold'">
+                      {{ hist.strHomeTeam }}
+                      @if (estAdversaire(hist, parEquipe.idEquipe, 'home') && hist.classementHome; as c) {
+                        <span style="background: #e0e7ff; color: #1e3a8a; font-weight: bold; font-size: 0.75em; padding: 2px 7px; border-radius: 10px; margin-left: 6px; white-space: nowrap;">{{ c.position }}<sup>e</sup>/{{ c.total }}</span>
+                      }
+                    </span>
 
                     <!-- Score -->
                     <strong style="white-space: nowrap;">{{ hist.intHomeScore ?? '-' }} - {{ hist.intAwayScore ?? '-' }}</strong>
 
                     <!-- Nom et logo Extérieur -->
-                    <span style="text-align: left; flex: 1;">{{ hist.strAwayTeam }}</span>
+                    <span style="text-align: left; flex: 1;"
+                          [style.font-weight]="estAdversaire(hist, parEquipe.idEquipe, 'away') ? 'normal' : 'bold'">
+                      {{ hist.strAwayTeam }}
+                      @if (estAdversaire(hist, parEquipe.idEquipe, 'away') && hist.classementAway; as c) {
+                        <span style="background: #e0e7ff; color: #1e3a8a; font-weight: bold; font-size: 0.75em; padding: 2px 7px; border-radius: 10px; margin-left: 6px; white-space: nowrap;">{{ c.position }}<sup>e</sup>/{{ c.total }}</span>
+                      }
+                    </span>
                     @if (getFlagUrl(hist.strAwayCountry); as flag) {
                       <img [src]="flag" [alt]="hist.strAwayCountry" title="{{ hist.strAwayCountry }}" style="width: 16px; height: 16px; object-fit: contain; border-radius: 2px;">
                     }
@@ -402,13 +414,25 @@
                     @if (getFlagUrl(hist.strHomeCountry); as flag) {
                       <img [src]="flag" [alt]="hist.strHomeCountry" title="{{ hist.strHomeCountry }}" style="width: 16px; height: 16px; object-fit: contain; border-radius: 2px;">
                     }
-                    <span style="text-align: right; flex: 1;">{{ hist.strHomeTeam }}</span>
+                    <span style="text-align: right; flex: 1;"
+                          [style.font-weight]="estAdversaire(hist, parEquipe.idEquipe, 'home') ? 'normal' : 'bold'">
+                      {{ hist.strHomeTeam }}
+                      @if (estAdversaire(hist, parEquipe.idEquipe, 'home') && hist.classementHome; as c) {
+                        <span style="background: #e0e7ff; color: #1e3a8a; font-weight: bold; font-size: 0.75em; padding: 2px 7px; border-radius: 10px; margin-left: 6px; white-space: nowrap;">{{ c.position }}<sup>e</sup>/{{ c.total }}</span>
+                      }
+                    </span>
 
                     <!-- Score -->
                     <strong style="white-space: nowrap;">{{ hist.intHomeScore ?? '-' }} - {{ hist.intAwayScore ?? '-' }}</strong>
 
                     <!-- Nom et logo Extérieur -->
-                    <span style="text-align: left; flex: 1;">{{ hist.strAwayTeam }}</span>
+                    <span style="text-align: left; flex: 1;"
+                          [style.font-weight]="estAdversaire(hist, parEquipe.idEquipe, 'away') ? 'normal' : 'bold'">
+                      {{ hist.strAwayTeam }}
+                      @if (estAdversaire(hist, parEquipe.idEquipe, 'away') && hist.classementAway; as c) {
+                        <span style="background: #e0e7ff; color: #1e3a8a; font-weight: bold; font-size: 0.75em; padding: 2px 7px; border-radius: 10px; margin-left: 6px; white-space: nowrap;">{{ c.position }}<sup>e</sup>/{{ c.total }}</span>
+                      }
+                    </span>
                     @if (getFlagUrl(hist.strAwayCountry); as flag) {
                       <img [src]="flag" [alt]="hist.strAwayCountry" title="{{ hist.strAwayCountry }}" style="width: 16px; height: 16px; object-fit: contain; border-radius: 2px;">
                     }

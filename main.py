@@ -45,6 +45,10 @@ COMPETITIONS_EUROPE = {
 }
 SEASON = "2026-2027"
 PAST_SEASONS = ["2023-2024", "2024-2025", "2025-2026"]
+# Saisons européennes gardées en cache (pour les modèles de prédiction) mais masquées de
+# l'historique affiché sur le site : 2023-2024 est la dernière saison au format « phases de
+# poules », sans classement unique à 36 comparable aux saisons suivantes.
+SAISONS_HISTORIQUE_MASQUEES = {"2023-2024"}
 
 # Championnats nationaux (onglet "Championnats")
 DOMESTIC_LEAGUES = {
@@ -1049,6 +1053,48 @@ def obtenir_historique_qualifications():
 
     return historique
 
+def enrichir_historique_pour_affichage(historique):
+    """Prépare l'historique européen pour l'affichage du site :
+
+    - écarte les saisons de `SAISONS_HISTORIQUE_MASQUEES` (elles restent dans
+      `obtenir_historique_qualifications()`, donc disponibles pour les modèles de prédiction) ;
+    - injecte, pour chaque match, la position de l'équipe à domicile (`classementHome`) et de
+      l'équipe à l'extérieur (`classementAway`) au classement de phase de ligue de cette
+      saison-là — même logique et même format que `classementAdversaire` côté championnat.
+      `null` quand l'équipe n'est pas dans la phase de ligue (tour de qualification, invité,
+      adversaire de phase finale)."""
+    visibles = [m for m in historique
+                if m.get("strSeason") not in SAISONS_HISTORIQUE_MASQUEES]
+
+    # Le classement d'une phase de ligue ne dépend que de ses matchs : une table par
+    # (compétition, saison) rencontrée, réutilisée pour tous les matchs concernés.
+    tables = {}
+
+    def table_phase_ligue(league_id, season):
+        cle = (league_id, season)
+        if cle not in tables:
+            matchs_cs = [m for m in historique
+                         if m.get("idLeague") == league_id and m.get("strSeason") == season]
+            lignes = calculer_classements_saison(
+                league_id, COMPETITIONS_EUROPE.get(league_id, ""), season,
+                isoler_phase_de_ligue(matchs_cs), vues=("general",), ecarter_invites=False,
+            )["general"]
+            tables[cle] = ({l.get("idTeam"): l for l in lignes}, len(lignes))
+        return tables[cle]
+
+    resultat = []
+    for m in visibles:
+        copie = dict(m)
+        par_equipe, total = table_phase_ligue(m.get("idLeague"), m.get("strSeason"))
+        for cote in ("Home", "Away"):
+            ligne = par_equipe.get(str(m.get(f"id{cote}Team")))
+            copie[f"classement{cote}"] = {
+                "position": int(ligne["intRank"]),
+                "total": total,
+            } if ligne else None
+        resultat.append(copie)
+    return resultat
+
 @app.get("/api/matchs/historique-qualifications")
 def get_historique_qualifications():
-    return {"events": obtenir_historique_qualifications()}
+    return {"events": enrichir_historique_pour_affichage(obtenir_historique_qualifications())}
