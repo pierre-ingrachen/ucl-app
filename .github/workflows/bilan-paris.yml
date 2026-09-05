@@ -48,7 +48,7 @@ jobs:
             exit 0
           fi
           for f in cache_championnat_historique.json cache_championnat_season.json \
-                   cache_classement.json cache_classement_actuelle.json cache_classement_saison.json \
+                   cache_classement.json \
                    cache_details.json cache_history_qualifs.json cache_season.json cache_teams.json \
                    cache_ml_matchs.json; do
             git show FETCH_HEAD:"$f" > "$f" 2>/dev/null && echo "restaure $f" || { rm -f "$f"; echo "absent dans le snapshot : $f"; }

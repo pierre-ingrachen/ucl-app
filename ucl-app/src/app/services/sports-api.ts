@@ -28,6 +28,11 @@ export class SportsApiService {
     return this.http.get<any>(`http://localhost:8000/api/championnats/classement/${idLigue}`);
   }
 
+  /** Classement de la phase de ligue d'une compétition européenne (C1 / C3 / C4). */
+  getClassementCompetition(idLigue: string): Observable<any> {
+    return this.http.get<any>(`http://localhost:8000/api/competitions/classement/${idLigue}`);
+  }
+
   private trierMatchsAVenir(events: Match[] | undefined): Match[] {
     if (!events) return [];
 

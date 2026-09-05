@@ -38,6 +38,11 @@ app.add_middleware(
 
 API_KEY = _variable_environnement_requise("SPORTSDB_API_KEY")
 LEAGUE_IDS = ["4480", "4481", "5071"]  # UEFA Champions League, UEFA Europa League, UEFA Conference League
+COMPETITIONS_EUROPE = {
+    "4480": "UEFA Champions League",
+    "4481": "UEFA Europa League",
+    "5071": "UEFA Conference League",
+}
 SEASON = "2026-2027"
 PAST_SEASONS = ["2023-2024", "2024-2025", "2025-2026"]
 
@@ -83,6 +88,65 @@ def saisons_passees_ligue(league_id):
         return DOMESTIC_PAST_SEASONS_ANNEE_CIVILE
     return DOMESTIC_PAST_SEASONS
 
+# Places qualificatives / relégables par championnat, pour colorer les zones du classement
+# (qu'on recalcule nous-mêmes à partir des résultats, sans la table de la plateforme).
+# `cl`/`el`/`ecl` = nombre de places en tête donnant accès à la Ligue des champions / Europa
+# League / Conference League ; `releg` = nombre de places en bas synonymes de relégation.
+# Valeurs approximatives (barrages, place du vainqueur de coupe, play-offs de fin de saison
+# ne sont pas modélisés) : à ajuster librement, ça n'a qu'un rôle indicatif.
+ZONES_CHAMPIONNAT = {
+    "4328": {"cl": 4, "el": 1, "ecl": 1, "releg": 3},  # Angleterre
+    "4335": {"cl": 4, "el": 1, "ecl": 1, "releg": 3},  # Espagne
+    "4332": {"cl": 4, "el": 1, "ecl": 1, "releg": 3},  # Italie
+    "4331": {"cl": 4, "el": 1, "ecl": 1, "releg": 3},  # Allemagne
+    "4334": {"cl": 2, "el": 1, "ecl": 1, "releg": 3},  # France
+    "4344": {"cl": 2, "el": 1, "ecl": 1, "releg": 2},  # Portugal
+    "4337": {"cl": 2, "el": 1, "ecl": 1, "releg": 2},  # Pays-Bas
+    "4338": {"cl": 2, "el": 1, "ecl": 1, "releg": 1},  # Belgique
+    "4339": {"cl": 1, "el": 1, "ecl": 1, "releg": 3},  # Turquie
+    "4422": {"cl": 1, "el": 1, "ecl": 1, "releg": 2},  # Pologne
+    "4631": {"cl": 1, "el": 1, "ecl": 1, "releg": 2},  # Tchéquie
+    "4336": {"cl": 1, "el": 1, "ecl": 1, "releg": 2},  # Grèce
+    "4358": {"cl": 1, "el": 1, "ecl": 1, "releg": 2},  # Norvège
+    "4340": {"cl": 1, "el": 1, "ecl": 1, "releg": 2},  # Danemark
+    "4630": {"cl": 1, "el": 1, "ecl": 1, "releg": 2},  # Chypre
+    "4675": {"cl": 1, "el": 1, "ecl": 1, "releg": 1},  # Suisse
+    "4621": {"cl": 1, "el": 1, "ecl": 1, "releg": 1},  # Autriche
+    "4690": {"cl": 1, "el": 1, "ecl": 1, "releg": 2},  # Hongrie
+    "4330": {"cl": 1, "el": 1, "ecl": 1, "releg": 1},  # Écosse
+    "4347": {"cl": 1, "el": 1, "ecl": 1, "releg": 2},  # Suède
+}
+
+def zone_championnat(league_id, rang, total):
+    """Libellé de zone (« Champions League », « Relegation »…) pour une position donnée,
+    d'après `ZONES_CHAMPIONNAT`. Renvoie None hors de toute zone. Le format des libellés est
+    choisi pour rester compatible avec `couleurZone` côté front."""
+    if league_id in COMPETITIONS_EUROPE:
+        # Phase de ligue (36 équipes) : 1-8 qualifiés directement pour les 8es, 9-24 en
+        # barrages, 25-36 éliminés.
+        if not rang:
+            return None
+        if rang <= 8:
+            return "Qualifié pour les 8es"
+        if rang <= 24:
+            return "Barrages"
+        return "Éliminé"
+
+    regles = ZONES_CHAMPIONNAT.get(league_id)
+    if not regles or not rang:
+        return None
+    cl, el = regles.get("cl", 0), regles.get("el", 0)
+    ecl, releg = regles.get("ecl", 0), regles.get("releg", 0)
+    if rang <= cl:
+        return "Champions League"
+    if rang <= cl + el:
+        return "Europa League"
+    if rang <= cl + el + ecl:
+        return "Conference League"
+    if total and rang > total - releg:
+        return "Relegation"
+    return None
+
 # The Odds API (cotes Winamax) : cle du compte de l'utilisateur, a n'appeler qu'aux jours
 # convenus (cf. obtenir_cotes_semaine) pour rester tres largement sous le quota gratuit.
 ODDS_API_KEY = _variable_environnement_requise("ODDS_API_KEY")
@@ -127,8 +191,6 @@ CACHE_TEAMS_FILE = "cache_teams.json"
 CACHE_CLASSEMENT_FILE = "cache_classement.json"
 CACHE_CHAMPIONNAT_SEASON_FILE = "cache_championnat_season.json"
 CACHE_CHAMPIONNAT_HISTORIQUE_FILE = "cache_championnat_historique.json"
-CACHE_CLASSEMENT_SAISON_FILE = "cache_classement_saison.json"
-CACHE_CLASSEMENT_ACTUELLE_FILE = "cache_classement_actuelle.json"
 CACHE_COTES_FILE = "cache_cotes_winamax.json"
 CACHE_PARIS_FILE = "cache_paris.json"
 CACHE_PARIS_ML_FILE = "cache_paris_ml.json"
@@ -517,69 +579,6 @@ def filtrer_matchs_semaine(matchs):
 
     return matchs_filtres
 
-def obtenir_table_saison(league_id, season, cache_tables):
-    """Retourne le classement complet (tous les clubs) d'un championnat pour une saison
-    donnée, en interrogeant l'API si absent du cache.
-
-    La saison en cours évolue à chaque journée jouée : elle est donc rafraîchie tous les
-    jours (cache quotidien), contrairement aux saisons passées, figées, qui profitent d'un
-    cache permanent."""
-    if season == saison_actuelle_ligue(league_id):
-        cache_actuelle = charger_cache(CACHE_CLASSEMENT_ACTUELLE_FILE) or {}
-        if league_id in cache_actuelle:
-            return cache_actuelle[league_id]
-
-        table = None
-        try:
-            url = f"https://www.thesportsdb.com/api/v1/json/{API_KEY}/lookuptable.php?l={league_id}&s={season}"
-            resp = requete_api_avec_retry(url)
-            if resp.status_code == 200:
-                table = resp.json().get("table")
-        except requests.exceptions.RequestException:
-            pass
-
-        cache_actuelle[league_id] = table
-        sauvegarder_cache(CACHE_CLASSEMENT_ACTUELLE_FILE, cache_actuelle)
-        return table
-
-    clef = f"{league_id}_{season}"
-    if cache_tables.get(clef):
-        return cache_tables[clef]
-
-    table = None
-    try:
-        url = f"https://www.thesportsdb.com/api/v1/json/{API_KEY}/lookuptable.php?l={league_id}&s={season}"
-        resp = requete_api_avec_retry(url)
-        if resp.status_code == 200:
-            table = resp.json().get("table")
-    except requests.exceptions.RequestException:
-        pass
-
-    if table:
-        cache_tables[clef] = table
-    return table
-
-def obtenir_classement_equipe_pour_saison(team_id, league_id, league_name, season, cache_tables):
-    """Position d'une équipe dans un championnat, lors d'une saison précise (celle du match
-    d'historique concerné, pas forcément la saison en cours)."""
-    if not team_id or not season:
-        return None
-    table = obtenir_table_saison(league_id, season, cache_tables)
-    if not table:
-        return None
-    ligne = next((l for l in table if l.get("idTeam") == team_id), None)
-    if not ligne:
-        return None
-    rang = ligne.get("intRank")
-    if rang is None:
-        return None
-    return {
-        "position": int(rang),
-        "total": len(table),
-        "saison": season,
-        "ligue": league_name
-    }
-
 def charger_historique_championnat(league_id, cache_historique):
     """Tous les matchs déjà joués d'un championnat national, sur les saisons passées
     suivies et la saison en cours."""
@@ -602,7 +601,119 @@ def charger_historique_championnat(league_id, cache_historique):
     cache_historique[league_id] = matchs
     return matchs
 
-def obtenir_derniers_matchs_championnat(team_id, league_id, league_name, avant_date, cache_historique, cache_tables, limite=5):
+def calculer_classements_saison(league_id, league_name, season, matchs_ligue,
+                                vues=("general", "domicile", "exterieur"),
+                                ecarter_invites=True):
+    """Reconstruit le classement d'un championnat pour une saison, uniquement à partir des
+    résultats de matchs, dans les déclinaisons demandées : `general`, `domicile` (points
+    pris à domicile seulement) et `exterieur`.
+
+    Noms d'équipe et badges viennent des matchs eux-mêmes ; les zones (Ligue des champions,
+    relégation…) sont déduites du rang au classement général via `ZONES_CHAMPIONNAT`. L'ordre
+    en cas d'égalité de points (Pts, puis différence de buts, puis buts marqués) est une
+    approximation : les vrais départages varient selon les pays."""
+    def journee_reguliere(m):
+        # TheSportsDB numérote les barrages / play-offs de fin de saison avec des `intRound`
+        # élevés (125, 160, 180, 200…) : on ne garde que les journées de championnat.
+        try:
+            return int(m.get("intRound")) < 100
+        except (TypeError, ValueError):
+            return True
+
+    matchs_saison = sorted(
+        (m for m in (matchs_ligue or [])
+         if m.get("strSeason") == season
+         and m.get("intHomeScore") is not None and m.get("intAwayScore") is not None
+         and journee_reguliere(m)),
+        key=lambda m: m.get("dateEvent") or ""
+    )
+
+    tables = {cle: {} for cle in vues}
+
+    def ligne_equipe(table, team_id, nom, badge):
+        l = table.get(team_id)
+        if l is None:
+            l = table[team_id] = {
+                "idTeam": team_id,
+                "strTeam": nom or team_id,
+                "strBadge": badge or "",
+                "strDescription": None,
+                "intPlayed": 0, "intWin": 0, "intDraw": 0, "intLoss": 0,
+                "intGoalsFor": 0, "intGoalsAgainst": 0, "_form": [],
+            }
+        else:
+            if nom:
+                l["strTeam"] = nom
+            if badge:
+                l["strBadge"] = badge
+        return l
+
+    for m in matchs_saison:
+        dom, ext = str(m.get("idHomeTeam")), str(m.get("idAwayTeam"))
+        try:
+            bd, be = int(m["intHomeScore"]), int(m["intAwayScore"])
+        except (TypeError, ValueError, KeyError):
+            continue
+
+        for cle, tid, nom, badge, marques, encaisses in (
+            ("general", dom, m.get("strHomeTeam"), m.get("strHomeTeamBadge"), bd, be),
+            ("general", ext, m.get("strAwayTeam"), m.get("strAwayTeamBadge"), be, bd),
+            ("domicile", dom, m.get("strHomeTeam"), m.get("strHomeTeamBadge"), bd, be),
+            ("exterieur", ext, m.get("strAwayTeam"), m.get("strAwayTeamBadge"), be, bd),
+        ):
+            if cle not in tables:
+                continue
+            l = ligne_equipe(tables[cle], tid, nom, badge)
+            l["intPlayed"] += 1
+            l["intGoalsFor"] += marques
+            l["intGoalsAgainst"] += encaisses
+            if marques > encaisses:
+                l["intWin"] += 1
+                l["_form"].append("W")
+            elif marques < encaisses:
+                l["intLoss"] += 1
+                l["_form"].append("L")
+            else:
+                l["intDraw"] += 1
+                l["_form"].append("D")
+
+    # `eventsseason` d'un championnat inclut parfois les barrages d'accession/relégation :
+    # on écarte alors les invités (une ou deux rencontres seulement) qui, sinon, gonfleraient
+    # l'effectif et fausseraient la zone de relégation. Sur la saison en cours, tout le monde
+    # a joué un nombre de matchs voisin : personne n'est écarté.
+    if ecarter_invites and tables.get("general"):
+        seuil = max(t["intPlayed"] for t in tables["general"].values()) * 0.5
+        valides = {tid for tid, t in tables["general"].items() if t["intPlayed"] >= seuil}
+        for table in tables.values():
+            for tid in [t for t in table if t not in valides]:
+                del table[tid]
+
+    resultat = {}
+    for cle, table in tables.items():
+        lignes = list(table.values())
+        for l in lignes:
+            l["intGoalDifference"] = l["intGoalsFor"] - l["intGoalsAgainst"]
+            l["intPoints"] = l["intWin"] * 3 + l["intDraw"]
+            l["strForm"] = "".join(l.pop("_form")[-5:])
+        lignes.sort(key=lambda l: (-l["intPoints"], -l["intGoalDifference"],
+                                   -l["intGoalsFor"], (l["strTeam"] or "").lower()))
+        for i, l in enumerate(lignes, 1):
+            l["intRank"] = i
+            l["strLeague"] = league_name
+            l["strSeason"] = season
+            # Les zones (pastille de couleur) ne sont posées que sur le classement général :
+            # les décliner sur le rang partiel domicile/extérieur induirait en erreur.
+            if cle == "general":
+                l["strDescription"] = zone_championnat(league_id, i, len(lignes))
+            # La plateforme renvoyait ces champs en chaînes : on garde le même format pour
+            # que le front n'ait rien à adapter.
+            for champ in ("intRank", "intPlayed", "intWin", "intDraw", "intLoss",
+                          "intGoalsFor", "intGoalsAgainst", "intGoalDifference", "intPoints"):
+                l[champ] = str(l[champ])
+        resultat[cle] = lignes
+    return resultat
+
+def obtenir_derniers_matchs_championnat(team_id, league_id, league_name, avant_date, cache_historique, limite=5):
     """Les `limite` derniers matchs joués par une équipe dans son championnat national avant
     une date donnée, chacun enrichi du classement de l'adversaire lors de LA SAISON de ce
     match précis (et non la saison en cours)."""
@@ -614,16 +725,32 @@ def obtenir_derniers_matchs_championnat(team_id, league_id, league_name, avant_d
     ]
     matchs_equipe.sort(key=lambda m: m["dateEvent"], reverse=True)
 
+    # Le classement d'une saison ne dépend que de ses matchs : on le calcule une fois par
+    # saison rencontrée plutôt qu'à chaque adversaire.
+    tables_par_saison = {}
+
+    def table_saison(season):
+        if season not in tables_par_saison:
+            tables_par_saison[season] = calculer_classements_saison(
+                league_id, league_name, season, matchs_ligue, vues=("general",)
+            )["general"]
+        return tables_par_saison[season]
+
     resultat = []
     for m in matchs_equipe[:limite]:
         est_domicile = m.get("idHomeTeam") == team_id
         id_adversaire = m.get("idAwayTeam") if est_domicile else m.get("idHomeTeam")
         saison_match = m.get("strSeason")
+        table = table_saison(saison_match)
+        ligne_adv = next((l for l in table if l.get("idTeam") == str(id_adversaire)), None)
 
         copie = dict(m)
-        copie["classementAdversaire"] = obtenir_classement_equipe_pour_saison(
-            id_adversaire, league_id, league_name, saison_match, cache_tables
-        )
+        copie["classementAdversaire"] = {
+            "position": int(ligne_adv["intRank"]),
+            "total": len(table),
+            "saison": saison_match,
+            "ligue": league_name,
+        } if ligne_adv else None
         resultat.append(copie)
 
     return resultat
@@ -681,22 +808,84 @@ def get_classement_championnat(league_id: str):
     if league_id not in DOMESTIC_LEAGUES:
         raise HTTPException(status_code=404, detail="Championnat inconnu")
 
-    cache_tables = charger_cache_permanent(CACHE_CLASSEMENT_SAISON_FILE)
+    nom_ligue = DOMESTIC_LEAGUES[league_id]
     saison_actuelle = saison_actuelle_ligue(league_id)
     saison_precedente = saisons_passees_ligue(league_id)[-1]
 
-    cles_avant = set(cache_tables)
-    table_actuelle = obtenir_table_saison(league_id, saison_actuelle, cache_tables)
-    table_precedente = obtenir_table_saison(league_id, saison_precedente, cache_tables)
-    # `obtenir_table_saison` n'ajoute une entree qu'en cas de cache manquant : inutile de
-    # reecrire le fichier (144 Ko) a chaque consultation d'un match si rien n'a change.
-    if set(cache_tables) != cles_avant:
-        sauvegarder_cache_permanent(CACHE_CLASSEMENT_SAISON_FILE, cache_tables)
+    cache_historique = charger_cache(CACHE_CHAMPIONNAT_HISTORIQUE_FILE) or {}
+    deja_en_cache = league_id in cache_historique
+    matchs_ligue = charger_historique_championnat(league_id, cache_historique)
+    if not deja_en_cache:
+        sauvegarder_cache(CACHE_CHAMPIONNAT_HISTORIQUE_FILE, cache_historique)
 
     return {
-        "ligue": DOMESTIC_LEAGUES[league_id],
-        "saisonActuelle": {"saison": saison_actuelle, "classement": table_actuelle},
-        "saisonPrecedente": {"saison": saison_precedente, "classement": table_precedente}
+        "ligue": nom_ligue,
+        "saisonActuelle": {
+            "saison": saison_actuelle,
+            **calculer_classements_saison(league_id, nom_ligue, saison_actuelle, matchs_ligue),
+        },
+        "saisonPrecedente": {
+            "saison": saison_precedente,
+            **calculer_classements_saison(league_id, nom_ligue, saison_precedente, matchs_ligue),
+        },
+    }
+
+def isoler_phase_de_ligue(matchs):
+    """À partir de tous les matchs d'une compétition européenne sur une saison, ne garde que
+    ceux de la phase de ligue (ex-phase de poules).
+
+    Depuis 2024-2025 la phase de ligue est un mini-championnat à 36 équipes. On l'isole ainsi :
+    les équipes de la 4e journée (`intRound == 4`, toujours purement phase de ligue) donnent
+    la liste des 36 participants ; la phase de ligue est alors l'ensemble des matchs des
+    journées 1 à 8 opposant deux participants (un tour de qualification implique forcément au
+    moins un club qui n'accède pas à la phase de ligue)."""
+    participants = {
+        equipe
+        for m in matchs if str(m.get("intRound")) == "4"
+        for equipe in (m.get("idHomeTeam"), m.get("idAwayTeam"))
+        if equipe
+    }
+    if not participants:
+        return []
+    journees = {"1", "2", "3", "4", "5", "6", "7", "8"}
+    return [
+        m for m in matchs
+        if str(m.get("intRound")) in journees
+        and m.get("idHomeTeam") in participants
+        and m.get("idAwayTeam") in participants
+    ]
+
+@app.get("/api/competitions/classement/{league_id}")
+def get_classement_competition(league_id: str):
+    if league_id not in COMPETITIONS_EUROPE:
+        raise HTTPException(status_code=404, detail="Compétition inconnue")
+
+    nom = COMPETITIONS_EUROPE[league_id]
+    saison_precedente = PAST_SEASONS[-1]
+
+    matchs_actuels = [m for m in obtenir_matchs_a_venir() if m.get("idLeague") == league_id]
+    # La saison précédente est déjà dans le cache quotidien de l'historique européen :
+    # aucun appel API supplémentaire.
+    historique = obtenir_historique_qualifications()
+    matchs_precedents = [
+        m for m in historique
+        if m.get("idLeague") == league_id and m.get("strSeason") == saison_precedente
+    ]
+
+    return {
+        "ligue": nom,
+        "saisonActuelle": {
+            "saison": SEASON,
+            **calculer_classements_saison(league_id, nom, SEASON,
+                                          isoler_phase_de_ligue(matchs_actuels),
+                                          ecarter_invites=False),
+        },
+        "saisonPrecedente": {
+            "saison": saison_precedente,
+            **calculer_classements_saison(league_id, nom, saison_precedente,
+                                          isoler_phase_de_ligue(matchs_precedents),
+                                          ecarter_invites=False),
+        },
     }
 
 @app.get("/api/match/{event_id}")
@@ -760,20 +949,17 @@ def get_match_details(event_id: str):
             injecter_predictions(match_data, cache_championnat_historique)
 
             if id_ligue in DOMESTIC_LEAGUES:
-                cache_classement_saison = charger_cache_permanent(CACHE_CLASSEMENT_SAISON_FILE)
                 nom_ligue = DOMESTIC_LEAGUES[id_ligue]
                 date_match = match_data.get("dateEvent", "")
 
                 match_data["historiqueDomicile"] = obtenir_derniers_matchs_championnat(
                     match_data.get("idHomeTeam"), id_ligue, nom_ligue, date_match,
-                    cache_championnat_historique, cache_classement_saison
+                    cache_championnat_historique
                 )
                 match_data["historiqueExterieur"] = obtenir_derniers_matchs_championnat(
                     match_data.get("idAwayTeam"), id_ligue, nom_ligue, date_match,
-                    cache_championnat_historique, cache_classement_saison
+                    cache_championnat_historique
                 )
-
-                sauvegarder_cache_permanent(CACHE_CLASSEMENT_SAISON_FILE, cache_classement_saison)
 
             sauvegarder_cache(CACHE_CHAMPIONNAT_HISTORIQUE_FILE, cache_championnat_historique)
 

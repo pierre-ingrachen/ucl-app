@@ -241,72 +241,6 @@
 
       </div>
 
-      <!-- Classement -->
-      <div style="background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); margin-top: 20px; text-align: left;">
-        <h3 style="color: #0c1c38; text-align: center; margin-top: 0;">Classement - {{ match.strLeague }}</h3>
-
-        @if (isLoadingClassement) {
-          <p style="text-align: center; color: #666; font-size: 0.9em;">Recherche du classement en cours...</p>
-        } @else if (!classement) {
-          <p style="text-align: center; color: #666; font-size: 0.9em;">Classement indisponible.</p>
-        } @else {
-          <div style="display: flex; justify-content: center; gap: 8px; margin-bottom: 15px;">
-            <button (click)="saisonClassementAffichee = 'actuelle'"
-                    [style.background-color]="saisonClassementAffichee === 'actuelle' ? '#0c1c38' : '#eee'"
-                    [style.color]="saisonClassementAffichee === 'actuelle' ? 'white' : '#333'"
-                    style="padding: 6px 14px; border-radius: 15px; border: none; cursor: pointer; font-size: 0.85em;">
-              Saison actuelle
-            </button>
-            <button (click)="saisonClassementAffichee = 'precedente'"
-                    [style.background-color]="saisonClassementAffichee === 'precedente' ? '#0c1c38' : '#eee'"
-                    [style.color]="saisonClassementAffichee === 'precedente' ? 'white' : '#333'"
-                    style="padding: 6px 14px; border-radius: 15px; border: none; cursor: pointer; font-size: 0.85em;">
-              Saison dernière
-            </button>
-          </div>
-
-          @if (classementAffiche.length === 0) {
-            <p style="text-align: center; color: #666; font-size: 0.9em;">Classement pas encore disponible pour la saison {{ saisonClassementLibelle }}.</p>
-          } @else {
-            <div style="overflow-x: auto;">
-              <table style="width: 100%; border-collapse: collapse; font-size: 0.85em; min-width: 480px;">
-                <thead>
-                  <tr style="text-align: center; color: #888; border-bottom: 2px solid #eee;">
-                    <th style="padding: 8px 4px; text-align: left;">#</th>
-                    <th style="padding: 8px 4px; text-align: left;">Équipe</th>
-                    <th style="padding: 8px 4px;">J</th>
-                    <th style="padding: 8px 4px;">V</th>
-                    <th style="padding: 8px 4px;">N</th>
-                    <th style="padding: 8px 4px;">D</th>
-                    <th style="padding: 8px 4px;">+/-</th>
-                    <th style="padding: 8px 4px;">Pts</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  @for (ligne of classementAffiche; track ligne.idTeam) {
-                    <tr [style.border-left]="'4px solid ' + couleurZone(ligne.strDescription)"
-                        [style.font-weight]="(ligne.idTeam === match.idHomeTeam || ligne.idTeam === match.idAwayTeam) ? 'bold' : 'normal'"
-                        style="text-align: center; border-bottom: 1px solid #f2f2f2;">
-                      <td style="padding: 8px 4px; text-align: left; color: #666;">{{ ligne.intRank }}</td>
-                      <td style="padding: 8px 4px; text-align: left;">
-                        <img [src]="ligne.strBadge" [alt]="ligne.strTeam" style="width: 18px; height: 18px; object-fit: contain; vertical-align: middle; margin-right: 6px;">
-                        {{ ligne.strTeam }}
-                      </td>
-                      <td style="padding: 8px 4px;">{{ ligne.intPlayed }}</td>
-                      <td style="padding: 8px 4px;">{{ ligne.intWin }}</td>
-                      <td style="padding: 8px 4px;">{{ ligne.intDraw }}</td>
-                      <td style="padding: 8px 4px;">{{ ligne.intLoss }}</td>
-                      <td style="padding: 8px 4px;">{{ ligne.intGoalDifference }}</td>
-                      <td style="padding: 8px 4px; color: #0c1c38;">{{ ligne.intPoints }}</td>
-                    </tr>
-                  }
-                </tbody>
-              </table>
-            </div>
-          }
-        }
-      </div>
-
     } @else {
     <div style="display: flex; gap: 20px; text-align: left; margin-top: 30px;">
 
@@ -349,8 +283,8 @@
         @if (groupedDomicile.length === 0) {
           <p style="text-align: center; color: #666; font-size: 0.9em;">Aucun historique trouvé.</p>
         } @else {
-          @for (groupe of groupedDomicile; track groupe.annee) {
-            <h4 style="color: #0c1c38; margin: 15px 0 5px 0; font-size: 0.95em;">{{ groupe.annee }}</h4>
+          @for (groupe of groupedDomicile; track groupe.saison) {
+            <h4 style="color: #0c1c38; margin: 15px 0 5px 0; font-size: 0.95em;">{{ groupe.saison }}</h4>
             @if (groupe.directes.length > 0) {
               <ul style="list-style: none; padding: 0; margin: 0;">
                 @for (competition of groupe.directes; track competition) {
@@ -367,7 +301,11 @@
               <ul style="list-style: none; padding: 0; margin: 0;">
                 @for (hist of parEquipe.matchs; track hist.idEvent) {
                   <li style="display: flex; align-items: center; justify-content: center; gap: 8px; padding: 10px 0; border-bottom: 1px solid #eee; font-size: 0.9em;">
-                    <span style="color: #888; font-weight: bold; margin-right: auto;">{{ getDateJourMois(hist.dateEvent) }}</span>
+                    <span style="color: #888; font-weight: bold;">{{ getDateJourMois(hist.dateEvent) }}</span>
+                    <span [style.background-color]="couleurResultat(resultatEquipe(hist, parEquipe.idEquipe))"
+                          style="display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; border-radius: 50%; color: white; font-size: 0.7em; font-weight: bold; margin-right: auto; flex-shrink: 0;">
+                      {{ resultatEquipe(hist, parEquipe.idEquipe) }}
+                    </span>
                     @if (modeDomicile === 'national' && filtreNationalDomicile === 'toutes') {
                       <span style="color: #aaa; font-size: 0.8em; font-weight: bold;">{{ getAbregeCompetition(hist) }}</span>
                     }
@@ -433,8 +371,8 @@
         @if (groupedExterieur.length === 0) {
           <p style="text-align: center; color: #666; font-size: 0.9em;">Aucun historique trouvé.</p>
         } @else {
-          @for (groupe of groupedExterieur; track groupe.annee) {
-            <h4 style="color: #0c1c38; margin: 15px 0 5px 0; font-size: 0.95em;">{{ groupe.annee }}</h4>
+          @for (groupe of groupedExterieur; track groupe.saison) {
+            <h4 style="color: #0c1c38; margin: 15px 0 5px 0; font-size: 0.95em;">{{ groupe.saison }}</h4>
             @if (groupe.directes.length > 0) {
               <ul style="list-style: none; padding: 0; margin: 0;">
                 @for (competition of groupe.directes; track competition) {
@@ -451,7 +389,11 @@
               <ul style="list-style: none; padding: 0; margin: 0;">
                 @for (hist of parEquipe.matchs; track hist.idEvent) {
                   <li style="display: flex; align-items: center; justify-content: center; gap: 8px; padding: 10px 0; border-bottom: 1px solid #eee; font-size: 0.9em;">
-                    <span style="color: #888; font-weight: bold; margin-right: auto;">{{ getDateJourMois(hist.dateEvent) }}</span>
+                    <span style="color: #888; font-weight: bold;">{{ getDateJourMois(hist.dateEvent) }}</span>
+                    <span [style.background-color]="couleurResultat(resultatEquipe(hist, parEquipe.idEquipe))"
+                          style="display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; border-radius: 50%; color: white; font-size: 0.7em; font-weight: bold; margin-right: auto; flex-shrink: 0;">
+                      {{ resultatEquipe(hist, parEquipe.idEquipe) }}
+                    </span>
                     @if (modeExterieur === 'national' && filtreNationalExterieur === 'toutes') {
                       <span style="color: #aaa; font-size: 0.8em; font-weight: bold;">{{ getAbregeCompetition(hist) }}</span>
                     }
@@ -479,6 +421,87 @@
       </div>
 
     </div>
+    }
+
+    <!-- Classement (championnat national ou phase de ligue européenne) -->
+    @if (estChampionnatNational || estCompetitionEurope) {
+      <div style="background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); margin-top: 20px; text-align: left;">
+        <h3 style="color: #0c1c38; text-align: center; margin-top: 0;">Classement - {{ match.strLeague }}</h3>
+
+        @if (isLoadingClassement) {
+          <p style="text-align: center; color: #666; font-size: 0.9em;">Recherche du classement en cours...</p>
+        } @else if (!classement) {
+          <p style="text-align: center; color: #666; font-size: 0.9em;">Classement indisponible.</p>
+        } @else {
+          @if (aClassementSaisonPrecedente) {
+            <div style="display: flex; justify-content: center; gap: 8px; margin-bottom: 15px;">
+              <button (click)="saisonClassementAffichee = 'actuelle'"
+                      [style.background-color]="saisonClassementAffichee === 'actuelle' ? '#0c1c38' : '#eee'"
+                      [style.color]="saisonClassementAffichee === 'actuelle' ? 'white' : '#333'"
+                      style="padding: 6px 14px; border-radius: 15px; border: none; cursor: pointer; font-size: 0.85em;">
+                Saison actuelle
+              </button>
+              <button (click)="saisonClassementAffichee = 'precedente'"
+                      [style.background-color]="saisonClassementAffichee === 'precedente' ? '#0c1c38' : '#eee'"
+                      [style.color]="saisonClassementAffichee === 'precedente' ? 'white' : '#333'"
+                      style="padding: 6px 14px; border-radius: 15px; border: none; cursor: pointer; font-size: 0.85em;">
+                Saison dernière
+              </button>
+            </div>
+          }
+
+          <div style="display: flex; justify-content: center; gap: 8px; margin-bottom: 15px;">
+            @for (vue of [{cle: 'general', libelle: 'Général'}, {cle: 'domicile', libelle: 'Domicile'}, {cle: 'exterieur', libelle: 'Extérieur'}]; track vue.cle) {
+              <button (click)="vueClassement = $any(vue.cle)"
+                      [style.background-color]="vueClassement === vue.cle ? '#0c1c38' : '#eee'"
+                      [style.color]="vueClassement === vue.cle ? 'white' : '#333'"
+                      style="padding: 5px 12px; border-radius: 15px; border: none; cursor: pointer; font-size: 0.8em;">
+                {{ vue.libelle }}
+              </button>
+            }
+          </div>
+
+          @if (classementAffiche.length === 0) {
+            <p style="text-align: center; color: #666; font-size: 0.9em;">Classement pas encore disponible pour la saison {{ saisonClassementLibelle }}.</p>
+          } @else {
+            <div style="overflow-x: auto;">
+              <table style="width: 100%; border-collapse: collapse; font-size: 0.85em; min-width: 480px;">
+                <thead>
+                  <tr style="text-align: center; color: #888; border-bottom: 2px solid #eee;">
+                    <th style="padding: 8px 4px; text-align: left;">#</th>
+                    <th style="padding: 8px 4px; text-align: left;">Équipe</th>
+                    <th style="padding: 8px 4px;">J</th>
+                    <th style="padding: 8px 4px;">V</th>
+                    <th style="padding: 8px 4px;">N</th>
+                    <th style="padding: 8px 4px;">D</th>
+                    <th style="padding: 8px 4px;">+/-</th>
+                    <th style="padding: 8px 4px;">Pts</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @for (ligne of classementAffiche; track ligne.idTeam) {
+                    <tr [style.border-left]="'4px solid ' + couleurZone(ligne.strDescription)"
+                        [style.font-weight]="(ligne.idTeam === match.idHomeTeam || ligne.idTeam === match.idAwayTeam) ? 'bold' : 'normal'"
+                        style="text-align: center; border-bottom: 1px solid #f2f2f2;">
+                      <td style="padding: 8px 4px; text-align: left; color: #666;">{{ ligne.intRank }}</td>
+                      <td style="padding: 8px 4px; text-align: left;">
+                        <img [src]="ligne.strBadge" [alt]="ligne.strTeam" style="width: 18px; height: 18px; object-fit: contain; vertical-align: middle; margin-right: 6px;">
+                        {{ ligne.strTeam }}
+                      </td>
+                      <td style="padding: 8px 4px;">{{ ligne.intPlayed }}</td>
+                      <td style="padding: 8px 4px;">{{ ligne.intWin }}</td>
+                      <td style="padding: 8px 4px;">{{ ligne.intDraw }}</td>
+                      <td style="padding: 8px 4px;">{{ ligne.intLoss }}</td>
+                      <td style="padding: 8px 4px;">{{ ligne.intGoalDifference }}</td>
+                      <td style="padding: 8px 4px; color: #0c1c38;">{{ ligne.intPoints }}</td>
+                    </tr>
+                  }
+                </tbody>
+              </table>
+            </div>
+          }
+        }
+      </div>
     }
   }
 </div>

@@ -89,13 +89,25 @@ export class MatchDetails implements OnInit {
     '4631', '4336', '4358', '4340', '4630', '4675', '4621', '4690', '4330', '4347', // Tchéquie, Grèce, Norvège, Danemark, Chypre, Suisse, Autriche, Hongrie, Écosse, Suède
   ];
 
+  // UEFA Champions League, Europa League, Conference League.
+  private static readonly EURO_LEAGUE_IDS = ['4480', '4481', '5071'];
+
   get estChampionnatNational(): boolean {
     return !!this.match && MatchDetails.DOMESTIC_LEAGUE_IDS.includes(this.match.idLeague);
+  }
+
+  get estCompetitionEurope(): boolean {
+    return !!this.match && MatchDetails.EURO_LEAGUE_IDS.includes(this.match.idLeague);
+  }
+
+  get aClassementSaisonPrecedente(): boolean {
+    return !!this.classement?.saisonPrecedente;
   }
 
   classement: any = null;
   isLoadingClassement = false;
   saisonClassementAffichee: 'actuelle' | 'precedente' = 'actuelle';
+  vueClassement: 'general' | 'domicile' | 'exterieur' = 'general';
 
   ngOnInit(): void {
     const matchId = this.route.snapshot.paramMap.get('id');
@@ -111,6 +123,10 @@ export class MatchDetails implements OnInit {
             this.chargerClassement();
             return;
           }
+          // Match de coupe d'Europe : on affiche aussi le classement de la phase de ligue.
+          if (this.estCompetitionEurope) {
+            this.chargerClassement();
+          }
           // Une fois le match chargé, on récupère l'historique
           this.chargerHistorique();
         },
@@ -124,7 +140,10 @@ export class MatchDetails implements OnInit {
 
   chargerClassement(): void {
     this.isLoadingClassement = true;
-    this.sportsApi.getClassementChampionnat(this.match.idLeague).subscribe({
+    const source = this.estCompetitionEurope
+      ? this.sportsApi.getClassementCompetition(this.match.idLeague)
+      : this.sportsApi.getClassementChampionnat(this.match.idLeague);
+    source.subscribe({
       next: (data) => {
         this.classement = data;
         this.isLoadingClassement = false;
@@ -139,7 +158,7 @@ export class MatchDetails implements OnInit {
   get classementAffiche(): any[] {
     if (!this.classement) return [];
     const cle = this.saisonClassementAffichee === 'actuelle' ? 'saisonActuelle' : 'saisonPrecedente';
-    return this.classement[cle]?.classement || [];
+    return this.classement[cle]?.[this.vueClassement] || [];
   }
 
   get saisonClassementLibelle(): string {
@@ -152,6 +171,10 @@ export class MatchDetails implements OnInit {
    * description fournie par l'API pour la ligne du classement. */
   couleurZone(description: string | null | undefined): string {
     const d = (description || '').toLowerCase();
+    // Phase de ligue européenne : qualification directe (1-8), barrages (9-24), éliminé (25-36).
+    if (d.includes('8es')) return '#16a34a';
+    if (d.includes('barrage')) return '#ea580c';
+    if (d.includes('élimin')) return '#dc2626';
     if (d.includes('champions league')) return '#1e3a8a';
     if (d.includes('europa')) return '#ea580c';
     if (d.includes('conference')) return '#16a34a';
@@ -282,14 +305,14 @@ export class MatchDetails implements OnInit {
     return resultat;
   }
 
-  get groupedDomicile(): { annee: string; equipes: { nom: string; idEquipe: string; matchs: any[] }[]; directes: string[] }[] {
+  get groupedDomicile(): { saison: string; equipes: { nom: string; idEquipe: string; matchs: any[] }[]; directes: string[] }[] {
     return this.grouperMemoise(
       `dom|${this.modeDomicile}|${this.filtreNationalDomicile}`,
       () => this.calculerGroupedDomicile()
     );
   }
 
-  private calculerGroupedDomicile(): { annee: string; equipes: { nom: string; idEquipe: string; matchs: any[] }[]; directes: string[] }[] {
+  private calculerGroupedDomicile(): { saison: string; equipes: { nom: string; idEquipe: string; matchs: any[] }[]; directes: string[] }[] {
     const idEquipe = this.match?.idHomeTeam;
     if (this.modeDomicile === 'national') {
       // "Qualifié directement" ne concerne que les parcours de club en coupe d'Europe :
@@ -303,23 +326,23 @@ export class MatchDetails implements OnInit {
     // se déroulait chaque partie du parcours.
     const competitionMatchAffiche = this.nomCompetitionCanonique(this.match.strLeague);
     return this.fusionnerAvecDirectes(
-      this.grouperParAnnee(
+      this.grouperParSaison(
         this.historiqueDomicile, m => this.nomCompetitionCanonique(m.strLeague),
         m => this.nomCompetitionCanonique(m.strLeague) === competitionMatchAffiche, () => idEquipe,
         nom => this.rangCompetition(nom)
       ),
-      this.campagnesDirectesParAnnee(idEquipe)
+      this.campagnesDirectesParSaison(idEquipe)
     );
   }
 
-  get groupedExterieur(): { annee: string; equipes: { nom: string; idEquipe: string; matchs: any[] }[]; directes: string[] }[] {
+  get groupedExterieur(): { saison: string; equipes: { nom: string; idEquipe: string; matchs: any[] }[]; directes: string[] }[] {
     return this.grouperMemoise(
       `ext|${this.modeExterieur}|${this.filtreNationalExterieur}`,
       () => this.calculerGroupedExterieur()
     );
   }
 
-  private calculerGroupedExterieur(): { annee: string; equipes: { nom: string; idEquipe: string; matchs: any[] }[]; directes: string[] }[] {
+  private calculerGroupedExterieur(): { saison: string; equipes: { nom: string; idEquipe: string; matchs: any[] }[]; directes: string[] }[] {
     const idEquipe = this.match?.idAwayTeam;
     if (this.modeExterieur === 'national') {
       // "Qualifié directement" ne concerne que les parcours de club en coupe d'Europe :
@@ -331,12 +354,12 @@ export class MatchDetails implements OnInit {
     }
     const competitionMatchAffiche = this.nomCompetitionCanonique(this.match.strLeague);
     return this.fusionnerAvecDirectes(
-      this.grouperParAnnee(
+      this.grouperParSaison(
         this.historiqueExterieur, m => this.nomCompetitionCanonique(m.strLeague),
         m => this.nomCompetitionCanonique(m.strLeague) === competitionMatchAffiche, () => idEquipe,
         nom => this.rangCompetition(nom)
       ),
-      this.campagnesDirectesParAnnee(idEquipe)
+      this.campagnesDirectesParSaison(idEquipe)
     );
   }
 
@@ -374,7 +397,7 @@ export class MatchDetails implements OnInit {
     idEquipeRef: string,
     paysRef: string | null | undefined,
     filtre: 'match' | 'toutes'
-  ): { annee: string; equipes: { nom: string; idEquipe: string; matchs: any[] }[] }[] {
+  ): { saison: string; equipes: { nom: string; idEquipe: string; matchs: any[] }[] }[] {
     const source = filtre === 'toutes' ? this.historiqueMemePhase : this.historiqueMemePhaseMemeCompetition;
 
     const matchsEquipe = source.filter(m =>
@@ -385,7 +408,7 @@ export class MatchDetails implements OnInit {
       && m.idHomeTeam !== idEquipeRef && m.idAwayTeam !== idEquipeRef
     ) : [];
 
-    return this.grouperParAnnee(
+    return this.grouperParSaison(
       [...matchsEquipe, ...matchsAutresEquipesDuPays],
       m => this.getEquipeConcernee(m, idEquipeRef, paysRef),
       m => m.idHomeTeam === idEquipeRef || m.idAwayTeam === idEquipeRef,
@@ -419,27 +442,22 @@ export class MatchDetails implements OnInit {
     return hist.idHomeTeam;
   }
 
-  /** Pour l'équipe donnée, liste par année (la même étiquette d'année que celle utilisée pour
-   * grouper les matchs affichés, ex: "2025") les compétitions où elle s'est qualifiée
+  /** Pour l'équipe donnée, liste par saison sportive (ex: "2025-2026", la même étiquette que
+   * celle utilisée pour grouper les matchs affichés) les compétitions où elle s'est qualifiée
    * directement, sans passer par les tours préliminaires. On se base sur l'historique COMPLET,
    * toutes phases confondues (contrairement à `historiqueDomicile`/`historiqueExterieur`, qui
    * ne retiennent que les matchs de la même phase que le match affiché — une campagne sans
    * qualifications peut donc être totalement absente de ces listes si le match affiché est
-   * lui-même un match de qualifications). Les campagnes sont regroupées par `strSeason`
-   * (ex: "2025-2026") car une même campagne s'étale sur deux années civiles (qualifs/poules à
-   * l'été-automne, phase finale l'année suivante) : grouper par année civile romprait
-   * artificiellement une campagne démarrée en qualifications en deux entrées distinctes. Une
-   * fois la campagne validée comme "directe" (au moins un match de phase de groupe/finale cette
-   * saison, aucun match de qualifications), on l'étiquette avec l'année civile de son premier
-   * match hors qualifications, pour qu'elle s'insère à la bonne place chronologique dans la
-   * liste des années affichées.
+   * lui-même un match de qualifications). Les campagnes sont regroupées par saison sportive
+   * car une même campagne s'étale sur deux années civiles (qualifs/poules à l'été-automne,
+   * phase finale l'année suivante).
    *
    * L'absence de qualifications s'apprécie saison par saison, TOUTES compétitions confondues
    * (et non compétition par compétition) : une équipe éliminée en qualifications de C1 peut
    * être repêchée directement en poules de C3 la même saison sans y disputer le moindre match
    * de qualifications — elle n'est pourtant pas passée "directement", puisqu'elle a bien joué
    * des qualifications (celles de C1) cette saison-là. */
-  private campagnesDirectesParAnnee(idEquipe: string | undefined): Map<string, string[]> {
+  private campagnesDirectesParSaison(idEquipe: string | undefined): Map<string, string[]> {
     const resultat = new Map<string, string[]>();
     if (!idEquipe) return resultat;
 
@@ -447,91 +465,101 @@ export class MatchDetails implements OnInit {
     for (const m of this.historiqueComplet) {
       if (m.idHomeTeam !== idEquipe && m.idAwayTeam !== idEquipe) continue;
       if (m.strPhase !== 'qualifications') continue;
-      const saison = m.strSeason || (m.dateEvent ? m.dateEvent.substring(0, 4) : null);
-      if (saison) saisonsAvecQualifs.add(saison);
+      saisonsAvecQualifs.add(this.saisonDeMatch(m));
     }
 
-    const parCampagne = new Map<string, { competition: string; saison: string; anneeAffichee: string | null; aJoueGroupe: boolean }>();
+    const parCampagne = new Map<string, { competition: string; saison: string; aJoueGroupe: boolean }>();
     for (const m of this.historiqueComplet) {
       if (m.idHomeTeam !== idEquipe && m.idAwayTeam !== idEquipe) continue;
       if (m.strPhase === 'qualifications') continue;
-      const saison = m.strSeason || (m.dateEvent ? m.dateEvent.substring(0, 4) : null);
-      if (!saison) continue;
+      const saison = this.saisonDeMatch(m);
+      if (saison === '?') continue;
       const clef = `${m.idLeague}-${saison}`;
       if (!parCampagne.has(clef)) {
-        parCampagne.set(clef, { competition: m.strLeague || '', saison, anneeAffichee: null, aJoueGroupe: false });
+        parCampagne.set(clef, { competition: m.strLeague || '', saison, aJoueGroupe: false });
       }
-      const entree = parCampagne.get(clef)!;
-      entree.aJoueGroupe = true;
-      const annee = m.dateEvent ? m.dateEvent.substring(0, 4) : null;
-      if (annee && (!entree.anneeAffichee || annee < entree.anneeAffichee)) {
-        entree.anneeAffichee = annee;
-      }
+      parCampagne.get(clef)!.aJoueGroupe = true;
     }
 
     for (const c of parCampagne.values()) {
-      if (c.aJoueGroupe && c.anneeAffichee && !saisonsAvecQualifs.has(c.saison)) {
-        const liste = resultat.get(c.anneeAffichee) || [];
+      if (c.aJoueGroupe && !saisonsAvecQualifs.has(c.saison)) {
+        const liste = resultat.get(c.saison) || [];
         if (!liste.includes(c.competition)) liste.push(c.competition);
-        resultat.set(c.anneeAffichee, liste);
+        resultat.set(c.saison, liste);
       }
     }
     return resultat;
   }
 
-  /** Fusionne les groupes par année (matchs réels) avec les campagnes qualifiées directement :
-   * ces dernières sont insérées à leur place chronologique, sous forme d'une année sans match
+  /** Fusionne les groupes par saison (matchs réels) avec les campagnes qualifiées directement :
+   * ces dernières sont insérées à leur place chronologique, sous forme d'une saison sans match
    * si elle est absente des groupes existants (cas d'un match de qualifications affiché : la
-   * campagne sans qualifs de l'année précédente n'a alors aucun match de la même phase à
-   * montrer), ou ajoutées à l'année existante sinon. */
+   * campagne sans qualifs de la saison précédente n'a alors aucun match de la même phase à
+   * montrer), ou ajoutées à la saison existante sinon. */
   private fusionnerAvecDirectes(
-    groupes: { annee: string; equipes: { nom: string; idEquipe: string; matchs: any[] }[] }[],
-    directesParAnnee: Map<string, string[]>
-  ): { annee: string; equipes: { nom: string; idEquipe: string; matchs: any[] }[]; directes: string[] }[] {
-    const parAnnee = new Map<string, { annee: string; equipes: { nom: string; idEquipe: string; matchs: any[] }[]; directes: string[] }>();
+    groupes: { saison: string; equipes: { nom: string; idEquipe: string; matchs: any[] }[] }[],
+    directesParSaison: Map<string, string[]>
+  ): { saison: string; equipes: { nom: string; idEquipe: string; matchs: any[] }[]; directes: string[] }[] {
+    const parSaison = new Map<string, { saison: string; equipes: { nom: string; idEquipe: string; matchs: any[] }[]; directes: string[] }>();
 
     for (const g of groupes) {
-      parAnnee.set(g.annee, { annee: g.annee, equipes: g.equipes, directes: directesParAnnee.get(g.annee) || [] });
+      parSaison.set(g.saison, { saison: g.saison, equipes: g.equipes, directes: directesParSaison.get(g.saison) || [] });
     }
-    for (const [annee, competitions] of directesParAnnee.entries()) {
-      if (!parAnnee.has(annee)) {
-        parAnnee.set(annee, { annee, equipes: [], directes: competitions });
+    for (const [saison, competitions] of directesParSaison.entries()) {
+      if (!parSaison.has(saison)) {
+        parSaison.set(saison, { saison, equipes: [], directes: competitions });
       }
     }
 
-    return Array.from(parAnnee.values()).sort((a, b) => b.annee.localeCompare(a.annee));
+    return Array.from(parSaison.values()).sort((a, b) => b.saison.localeCompare(a.saison));
   }
 
-  /** Groupe une liste de matchs par année (la plus récente d'abord), puis par sous-clé
+  /** Étiquette de saison sportive ("2025-2026") pour un match : une campagne européenne est à
+   * cheval sur deux années civiles (qualifs/poules à l'été-automne, phase finale au printemps
+   * suivant). On privilégie `strSeason` fourni par l'API ; à défaut on la déduit de la date
+   * (juillet→décembre : saison N/N+1 ; janvier→juin : saison N-1/N). */
+  private saisonDeMatch(m: any): string {
+    if (m.strSeason) return m.strSeason;
+    if (!m.dateEvent) return '?';
+    const annee = Number(m.dateEvent.substring(0, 4));
+    const mois = Number(m.dateEvent.substring(5, 7));
+    if (isNaN(annee) || isNaN(mois)) return '?';
+    return mois >= 7 ? `${annee}-${annee + 1}` : `${annee - 1}-${annee}`;
+  }
+
+  /** Groupe une liste de matchs par saison sportive (la plus récente d'abord), puis par sous-clé
    * (équipe concernée en mode national, compétition en mode club). Le sous-groupe prioritaire
    * (équipe suivie / compétition du match affiché) est toujours affiché en premier : déterminé
    * via `estPrioritaire` plutôt qu'une comparaison de nom, qui peut différer d'une saison à
    * l'autre (mode national). */
-  private grouperParAnnee(
+  private grouperParSaison(
     matchs: any[],
     resolverClef: (hist: any) => string,
     estPrioritaire: (hist: any) => boolean,
     resolverId: (hist: any) => string,
     resolverRang?: (clef: string) => number
-  ): { annee: string; equipes: { nom: string; idEquipe: string; matchs: any[] }[] }[] {
+  ): { saison: string; equipes: { nom: string; idEquipe: string; matchs: any[] }[] }[] {
     const tries = [...matchs].sort((a, b) =>
       new Date(a.dateEvent).getTime() - new Date(b.dateEvent).getTime()
     );
 
-    const groupesAnnee = new Map<string, Map<string, any[]>>();
+    const groupesSaison = new Map<string, Map<string, any[]>>();
     for (const m of tries) {
-      const annee = m.dateEvent ? m.dateEvent.substring(0, 4) : '?';
+      const saison = this.saisonDeMatch(m);
       const clef = resolverClef(m);
-      if (!groupesAnnee.has(annee)) groupesAnnee.set(annee, new Map<string, any[]>());
-      const sousGroupes = groupesAnnee.get(annee)!;
+      if (!groupesSaison.has(saison)) groupesSaison.set(saison, new Map<string, any[]>());
+      const sousGroupes = groupesSaison.get(saison)!;
       if (!sousGroupes.has(clef)) sousGroupes.set(clef, []);
       sousGroupes.get(clef)!.push(m);
     }
 
-    return Array.from(groupesAnnee.entries())
+    // `tries` est trié du plus ancien au plus récent : cet ordre détermine l'ordre d'apparition
+    // des sous-groupes (tri stable ci-dessous) et sert à `resolverId`. Mais on affiche les
+    // matchs d'une saison du plus récent au plus ancien, d'où le `.reverse()` sur chaque liste.
+    return Array.from(groupesSaison.entries())
       .sort((a, b) => b[0].localeCompare(a[0]))
-      .map(([annee, sousGroupes]) => ({
-        annee,
+      .map(([saison, sousGroupes]) => ({
+        saison,
         // Si un ordre fixe est fourni (mode club : Champions League puis Europa League puis
         // Conference League), il prime toujours sur la chronologie — une équipe reversée de C1
         // en C3 la même année civile doit quand même afficher C1 avant C3. Sans ordre fixe
@@ -548,7 +576,7 @@ export class MatchDetails implements OnInit {
             const bPrioritaire = b[1].some(estPrioritaire);
             return aPrioritaire === bPrioritaire ? 0 : (aPrioritaire ? -1 : 1);
           })
-          .map(([nom, matchs]) => ({ nom, idEquipe: resolverId(matchs[0]), matchs }))
+          .map(([nom, matchs]) => ({ nom, idEquipe: resolverId(matchs[0]), matchs: [...matchs].reverse() }))
       }));
   }
 

@@ -14,8 +14,6 @@ cache_ml_matchs.json
 cache_modele_ml.pkl
 cache_championnat_season.json
 cache_classement.json
-cache_classement_actuelle.json
-cache_classement_saison.json
 cache_details.json
 cache_history_qualifs.json
 cache_season.json
