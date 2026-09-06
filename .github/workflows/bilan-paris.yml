@@ -113,7 +113,7 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           # Seuls les caches irremplaçables sont versionnes sur master ; les
           # autres sont ignores (.gitignore) et pousses sur cache-snapshot.
-          git add cache_paris.json cache_paris_ml.json cache_paris_ensemble.json cache_cotes_winamax.json
+          git add cache_paris.json cache_paris_ml.json cache_paris_ensemble.json cache_cotes_winamax.json cache_paris_analyses.json
           if git diff --cached --quiet; then
             echo "Aucune modification a committer." | tee -a "$GITHUB_STEP_SUMMARY"
             exit 0
