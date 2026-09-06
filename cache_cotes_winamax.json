@@ -1002,9 +1002,9 @@
         },
         "2539938": {
             "bookmaker": "Winamax",
-            "domicile": 1.8,
-            "nul": 3.4,
-            "exterieure": 3.6
+            "domicile": 1.78,
+            "nul": 3.5,
+            "exterieure": 3.7
         },
         "2539935": {
             "bookmaker": "Winamax",
@@ -1044,14 +1044,38 @@
         },
         "2539946": {
             "bookmaker": "Betclic",
-            "domicile": 2.48,
-            "nul": 2.8,
-            "exterieure": 2.38
+            "domicile": 2.57,
+            "nul": 2.82,
+            "exterieure": 2.33
+        },
+        "2539944": {
+            "bookmaker": "Winamax",
+            "domicile": 2.3,
+            "nul": 2.95,
+            "exterieure": 2.6
+        },
+        "2539943": {
+            "bookmaker": "Winamax",
+            "domicile": 5.5,
+            "nul": 3.8,
+            "exterieure": 1.41
+        },
+        "2539945": {
+            "bookmaker": "Winamax",
+            "domicile": 2.5,
+            "nul": 2.95,
+            "exterieure": 2.35
+        },
+        "2539941": {
+            "bookmaker": "Winamax",
+            "domicile": 1.25,
+            "nul": 4.6,
+            "exterieure": 7.0
         }
     },
     "quota": {
-        "restant": "457",
-        "utilise": "43"
+        "restant": "456",
+        "utilise": "44"
     },
     "dernier_releve_complet": "2026-09-04",
     "relances_faites": [
@@ -1070,6 +1094,7 @@
         "4335:2026-09-05",
         "4336:2026-09-05",
         "4358:2026-09-05",
-        "4330:2026-09-05"
+        "4330:2026-09-05",
+        "4336:2026-09-06"
     ]
 }
