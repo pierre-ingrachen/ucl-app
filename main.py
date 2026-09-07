@@ -45,10 +45,11 @@ COMPETITIONS_EUROPE = {
 }
 SEASON = "2026-2027"
 PAST_SEASONS = ["2023-2024", "2024-2025", "2025-2026"]
-# Saisons européennes gardées en cache (pour les modèles de prédiction) mais masquées de
-# l'historique affiché sur le site : 2023-2024 est la dernière saison au format « phases de
-# poules », sans classement unique à 36 comparable aux saisons suivantes.
-SAISONS_HISTORIQUE_MASQUEES = {"2023-2024"}
+# Saisons européennes masquées de l'historique affiché sur le site (mais gardées en cache
+# pour les modèles de prédiction). 2023-2024, dernière saison au format « phases de poules »,
+# n'a pas de classement unique à 36 comparable aux saisons suivantes ; ses matchs restent
+# malgré tout affichés, classementHome/classementAway valant simplement null.
+SAISONS_HISTORIQUE_MASQUEES = set()
 
 # Championnats nationaux (onglet "Championnats")
 DOMESTIC_LEAGUES = {
