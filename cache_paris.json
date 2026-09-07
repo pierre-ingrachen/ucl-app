@@ -2299,5 +2299,44 @@
         "mise": 0.16,
         "statut": "gagne",
         "gain": 0.84
+    },
+    {
+        "idEvent": "2513975",
+        "date": "2026-09-07",
+        "equipeDomicile": "Estoril Praia",
+        "equipeExterieur": "Arouca",
+        "issue": "nul",
+        "coteBookmaker": 3.25,
+        "bookmaker": "Winamax",
+        "coteModele": 2.464,
+        "mise": 0.3077,
+        "statut": "en_attente",
+        "gain": null
+    },
+    {
+        "idEvent": "2490251",
+        "date": "2026-09-07",
+        "equipeDomicile": "Wieczysta Krak\u00f3w",
+        "equipeExterieur": "Zag\u0142\u0119bie Lubin",
+        "issue": "exterieure",
+        "coteBookmaker": 3.17,
+        "bookmaker": "Betclic",
+        "coteModele": 2.622,
+        "mise": 0.3155,
+        "statut": "en_attente",
+        "gain": null
+    },
+    {
+        "idEvent": "2477940",
+        "date": "2026-09-07",
+        "equipeDomicile": "Malm\u00f6",
+        "equipeExterieur": "AIK",
+        "issue": "exterieure",
+        "coteBookmaker": 3.75,
+        "bookmaker": "Winamax",
+        "coteModele": 3.058,
+        "mise": 0.2667,
+        "statut": "en_attente",
+        "gain": null
     }
 ]

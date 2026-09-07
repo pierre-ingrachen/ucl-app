@@ -635,5 +635,70 @@
         "mise": 0.16,
         "statut": "gagne",
         "gain": 0.84
+    },
+    {
+        "idEvent": "2506206",
+        "date": "2026-09-07",
+        "equipeDomicile": "Getafe",
+        "equipeExterieur": "Celta Vigo",
+        "issue": "exterieure",
+        "coteBookmaker": 3.25,
+        "bookmaker": "Winamax",
+        "coteModele": 2.76,
+        "mise": 0.3077,
+        "statut": "en_attente",
+        "gain": null
+    },
+    {
+        "idEvent": "2506208",
+        "date": "2026-09-07",
+        "equipeDomicile": "Elche",
+        "equipeExterieur": "Real Sociedad",
+        "issue": "nul",
+        "coteBookmaker": 3.55,
+        "bookmaker": "Winamax",
+        "coteModele": 2.983,
+        "mise": 0.2817,
+        "statut": "en_attente",
+        "gain": null
+    },
+    {
+        "idEvent": "2482158",
+        "date": "2026-09-07",
+        "equipeDomicile": "Cagliari",
+        "equipeExterieur": "Lecce",
+        "issue": "exterieure",
+        "coteBookmaker": 3.9,
+        "bookmaker": "Winamax",
+        "coteModele": 3.187,
+        "mise": 0.2564,
+        "statut": "en_attente",
+        "gain": null
+    },
+    {
+        "idEvent": "2490251",
+        "date": "2026-09-07",
+        "equipeDomicile": "Wieczysta Krak\u00f3w",
+        "equipeExterieur": "Zag\u0142\u0119bie Lubin",
+        "issue": "exterieure",
+        "coteBookmaker": 3.17,
+        "bookmaker": "Betclic",
+        "coteModele": 2.207,
+        "mise": 0.3155,
+        "statut": "en_attente",
+        "gain": null
+    },
+    {
+        "idEvent": "2477940",
+        "date": "2026-09-07",
+        "equipeDomicile": "Malm\u00f6",
+        "equipeExterieur": "AIK",
+        "issue": "exterieure",
+        "coteBookmaker": 3.75,
+        "bookmaker": "Winamax",
+        "coteModele": 2.593,
+        "mise": 0.2667,
+        "statut": "en_attente",
+        "gain": null
     }
 ]

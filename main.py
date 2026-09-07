@@ -427,11 +427,8 @@ def obtenir_cotes_semaine():
     le fichier de cache sans appeler l'API, pour rester tres largement sous le quota gratuit
     (1 requete par competition, jamais une requete par match)."""
     cache = charger_cache_permanent(CACHE_COTES_FILE)
-    semaine_actuelle = list(date.today().isocalendar()[:2])
-
-    if cache.get("semaine") != semaine_actuelle:
-        cache = {"semaine": semaine_actuelle, "data": {}, "quota": None,
-                  "dernier_releve_complet": None, "relances_faites": []}
+    if "data" not in cache:
+        cache = {"data": {}, "quota": None, "dernier_releve_complet": None, "relances_faites": []}
 
     aujourd_hui = date.today()
     cle_jour = str(aujourd_hui)
@@ -459,6 +456,12 @@ def obtenir_cotes_semaine():
     if est_jour_releve_complet:
         a_interroger = ODDS_API_SPORT_KEYS
         cache["dernier_releve_complet"] = cle_jour
+        # Les cotes et relances de la semaine precedente sont obsoletes : on ne les
+        # remet a zero qu'ici, au moment ou on a de quoi les remplacer (jamais avant,
+        # sinon un lundi sans releve complet efface les cotes glanees par la relance
+        # ciblee du dimanche pour les matchs... du lundi lui-meme).
+        cache["data"] = {}
+        cache["relances_faites"] = []
     elif peut_relancer:
         demain_str = str(aujourd_hui + timedelta(days=1))
         for id_ligue, sport_keys in ODDS_API_SPORT_KEYS.items():
