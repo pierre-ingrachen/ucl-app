@@ -646,8 +646,8 @@
         "bookmaker": "Winamax",
         "coteModele": 2.76,
         "mise": 0.3077,
-        "statut": "en_attente",
-        "gain": null
+        "statut": "perdu",
+        "gain": -0.3077
     },
     {
         "idEvent": "2506208",
@@ -659,8 +659,8 @@
         "bookmaker": "Winamax",
         "coteModele": 2.983,
         "mise": 0.2817,
-        "statut": "en_attente",
-        "gain": null
+        "statut": "perdu",
+        "gain": -0.2817
     },
     {
         "idEvent": "2482158",
@@ -672,8 +672,8 @@
         "bookmaker": "Winamax",
         "coteModele": 3.187,
         "mise": 0.2564,
-        "statut": "en_attente",
-        "gain": null
+        "statut": "perdu",
+        "gain": -0.2564
     },
     {
         "idEvent": "2490251",
@@ -685,8 +685,8 @@
         "bookmaker": "Betclic",
         "coteModele": 2.207,
         "mise": 0.3155,
-        "statut": "en_attente",
-        "gain": null
+        "statut": "perdu",
+        "gain": -0.3155
     },
     {
         "idEvent": "2477940",
@@ -698,6 +698,71 @@
         "bookmaker": "Winamax",
         "coteModele": 2.593,
         "mise": 0.2667,
+        "statut": "perdu",
+        "gain": -0.2667
+    },
+    {
+        "idEvent": "2594591",
+        "date": "2026-09-08",
+        "equipeDomicile": "Porto",
+        "equipeExterieur": "Manchester City",
+        "issue": "domicile",
+        "coteBookmaker": 4.3,
+        "bookmaker": "Winamax",
+        "coteModele": 2.374,
+        "mise": 0.2326,
+        "statut": "en_attente",
+        "gain": null
+    },
+    {
+        "idEvent": "2594591",
+        "date": "2026-09-08",
+        "equipeDomicile": "Porto",
+        "equipeExterieur": "Manchester City",
+        "issue": "nul",
+        "coteBookmaker": 4.0,
+        "bookmaker": "Winamax",
+        "coteModele": 3.245,
+        "mise": 0.25,
+        "statut": "en_attente",
+        "gain": null
+    },
+    {
+        "idEvent": "2594629",
+        "date": "2026-09-08",
+        "equipeDomicile": "Real Madrid",
+        "equipeExterieur": "Inter Milan",
+        "issue": "nul",
+        "coteBookmaker": 4.6,
+        "bookmaker": "Winamax",
+        "coteModele": 3.611,
+        "mise": 0.2174,
+        "statut": "en_attente",
+        "gain": null
+    },
+    {
+        "idEvent": "2594629",
+        "date": "2026-09-08",
+        "equipeDomicile": "Real Madrid",
+        "equipeExterieur": "Inter Milan",
+        "issue": "exterieure",
+        "coteBookmaker": 4.7,
+        "bookmaker": "Winamax",
+        "coteModele": 2.624,
+        "mise": 0.2128,
+        "statut": "en_attente",
+        "gain": null
+    },
+    {
+        "idEvent": "2489085",
+        "date": "2026-09-08",
+        "equipeDomicile": "NEC Nijmegen",
+        "equipeExterieur": "Excelsior",
+        "issue": "exterieure",
+        "coteBookmaker": 4.2,
+        "bookmaker": "Winamax",
+        "coteModele": 2.286,
+        "mise": 0.2381,
         "statut": "en_attente",
         "gain": null
     }

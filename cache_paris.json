@@ -2310,8 +2310,8 @@
         "bookmaker": "Winamax",
         "coteModele": 2.464,
         "mise": 0.3077,
-        "statut": "en_attente",
-        "gain": null
+        "statut": "gagne",
+        "gain": 0.6923
     },
     {
         "idEvent": "2490251",
@@ -2323,8 +2323,8 @@
         "bookmaker": "Betclic",
         "coteModele": 2.622,
         "mise": 0.3155,
-        "statut": "en_attente",
-        "gain": null
+        "statut": "perdu",
+        "gain": -0.3155
     },
     {
         "idEvent": "2477940",
@@ -2336,6 +2336,45 @@
         "bookmaker": "Winamax",
         "coteModele": 3.058,
         "mise": 0.2667,
+        "statut": "perdu",
+        "gain": -0.2667
+    },
+    {
+        "idEvent": "2594591",
+        "date": "2026-09-08",
+        "equipeDomicile": "Porto",
+        "equipeExterieur": "Manchester City",
+        "issue": "domicile",
+        "coteBookmaker": 4.3,
+        "bookmaker": "Winamax",
+        "coteModele": 1.958,
+        "mise": 0.2326,
+        "statut": "en_attente",
+        "gain": null
+    },
+    {
+        "idEvent": "2594591",
+        "date": "2026-09-08",
+        "equipeDomicile": "Porto",
+        "equipeExterieur": "Manchester City",
+        "issue": "nul",
+        "coteBookmaker": 4.0,
+        "bookmaker": "Winamax",
+        "coteModele": 3.376,
+        "mise": 0.25,
+        "statut": "en_attente",
+        "gain": null
+    },
+    {
+        "idEvent": "2489085",
+        "date": "2026-09-08",
+        "equipeDomicile": "NEC Nijmegen",
+        "equipeExterieur": "Excelsior",
+        "issue": "nul",
+        "coteBookmaker": 4.3,
+        "bookmaker": "Winamax",
+        "coteModele": 3.396,
+        "mise": 0.2326,
         "statut": "en_attente",
         "gain": null
     }
