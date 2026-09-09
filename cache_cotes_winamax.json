@@ -48,33 +48,33 @@
         },
         "2594578": {
             "bookmaker": "Winamax",
-            "domicile": 1.21,
-            "nul": 7.25,
-            "exterieure": 9.0
+            "domicile": 1.22,
+            "nul": 7.0,
+            "exterieure": 8.5
         },
         "2594603": {
             "bookmaker": "Winamax",
-            "domicile": 4.4,
-            "nul": 3.7,
-            "exterieure": 1.72
+            "domicile": 5.0,
+            "nul": 3.85,
+            "exterieure": 1.62
         },
         "2594541": {
             "bookmaker": "Winamax",
-            "domicile": 1.66,
+            "domicile": 1.68,
             "nul": 4.0,
-            "exterieure": 4.4
+            "exterieure": 4.2
         },
         "2594597": {
             "bookmaker": "Winamax",
-            "domicile": 1.78,
+            "domicile": 1.74,
             "nul": 4.0,
-            "exterieure": 3.8
+            "exterieure": 3.95
         },
         "2594562": {
             "bookmaker": "Winamax",
             "domicile": 1.05,
             "nul": 18.0,
-            "exterieure": 30.0
+            "exterieure": 35.0
         },
         "2594652": {
             "bookmaker": "Winamax",
@@ -90,9 +90,9 @@
         },
         "2594568": {
             "bookmaker": "Winamax",
-            "domicile": 1.09,
-            "nul": 11.0,
-            "exterieure": 14.5
+            "domicile": 1.07,
+            "nul": 13.0,
+            "exterieure": 15.0
         },
         "2594669": {
             "bookmaker": null,
@@ -102,15 +102,15 @@
         },
         "2594538": {
             "bookmaker": "Winamax",
-            "domicile": 1.1,
-            "nul": 8.5,
+            "domicile": 1.11,
+            "nul": 8.0,
             "exterieure": 19.0
         },
         "2594641": {
             "bookmaker": "Winamax",
-            "domicile": 2.5,
+            "domicile": 2.45,
             "nul": 3.5,
-            "exterieure": 2.55
+            "exterieure": 2.65
         },
         "2513954": {
             "bookmaker": "Winamax",
@@ -936,9 +936,11 @@
         }
     },
     "quota": {
-        "restant": "438",
-        "utilise": "62"
+        "restant": "437",
+        "utilise": "63"
     },
     "dernier_releve_complet": "2026-09-08",
-    "relances_faites": []
+    "relances_faites": [
+        "4480:2026-09-09"
+    ]
 }
