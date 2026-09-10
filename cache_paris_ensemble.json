@@ -945,8 +945,8 @@
         "bookmaker": "Winamax",
         "coteModele": 12.693,
         "mise": 0.0556,
-        "statut": "en_attente",
-        "gain": null
+        "statut": "perdu",
+        "gain": -0.0556
     },
     {
         "idEvent": "2594562",
@@ -958,8 +958,8 @@
         "bookmaker": "Winamax",
         "coteModele": 22.293,
         "mise": 0.0286,
-        "statut": "en_attente",
-        "gain": null
+        "statut": "perdu",
+        "gain": -0.0286
     },
     {
         "idEvent": "2594578",
@@ -971,8 +971,8 @@
         "bookmaker": "Winamax",
         "coteModele": 3.503,
         "mise": 0.1429,
-        "statut": "en_attente",
-        "gain": null
+        "statut": "perdu",
+        "gain": -0.1429
     },
     {
         "idEvent": "2594578",
@@ -984,8 +984,8 @@
         "bookmaker": "Winamax",
         "coteModele": 2.848,
         "mise": 0.1176,
-        "statut": "en_attente",
-        "gain": null
+        "statut": "perdu",
+        "gain": -0.1176
     },
     {
         "idEvent": "2594617",
@@ -997,8 +997,8 @@
         "bookmaker": "Winamax",
         "coteModele": 8.37,
         "mise": 0.0769,
-        "statut": "en_attente",
-        "gain": null
+        "statut": "perdu",
+        "gain": -0.0769
     },
     {
         "idEvent": "2594617",
@@ -1010,8 +1010,8 @@
         "bookmaker": "Winamax",
         "coteModele": 15.013,
         "mise": 0.0556,
-        "statut": "en_attente",
-        "gain": null
+        "statut": "perdu",
+        "gain": -0.0556
     },
     {
         "idEvent": "2513954",
@@ -1023,8 +1023,8 @@
         "bookmaker": "Winamax",
         "coteModele": 5.312,
         "mise": 0.1481,
-        "statut": "en_attente",
-        "gain": null
+        "statut": "perdu",
+        "gain": -0.1481
     },
     {
         "idEvent": "2489109",
@@ -1036,8 +1036,8 @@
         "bookmaker": "Winamax",
         "coteModele": 3.976,
         "mise": 0.1667,
-        "statut": "en_attente",
-        "gain": null
+        "statut": "perdu",
+        "gain": -0.1667
     },
     {
         "idEvent": "2489109",
@@ -1049,8 +1049,8 @@
         "bookmaker": "Winamax",
         "coteModele": 5.679,
         "mise": 0.129,
-        "statut": "en_attente",
-        "gain": null
+        "statut": "perdu",
+        "gain": -0.129
     },
     {
         "idEvent": "2494425",
@@ -1062,6 +1062,58 @@
         "bookmaker": "Unibet",
         "coteModele": 3.708,
         "mise": 0.2198,
+        "statut": "perdu",
+        "gain": -0.2198
+    },
+    {
+        "idEvent": "2594538",
+        "date": "2026-09-10",
+        "equipeDomicile": "Manchester United",
+        "equipeExterieur": "Sabah Baku",
+        "issue": "exterieure",
+        "coteBookmaker": 19.0,
+        "bookmaker": "Winamax",
+        "coteModele": 12.571,
+        "mise": 0.0526,
+        "statut": "en_attente",
+        "gain": null
+    },
+    {
+        "idEvent": "2594568",
+        "date": "2026-09-10",
+        "equipeDomicile": "Bayern Munich",
+        "equipeExterieur": "Bod\u00f8/Glimt",
+        "issue": "nul",
+        "coteBookmaker": 13.0,
+        "bookmaker": "Winamax",
+        "coteModele": 5.575,
+        "mise": 0.0769,
+        "statut": "en_attente",
+        "gain": null
+    },
+    {
+        "idEvent": "2594568",
+        "date": "2026-09-10",
+        "equipeDomicile": "Bayern Munich",
+        "equipeExterieur": "Bod\u00f8/Glimt",
+        "issue": "exterieure",
+        "coteBookmaker": 15.0,
+        "bookmaker": "Winamax",
+        "coteModele": 7.528,
+        "mise": 0.0667,
+        "statut": "en_attente",
+        "gain": null
+    },
+    {
+        "idEvent": "2594652",
+        "date": "2026-09-10",
+        "equipeDomicile": "Fenerbah\u00e7e",
+        "equipeExterieur": "Roma",
+        "issue": "domicile",
+        "coteBookmaker": 3.15,
+        "bookmaker": "Winamax",
+        "coteModele": 2.002,
+        "mise": 0.3175,
         "statut": "en_attente",
         "gain": null
     }
