@@ -8,6 +8,7 @@ import { provideHttpClient } from '@angular/common/http';
 import { registerLocaleData } from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
 import { provideServiceWorker } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 registerLocaleData(localeFr, 'fr');
 
@@ -19,7 +20,8 @@ export const appConfig: ApplicationConfig = {
     provideClientHydration(withEventReplay()),
     provideHttpClient(),
     { provide: LOCALE_ID, useValue: 'fr' }, provideServiceWorker('ngsw-worker.js', {
-            enabled: !isDevMode(),
+            // Pas de service worker en mode démo (build statique sans ngsw.json).
+            enabled: !isDevMode() && !environment.demo,
             registrationStrategy: 'registerWhenStable:30000'
           })
   ]

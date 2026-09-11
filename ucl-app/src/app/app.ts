@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
 import { ConnectiviteService } from './services/connectivite';
+import { environment } from '../environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -13,6 +14,7 @@ import { ConnectiviteService } from './services/connectivite';
 })
 export class App {
   title = 'ucl-app';
+  demo = environment.demo;
 
   constructor(public connectivite: ConnectiviteService) {}
 }
