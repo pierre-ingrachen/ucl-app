@@ -932,8 +932,8 @@
         "bookmaker": "Winamax",
         "coteModele": 6.444,
         "mise": 0.125,
-        "statut": "en_attente",
-        "gain": null
+        "statut": "perdu",
+        "gain": -0.125
     },
     {
         "idEvent": "2594538",
@@ -945,8 +945,8 @@
         "bookmaker": "Winamax",
         "coteModele": 11.103,
         "mise": 0.0526,
-        "statut": "en_attente",
-        "gain": null
+        "statut": "perdu",
+        "gain": -0.0526
     },
     {
         "idEvent": "2594568",
@@ -958,8 +958,8 @@
         "bookmaker": "Winamax",
         "coteModele": 4.782,
         "mise": 0.0769,
-        "statut": "en_attente",
-        "gain": null
+        "statut": "perdu",
+        "gain": -0.0769
     },
     {
         "idEvent": "2594568",
@@ -971,8 +971,8 @@
         "bookmaker": "Winamax",
         "coteModele": 5.308,
         "mise": 0.0667,
-        "statut": "en_attente",
-        "gain": null
+        "statut": "perdu",
+        "gain": -0.0667
     },
     {
         "idEvent": "2594652",
@@ -984,8 +984,8 @@
         "bookmaker": "Winamax",
         "coteModele": 1.966,
         "mise": 0.3175,
-        "statut": "en_attente",
-        "gain": null
+        "statut": "perdu",
+        "gain": -0.3175
     },
     {
         "idEvent": "2539921",
@@ -997,6 +997,97 @@
         "bookmaker": "Winamax",
         "coteModele": 4.2,
         "mise": 0.2,
+        "statut": "perdu",
+        "gain": -0.2
+    },
+    {
+        "idEvent": "2489110",
+        "date": "2026-09-11",
+        "equipeDomicile": "AZ Alkmaar",
+        "equipeExterieur": "Willem II",
+        "issue": "nul",
+        "coteBookmaker": 7.75,
+        "bookmaker": "Winamax",
+        "coteModele": 5.671,
+        "mise": 0.129,
+        "statut": "en_attente",
+        "gain": null
+    },
+    {
+        "idEvent": "2506211",
+        "date": "2026-09-11",
+        "equipeDomicile": "Sevilla",
+        "equipeExterieur": "Valencia",
+        "issue": "exterieure",
+        "coteBookmaker": 3.75,
+        "bookmaker": "Winamax",
+        "coteModele": 2.849,
+        "mise": 0.2667,
+        "statut": "en_attente",
+        "gain": null
+    },
+    {
+        "idEvent": "2490259",
+        "date": "2026-09-11",
+        "equipeDomicile": "Rak\u00f3w Cz\u0119stochowa",
+        "equipeExterieur": "Motor Lublin",
+        "issue": "exterieure",
+        "coteBookmaker": 3.65,
+        "bookmaker": "Winamax",
+        "coteModele": 3.114,
+        "mise": 0.274,
+        "statut": "en_attente",
+        "gain": null
+    },
+    {
+        "idEvent": "2481836",
+        "date": "2026-09-11",
+        "equipeDomicile": "FC Copenhagen",
+        "equipeExterieur": "AC Horsens",
+        "issue": "nul",
+        "coteBookmaker": 5.8,
+        "bookmaker": "Winamax",
+        "coteModele": 4.479,
+        "mise": 0.1724,
+        "statut": "en_attente",
+        "gain": null
+    },
+    {
+        "idEvent": "2481836",
+        "date": "2026-09-11",
+        "equipeDomicile": "FC Copenhagen",
+        "equipeExterieur": "AC Horsens",
+        "issue": "exterieure",
+        "coteBookmaker": 8.0,
+        "bookmaker": "Winamax",
+        "coteModele": 6.363,
+        "mise": 0.125,
+        "statut": "en_attente",
+        "gain": null
+    },
+    {
+        "idEvent": "2477941",
+        "date": "2026-09-11",
+        "equipeDomicile": "H\u00e4cken",
+        "equipeExterieur": "Mj\u00e4llby",
+        "issue": "nul",
+        "coteBookmaker": 4.2,
+        "bookmaker": "Winamax",
+        "coteModele": 3.219,
+        "mise": 0.2381,
+        "statut": "en_attente",
+        "gain": null
+    },
+    {
+        "idEvent": "2477941",
+        "date": "2026-09-11",
+        "equipeDomicile": "H\u00e4cken",
+        "equipeExterieur": "Mj\u00e4llby",
+        "issue": "exterieure",
+        "coteBookmaker": 4.5,
+        "bookmaker": "Winamax",
+        "coteModele": 3.366,
+        "mise": 0.2222,
         "statut": "en_attente",
         "gain": null
     }
