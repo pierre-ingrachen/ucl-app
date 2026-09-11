@@ -1,0 +1,58 @@
+name: Démo GitHub Pages
+
+# Déploie une version statique et figée (10 matchs + bilan) de ucl-app sur GitHub Pages.
+# Ne touche pas au site complet (Render/local) ni aux workflows de bilan automatique.
+# À activer une fois dans Settings > Pages > Source = "GitHub Actions".
+on:
+  push:
+    branches: [master]
+    paths:
+      - "ucl-app/**"
+      - ".github/workflows/demo-pages.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: ucl-app/package-lock.json
+
+      - name: Installe les dépendances
+        working-directory: ucl-app
+        run: npm ci
+
+      - name: Build démo (statique, figée)
+        working-directory: ucl-app
+        run: npx ng build --configuration=demo --base-href /ucl-app/
+
+      - name: Fallback SPA (routes /championnats, /bilan, /match/:id sur rafraîchissement)
+        run: cp ucl-app/dist/demo/browser/index.html ucl-app/dist/demo/browser/404.html
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: ucl-app/dist/demo/browser
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
