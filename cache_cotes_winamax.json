@@ -446,61 +446,61 @@
             "bookmaker": "Winamax",
             "domicile": 1.84,
             "nul": 3.95,
-            "exterieure": 3.5
+            "exterieure": 3.45
         },
         "2506227": {
             "bookmaker": "Winamax",
-            "domicile": 1.9,
+            "domicile": 2.05,
             "nul": 3.25,
-            "exterieure": 3.3
+            "exterieure": 3.05
         },
         "2506228": {
             "bookmaker": "Winamax",
-            "domicile": 7.25,
-            "nul": 5.6,
-            "exterieure": 1.22
+            "domicile": 7.5,
+            "nul": 6.0,
+            "exterieure": 1.21
         },
         "2506220": {
             "bookmaker": "Winamax",
-            "domicile": 1.4,
-            "nul": 4.2,
-            "exterieure": 5.5
+            "domicile": 1.38,
+            "nul": 4.4,
+            "exterieure": 5.7
         },
         "2506225": {
             "bookmaker": "Winamax",
-            "domicile": 2.2,
-            "nul": 2.9,
+            "domicile": 2.3,
+            "nul": 3.0,
             "exterieure": 2.75
         },
         "2506222": {
             "bookmaker": "Winamax",
-            "domicile": 2.9,
-            "nul": 3.25,
-            "exterieure": 1.98
+            "domicile": 3.05,
+            "nul": 3.3,
+            "exterieure": 2.0
         },
         "2506219": {
             "bookmaker": "Winamax",
-            "domicile": 1.05,
-            "nul": 9.0,
-            "exterieure": 13.0
+            "domicile": 1.03,
+            "nul": 10.5,
+            "exterieure": 15.0
         },
         "2506224": {
             "bookmaker": "Winamax",
-            "domicile": 1.72,
-            "nul": 3.15,
-            "exterieure": 3.9
+            "domicile": 1.68,
+            "nul": 3.25,
+            "exterieure": 4.2
         },
         "2506221": {
             "bookmaker": "Winamax",
-            "domicile": 3.0,
-            "nul": 3.4,
-            "exterieure": 1.9
+            "domicile": 3.2,
+            "nul": 3.5,
+            "exterieure": 1.86
         },
         "2506235": {
             "bookmaker": "Winamax",
-            "domicile": 1.82,
-            "nul": 3.15,
-            "exterieure": 3.45
+            "domicile": 1.74,
+            "nul": 3.35,
+            "exterieure": 3.8
         },
         "2482175": {
             "bookmaker": "Winamax",
@@ -738,9 +738,9 @@
         },
         "2490214": {
             "bookmaker": "Winamax",
-            "domicile": 1.68,
-            "nul": 3.55,
-            "exterieure": 3.9
+            "domicile": 1.74,
+            "nul": 3.5,
+            "exterieure": 3.75
         },
         "2539946": {
             "bookmaker": "Betclic",
@@ -911,16 +911,16 @@
             "exterieure": 5.7
         },
         "2494423": {
-            "bookmaker": "Unibet",
-            "domicile": 1.7,
-            "nul": 3.5,
-            "exterieure": 3.7
+            "bookmaker": null,
+            "domicile": null,
+            "nul": null,
+            "exterieure": null
         },
         "2494422": {
-            "bookmaker": "Unibet",
-            "domicile": 1.39,
-            "nul": 4.2,
-            "exterieure": 5.2
+            "bookmaker": null,
+            "domicile": null,
+            "nul": null,
+            "exterieure": null
         },
         "2477941": {
             "bookmaker": "Winamax",
@@ -981,11 +981,191 @@
             "domicile": 1.13,
             "nul": 7.0,
             "exterieure": 9.0
+        },
+        "2506238": {
+            "bookmaker": "Winamax",
+            "domicile": 2.1,
+            "nul": 3.1,
+            "exterieure": 2.95
+        },
+        "2506234": {
+            "bookmaker": "Winamax",
+            "domicile": 1.72,
+            "nul": 3.55,
+            "exterieure": 3.65
+        },
+        "2506233": {
+            "bookmaker": "Winamax",
+            "domicile": 7.75,
+            "nul": 5.4,
+            "exterieure": 1.21
+        },
+        "2506237": {
+            "bookmaker": "Winamax",
+            "domicile": 1.98,
+            "nul": 2.85,
+            "exterieure": 3.35
+        },
+        "2506229": {
+            "bookmaker": "Winamax",
+            "domicile": 3.25,
+            "nul": 3.6,
+            "exterieure": 1.74
+        },
+        "2506236": {
+            "bookmaker": "Winamax",
+            "domicile": 2.55,
+            "nul": 3.05,
+            "exterieure": 2.25
+        },
+        "2506232": {
+            "bookmaker": "Winamax",
+            "domicile": 1.48,
+            "nul": 3.95,
+            "exterieure": 4.4
+        },
+        "2506231": {
+            "bookmaker": "Winamax",
+            "domicile": 2.5,
+            "nul": 3.15,
+            "exterieure": 2.3
+        },
+        "2490201": {
+            "bookmaker": "Winamax",
+            "domicile": 2.45,
+            "nul": 3.3,
+            "exterieure": 2.4
+        },
+        "2490268": {
+            "bookmaker": "Betclic",
+            "domicile": 1.85,
+            "nul": 3.55,
+            "exterieure": 3.25
+        },
+        "2490262": {
+            "bookmaker": "Winamax",
+            "domicile": 1.6,
+            "nul": 3.9,
+            "exterieure": 3.95
+        },
+        "2490264": {
+            "bookmaker": "Winamax",
+            "domicile": 2.1,
+            "nul": 3.2,
+            "exterieure": 2.75
+        },
+        "2490267": {
+            "bookmaker": "Winamax",
+            "domicile": 2.15,
+            "nul": 3.35,
+            "exterieure": 2.65
+        },
+        "2490269": {
+            "bookmaker": "Winamax",
+            "domicile": 2.65,
+            "nul": 3.35,
+            "exterieure": 2.05
+        },
+        "2490266": {
+            "bookmaker": "Winamax",
+            "domicile": 2.1,
+            "nul": 3.25,
+            "exterieure": 2.6
+        },
+        "2490263": {
+            "bookmaker": "Winamax",
+            "domicile": 2.1,
+            "nul": 3.1,
+            "exterieure": 2.75
+        },
+        "2490261": {
+            "bookmaker": "Winamax",
+            "domicile": 2.4,
+            "nul": 3.25,
+            "exterieure": 2.3
+        },
+        "2490265": {
+            "bookmaker": "Winamax",
+            "domicile": 1.31,
+            "nul": 4.6,
+            "exterieure": 5.6
+        },
+        "2493348": {
+            "bookmaker": "Winamax",
+            "domicile": 3.6,
+            "nul": 3.65,
+            "exterieure": 1.74
+        },
+        "2493347": {
+            "bookmaker": "Winamax",
+            "domicile": 1.92,
+            "nul": 3.75,
+            "exterieure": 2.95
+        },
+        "2493349": {
+            "bookmaker": "Winamax",
+            "domicile": 2.55,
+            "nul": 3.55,
+            "exterieure": 2.2
+        },
+        "2493374": {
+            "bookmaker": "Winamax",
+            "domicile": 1.76,
+            "nul": 3.85,
+            "exterieure": 3.0
+        },
+        "2493377": {
+            "bookmaker": "Winamax",
+            "domicile": 2.35,
+            "nul": 3.9,
+            "exterieure": 2.1
+        },
+        "2493378": {
+            "bookmaker": "Winamax",
+            "domicile": 2.45,
+            "nul": 3.6,
+            "exterieure": 2.1
+        },
+        "2493379": {
+            "bookmaker": "Winamax",
+            "domicile": 3.0,
+            "nul": 3.45,
+            "exterieure": 1.86
+        },
+        "2494446": {
+            "bookmaker": null,
+            "domicile": null,
+            "nul": null,
+            "exterieure": null
+        },
+        "2494449": {
+            "bookmaker": null,
+            "domicile": null,
+            "nul": null,
+            "exterieure": null
+        },
+        "2494448": {
+            "bookmaker": null,
+            "domicile": null,
+            "nul": null,
+            "exterieure": null
+        },
+        "2494450": {
+            "bookmaker": null,
+            "domicile": null,
+            "nul": null,
+            "exterieure": null
+        },
+        "2494451": {
+            "bookmaker": null,
+            "domicile": null,
+            "nul": null,
+            "exterieure": null
         }
     },
     "quota": {
-        "restant": "389",
-        "utilise": "111"
+        "restant": "385",
+        "utilise": "115"
     },
     "dernier_releve_complet": "2026-09-11",
     "relances_faites": [
@@ -995,6 +1175,10 @@
         "4336:2026-09-11",
         "4621:2026-09-11",
         "4336:2026-09-12",
-        "4358:2026-09-12"
+        "4358:2026-09-12",
+        "4335:2026-09-14",
+        "4422:2026-09-14",
+        "4675:2026-09-14",
+        "4330:2026-09-14"
     ]
 }
