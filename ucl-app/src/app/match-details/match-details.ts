@@ -226,9 +226,18 @@ export class MatchDetails implements OnInit {
         // On ne compare le match qu'à des confrontations de la même phase équivalente
         // (qualifications / phase de groupe-poule-championnat / phase finale)
         const phaseActuelle = this.getPhase(this.match.intRound, this.match.strEvent, this.match.strFilename);
-        this.historiqueMemePhase = historiqueComplet.filter(m =>
+        const memePhase = historiqueComplet.filter(m =>
           this.getPhase(m.intRound, m.strEvent, m.strFilename) === phaseActuelle
         );
+        // Si le match affiché n'est pas lui-même un match de qualifications, on ajoute quand
+        // même les matchs de qualifications (barrages) de la campagne EN COURS (même saison
+        // que le match affiché) pour les deux équipes qui s'affrontent : ce sont leurs matchs
+        // les plus récents, directement liés à la campagne du match affiché, et ils
+        // disparaissaient sinon complètement de l'historique d'une équipe passée par les
+        // tours préliminaires cette saison.
+        this.historiqueMemePhase = phaseActuelle === 'qualifications'
+          ? memePhase
+          : [...memePhase, ...this.qualifsCampagneEnCours(historiqueComplet)];
         this.historiqueMemePhaseMemeCompetition = this.historiqueMemePhase.filter(m =>
           m.idLeague === this.match.idLeague
         );
@@ -240,6 +249,18 @@ export class MatchDetails implements OnInit {
         this.isLoading = false;
       }
     });
+  }
+
+  /** Matchs de qualifications de la saison sportive du match affiché impliquant l'une des deux
+   * équipes qui s'affrontent (cf. `chargerHistorique`). */
+  private qualifsCampagneEnCours(historiqueComplet: any[]): any[] {
+    const saisonActuelle = this.saisonDeMatch(this.match);
+    const idsEquipesMatch = new Set([this.match.idHomeTeam, this.match.idAwayTeam]);
+    return historiqueComplet.filter(m =>
+      this.getPhase(m.intRound, m.strEvent, m.strFilename) === 'qualifications' &&
+      this.saisonDeMatch(m) === saisonActuelle &&
+      (idsEquipesMatch.has(m.idHomeTeam) || idsEquipesMatch.has(m.idAwayTeam))
+    );
   }
 
   // Historique club : toutes compétitions confondues, même phase équivalente.
@@ -484,7 +505,10 @@ export class MatchDetails implements OnInit {
     for (const c of parCampagne.values()) {
       if (c.aJoueGroupe && !saisonsAvecQualifs.has(c.saison)) {
         const liste = resultat.get(c.saison) || [];
-        if (!liste.includes(c.competition)) liste.push(c.competition);
+        // Une équipe ne peut être "qualifiée directement" que dans une seule compétition
+        // par saison : si plusieurs campagnes sans qualifs apparaissent la même saison
+        // (anomalie de données), on ne garde que la première rencontrée.
+        if (liste.length === 0) liste.push(c.competition);
         resultat.set(c.saison, liste);
       }
     }
