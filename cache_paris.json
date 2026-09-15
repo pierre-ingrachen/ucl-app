@@ -3428,8 +3428,8 @@
         "bookmaker": "Winamax",
         "coteModele": 2.461,
         "mise": 0.3175,
-        "statut": "en_attente",
-        "gain": null
+        "statut": "gagne",
+        "gain": 0.6826
     },
     {
         "idEvent": "2494036",
@@ -3441,6 +3441,58 @@
         "bookmaker": "Winamax",
         "coteModele": 2.68,
         "mise": 0.2941,
+        "statut": "perdu",
+        "gain": -0.2941
+    },
+    {
+        "idEvent": "2489119",
+        "date": "2026-09-15",
+        "equipeDomicile": "Ajax",
+        "equipeExterieur": "Willem II",
+        "issue": "nul",
+        "coteBookmaker": 9.0,
+        "bookmaker": "Winamax",
+        "coteModele": 5.987,
+        "mise": 0.1111,
+        "statut": "en_attente",
+        "gain": null
+    },
+    {
+        "idEvent": "2506228",
+        "date": "2026-09-15",
+        "equipeDomicile": "Elche",
+        "equipeExterieur": "Real Madrid",
+        "issue": "domicile",
+        "coteBookmaker": 9.0,
+        "bookmaker": "Winamax",
+        "coteModele": 6.323,
+        "mise": 0.1111,
+        "statut": "en_attente",
+        "gain": null
+    },
+    {
+        "idEvent": "2506228",
+        "date": "2026-09-15",
+        "equipeDomicile": "Elche",
+        "equipeExterieur": "Real Madrid",
+        "issue": "nul",
+        "coteBookmaker": 7.0,
+        "bookmaker": "Winamax",
+        "coteModele": 3.978,
+        "mise": 0.1429,
+        "statut": "en_attente",
+        "gain": null
+    },
+    {
+        "idEvent": "2490214",
+        "date": "2026-09-15",
+        "equipeDomicile": "Rak\u00f3w Cz\u0119stochowa",
+        "equipeExterieur": "Zag\u0142\u0119bie Lubin",
+        "issue": "exterieure",
+        "coteBookmaker": 3.75,
+        "bookmaker": "Winamax",
+        "coteModele": 3.239,
+        "mise": 0.2667,
         "statut": "en_attente",
         "gain": null
     }
