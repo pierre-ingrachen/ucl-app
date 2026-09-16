@@ -3454,8 +3454,8 @@
         "bookmaker": "Winamax",
         "coteModele": 5.987,
         "mise": 0.1111,
-        "statut": "en_attente",
-        "gain": null
+        "statut": "perdu",
+        "gain": -0.1111
     },
     {
         "idEvent": "2506228",
@@ -3467,8 +3467,8 @@
         "bookmaker": "Winamax",
         "coteModele": 6.323,
         "mise": 0.1111,
-        "statut": "en_attente",
-        "gain": null
+        "statut": "perdu",
+        "gain": -0.1111
     },
     {
         "idEvent": "2506228",
@@ -3480,8 +3480,8 @@
         "bookmaker": "Winamax",
         "coteModele": 3.978,
         "mise": 0.1429,
-        "statut": "en_attente",
-        "gain": null
+        "statut": "perdu",
+        "gain": -0.1429
     },
     {
         "idEvent": "2490214",
@@ -3493,6 +3493,97 @@
         "bookmaker": "Winamax",
         "coteModele": 3.239,
         "mise": 0.2667,
+        "statut": "gagne",
+        "gain": 0.7334
+    },
+    {
+        "idEvent": "2594889",
+        "date": "2026-09-16",
+        "equipeDomicile": "Olympiacos",
+        "equipeExterieur": "Jagiellonia Bia\u0142ystok",
+        "issue": "nul",
+        "coteBookmaker": 4.8,
+        "bookmaker": "Winamax",
+        "coteModele": 3.849,
+        "mise": 0.2083,
+        "statut": "en_attente",
+        "gain": null
+    },
+    {
+        "idEvent": "2594889",
+        "date": "2026-09-16",
+        "equipeDomicile": "Olympiacos",
+        "equipeExterieur": "Jagiellonia Bia\u0142ystok",
+        "issue": "exterieure",
+        "coteBookmaker": 7.0,
+        "bookmaker": "Winamax",
+        "coteModele": 4.666,
+        "mise": 0.1429,
+        "statut": "en_attente",
+        "gain": null
+    },
+    {
+        "idEvent": "2594898",
+        "date": "2026-09-16",
+        "equipeDomicile": "Hapoel Be'er Sheva",
+        "equipeExterieur": "Dinamo Zagreb",
+        "issue": "domicile",
+        "coteBookmaker": 3.5,
+        "bookmaker": "Winamax",
+        "coteModele": 2.081,
+        "mise": 0.2857,
+        "statut": "en_attente",
+        "gain": null
+    },
+    {
+        "idEvent": "2594946",
+        "date": "2026-09-16",
+        "equipeDomicile": "Ararat-Armenia",
+        "equipeExterieur": "Sparta Prague",
+        "issue": "domicile",
+        "coteBookmaker": 4.6,
+        "bookmaker": "Winamax",
+        "coteModele": 2.761,
+        "mise": 0.2174,
+        "statut": "en_attente",
+        "gain": null
+    },
+    {
+        "idEvent": "2594946",
+        "date": "2026-09-16",
+        "equipeDomicile": "Ararat-Armenia",
+        "equipeExterieur": "Sparta Prague",
+        "issue": "nul",
+        "coteBookmaker": 4.0,
+        "bookmaker": "Winamax",
+        "coteModele": 3.273,
+        "mise": 0.25,
+        "statut": "en_attente",
+        "gain": null
+    },
+    {
+        "idEvent": "2506219",
+        "date": "2026-09-16",
+        "equipeDomicile": "Barcelona",
+        "equipeExterieur": "Racing de Santander",
+        "issue": "nul",
+        "coteBookmaker": 15.0,
+        "bookmaker": "Winamax",
+        "coteModele": 13.008,
+        "mise": 0.0667,
+        "statut": "en_attente",
+        "gain": null
+    },
+    {
+        "idEvent": "2506222",
+        "date": "2026-09-16",
+        "equipeDomicile": "Levante",
+        "equipeExterieur": "Athletic Bilbao",
+        "issue": "domicile",
+        "coteBookmaker": 3.2,
+        "bookmaker": "Winamax",
+        "coteModele": 1.821,
+        "mise": 0.3125,
         "statut": "en_attente",
         "gain": null
     }
