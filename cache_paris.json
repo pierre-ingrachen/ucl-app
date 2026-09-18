@@ -3597,8 +3597,8 @@
         "bookmaker": "Winamax",
         "coteModele": 3.256,
         "mise": 0.25,
-        "statut": "en_attente",
-        "gain": null
+        "statut": "perdu",
+        "gain": -0.25
     },
     {
         "idEvent": "2594851",
@@ -3610,8 +3610,8 @@
         "bookmaker": "Winamax",
         "coteModele": 2.387,
         "mise": 0.2381,
-        "statut": "en_attente",
-        "gain": null
+        "statut": "gagne",
+        "gain": 0.7619
     },
     {
         "idEvent": "2594855",
@@ -3623,8 +3623,8 @@
         "bookmaker": "Winamax",
         "coteModele": 3.283,
         "mise": 0.2222,
-        "statut": "en_attente",
-        "gain": null
+        "statut": "perdu",
+        "gain": -0.2222
     },
     {
         "idEvent": "2594855",
@@ -3636,8 +3636,8 @@
         "bookmaker": "Winamax",
         "coteModele": 2.196,
         "mise": 0.1923,
-        "statut": "en_attente",
-        "gain": null
+        "statut": "gagne",
+        "gain": 0.8077
     },
     {
         "idEvent": "2594885",
@@ -3649,8 +3649,8 @@
         "bookmaker": "Winamax",
         "coteModele": 3.252,
         "mise": 0.25,
-        "statut": "en_attente",
-        "gain": null
+        "statut": "perdu",
+        "gain": -0.25
     },
     {
         "idEvent": "2594885",
@@ -3662,8 +3662,8 @@
         "bookmaker": "Winamax",
         "coteModele": 2.476,
         "mise": 0.2532,
-        "statut": "en_attente",
-        "gain": null
+        "statut": "perdu",
+        "gain": -0.2532
     },
     {
         "idEvent": "2506221",
@@ -3675,6 +3675,84 @@
         "bookmaker": "Winamax",
         "coteModele": 3.167,
         "mise": 0.2667,
+        "statut": "perdu",
+        "gain": -0.2667
+    },
+    {
+        "idEvent": "2489122",
+        "date": "2026-09-18",
+        "equipeDomicile": "Groningen",
+        "equipeExterieur": "PEC Zwolle",
+        "issue": "nul",
+        "coteBookmaker": 4.4,
+        "bookmaker": "Winamax",
+        "coteModele": 3.756,
+        "mise": 0.2273,
+        "statut": "en_attente",
+        "gain": null
+    },
+    {
+        "idEvent": "2494047",
+        "date": "2026-09-18",
+        "equipeDomicile": "Brentford",
+        "equipeExterieur": "Chelsea",
+        "issue": "nul",
+        "coteBookmaker": 3.8,
+        "bookmaker": "Winamax",
+        "coteModele": 2.737,
+        "mise": 0.2632,
+        "statut": "en_attente",
+        "gain": null
+    },
+    {
+        "idEvent": "2489501",
+        "date": "2026-09-18",
+        "equipeDomicile": "Monaco",
+        "equipeExterieur": "Lens",
+        "issue": "nul",
+        "coteBookmaker": 3.8,
+        "bookmaker": "Winamax",
+        "coteModele": 2.772,
+        "mise": 0.2632,
+        "statut": "en_attente",
+        "gain": null
+    },
+    {
+        "idEvent": "2489501",
+        "date": "2026-09-18",
+        "equipeDomicile": "Monaco",
+        "equipeExterieur": "Lens",
+        "issue": "exterieure",
+        "coteBookmaker": 3.25,
+        "bookmaker": "Winamax",
+        "coteModele": 2.577,
+        "mise": 0.3077,
+        "statut": "en_attente",
+        "gain": null
+    },
+    {
+        "idEvent": "2499740",
+        "date": "2026-09-18",
+        "equipeDomicile": "Rapid Vienna",
+        "equipeExterieur": "WSG Tirol",
+        "issue": "nul",
+        "coteBookmaker": 5.3,
+        "bookmaker": "Winamax",
+        "coteModele": 4.117,
+        "mise": 0.1887,
+        "statut": "en_attente",
+        "gain": null
+    },
+    {
+        "idEvent": "2499740",
+        "date": "2026-09-18",
+        "equipeDomicile": "Rapid Vienna",
+        "equipeExterieur": "WSG Tirol",
+        "issue": "exterieure",
+        "coteBookmaker": 6.25,
+        "bookmaker": "Winamax",
+        "coteModele": 5.184,
+        "mise": 0.16,
         "statut": "en_attente",
         "gain": null
     }
