@@ -10,6 +10,8 @@ export interface Match {
   idLeague?: string;
   strLeague?: string;
   strLeagueBadge?: string;
+  idHomeTeam?: string;
+  idAwayTeam?: string;
   localDateTime?: Date;
 }
 

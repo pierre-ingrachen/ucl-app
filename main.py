@@ -51,6 +51,21 @@ PAST_SEASONS = ["2023-2024", "2024-2025", "2025-2026"]
 # malgré tout affichés, classementHome/classementAway valant simplement null.
 SAISONS_HISTORIQUE_MASQUEES = set()
 
+# Sélections nationales (onglet "Sélections") : Ligue des Nations UEFA, Coupe du Monde 2026
+# (finale + qualifications UEFA) et Euro 2024 (finale + qualifications). Contrairement aux
+# compétitions de clubs, idHomeTeam/idAwayTeam désignent ici directement des sélections
+# (mêmes identifiants sur toutes ces compétitions), donc pas besoin de résolution de pays.
+LEAGUE_NATIONS = "4490"
+NATIONS_LEAGUE_EDITIONS = ["2024-2025"]  # dernière édition terminée
+NATIONS_LEAGUE_SAISON_ACTUELLE = "2026-2027"
+LEAGUE_CDM = "4429"
+SAISON_CDM = "2026"
+LEAGUE_CDM_QUALIF_UEFA = "5518"
+SAISON_CDM_QUALIF = "2026"
+LEAGUE_EURO = "4502"
+SAISON_EURO = "2024"
+SAISON_EURO_QUALIF = "2023-2024"
+
 # Championnats nationaux (onglet "Championnats")
 DOMESTIC_LEAGUES = {
     "4344": "Primeira Liga",       # Portugal
@@ -196,6 +211,7 @@ CACHE_TEAMS_FILE = "cache_teams.json"
 CACHE_CLASSEMENT_FILE = "cache_classement.json"
 CACHE_CHAMPIONNAT_SEASON_FILE = "cache_championnat_season.json"
 CACHE_CHAMPIONNAT_HISTORIQUE_FILE = "cache_championnat_historique.json"
+CACHE_SELECTIONS_FILE = "cache_selections.json"
 CACHE_COTES_FILE = "cache_cotes_winamax.json"
 CACHE_PARIS_FILE = "cache_paris.json"
 CACHE_PARIS_ML_FILE = "cache_paris_ml.json"
@@ -894,6 +910,84 @@ def get_classement_competition(league_id: str):
                                           isoler_phase_de_ligue(matchs_precedents),
                                           ecarter_invites=False),
         },
+    }
+
+def obtenir_donnees_selections():
+    """Matchs de Ligue des Nations (2 dernières éditions + saison en cours), de la Coupe du
+    Monde 2026 (finale + qualifications UEFA) et de l'Euro 2024 (finale + qualifications),
+    mis en cache quotidien. Une seule requête par (compétition, saison) : les volumes sont
+    petits (une grosse centaine de matchs par saison), pas besoin du cache permanent."""
+    data = charger_cache_memoise(CACHE_SELECTIONS_FILE)
+    if data is None:
+        data = {}
+        requetes = [
+            ("nations", LEAGUE_NATIONS, NATIONS_LEAGUE_EDITIONS + [NATIONS_LEAGUE_SAISON_ACTUELLE]),
+            ("cdm", LEAGUE_CDM, [SAISON_CDM]),
+            ("cdm_qualif", LEAGUE_CDM_QUALIF_UEFA, [SAISON_CDM_QUALIF]),
+            ("euro", LEAGUE_EURO, [SAISON_EURO]),
+            ("euro_qualif", LEAGUE_EURO, [SAISON_EURO_QUALIF]),
+        ]
+        for cle, league_id, saisons in requetes:
+            matchs = []
+            for saison in saisons:
+                url = f"https://www.thesportsdb.com/api/v1/json/{API_KEY}/eventsseason.php?id={league_id}&s={saison}"
+                try:
+                    resp = requete_api_avec_retry(url)
+                    resp.raise_for_status()
+                    matchs.extend(resp.json().get("events", []) or [])
+                except requests.exceptions.RequestException:
+                    continue
+            data[cle] = matchs
+        sauvegarder_cache(CACHE_SELECTIONS_FILE, data)
+    return data
+
+@app.get("/api/selections/semaine")
+def get_selections_semaine():
+    """Matchs de Ligue des Nations (toutes divisions) prévus dans les 7 prochains jours."""
+    data = obtenir_donnees_selections()
+    matchs_actuels = [m for m in data.get("nations", []) if m.get("strSeason") == NATIONS_LEAGUE_SAISON_ACTUELLE]
+    return {"events": filtrer_matchs_semaine(matchs_actuels)}
+
+@app.get("/api/selections/{team_id}")
+def get_selection_equipe(team_id: str):
+    """Fiche d'une sélection : historique des 2 dernières éditions de Ligue des Nations, et
+    pour la CDM 2026 comme pour l'Euro 2024, ses matchs de la phase finale si elle s'y est
+    qualifiée, sinon son parcours de qualification."""
+    data = obtenir_donnees_selections()
+
+    def matchs_joues(matchs, equipe):
+        return sorted(
+            (m for m in matchs
+             if (m.get("idHomeTeam") == equipe or m.get("idAwayTeam") == equipe)
+             and m.get("intHomeScore") is not None and m.get("intAwayScore") is not None),
+            key=lambda m: m.get("dateEvent") or "",
+            reverse=True,
+        )
+
+    historique_nations = {
+        edition: matchs_joues(
+            [m for m in data.get("nations", []) if m.get("strSeason") == edition], team_id
+        )
+        for edition in NATIONS_LEAGUE_EDITIONS
+    }
+
+    def bloc_competition(matchs_finale, matchs_qualif):
+        joues_finale = matchs_joues(matchs_finale, team_id)
+        if joues_finale:
+            return {"qualifiee": True, "matchs": joues_finale}
+        return {"qualifiee": False, "matchs": matchs_joues(matchs_qualif, team_id)}
+
+    cdm = bloc_competition(data.get("cdm", []), data.get("cdm_qualif", []))
+    euro = bloc_competition(data.get("euro", []), data.get("euro_qualif", []))
+
+    if not (any(historique_nations.values()) or cdm["matchs"] or euro["matchs"]):
+        raise HTTPException(status_code=404, detail="Sélection inconnue")
+
+    return {
+        "idTeam": team_id,
+        "historiqueLigueDesNations": historique_nations,
+        "cdm2026": cdm,
+        "euro2024": euro,
     }
 
 @app.get("/api/match/{event_id}")

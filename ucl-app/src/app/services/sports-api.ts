@@ -51,6 +51,23 @@ export class SportsApiService {
     return this.http.get<any>(`${environment.apiUrl}/api/competitions/classement/${idLigue}`);
   }
 
+  /** Matchs de Ligue des Nations (toutes divisions) de la semaine. */
+  getSelectionsSemaine(): Observable<Match[]> {
+    const source = environment.demo
+      ? this.http.get<ApiResponse>(this.demoUrl('demo-data/selections-a-venir.json'))
+      : this.http.get<ApiResponse>(`${environment.apiUrl}/api/selections/semaine`);
+    return source.pipe(map(response => this.trierMatchsAVenir(response.events)));
+  }
+
+  /** Fiche d'une sélection : historique Ligue des Nations + CDM 2026 / Euro 2024
+   * (phase finale si qualifiée, sinon parcours de qualification). */
+  getSelectionEquipe(idTeam: string): Observable<any> {
+    if (environment.demo) {
+      return this.http.get<any>(this.demoUrl(`demo-data/selections/${idTeam}.json`));
+    }
+    return this.http.get<any>(`${environment.apiUrl}/api/selections/${idTeam}`);
+  }
+
   private trierMatchsAVenir(events: Match[] | undefined): Match[] {
     if (!events) return [];
 

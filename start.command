@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-ROOT="/Users/pierre/Library/CloudStorage/OneDrive-FondationEPF/F/UCL"
+ROOT="/Users/pierre/Documents/F/UCL"
 export PATH="/opt/homebrew/bin:$PATH"
 export NG_CLI_ANALYTICS=false
 
