@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SportsApiService } from '../services/sports-api';
 import { Match } from '../models/match';
+import { getFlagUrl } from '../services/flags';
 
 @Component({
   selector: 'app-selections',
@@ -123,6 +124,10 @@ export class Selections implements OnInit {
 
   couleurResultat(resultat: 'V' | 'N' | 'D' | null): string {
     return resultat ? Selections.COULEUR_RESULTAT[resultat] : '#ccc';
+  }
+
+  getFlagUrl(country: string | undefined | null): string | null {
+    return getFlagUrl(country);
   }
 
   getDateJourMois(dateEvent: string | undefined): string {

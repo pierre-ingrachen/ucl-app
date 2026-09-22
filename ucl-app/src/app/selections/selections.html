@@ -62,6 +62,9 @@
                                 style="display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; border-radius: 50%; color: white; font-size: 0.7em; font-weight: bold; margin-right: auto; flex-shrink: 0;">
                             {{ resultatEquipe(hist, match.idHomeTeam!) }}
                           </span>
+                          @if (getFlagUrl(hist.strHomeTeam); as flag) {
+                            <img [src]="flag" [alt]="hist.strHomeTeam" title="{{ hist.strHomeTeam }}" style="width: 16px; height: 16px; object-fit: contain; border-radius: 2px;">
+                          }
                           <span style="text-align: right; flex: 1;" [style.font-weight]="estAdversaire(hist, match.idHomeTeam!, 'home') ? 'normal' : 'bold'">
                             {{ hist.strHomeTeam }}
                           </span>
@@ -69,6 +72,9 @@
                           <span style="text-align: left; flex: 1;" [style.font-weight]="estAdversaire(hist, match.idHomeTeam!, 'away') ? 'normal' : 'bold'">
                             {{ hist.strAwayTeam }}
                           </span>
+                          @if (getFlagUrl(hist.strAwayTeam); as flag) {
+                            <img [src]="flag" [alt]="hist.strAwayTeam" title="{{ hist.strAwayTeam }}" style="width: 16px; height: 16px; object-fit: contain; border-radius: 2px;">
+                          }
                         </li>
                       }
                     </ul>
@@ -102,6 +108,9 @@
                                 style="display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; border-radius: 50%; color: white; font-size: 0.7em; font-weight: bold; margin-right: auto; flex-shrink: 0;">
                             {{ resultatEquipe(hist, match.idAwayTeam!) }}
                           </span>
+                          @if (getFlagUrl(hist.strHomeTeam); as flag) {
+                            <img [src]="flag" [alt]="hist.strHomeTeam" title="{{ hist.strHomeTeam }}" style="width: 16px; height: 16px; object-fit: contain; border-radius: 2px;">
+                          }
                           <span style="text-align: right; flex: 1;" [style.font-weight]="estAdversaire(hist, match.idAwayTeam!, 'home') ? 'normal' : 'bold'">
                             {{ hist.strHomeTeam }}
                           </span>
@@ -109,6 +118,9 @@
                           <span style="text-align: left; flex: 1;" [style.font-weight]="estAdversaire(hist, match.idAwayTeam!, 'away') ? 'normal' : 'bold'">
                             {{ hist.strAwayTeam }}
                           </span>
+                          @if (getFlagUrl(hist.strAwayTeam); as flag) {
+                            <img [src]="flag" [alt]="hist.strAwayTeam" title="{{ hist.strAwayTeam }}" style="width: 16px; height: 16px; object-fit: contain; border-radius: 2px;">
+                          }
                         </li>
                       }
                     </ul>
