@@ -1,0 +1,13 @@
+{
+    "semaine": [
+        2026,
+        36
+    ],
+    "data": {},
+    "quota": {
+        "restant": "340",
+        "utilise": "160"
+    },
+    "dernier_releve_complet": "2026-09-25",
+    "relances_faites": []
+}
