@@ -1,0 +1,139 @@
+<div class="container" style="max-width: 1000px; margin: 0 auto; font-family: sans-serif;">
+
+  <div style="text-align: left; margin-bottom: 20px;">
+    <button (click)="retour()" style="padding: 10px 15px; border-radius: 5px; cursor: pointer; border: none; background-color: #0c1c38; color: white;">
+      ← Retour aux sélections
+    </button>
+  </div>
+
+  @if (isLoading) {
+    <p class="text-center">Chargement du match...</p>
+  } @else if (!match) {
+    <p class="text-center">Match introuvable.</p>
+  } @else {
+
+    <div style="text-align: center; margin-bottom: 10px;">
+      <div style="color: #888; font-size: 0.9em;">
+        {{ match.localDateTime | date:'EEEE' | titlecase }} {{ match.localDateTime | date:'d MMMM yyyy à HH:mm' }}
+      </div>
+      @if (match.strLeague) {
+        <div style="color: #888; font-size: 0.9em; display: flex; align-items: center; justify-content: center; gap: 6px; margin-top: 4px;">
+          @if (match.strLeagueBadge) {
+            <img [src]="match.strLeagueBadge" [alt]="match.strLeague" style="width: 20px; height: 20px; object-fit: contain;">
+          }
+          {{ match.strLeague }}
+        </div>
+      }
+    </div>
+
+    <div style="display: flex; justify-content: space-around; align-items: center; margin: 20px 0 30px;">
+      <div style="text-align: center;">
+        <img [src]="match.strHomeTeamBadge || 'https://via.placeholder.com/80?text=Logo'" [alt]="'Logo ' + match.strHomeTeam" style="width: 90px; height: 90px; object-fit: contain;">
+        <h3 style="color: #0c1c38;">{{ match.strHomeTeam }}</h3>
+      </div>
+      <div style="font-size: 1.5em; font-weight: bold; color: #ccc;">VS</div>
+      <div style="text-align: center;">
+        <img [src]="match.strAwayTeamBadge || 'https://via.placeholder.com/80?text=Logo'" [alt]="'Logo ' + match.strAwayTeam" style="width: 90px; height: 90px; object-fit: contain;">
+        <h3 style="color: #0c1c38;">{{ match.strAwayTeam }}</h3>
+      </div>
+    </div>
+
+    <!-- Historique : même mise en page à deux colonnes (icônes V/N/D) que les onglets
+         Championnats et Coupes d'Europe. -->
+    <div style="display: flex; gap: 20px; text-align: left;">
+
+      <!-- Colonne Domicile -->
+      <div style="flex: 1; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+        <h3 style="color: #0c1c38; text-align: center; margin-top: 0;">Historique - {{ match.strHomeTeam }}</h3>
+
+        @if (isLoadingHome) {
+          <p style="text-align: center; color: #666; font-size: 0.9em;">Recherche de l'historique en cours...</p>
+        } @else if (ficheHome; as fiche) {
+          @for (groupe of sections(fiche); track groupe.titre) {
+            <h4 style="color: #0c1c38; margin: 15px 0 5px 0; font-size: 0.95em;">{{ groupe.titre }}</h4>
+            @if (groupe.statut) {
+              <p style="margin: 0 0 6px; font-size: 0.85em; font-weight: bold; color: #b45309;">{{ groupe.statut }}</p>
+            }
+            @if (groupe.matchs.length === 0) {
+              <p style="text-align: center; color: #666; font-size: 0.9em;">Aucun match trouvé.</p>
+            } @else {
+              <ul style="list-style: none; padding: 0; margin: 0;">
+                @for (hist of groupe.matchs; track hist.idEvent) {
+                  <li style="display: flex; align-items: center; justify-content: center; gap: 8px; padding: 10px 0; border-bottom: 1px solid #eee; font-size: 0.9em;">
+                    <span style="color: #888; font-weight: bold;">{{ getDateJourMois(hist.dateEvent) }}</span>
+                    <span [style.background-color]="couleurResultat(resultatEquipe(hist, match.idHomeTeam!))"
+                          style="display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; border-radius: 50%; color: white; font-size: 0.7em; font-weight: bold; margin-right: auto; flex-shrink: 0;">
+                      {{ resultatEquipe(hist, match.idHomeTeam!) }}
+                    </span>
+                    @if (getFlagUrl(hist.strHomeTeam); as flag) {
+                      <img [src]="flag" [alt]="hist.strHomeTeam" title="{{ hist.strHomeTeam }}" style="width: 16px; height: 16px; object-fit: contain; border-radius: 2px;">
+                    }
+                    <span style="text-align: right; flex: 1;" [style.font-weight]="estAdversaire(hist, match.idHomeTeam!, 'home') ? 'normal' : 'bold'">
+                      {{ hist.strHomeTeam }}
+                    </span>
+                    <strong style="white-space: nowrap;">{{ hist.intHomeScore ?? '-' }} - {{ hist.intAwayScore ?? '-' }}</strong>
+                    <span style="text-align: left; flex: 1;" [style.font-weight]="estAdversaire(hist, match.idHomeTeam!, 'away') ? 'normal' : 'bold'">
+                      {{ hist.strAwayTeam }}
+                    </span>
+                    @if (getFlagUrl(hist.strAwayTeam); as flag) {
+                      <img [src]="flag" [alt]="hist.strAwayTeam" title="{{ hist.strAwayTeam }}" style="width: 16px; height: 16px; object-fit: contain; border-radius: 2px;">
+                    }
+                  </li>
+                }
+              </ul>
+            }
+          }
+        } @else {
+          <p style="text-align: center; color: #666; font-size: 0.9em;">Historique indisponible.</p>
+        }
+      </div>
+
+      <!-- Colonne Extérieur -->
+      <div style="flex: 1; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+        <h3 style="color: #0c1c38; text-align: center; margin-top: 0;">Historique - {{ match.strAwayTeam }}</h3>
+
+        @if (isLoadingAway) {
+          <p style="text-align: center; color: #666; font-size: 0.9em;">Recherche de l'historique en cours...</p>
+        } @else if (ficheAway; as fiche) {
+          @for (groupe of sections(fiche); track groupe.titre) {
+            <h4 style="color: #0c1c38; margin: 15px 0 5px 0; font-size: 0.95em;">{{ groupe.titre }}</h4>
+            @if (groupe.statut) {
+              <p style="margin: 0 0 6px; font-size: 0.85em; font-weight: bold; color: #b45309;">{{ groupe.statut }}</p>
+            }
+            @if (groupe.matchs.length === 0) {
+              <p style="text-align: center; color: #666; font-size: 0.9em;">Aucun match trouvé.</p>
+            } @else {
+              <ul style="list-style: none; padding: 0; margin: 0;">
+                @for (hist of groupe.matchs; track hist.idEvent) {
+                  <li style="display: flex; align-items: center; justify-content: center; gap: 8px; padding: 10px 0; border-bottom: 1px solid #eee; font-size: 0.9em;">
+                    <span style="color: #888; font-weight: bold;">{{ getDateJourMois(hist.dateEvent) }}</span>
+                    <span [style.background-color]="couleurResultat(resultatEquipe(hist, match.idAwayTeam!))"
+                          style="display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; border-radius: 50%; color: white; font-size: 0.7em; font-weight: bold; margin-right: auto; flex-shrink: 0;">
+                      {{ resultatEquipe(hist, match.idAwayTeam!) }}
+                    </span>
+                    @if (getFlagUrl(hist.strHomeTeam); as flag) {
+                      <img [src]="flag" [alt]="hist.strHomeTeam" title="{{ hist.strHomeTeam }}" style="width: 16px; height: 16px; object-fit: contain; border-radius: 2px;">
+                    }
+                    <span style="text-align: right; flex: 1;" [style.font-weight]="estAdversaire(hist, match.idAwayTeam!, 'home') ? 'normal' : 'bold'">
+                      {{ hist.strHomeTeam }}
+                    </span>
+                    <strong style="white-space: nowrap;">{{ hist.intHomeScore ?? '-' }} - {{ hist.intAwayScore ?? '-' }}</strong>
+                    <span style="text-align: left; flex: 1;" [style.font-weight]="estAdversaire(hist, match.idAwayTeam!, 'away') ? 'normal' : 'bold'">
+                      {{ hist.strAwayTeam }}
+                    </span>
+                    @if (getFlagUrl(hist.strAwayTeam); as flag) {
+                      <img [src]="flag" [alt]="hist.strAwayTeam" title="{{ hist.strAwayTeam }}" style="width: 16px; height: 16px; object-fit: contain; border-radius: 2px;">
+                    }
+                  </li>
+                }
+              </ul>
+            }
+          }
+        } @else {
+          <p style="text-align: center; color: #666; font-size: 0.9em;">Historique indisponible.</p>
+        }
+      </div>
+
+    </div>
+  }
+</div>

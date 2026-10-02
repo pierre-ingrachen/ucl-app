@@ -950,9 +950,9 @@ def get_selections_semaine():
 
 @app.get("/api/selections/{team_id}")
 def get_selection_equipe(team_id: str):
-    """Fiche d'une sélection : historique des 2 dernières éditions de Ligue des Nations, et
-    pour la CDM 2026 comme pour l'Euro 2024, ses matchs de la phase finale si elle s'y est
-    qualifiée, sinon son parcours de qualification."""
+    """Fiche d'une sélection : historique de l'édition en cours et de la précédente édition
+    de Ligue des Nations, et pour la CDM 2026 comme pour l'Euro 2024, ses matchs de phase
+    finale (si elle s'y est qualifiée) ET son parcours de qualification, dans tous les cas."""
     data = obtenir_donnees_selections()
 
     def matchs_joues(matchs, equipe):
@@ -968,19 +968,23 @@ def get_selection_equipe(team_id: str):
         edition: matchs_joues(
             [m for m in data.get("nations", []) if m.get("strSeason") == edition], team_id
         )
-        for edition in NATIONS_LEAGUE_EDITIONS
+        # Édition en cours en premier (matchs déjà joués), puis les éditions passées.
+        for edition in [NATIONS_LEAGUE_SAISON_ACTUELLE] + NATIONS_LEAGUE_EDITIONS
     }
 
     def bloc_competition(matchs_finale, matchs_qualif):
         joues_finale = matchs_joues(matchs_finale, team_id)
-        if joues_finale:
-            return {"qualifiee": True, "matchs": joues_finale}
-        return {"qualifiee": False, "matchs": matchs_joues(matchs_qualif, team_id)}
+        return {
+            "qualifiee": bool(joues_finale),
+            "matchs": joues_finale,
+            "matchsQualif": matchs_joues(matchs_qualif, team_id),
+        }
 
     cdm = bloc_competition(data.get("cdm", []), data.get("cdm_qualif", []))
     euro = bloc_competition(data.get("euro", []), data.get("euro_qualif", []))
 
-    if not (any(historique_nations.values()) or cdm["matchs"] or euro["matchs"]):
+    if not (any(historique_nations.values()) or cdm["matchs"] or cdm["matchsQualif"]
+            or euro["matchs"] or euro["matchsQualif"]):
         raise HTTPException(status_code=404, detail="Sélection inconnue")
 
     return {
