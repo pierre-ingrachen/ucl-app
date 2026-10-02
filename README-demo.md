@@ -3,8 +3,7 @@
 Le site complet (`main.py` + Angular) est trop lourd à héberger simplement : calculs et
 appels API à la demande, plusieurs Mo de caches (voir la mémoire *hébergement-tentative-
 annulée*). Cette démo contourne le problème en figeant **10 matchs représentatifs**
-(fiches complètes : cotes, prédictions rating/ML/ensemble, classement, historique) + le
-**bilan de paris complet** des 3 modèles dans des fichiers JSON statiques, servis sans
+(fiches complètes : classement, historique) dans des fichiers JSON statiques, servis sans
 aucun backend.
 
 ## Comment ça marche

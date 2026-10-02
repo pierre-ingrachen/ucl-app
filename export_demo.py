@@ -1,4 +1,4 @@
-"""Exporte un instantané figé de ~10 matchs (+ classements, historique H2H, bilan de paris)
+"""Exporte un instantané figé de ~10 matchs (+ classements, historique H2H)
 depuis le backend local vers ucl-app/public/demo-data/, pour un build Angular 100% statique
 (mode démo, sans backend). À exécuter depuis la racine du repo, backend déjà démarré :
 
@@ -61,9 +61,5 @@ print(f"  ({len(historique)} -> {len(filtre)} evenements)")
 print("Listes 'a venir' figees...")
 save("matchs-a-venir.json", {"events": [matchs[i] for i in EUROPE_IDS]})
 save("championnats-a-venir.json", {"events": [matchs[i] for i in CHAMPIONNAT_IDS]})
-
-print("Bilan de paris (3 modeles)...")
-for modele in ("rating", "ml", "ensemble"):
-    save(f"paris-{modele}.json", get(f"/api/paris?modele={modele}"))
 
 print("Termine.")

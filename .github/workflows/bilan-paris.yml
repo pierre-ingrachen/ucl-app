@@ -3,9 +3,7 @@ name: Bilan quotidien des paris
 on:
   # Declenchement unique : planificateur externe (cron-job.org) via l'API
   # workflow_dispatch -> execution immediate, sans file d'attente GitHub.
-  # (Le cron natif GitHub a ete retire : il se declenchait en plus du run du
-  # matin, doublant tous les appels a TheSportsDB et provoquant un refus de
-  # l'API par depassement de quota.)
+  # (Pas de cron natif GitHub : il doublerait les appels a TheSportsDB et a The Odds API.)
   workflow_dispatch:
     inputs:
       source:
@@ -16,8 +14,7 @@ on:
 permissions:
   contents: write
 
-# Une seule execution a la fois : evite toute course sur le git push si deux
-# declenchements manuels se chevauchent.
+# Une seule execution a la fois : evite toute course sur le git push.
 concurrency:
   group: bilan-paris
   cancel-in-progress: false
@@ -34,115 +31,60 @@ jobs:
 
       - uses: actions/setup-python@v5
         with:
-          python-version: "3.13"
+          python-version: "3.12"
           cache: pip
-
-      - name: Restaurer les caches regenerables (branche cache-snapshot)
-        # master ne versionne que les caches irremplaçables (paris, cotes). Les
-        # gros caches API vivent sur la branche orpheline `cache-snapshot`. On
-        # les recupere ici pour eviter de recharger toute l'API a chaque run.
-        # Si la branche n'existe pas encore, le script se rattrape via l'API.
-        run: |
-          if ! git fetch --depth=1 origin cache-snapshot 2>/dev/null; then
-            echo "Pas de branche cache-snapshot : les caches seront reconstruits via l'API." | tee -a "$GITHUB_STEP_SUMMARY"
-            exit 0
-          fi
-          for f in cache_championnat_historique.json cache_championnat_season.json \
-                   cache_classement.json \
-                   cache_details.json cache_history_qualifs.json cache_season.json cache_teams.json \
-                   cache_ml_matchs.json; do
-            git show FETCH_HEAD:"$f" > "$f" 2>/dev/null && echo "restaure $f" || { rm -f "$f"; echo "absent dans le snapshot : $f"; }
-          done
 
       - name: Installer les dependances (avec reessais reseau)
         run: |
+          install() {
+            pip install -r requirements.txt \
+              && pip install torch --index-url https://download.pytorch.org/whl/cpu \
+              && pip install numpy scipy
+          }
           for tentative in 1 2 3; do
-            pip install -r requirements.txt && break
+            install && exit 0
             echo "Echec pip (tentative $tentative), nouvelle tentative dans 15 s..."
             sleep 15
           done
-          pip install -r requirements.txt
+          install
 
-      - name: Recuperer les cotes (uniquement le lundi, ou relance ciblee)
+      - name: Recuperer les cotes (mardi et vendredi, ou relance ciblee)
         env:
           SPORTSDB_API_KEY: ${{ secrets.SPORTSDB_API_KEY }}
           ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
         run: |
           for tentative in 1 2 3; do
-            python bilan_paris.py cotes | tee -a "$GITHUB_STEP_SUMMARY" && exit 0
+            python paris_reseau.py cotes | tee -a "$GITHUB_STEP_SUMMARY" && exit 0
             echo "Echec etape cotes (tentative $tentative), nouvelle tentative dans 30 s..."
             sleep 30
           done
-          python bilan_paris.py cotes | tee -a "$GITHUB_STEP_SUMMARY"
+          python paris_reseau.py cotes | tee -a "$GITHUB_STEP_SUMMARY"
 
-      - name: Rafraichir l'historique du modele IA (le lundi, ou si absent)
-        # cache_ml_matchs.json = historique profond (5 saisons) du 2e modele de
-        # prediction. Reconstruit via l'API une fois par semaine seulement (~120
-        # requetes) ; les autres jours, dataset_ml.py comble les derniers
-        # resultats a partir des caches quotidiens deja charges (aucun appel).
-        env:
-          SPORTSDB_API_KEY: ${{ secrets.SPORTSDB_API_KEY }}
-          ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
-        run: |
-          if [ "$(date -u +%u)" != "1" ] && [ -f cache_ml_matchs.json ]; then
-            echo "Pas lundi et cache_ml_matchs.json present : rien a faire." | tee -a "$GITHUB_STEP_SUMMARY"
-            exit 0
-          fi
-          for tentative in 1 2 3; do
-            python construire_cache_ml.py | tee -a "$GITHUB_STEP_SUMMARY" && exit 0
-            echo "Echec construction cache IA (tentative $tentative), nouvelle tentative dans 30 s..."
-            sleep 30
-          done
-          echo "Construction cache IA en echec : le modele s'appuiera sur les caches du site." | tee -a "$GITHUB_STEP_SUMMARY"
-
-      - name: Choisir les paris du jour
+      - name: Choisir les paris du jour (reseau de neurones + loi de Poisson)
         env:
           SPORTSDB_API_KEY: ${{ secrets.SPORTSDB_API_KEY }}
           ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
         run: |
           for tentative in 1 2 3; do
-            python bilan_paris.py paris | tee -a "$GITHUB_STEP_SUMMARY" && exit 0
+            python paris_reseau.py paris | tee -a "$GITHUB_STEP_SUMMARY" && exit 0
             echo "Echec etape paris (tentative $tentative), nouvelle tentative dans 30 s..."
             sleep 30
           done
-          python bilan_paris.py paris | tee -a "$GITHUB_STEP_SUMMARY"
+          python paris_reseau.py paris | tee -a "$GITHUB_STEP_SUMMARY"
 
-      - name: Committer le bilan mis a jour
+      - name: Committer le journal mis a jour
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          # Seuls les caches irremplaçables sont versionnes sur master ; les
-          # autres sont ignores (.gitignore) et pousses sur cache-snapshot.
-          git add cache_paris.json cache_paris_ml.json cache_paris_ensemble.json cache_cotes_winamax.json cache_paris_analyses.json
+          git add cache_paris_reseau.json cache_cotes_winamax.json
           if git diff --cached --quiet; then
             echo "Aucune modification a committer." | tee -a "$GITHUB_STEP_SUMMARY"
             exit 0
           fi
           git commit -m "Bilan paris automatique $(date -u +%Y-%m-%d)"
-          # Rebase avant push : evite un rejet non-fast-forward si un autre
-          # commit est arrive entre le checkout et maintenant.
           for tentative in 1 2 3; do
             git pull --rebase --autostash origin master && git push origin HEAD:master && exit 0
             echo "Echec push (tentative $tentative), nouvelle tentative dans 10 s..."
-            sleep 10
-          done
-          exit 1
-
-      - name: Rafraichir la branche cache-snapshot (le lundi, ou si absente)
-        run: |
-          if [ "$(date -u +%u)" != "1" ] && git ls-remote --exit-code --heads origin cache-snapshot >/dev/null 2>&1; then
-            echo "Pas lundi et branche cache-snapshot deja presente : rien a faire." | tee -a "$GITHUB_STEP_SUMMARY"
-            exit 0
-          fi
-          # Branche orpheline reecrite entierement (force-push) : elle ne
-          # contient qu'un commit, donc aucun historique cumulatif de blobs.
-          git checkout --orphan snapshot-tmp
-          git reset
-          git add -f cache_*.json
-          git commit -m "Snapshot des caches $(date -u +%Y-%m-%d)"
-          for tentative in 1 2 3; do
-            git push -f origin snapshot-tmp:cache-snapshot && exit 0
-            echo "Echec push snapshot (tentative $tentative), nouvelle tentative dans 10 s..."
             sleep 10
           done
           exit 1

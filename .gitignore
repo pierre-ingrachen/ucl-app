@@ -7,11 +7,7 @@ __pycache__/
 # master. Une machine qui repart de zero les recupere avec :
 #   git fetch origin cache-snapshot
 #   git checkout origin/cache-snapshot -- 'cache_*.json'
-#   git restore --source=HEAD cache_paris.json cache_cotes_winamax.json
-# Les caches irremplaçables (paris passes, snapshots de cotes) restent sur master.
 cache_championnat_historique.json
-cache_ml_matchs.json
-cache_modele_ml.pkl
 cache_championnat_season.json
 cache_classement.json
 cache_details.json

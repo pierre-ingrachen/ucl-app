@@ -26,30 +26,6 @@ export class MatchDetails implements OnInit {
   // déterminer si un club a été exempté de qualifications lors d'une campagne passée.
   private historiqueComplet: any[] = [];
 
-  predictionsRevelees = false;
-
-  /** Cote calculee a partir de la probabilite du modele (0.9 / probabilite, marge de
-   * 10% comme un bookmaker). Plafonnee pour eviter un affichage a l'infini quand la
-   * probabilite est quasi nulle. */
-  cote(probabilite: number | undefined | null): string {
-    if (!probabilite || probabilite <= 0) return '—';
-    return Math.min(0.9 / probabilite, 99).toFixed(2);
-  }
-
-  /** Probabilites implicites des cotes du bookmaker (1 / cote, normalisees pour retirer sa
-   * marge) : sert a afficher les cotes dans le meme format que les prédictions du modele,
-   * pour une comparaison directe. */
-  get probasBookmaker(): { domicile: number; nul: number; exterieure: number } | null {
-    const d = this.match?.coteDomicile;
-    const n = this.match?.coteNul;
-    const e = this.match?.coteExterieure;
-    if (!d || !n || !e) return null;
-
-    const invD = 1 / d, invN = 1 / n, invE = 1 / e;
-    const somme = invD + invN + invE;
-    return { domicile: invD / somme, nul: invN / somme, exterieure: invE / somme };
-  }
-
   modeDomicile: 'club' | 'national' = 'club';
   modeExterieur: 'club' | 'national' = 'club';
 

@@ -9,9 +9,6 @@ import time
 
 from dotenv import load_dotenv
 
-from rating import construire_modele, construire_modele_championnat, predire_resultat
-from odds import recuperer_toutes_les_cotes
-
 load_dotenv()
 
 def _variable_environnement_requise(nom):
@@ -167,43 +164,6 @@ def zone_championnat(league_id, rang, total):
         return "Relegation"
     return None
 
-# The Odds API (cotes Winamax) : cle du compte de l'utilisateur, a n'appeler qu'aux jours
-# convenus (cf. obtenir_cotes_semaine) pour rester tres largement sous le quota gratuit.
-ODDS_API_KEY = _variable_environnement_requise("ODDS_API_KEY")
-
-# Releve complet des cotes le mardi et le vendredi matin (avant le choix des paris du jour) :
-# mardi couvre les matchs europeens du mardi/mercredi (C1) et se rapproche des matchs du jeudi
-# (Europa/Conference League), vendredi couvre le week-end des championnats nationaux et une
-# derniere chance de capter des cotes Europa/Conference publiees tardivement par les books.
-JOURS_RELEVE_COMPLET = {1, 4}  # lundi=0 ... mardi=1 ... vendredi=4
-
-# Correspondance entre nos identifiants de ligue (TheSportsDB) et les cles de competition
-# The Odds API. La Champions League a deux cles distinctes cote Odds API (qualifications et
-# phase principale) alors qu'une seule couvre toutes les phases d'Europa/Conference League.
-ODDS_API_SPORT_KEYS = {
-    "4480": ["soccer_uefa_champs_league_qualification", "soccer_uefa_champs_league"],
-    "4481": ["soccer_uefa_europa_league"],
-    "5071": ["soccer_uefa_europa_conference_league"],
-    "4344": ["soccer_portugal_primeira_liga"],
-    "4337": ["soccer_netherlands_eredivisie"],
-    "4338": ["soccer_belgium_first_div"],
-    "4328": ["soccer_epl"],
-    "4334": ["soccer_france_ligue_one"],
-    "4335": ["soccer_spain_la_liga"],
-    "4332": ["soccer_italy_serie_a"],
-    "4331": ["soccer_germany_bundesliga"],
-    "4339": ["soccer_turkey_super_league"],
-    "4422": ["soccer_poland_ekstraklasa"],
-    "4336": ["soccer_greece_super_league"],
-    "4358": ["soccer_norway_eliteserien"],
-    "4340": ["soccer_denmark_superliga"],
-    "4675": ["soccer_switzerland_superleague"],
-    "4621": ["soccer_austria_bundesliga"],
-    "4330": ["soccer_spl"],
-    "4347": ["soccer_sweden_allsvenskan"],
-    # Pas de cotes The Odds API publiées pour la Tchéquie, Chypre et la Hongrie.
-}
-
 CACHE_SEASON_FILE = "cache_season.json"
 CACHE_DETAILS_FILE = "cache_details.json"
 CACHE_HISTORY_FILE = "cache_history_qualifs.json"
@@ -212,21 +172,6 @@ CACHE_CLASSEMENT_FILE = "cache_classement.json"
 CACHE_CHAMPIONNAT_SEASON_FILE = "cache_championnat_season.json"
 CACHE_CHAMPIONNAT_HISTORIQUE_FILE = "cache_championnat_historique.json"
 CACHE_SELECTIONS_FILE = "cache_selections.json"
-CACHE_COTES_FILE = "cache_cotes_winamax.json"
-CACHE_PARIS_FILE = "cache_paris.json"
-CACHE_PARIS_ML_FILE = "cache_paris_ml.json"
-CACHE_PARIS_ENSEMBLE_FILE = "cache_paris_ensemble.json"
-# Nombre de matchs reellement analyses par jour (memes matchs pour les 3 modeles) :
-# {date -> nb}. Sert a afficher "X matchs analyses" a cote du bilan.
-CACHE_PARIS_ANALYSES_FILE = "cache_paris_analyses.json"
-
-# Journaux de paris : un par modèle de probabilité (comparaison de performance).
-FICHIERS_PARIS = {
-    "rating": CACHE_PARIS_FILE,
-    "ml": CACHE_PARIS_ML_FILE,
-    "ensemble": CACHE_PARIS_ENSEMBLE_FILE,
-}
-
 _DERNIER_APPEL_SPORTSDB = [0.0]
 DELAI_MIN_ENTRE_APPELS_SPORTSDB = 0.3  # secondes entre deux appels, pour rester sous la
 # limite de débit de l'offre gratuite TheSportsDB (déclenchée dans le passé quand tous
@@ -342,176 +287,6 @@ def categoriser_phase(match):
     if 1 <= r <= 15:
         return "groupe"
     return "qualifications"
-
-_modele_rating = None
-_modele_rating_date = None
-
-def obtenir_modele_rating():
-    """Modele de probabilite de resultat (rating pays + effet club), reconstruit une fois
-    par jour (l'historique sous-jacent n'est lui-meme rafraichi qu'une fois par jour)."""
-    global _modele_rating, _modele_rating_date
-    aujourd_hui = date.today()
-    if _modele_rating is None or _modele_rating_date != aujourd_hui:
-        _modele_rating = construire_modele(obtenir_historique_qualifications())
-        _modele_rating_date = aujourd_hui
-    return _modele_rating
-
-_modeles_championnat = {}
-_modeles_championnat_date = None
-
-def obtenir_modele_championnat(league_id, historique_ligue):
-    """Modele de probabilite de resultat pour un championnat national, reconstruit une fois
-    par jour (un rating par club, pas de niveau pays vu qu'un seul pays par championnat)."""
-    global _modeles_championnat, _modeles_championnat_date
-    aujourd_hui = date.today()
-    if _modeles_championnat_date != aujourd_hui:
-        _modeles_championnat = {}
-        _modeles_championnat_date = aujourd_hui
-    if league_id not in _modeles_championnat:
-        _modeles_championnat[league_id] = construire_modele_championnat(historique_ligue)
-    return _modeles_championnat[league_id]
-
-def _injecter_predictions_ml(match_data):
-    """Ajoute les probabilites du modele d'apprentissage (probaML*) et celles de
-    l'ensemble (probaEns*). Import paresseux : scikit-learn n'est charge que si une
-    fiche de match est reellement consultee. Toute erreur est silencieuse - la
-    fiche reste utilisable avec le seul modele de rating."""
-    if "probaMLVictoireDomicile" in match_data:
-        return
-    try:
-        from predictions_ml import predire_match_ml, ensemble_probas
-        p_ml = predire_match_ml(match_data)
-    except Exception:
-        return
-    match_data["probaMLVictoireDomicile"] = p_ml["probaVictoireDomicile"]
-    match_data["probaMLNul"] = p_ml["probaNul"]
-    match_data["probaMLVictoireExterieure"] = p_ml["probaVictoireExterieure"]
-    match_data["lambdaMLDomicile"] = p_ml.get("lambdaDomicile")
-    match_data["lambdaMLExterieure"] = p_ml.get("lambdaExterieure")
-
-    rating = {
-        "probaVictoireDomicile": match_data.get("probaVictoireDomicile"),
-        "probaNul": match_data.get("probaNul"),
-        "probaVictoireExterieure": match_data.get("probaVictoireExterieure"),
-    }
-    ens = ensemble_probas(rating, p_ml)
-    if ens:
-        match_data["probaEnsVictoireDomicile"] = ens["probaVictoireDomicile"]
-        match_data["probaEnsNul"] = ens["probaNul"]
-        match_data["probaEnsVictoireExterieure"] = ens["probaVictoireExterieure"]
-
-
-def injecter_predictions(match_data, cache_championnat_historique):
-    """Ajoute les probabilites de resultat a une fiche de match, europeen ou national, si ce
-    n'est pas deja fait. Ne fait rien pour les competitions hors perimetre des modeles."""
-    if "probaVictoireDomicile" in match_data:
-        return
-
-    id_ligue = match_data.get("idLeague")
-    if id_ligue in LEAGUE_IDS:
-        modele = obtenir_modele_rating()
-        match_data.update(predire_resultat(
-            modele, match_data.get("idHomeTeam"), match_data.get("idAwayTeam"),
-            match_data.get("strHomeCountry"), match_data.get("strAwayCountry")
-        ))
-    elif id_ligue in DOMESTIC_LEAGUES:
-        matchs_ligue = charger_historique_championnat(id_ligue, cache_championnat_historique)
-        modele = obtenir_modele_championnat(id_ligue, matchs_ligue)
-        match_data.update(predire_resultat(
-            modele, match_data.get("idHomeTeam"), match_data.get("idAwayTeam"), "", ""
-        ))
-    else:
-        return
-
-    _injecter_predictions_ml(match_data)
-
-def _grouper_matchs_par_ligue(matchs):
-    groupes = {}
-    for m in matchs:
-        groupes.setdefault(m.get("idLeague"), []).append(m)
-    return groupes
-
-def obtenir_cotes_semaine():
-    """Cotes Winamax des matchs de la semaine (europeens + championnats suivis).
-
-    Releve complet le mardi et le vendredi matin, au plus une fois par jour (cf.
-    JOURS_RELEVE_COMPLET), toujours avant le choix des paris du jour. Les autres jours, une
-    relance ciblee et minimale : uniquement pour les competitions ayant un match LE LENDEMAIN
-    et encore sans cote Winamax trouvee (certaines competitions, notamment les qualifications
-    europeennes, ont un delai de synchronisation entre le site Winamax et The Odds API - voire
-    aucune cote publiee du tout par les books tant que le tour n'approche pas). Chaque
-    competition n'est relancee au plus qu'une fois par jour. Le reste du temps, on relit juste
-    le fichier de cache sans appeler l'API, pour rester tres largement sous le quota gratuit
-    (1 requete par competition, jamais une requete par match)."""
-    cache = charger_cache_permanent(CACHE_COTES_FILE)
-    if "data" not in cache:
-        cache = {"data": {}, "quota": None, "dernier_releve_complet": None, "relances_faites": []}
-
-    aujourd_hui = date.today()
-    cle_jour = str(aujourd_hui)
-
-    est_jour_releve_complet = (
-        aujourd_hui.weekday() in JOURS_RELEVE_COMPLET
-        and cache.get("dernier_releve_complet") != cle_jour
-    )
-    peut_relancer = not est_jour_releve_complet and bool(cache.get("dernier_releve_complet"))
-
-    # La plupart des jours, aucune interrogation de The Odds API n'est possible : on relit
-    # alors juste le cache sans reconstruire la liste des matchs de la semaine (qui parse
-    # plusieurs Mo de JSON).
-    if not est_jour_releve_complet and not peut_relancer:
-        return cache.get("data", {})
-
-    matchs_semaine = (
-        filtrer_matchs_semaine(obtenir_matchs_a_venir())
-        + filtrer_matchs_semaine(obtenir_matchs_championnats_a_venir())
-    )
-    matchs_par_ligue = _grouper_matchs_par_ligue(matchs_semaine)
-
-    a_interroger = {}
-
-    if est_jour_releve_complet:
-        a_interroger = ODDS_API_SPORT_KEYS
-        cache["dernier_releve_complet"] = cle_jour
-        # Les cotes et relances de la semaine precedente sont obsoletes : on ne les
-        # remet a zero qu'ici, au moment ou on a de quoi les remplacer (jamais avant,
-        # sinon un lundi sans releve complet efface les cotes glanees par la relance
-        # ciblee du dimanche pour les matchs... du lundi lui-meme).
-        cache["data"] = {}
-        cache["relances_faites"] = []
-    elif peut_relancer:
-        demain_str = str(aujourd_hui + timedelta(days=1))
-        for id_ligue, sport_keys in ODDS_API_SPORT_KEYS.items():
-            cle_relance = f"{id_ligue}:{cle_jour}"
-            match_demain_sans_cote = any(
-                m.get("dateEvent") == demain_str
-                and cache["data"].get(m["idEvent"], {}).get("bookmaker") is None
-                for m in matchs_par_ligue.get(id_ligue, [])
-            )
-            if match_demain_sans_cote and cle_relance not in cache["relances_faites"]:
-                a_interroger[id_ligue] = sport_keys
-                cache["relances_faites"].append(cle_relance)
-
-    if a_interroger:
-        nouvelles_cotes, quota = recuperer_toutes_les_cotes(a_interroger, matchs_par_ligue, ODDS_API_KEY)
-        cache["data"].update(nouvelles_cotes)
-        if quota:
-            cache["quota"] = quota
-        sauvegarder_cache_permanent(CACHE_COTES_FILE, cache)
-
-    return cache.get("data", {})
-
-def injecter_cotes(match_data, event_id, cotes_semaine):
-    """Ajoute les cotes du bookmaker trouve (Winamax en priorite, sinon Betclic, sinon
-    Unibet) a la fiche. Si le match est reconnu par The Odds API mais qu'aucun des trois
-    n'a de cote, `coteBookmaker` est explicitement present avec la valeur None, pour que
-    le frontend puisse afficher "indisponible" plutot que de ne rien afficher du tout."""
-    cotes = cotes_semaine.get(event_id)
-    if cotes:
-        match_data["coteBookmaker"] = cotes.get("bookmaker")
-        match_data["coteDomicile"] = cotes.get("domicile")
-        match_data["coteNul"] = cotes.get("nul")
-        match_data["coteExterieure"] = cotes.get("exterieure")
 
 def obtenir_pays_equipe(team_id, cache_teams):
     """Retourne le pays d'une équipe, en interrogeant l'API si absent du cache permanent."""
@@ -1001,27 +776,7 @@ def get_match_details(event_id: str):
     cache_classement = charger_cache_permanent(CACHE_CLASSEMENT_FILE)
 
     if event_id in cache_details:
-        match_data = cache_details[event_id]
-        # Comble une fiche mise en cache avant l'ajout des probabilites (sinon elle resterait
-        # sans prediction jusqu'au renouvellement du cache le lendemain).
-        besoin_rating = "probaVictoireDomicile" not in match_data
-        besoin_ml = ("probaVictoireDomicile" in match_data
-                     and "probaMLVictoireDomicile" not in match_data)
-        if besoin_rating or besoin_ml:
-            cache_championnat_historique = charger_cache(CACHE_CHAMPIONNAT_HISTORIQUE_FILE) or {}
-            cles_avant = set(cache_championnat_historique)
-            if besoin_rating:
-                injecter_predictions(match_data, cache_championnat_historique)
-            else:
-                _injecter_predictions_ml(match_data)
-            # Pour un match europeen, `injecter_predictions` ne touche pas ce cache : on evite
-            # alors de reecrire 1 Mo de JSON pour rien.
-            if set(cache_championnat_historique) != cles_avant:
-                sauvegarder_cache(CACHE_CHAMPIONNAT_HISTORIQUE_FILE, cache_championnat_historique)
-            cache_details[event_id] = match_data
-            sauvegarder_cache(CACHE_DETAILS_FILE, cache_details)
-        injecter_cotes(match_data, event_id, obtenir_cotes_semaine())
-        return match_data
+        return cache_details[event_id]
 
     url = f"https://www.thesportsdb.com/api/v1/json/{API_KEY}/lookupevent.php?id={event_id}"
 
@@ -1050,10 +805,6 @@ def get_match_details(event_id: str):
             id_ligue = match_data.get("idLeague")
             cache_championnat_historique = charger_cache(CACHE_CHAMPIONNAT_HISTORIQUE_FILE) or {}
 
-            # Probabilites de resultat : modele rating pays + effet club pour les 3 competitions
-            # europeennes, modele rating club pour les championnats nationaux.
-            injecter_predictions(match_data, cache_championnat_historique)
-
             if id_ligue in DOMESTIC_LEAGUES:
                 nom_ligue = DOMESTIC_LEAGUES[id_ligue]
                 date_match = match_data.get("dateEvent", "")
@@ -1072,32 +823,11 @@ def get_match_details(event_id: str):
             cache_details[event_id] = match_data
             sauvegarder_cache(CACHE_DETAILS_FILE, cache_details)
 
-            # Cotes Winamax : toujours relues depuis le cache hebdomadaire dedie (jamais
-            # persistees ici) pour ne pas figer une cote obtenue avant leur recuperation du lundi.
-            injecter_cotes(match_data, event_id, obtenir_cotes_semaine())
             return match_data
         else:
             raise HTTPException(status_code=404, detail="Match introuvable")
     except requests.exceptions.RequestException:
         raise HTTPException(status_code=500, detail="Erreur API")
-
-@app.get("/api/paris")
-def get_paris(modele: str = "rating"):
-    """Journal des paris "value" repere par bilan_paris.py (execute chaque matin via GitHub
-    Actions), le plus recent en premier. `modele` : rating (defaut), ml ou ensemble - un
-    journal distinct par modele de probabilite, pour comparer leurs performances."""
-    fichier = FICHIERS_PARIS.get(modele)
-    if fichier is None:
-        raise HTTPException(status_code=404, detail="Modele de paris inconnu")
-    bilan = charger_cache_permanent(fichier)
-    if not isinstance(bilan, list):
-        bilan = []
-    analyses = charger_cache_permanent(CACHE_PARIS_ANALYSES_FILE)
-    nb_analyses = sum(analyses.values()) if isinstance(analyses, dict) else 0
-    return {
-        "paris": sorted(bilan, key=lambda p: p.get("date", ""), reverse=True),
-        "matchsAnalyses": nb_analyses,
-    }
 
 def obtenir_historique_qualifications():
     """Historique complet (3 dernieres saisons + saison en cours deja jouee)

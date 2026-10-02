@@ -116,17 +116,4 @@ export class SportsApiService {
       : this.http.get<any>(`${environment.apiUrl}/api/matchs/historique-qualifications`);
     return source.pipe(map(response => response.events || []));
   }
-
-  /** Journal des paris d'un modèle : 'rating' (défaut), 'ml' ou 'ensemble'. */
-  getParis(modele: 'rating' | 'ml' | 'ensemble' = 'rating'): Observable<{ paris: any[]; matchsAnalyses: number }> {
-    const source = environment.demo
-      ? this.http.get<any>(this.demoUrl(`demo-data/paris-${modele}.json`))
-      : this.http.get<any>(`${environment.apiUrl}/api/paris?modele=${modele}`);
-    return source.pipe(
-      map(response => ({
-        paris: response.paris || [],
-        matchsAnalyses: response.matchsAnalyses || 0,
-      }))
-    );
-  }
 }

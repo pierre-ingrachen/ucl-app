@@ -1,7 +1,7 @@
 name: Démo GitHub Pages
 
-# Déploie une version statique et figée (10 matchs + bilan) de ucl-app sur GitHub Pages.
-# Ne touche pas au site complet (Render/local) ni aux workflows de bilan automatique.
+# Déploie une version statique et figée (10 matchs) de ucl-app sur GitHub Pages.
+# Ne touche pas au site complet (Render/local).
 # À activer une fois dans Settings > Pages > Source = "GitHub Actions".
 on:
   push:
@@ -40,7 +40,7 @@ jobs:
         working-directory: ucl-app
         run: npx ng build --configuration=demo --base-href /ucl-app/
 
-      - name: Fallback SPA (routes /championnats, /bilan, /match/:id sur rafraîchissement)
+      - name: Fallback SPA (routes /championnats, /match/:id sur rafraîchissement)
         run: cp ucl-app/dist/demo/browser/index.html ucl-app/dist/demo/browser/404.html
 
       - uses: actions/upload-pages-artifact@v3
