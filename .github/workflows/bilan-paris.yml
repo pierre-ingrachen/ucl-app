@@ -76,7 +76,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add cache_paris_reseau.json cache_cotes_winamax.json
+          git add cache_paris_reseau.json cache_analyses_reseau.json cache_cotes_winamax.json
           if git diff --cached --quiet; then
             echo "Aucune modification a committer." | tee -a "$GITHUB_STEP_SUMMARY"
             exit 0

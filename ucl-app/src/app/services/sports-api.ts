@@ -68,6 +68,14 @@ export class SportsApiService {
     return this.http.get<any>(`${environment.apiUrl}/api/selections/${idTeam}`);
   }
 
+  /** Bilan des paris du réseau de neurones (mise = 1 / cote). */
+  getBilanParis(): Observable<any> {
+    if (environment.demo) {
+      return this.http.get<any>(this.demoUrl('demo-data/bilan.json'));
+    }
+    return this.http.get<any>(`${environment.apiUrl}/api/paris/bilan`);
+  }
+
   private trierMatchsAVenir(events: Match[] | undefined): Match[] {
     if (!events) return [];
 

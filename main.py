@@ -172,6 +172,8 @@ CACHE_CLASSEMENT_FILE = "cache_classement.json"
 CACHE_CHAMPIONNAT_SEASON_FILE = "cache_championnat_season.json"
 CACHE_CHAMPIONNAT_HISTORIQUE_FILE = "cache_championnat_historique.json"
 CACHE_SELECTIONS_FILE = "cache_selections.json"
+FICHIER_PARIS_RESEAU = "cache_paris_reseau.json"
+FICHIER_ANALYSES_RESEAU = "cache_analyses_reseau.json"
 _DERNIER_APPEL_SPORTSDB = [0.0]
 DELAI_MIN_ENTRE_APPELS_SPORTSDB = 0.3  # secondes entre deux appels, pour rester sous la
 # limite de débit de l'offre gratuite TheSportsDB (déclenchée dans le passé quand tous
@@ -715,6 +717,32 @@ def obtenir_donnees_selections():
             data[cle] = matchs
         sauvegarder_cache(CACHE_SELECTIONS_FILE, data)
     return data
+
+def _lire_json_ou_defaut(fichier, defaut):
+    if not os.path.exists(fichier):
+        return defaut
+    with open(fichier, encoding="utf-8") as f:
+        return json.load(f)
+
+@app.get("/api/paris/bilan")
+def get_bilan_paris():
+    """Bilan des paris du reseau (journal tenu par paris_reseau.py). Mise de chaque pari =
+    1 / cote : un pari gagne rapporte donc 1 unite brute. ROI = gain net / mises resolues."""
+    journal = _lire_json_ou_defaut(FICHIER_PARIS_RESEAU, [])
+    analyses = _lire_json_ou_defaut(FICHIER_ANALYSES_RESEAU, {})
+    resolus = [p for p in journal if p["statut"] != "en_attente"]
+    gain = sum(p["gain"] for p in resolus)
+    mises = sum(p["mise"] for p in resolus)
+    return {
+        "matchsAnalyses": len(analyses),
+        "paris": len(journal),
+        "parisGagnes": sum(p["statut"] == "gagne" for p in resolus),
+        "parisPerdus": sum(p["statut"] == "perdu" for p in resolus),
+        "parisEnAttente": len(journal) - len(resolus),
+        "gainUnites": round(gain, 2),
+        "roi": gain / mises if mises else None,
+        "detail": sorted(journal, key=lambda p: p["date"], reverse=True),
+    }
 
 @app.get("/api/selections/semaine")
 def get_selections_semaine():

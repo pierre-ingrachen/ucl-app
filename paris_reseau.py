@@ -29,6 +29,7 @@ COTE_MIN = 4.00  # cote bookmaker strictement superieure a ce seuil
 ECART_MIN = 0.15  # cote du modele au moins 15 % sous la cote du bookmaker
 FICHIER_COTES = "cache_cotes_winamax.json"
 FICHIER_PARIS = "cache_paris_reseau.json"
+FICHIER_ANALYSES = "cache_analyses_reseau.json"  # {idEvent: date} des matchs passes au reseau
 JOURS_RELEVE_COMPLET = {1, 4}  # mardi, vendredi (lundi = 0)
 # Identifiants de ligue -> cles The Odds API (pas de cotes publiees pour Tchequie, Chypre, Hongrie).
 ODDS_API_SPORT_KEYS = {
@@ -173,6 +174,7 @@ def etape_paris(calendrier, cotes):
 
     modeles, ck = charger_modele()
     deja = {(p["idEvent"], p["issue"]) for p in journal}
+    analyses = _lire_json(FICHIER_ANALYSES, {})
     aujourd_hui = str(date.today())
     nb_analyses = 0
     for m in matchs_a_venir(calendrier, aujourd_hui, aujourd_hui):
@@ -185,6 +187,7 @@ def etape_paris(calendrier, cotes):
         lam = predire_lambdas(modeles, ck, [x])[0]
         modele = cotes_match(lam[0], lam[1])
         nb_analyses += 1
+        analyses[m["idEvent"]] = m["dateEvent"]
         for issue, cle, cle_cote in ISSUES:
             c_book, c_modele = cotes_book.get(cle_cote), modele["cotes"][cle]
             if (m["idEvent"], issue) in deja or not c_book or not pari_value(c_book, c_modele):
@@ -197,6 +200,7 @@ def etape_paris(calendrier, cotes):
                 "mise": round(1 / c_book, 4), "statut": "en_attente", "gain": None,
             })
     _ecrire_json(FICHIER_PARIS, journal)
+    _ecrire_json(FICHIER_ANALYSES, analyses)
     afficher_bilan(journal, nb_analyses)
 
 

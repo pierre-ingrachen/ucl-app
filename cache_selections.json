@@ -1,5 +1,5 @@
 {
-    "date": "2026-10-02",
+    "date": "2026-10-06",
     "data": {
         "nations": [
             {
@@ -7952,12 +7952,12 @@
                 "idHomeTeam": "136449",
                 "idAwayTeam": "136460",
                 "intRound": "3",
-                "intHomeScore": "0",
-                "intAwayScore": "0",
+                "intHomeScore": "1",
+                "intAwayScore": "2",
                 "strTimestamp": "2026-10-02T14:00:00",
                 "dateEvent": "2026-10-02",
                 "dateEventLocal": null,
-                "strTime": "14:00",
+                "strTime": "14:00:00",
                 "strTimeLocal": null,
                 "strHomeTeamBadge": "https://r2.thesportsdb.com/images/media/team/badge/h3wfj01552944956.png",
                 "strAwayTeamBadge": "https://r2.thesportsdb.com/images/media/team/badge/dcxqck1591972290.png",
@@ -7968,7 +7968,7 @@
                 "strVideo": null,
                 "strPostponed": "no",
                 "strFilename": "UEFA Nations League 2026-10-02 Kazakhstan vs Moldova",
-                "strStatus": "1H"
+                "strStatus": "FT"
             },
             {
                 "idEvent": "2442788",
@@ -7984,8 +7984,8 @@
                 "idHomeTeam": "133913",
                 "idAwayTeam": "133910",
                 "intRound": "3",
-                "intHomeScore": null,
-                "intAwayScore": null,
+                "intHomeScore": "1",
+                "intAwayScore": "1",
                 "strTimestamp": "2026-10-02T18:45:00",
                 "dateEvent": "2026-10-02",
                 "dateEventLocal": null,
@@ -8000,7 +8000,7 @@
                 "strVideo": null,
                 "strPostponed": "no",
                 "strFilename": "UEFA Nations League 2026-10-02 France vs Italy",
-                "strStatus": "NS"
+                "strStatus": "FT"
             },
             {
                 "idEvent": "2442789",
@@ -8016,8 +8016,8 @@
                 "idHomeTeam": "134515",
                 "idAwayTeam": "135985",
                 "intRound": "3",
-                "intHomeScore": null,
-                "intAwayScore": null,
+                "intHomeScore": "3",
+                "intAwayScore": "0",
                 "strTimestamp": "2026-10-02T18:45:00",
                 "dateEvent": "2026-10-02",
                 "dateEventLocal": "2026-10-02",
@@ -8032,7 +8032,7 @@
                 "strVideo": "",
                 "strPostponed": "no",
                 "strFilename": "UEFA Nations League 2026-10-02 Belgium vs Turkey",
-                "strStatus": "NS"
+                "strStatus": "FT"
             },
             {
                 "idEvent": "2442790",
@@ -8048,8 +8048,8 @@
                 "idHomeTeam": "135987",
                 "idAwayTeam": "135930",
                 "intRound": "3",
-                "intHomeScore": null,
-                "intAwayScore": null,
+                "intHomeScore": "1",
+                "intAwayScore": "0",
                 "strTimestamp": "2026-10-02T18:45:00",
                 "dateEvent": "2026-10-02",
                 "dateEventLocal": null,
@@ -8064,7 +8064,7 @@
                 "strVideo": null,
                 "strPostponed": "no",
                 "strFilename": "UEFA Nations League 2026-10-02 Hungary vs Georgia",
-                "strStatus": "NS"
+                "strStatus": "FT"
             },
             {
                 "idEvent": "2442791",
@@ -8080,8 +8080,8 @@
                 "idHomeTeam": "133915",
                 "idAwayTeam": "135984",
                 "intRound": "3",
-                "intHomeScore": null,
-                "intAwayScore": null,
+                "intHomeScore": "0",
+                "intAwayScore": "3",
                 "strTimestamp": "2026-10-02T18:45:00",
                 "dateEvent": "2026-10-02",
                 "dateEventLocal": "2026-10-02",
@@ -8096,7 +8096,7 @@
                 "strVideo": "",
                 "strPostponed": "no",
                 "strFilename": "UEFA Nations League 2026-10-02 Ukraine vs N.Ireland",
-                "strStatus": "NS"
+                "strStatus": "FT"
             },
             {
                 "idEvent": "2442792",
@@ -8112,8 +8112,8 @@
                 "idHomeTeam": "133901",
                 "idAwayTeam": "135980",
                 "intRound": "3",
-                "intHomeScore": null,
-                "intAwayScore": null,
+                "intHomeScore": "6",
+                "intAwayScore": "0",
                 "strTimestamp": "2026-10-02T18:45:00",
                 "dateEvent": "2026-10-02",
                 "dateEventLocal": null,
@@ -8128,7 +8128,7 @@
                 "strVideo": null,
                 "strPostponed": "no",
                 "strFilename": "UEFA Nations League 2026-10-02 Poland vs Romania",
-                "strStatus": "NS"
+                "strStatus": "FT"
             },
             {
                 "idEvent": "2442793",
@@ -8144,8 +8144,8 @@
                 "idHomeTeam": "134510",
                 "idAwayTeam": "133916",
                 "intRound": "3",
-                "intHomeScore": null,
-                "intAwayScore": null,
+                "intHomeScore": "1",
+                "intAwayScore": "1",
                 "strTimestamp": "2026-10-02T18:45:00",
                 "dateEvent": "2026-10-02",
                 "dateEventLocal": "2026-10-02",
@@ -8160,7 +8160,7 @@
                 "strVideo": "",
                 "strPostponed": "no",
                 "strFilename": "UEFA Nations League 2026-10-02 Bosnia-Herzegovina vs Sweden",
-                "strStatus": "NS"
+                "strStatus": "FT"
             },
             {
                 "idEvent": "2442794",
@@ -8176,8 +8176,8 @@
                 "idHomeTeam": "136451",
                 "idAwayTeam": "136469",
                 "intRound": "3",
-                "intHomeScore": null,
-                "intAwayScore": null,
+                "intHomeScore": "2",
+                "intAwayScore": "0",
                 "strTimestamp": "2026-10-02T16:00:00",
                 "dateEvent": "2026-10-02",
                 "dateEventLocal": null,
@@ -8192,7 +8192,7 @@
                 "strVideo": null,
                 "strPostponed": "no",
                 "strFilename": "UEFA Nations League 2026-10-02 Cyprus vs Armenia",
-                "strStatus": "NS"
+                "strStatus": "FT"
             },
             {
                 "idEvent": "2442795",
@@ -8208,8 +8208,8 @@
                 "idHomeTeam": "136466",
                 "idAwayTeam": "135983",
                 "intRound": "3",
-                "intHomeScore": null,
-                "intAwayScore": null,
+                "intHomeScore": "1",
+                "intAwayScore": "1",
                 "strTimestamp": "2026-10-02T18:45:00",
                 "dateEvent": "2026-10-02",
                 "dateEventLocal": null,
@@ -8224,7 +8224,7 @@
                 "strVideo": null,
                 "strPostponed": "no",
                 "strFilename": "UEFA Nations League 2026-10-02 Faroe Islands vs Slovakia",
-                "strStatus": "NS"
+                "strStatus": "FT"
             },
             {
                 "idEvent": "2475296",
@@ -8240,8 +8240,8 @@
                 "idHomeTeam": "136517",
                 "idAwayTeam": "136462",
                 "intRound": "3",
-                "intHomeScore": null,
-                "intAwayScore": null,
+                "intHomeScore": "1",
+                "intAwayScore": "2",
                 "strTimestamp": "2026-10-02T16:00:00",
                 "dateEvent": "2026-10-02",
                 "dateEventLocal": null,
@@ -8256,7 +8256,7 @@
                 "strVideo": null,
                 "strPostponed": "no",
                 "strFilename": "UEFA Nations League 2026-10-02 Latvia vs Montenegro",
-                "strStatus": "NS"
+                "strStatus": "FT"
             },
             {
                 "idEvent": "2442796",
@@ -8272,8 +8272,8 @@
                 "idHomeTeam": "136468",
                 "idAwayTeam": "135981",
                 "intRound": "3",
-                "intHomeScore": null,
-                "intAwayScore": null,
+                "intHomeScore": "2",
+                "intAwayScore": "1",
                 "strTimestamp": "2026-10-03T13:00:00",
                 "dateEvent": "2026-10-03",
                 "dateEventLocal": null,
@@ -8288,7 +8288,7 @@
                 "strVideo": null,
                 "strPostponed": "no",
                 "strFilename": "UEFA Nations League 2026-10-03 Finland vs Albania",
-                "strStatus": "NS"
+                "strStatus": "FT"
             },
             {
                 "idEvent": "2442797",
@@ -8304,13 +8304,13 @@
                 "idHomeTeam": "133912",
                 "idAwayTeam": "133914",
                 "intRound": "3",
-                "intHomeScore": null,
-                "intAwayScore": null,
+                "intHomeScore": "0",
+                "intAwayScore": "7",
                 "strTimestamp": "2026-10-03T16:00:00",
                 "dateEvent": "2026-10-03",
                 "dateEventLocal": "2026-10-03",
                 "strTime": "16:00:00",
-                "strTimeLocal": "",
+                "strTimeLocal": "18:00:00",
                 "strHomeTeamBadge": "https://r2.thesportsdb.com/images/media/team/badge/84cfeg1789271106.png",
                 "strAwayTeamBadge": "https://r2.thesportsdb.com/images/media/team/badge/vf5ttc1726166739.png",
                 "strVenue": "Stadion HNK Rijeka",
@@ -8320,7 +8320,7 @@
                 "strVideo": "",
                 "strPostponed": "no",
                 "strFilename": "UEFA Nations League 2026-10-03 Croatia vs England",
-                "strStatus": "NS"
+                "strStatus": "FT"
             },
             {
                 "idEvent": "2442798",
@@ -8336,8 +8336,8 @@
                 "idHomeTeam": "136454",
                 "idAwayTeam": "136452",
                 "intRound": "3",
-                "intHomeScore": null,
-                "intAwayScore": null,
+                "intHomeScore": "4",
+                "intAwayScore": "0",
                 "strTimestamp": "2026-10-03T16:00:00",
                 "dateEvent": "2026-10-03",
                 "dateEventLocal": "2026-10-03",
@@ -8352,7 +8352,7 @@
                 "strVideo": "",
                 "strPostponed": "no",
                 "strFilename": "UEFA Nations League 2026-10-03 Belarus vs San Marino",
-                "strStatus": "NS"
+                "strStatus": "FT"
             },
             {
                 "idEvent": "2442799",
@@ -8368,8 +8368,8 @@
                 "idHomeTeam": "135988",
                 "idAwayTeam": "136461",
                 "intRound": "3",
-                "intHomeScore": null,
-                "intAwayScore": null,
+                "intHomeScore": "3",
+                "intAwayScore": "0",
                 "strTimestamp": "2026-10-03T16:00:00",
                 "dateEvent": "2026-10-03",
                 "dateEventLocal": null,
@@ -8384,7 +8384,7 @@
                 "strVideo": null,
                 "strPostponed": "no",
                 "strFilename": "UEFA Nations League 2026-10-03 Iceland vs Bulgaria",
-                "strStatus": "NS"
+                "strStatus": "FT"
             },
             {
                 "idEvent": "2442800",
@@ -8400,8 +8400,8 @@
                 "idHomeTeam": "133909",
                 "idAwayTeam": "133904",
                 "intRound": "3",
-                "intHomeScore": null,
-                "intAwayScore": null,
+                "intHomeScore": "3",
+                "intAwayScore": "1",
                 "strTimestamp": "2026-10-03T18:45:00",
                 "dateEvent": "2026-10-03",
                 "dateEventLocal": "2026-10-03",
@@ -8416,7 +8416,7 @@
                 "strVideo": "",
                 "strPostponed": "no",
                 "strFilename": "UEFA Nations League 2026-10-03 Spain vs Czech Republic",
-                "strStatus": "NS"
+                "strStatus": "FT"
             },
             {
                 "idEvent": "2475297",
@@ -8432,8 +8432,8 @@
                 "idHomeTeam": "136453",
                 "idAwayTeam": "136458",
                 "intRound": "3",
-                "intHomeScore": null,
-                "intAwayScore": null,
+                "intHomeScore": "1",
+                "intAwayScore": "0",
                 "strTimestamp": "2026-10-03T16:00:00",
                 "dateEvent": "2026-10-03",
                 "dateEventLocal": null,
@@ -8448,7 +8448,7 @@
                 "strVideo": null,
                 "strPostponed": "no",
                 "strFilename": "UEFA Nations League 2026-10-03 Estonia vs Luxembourg",
-                "strStatus": "NS"
+                "strStatus": "FT"
             },
             {
                 "idEvent": "2475298",
@@ -8464,8 +8464,8 @@
                 "idHomeTeam": "134506",
                 "idAwayTeam": "136456",
                 "intRound": "3",
-                "intHomeScore": null,
-                "intAwayScore": null,
+                "intHomeScore": "2",
+                "intAwayScore": "1",
                 "strTimestamp": "2026-10-03T18:45:00",
                 "dateEvent": "2026-10-03",
                 "dateEventLocal": "2026-10-03",
@@ -8480,7 +8480,7 @@
                 "strVideo": "",
                 "strPostponed": "no",
                 "strFilename": "UEFA Nations League 2026-10-03 Switzerland vs Slovenia",
-                "strStatus": "NS"
+                "strStatus": "FT"
             },
             {
                 "idEvent": "2475299",
@@ -8496,8 +8496,8 @@
                 "idHomeTeam": "136457",
                 "idAwayTeam": "136450",
                 "intRound": "3",
-                "intHomeScore": null,
-                "intAwayScore": null,
+                "intHomeScore": "0",
+                "intAwayScore": "2",
                 "strTimestamp": "2026-10-03T18:45:00",
                 "dateEvent": "2026-10-03",
                 "dateEventLocal": null,
@@ -8512,7 +8512,7 @@
                 "strVideo": null,
                 "strPostponed": "no",
                 "strFilename": "UEFA Nations League 2026-10-03 North Macedonia vs Scotland",
-                "strStatus": "NS"
+                "strStatus": "FT"
             },
             {
                 "idEvent": "2442801",
@@ -8528,8 +8528,8 @@
                 "idHomeTeam": "136455",
                 "idAwayTeam": "136459",
                 "intRound": "4",
-                "intHomeScore": null,
-                "intAwayScore": null,
+                "intHomeScore": "1",
+                "intAwayScore": "0",
                 "strTimestamp": "2026-10-04T13:00:00",
                 "dateEvent": "2026-10-04",
                 "dateEventLocal": null,
@@ -8544,7 +8544,7 @@
                 "strVideo": null,
                 "strPostponed": "no",
                 "strFilename": "UEFA Nations League 2026-10-04 Azerbaijan vs Lithuania",
-                "strStatus": "NS"
+                "strStatus": "FT"
             },
             {
                 "idEvent": "2442802",
@@ -8560,8 +8560,8 @@
                 "idHomeTeam": "136518",
                 "idAwayTeam": "135986",
                 "intRound": "4",
-                "intHomeScore": null,
-                "intAwayScore": null,
+                "intHomeScore": "1",
+                "intAwayScore": "1",
                 "strTimestamp": "2026-10-04T16:00:00",
                 "dateEvent": "2026-10-04",
                 "dateEventLocal": null,
@@ -8576,7 +8576,7 @@
                 "strVideo": null,
                 "strPostponed": "no",
                 "strFilename": "UEFA Nations League 2026-10-04 Kosovo vs Austria",
-                "strStatus": "NS"
+                "strStatus": "FT"
             },
             {
                 "idEvent": "2442803",
@@ -8592,8 +8592,8 @@
                 "idHomeTeam": "133902",
                 "idAwayTeam": "133907",
                 "intRound": "4",
-                "intHomeScore": null,
-                "intAwayScore": null,
+                "intHomeScore": "0",
+                "intAwayScore": "0",
                 "strTimestamp": "2026-10-04T18:45:00",
                 "dateEvent": "2026-10-04",
                 "dateEventLocal": "2026-10-04",
@@ -8608,7 +8608,7 @@
                 "strVideo": "",
                 "strPostponed": "no",
                 "strFilename": "UEFA Nations League 2026-10-04 Greece vs Germany",
-                "strStatus": "NS"
+                "strStatus": "FT"
             },
             {
                 "idEvent": "2442804",
@@ -8624,8 +8624,8 @@
                 "idHomeTeam": "133905",
                 "idAwayTeam": "136140",
                 "intRound": "4",
-                "intHomeScore": null,
-                "intAwayScore": null,
+                "intHomeScore": "2",
+                "intAwayScore": "1",
                 "strTimestamp": "2026-10-04T18:45:00",
                 "dateEvent": "2026-10-04",
                 "dateEventLocal": "2026-10-04",
@@ -8640,7 +8640,7 @@
                 "strVideo": "",
                 "strPostponed": "no",
                 "strFilename": "UEFA Nations League 2026-10-04 Netherlands vs Serbia",
-                "strStatus": "NS"
+                "strStatus": "FT"
             },
             {
                 "idEvent": "2442805",
@@ -8656,8 +8656,8 @@
                 "idHomeTeam": "133908",
                 "idAwayTeam": "136516",
                 "intRound": "4",
-                "intHomeScore": null,
-                "intAwayScore": null,
+                "intHomeScore": "2",
+                "intAwayScore": "1",
                 "strTimestamp": "2026-10-04T18:45:00",
                 "dateEvent": "2026-10-04",
                 "dateEventLocal": "2026-10-04",
@@ -8672,7 +8672,7 @@
                 "strVideo": "",
                 "strPostponed": "no",
                 "strFilename": "UEFA Nations League 2026-10-04 Portugal vs Norway",
-                "strStatus": "NS"
+                "strStatus": "FT"
             },
             {
                 "idEvent": "2442806",
@@ -8688,8 +8688,8 @@
                 "idHomeTeam": "135982",
                 "idAwayTeam": "133906",
                 "intRound": "4",
-                "intHomeScore": null,
-                "intAwayScore": null,
+                "intHomeScore": "0",
+                "intAwayScore": "1",
                 "strTimestamp": "2026-10-04T18:45:00",
                 "dateEvent": "2026-10-04",
                 "dateEventLocal": null,
@@ -8704,7 +8704,7 @@
                 "strVideo": null,
                 "strPostponed": "no",
                 "strFilename": "UEFA Nations League 2026-10-04 Wales vs Denmark",
-                "strStatus": "NS"
+                "strStatus": "FT"
             },
             {
                 "idEvent": "2442807",
@@ -8720,8 +8720,8 @@
                 "idHomeTeam": "133911",
                 "idAwayTeam": "135931",
                 "intRound": "4",
-                "intHomeScore": null,
-                "intAwayScore": null,
+                "intHomeScore": "1",
+                "intAwayScore": "1",
                 "strTimestamp": "2026-10-04T18:45:00",
                 "dateEvent": "2026-10-04",
                 "dateEventLocal": "2026-10-04",
@@ -8736,7 +8736,7 @@
                 "strVideo": "",
                 "strPostponed": "no",
                 "strFilename": "UEFA Nations League 2026-10-04 Ireland vs Israel",
-                "strStatus": "NS"
+                "strStatus": "FT"
             },
             {
                 "idEvent": "2475300",
@@ -8752,8 +8752,8 @@
                 "idHomeTeam": "136465",
                 "idAwayTeam": "136463",
                 "intRound": "4",
-                "intHomeScore": null,
-                "intAwayScore": null,
+                "intHomeScore": "1",
+                "intAwayScore": "0",
                 "strTimestamp": "2026-10-04T16:00:00",
                 "dateEvent": "2026-10-04",
                 "dateEventLocal": null,
@@ -8768,7 +8768,7 @@
                 "strVideo": null,
                 "strPostponed": "no",
                 "strFilename": "UEFA Nations League 2026-10-04 Malta vs Andorra",
-                "strStatus": "NS"
+                "strStatus": "FT"
             },
             {
                 "idEvent": "2442808",
@@ -8784,8 +8784,8 @@
                 "idHomeTeam": "133913",
                 "idAwayTeam": "134515",
                 "intRound": "4",
-                "intHomeScore": null,
-                "intAwayScore": null,
+                "intHomeScore": "4",
+                "intAwayScore": "1",
                 "strTimestamp": "2026-10-05T18:45:00",
                 "dateEvent": "2026-10-05",
                 "dateEventLocal": null,
@@ -8800,7 +8800,7 @@
                 "strVideo": null,
                 "strPostponed": "no",
                 "strFilename": "UEFA Nations League 2026-10-05 France vs Belgium",
-                "strStatus": "NS"
+                "strStatus": "FT"
             },
             {
                 "idEvent": "2442809",
@@ -8816,8 +8816,8 @@
                 "idHomeTeam": "133910",
                 "idAwayTeam": "135985",
                 "intRound": "4",
-                "intHomeScore": null,
-                "intAwayScore": null,
+                "intHomeScore": "3",
+                "intAwayScore": "1",
                 "strTimestamp": "2026-10-05T18:45:00",
                 "dateEvent": "2026-10-05",
                 "dateEventLocal": null,
@@ -8832,7 +8832,7 @@
                 "strVideo": null,
                 "strPostponed": "no",
                 "strFilename": "UEFA Nations League 2026-10-05 Italy vs Turkey",
-                "strStatus": "NS"
+                "strStatus": "FT"
             },
             {
                 "idEvent": "2442810",
@@ -8848,8 +8848,8 @@
                 "idHomeTeam": "133915",
                 "idAwayTeam": "135987",
                 "intRound": "4",
-                "intHomeScore": null,
-                "intAwayScore": null,
+                "intHomeScore": "1",
+                "intAwayScore": "2",
                 "strTimestamp": "2026-10-05T18:45:00",
                 "dateEvent": "2026-10-05",
                 "dateEventLocal": "2026-10-05",
@@ -8864,7 +8864,7 @@
                 "strVideo": "",
                 "strPostponed": "no",
                 "strFilename": "UEFA Nations League 2026-10-05 Ukraine vs Hungary",
-                "strStatus": "NS"
+                "strStatus": "FT"
             },
             {
                 "idEvent": "2442811",
@@ -8880,8 +8880,8 @@
                 "idHomeTeam": "135984",
                 "idAwayTeam": "135930",
                 "intRound": "4",
-                "intHomeScore": null,
-                "intAwayScore": null,
+                "intHomeScore": "0",
+                "intAwayScore": "0",
                 "strTimestamp": "2026-10-05T18:45:00",
                 "dateEvent": "2026-10-05",
                 "dateEventLocal": null,
@@ -8896,7 +8896,7 @@
                 "strVideo": null,
                 "strPostponed": "no",
                 "strFilename": "UEFA Nations League 2026-10-05 N.Ireland vs Georgia",
-                "strStatus": "NS"
+                "strStatus": "FT"
             },
             {
                 "idEvent": "2442812",
@@ -8912,8 +8912,8 @@
                 "idHomeTeam": "134510",
                 "idAwayTeam": "133901",
                 "intRound": "4",
-                "intHomeScore": null,
-                "intAwayScore": null,
+                "intHomeScore": "1",
+                "intAwayScore": "0",
                 "strTimestamp": "2026-10-05T18:45:00",
                 "dateEvent": "2026-10-05",
                 "dateEventLocal": null,
@@ -8928,7 +8928,7 @@
                 "strVideo": null,
                 "strPostponed": "no",
                 "strFilename": "UEFA Nations League 2026-10-05 Bosnia-Herzegovina vs Poland",
-                "strStatus": "NS"
+                "strStatus": "FT"
             },
             {
                 "idEvent": "2442813",
@@ -8944,8 +8944,8 @@
                 "idHomeTeam": "135980",
                 "idAwayTeam": "133916",
                 "intRound": "4",
-                "intHomeScore": null,
-                "intAwayScore": null,
+                "intHomeScore": "0",
+                "intAwayScore": "1",
                 "strTimestamp": "2026-10-05T18:45:00",
                 "dateEvent": "2026-10-05",
                 "dateEventLocal": null,
@@ -8960,7 +8960,7 @@
                 "strVideo": null,
                 "strPostponed": "no",
                 "strFilename": "UEFA Nations League 2026-10-05 Romania vs Sweden",
-                "strStatus": "NS"
+                "strStatus": "FT"
             },
             {
                 "idEvent": "2442814",
@@ -8976,8 +8976,8 @@
                 "idHomeTeam": "136462",
                 "idAwayTeam": "136469",
                 "intRound": "4",
-                "intHomeScore": null,
-                "intAwayScore": null,
+                "intHomeScore": "0",
+                "intAwayScore": "0",
                 "strTimestamp": "2026-10-05T18:45:00",
                 "dateEvent": "2026-10-05",
                 "dateEventLocal": null,
@@ -8992,7 +8992,7 @@
                 "strVideo": null,
                 "strPostponed": "no",
                 "strFilename": "UEFA Nations League 2026-10-05 Montenegro vs Armenia",
-                "strStatus": "NS"
+                "strStatus": "FT"
             },
             {
                 "idEvent": "2475301",
@@ -9008,8 +9008,8 @@
                 "idHomeTeam": "136451",
                 "idAwayTeam": "136517",
                 "intRound": "4",
-                "intHomeScore": null,
-                "intAwayScore": null,
+                "intHomeScore": "2",
+                "intAwayScore": "1",
                 "strTimestamp": "2026-10-05T16:00:00",
                 "dateEvent": "2026-10-05",
                 "dateEventLocal": null,
@@ -9024,7 +9024,7 @@
                 "strVideo": null,
                 "strPostponed": "no",
                 "strFilename": "UEFA Nations League 2026-10-05 Cyprus vs Latvia",
-                "strStatus": "NS"
+                "strStatus": "FT"
             },
             {
                 "idEvent": "2442815",
@@ -9040,12 +9040,12 @@
                 "idHomeTeam": "136449",
                 "idAwayTeam": "136466",
                 "intRound": "4",
-                "intHomeScore": null,
-                "intAwayScore": null,
+                "intHomeScore": "2",
+                "intAwayScore": "2",
                 "strTimestamp": "2026-10-06T14:00:00",
                 "dateEvent": "2026-10-06",
                 "dateEventLocal": null,
-                "strTime": "14:00:00",
+                "strTime": "14:00",
                 "strTimeLocal": null,
                 "strHomeTeamBadge": "https://r2.thesportsdb.com/images/media/team/badge/h3wfj01552944956.png",
                 "strAwayTeamBadge": "https://r2.thesportsdb.com/images/media/team/badge/pjs0io1552936544.png",
@@ -9056,7 +9056,7 @@
                 "strVideo": null,
                 "strPostponed": "no",
                 "strFilename": "UEFA Nations League 2026-10-06 Kazakhstan vs Faroe Islands",
-                "strStatus": "NS"
+                "strStatus": "FT"
             },
             {
                 "idEvent": "2442816",
@@ -9072,12 +9072,12 @@
                 "idHomeTeam": "133912",
                 "idAwayTeam": "133909",
                 "intRound": "4",
-                "intHomeScore": null,
-                "intAwayScore": null,
+                "intHomeScore": "1",
+                "intAwayScore": "1",
                 "strTimestamp": "2026-10-06T18:45:00",
                 "dateEvent": "2026-10-06",
                 "dateEventLocal": null,
-                "strTime": "18:45:00",
+                "strTime": "18:45",
                 "strTimeLocal": null,
                 "strHomeTeamBadge": "https://r2.thesportsdb.com/images/media/team/badge/84cfeg1789271106.png",
                 "strAwayTeamBadge": "https://r2.thesportsdb.com/images/media/team/badge/ncgqyr1726166942.png",
@@ -9088,7 +9088,7 @@
                 "strVideo": null,
                 "strPostponed": "no",
                 "strFilename": "UEFA Nations League 2026-10-06 Croatia vs Spain",
-                "strStatus": "NS"
+                "strStatus": "2H"
             },
             {
                 "idEvent": "2442817",
@@ -9104,12 +9104,12 @@
                 "idHomeTeam": "133914",
                 "idAwayTeam": "133904",
                 "intRound": "4",
-                "intHomeScore": null,
-                "intAwayScore": null,
+                "intHomeScore": "3",
+                "intAwayScore": "0",
                 "strTimestamp": "2026-10-06T18:45:00",
                 "dateEvent": "2026-10-06",
                 "dateEventLocal": null,
-                "strTime": "18:45:00",
+                "strTime": "18:45",
                 "strTimeLocal": null,
                 "strHomeTeamBadge": "https://r2.thesportsdb.com/images/media/team/badge/vf5ttc1726166739.png",
                 "strAwayTeamBadge": "https://r2.thesportsdb.com/images/media/team/badge/1o0cx31654205806.png",
@@ -9120,7 +9120,7 @@
                 "strVideo": null,
                 "strPostponed": "no",
                 "strFilename": "UEFA Nations League 2026-10-06 England vs Czech Republic",
-                "strStatus": "NS"
+                "strStatus": "2H"
             },
             {
                 "idEvent": "2442818",
@@ -9136,12 +9136,12 @@
                 "idHomeTeam": "135981",
                 "idAwayTeam": "136452",
                 "intRound": "4",
-                "intHomeScore": null,
-                "intAwayScore": null,
+                "intHomeScore": "1",
+                "intAwayScore": "1",
                 "strTimestamp": "2026-10-06T18:45:00",
                 "dateEvent": "2026-10-06",
                 "dateEventLocal": null,
-                "strTime": "18:45:00",
+                "strTime": "18:45",
                 "strTimeLocal": null,
                 "strHomeTeamBadge": "https://r2.thesportsdb.com/images/media/team/badge/vonacg1717365654.png",
                 "strAwayTeamBadge": "https://r2.thesportsdb.com/images/media/team/badge/vfvy3j1626192199.png",
@@ -9152,7 +9152,7 @@
                 "strVideo": null,
                 "strPostponed": "no",
                 "strFilename": "UEFA Nations League 2026-10-06 Albania vs San Marino",
-                "strStatus": "NS"
+                "strStatus": "2H"
             },
             {
                 "idEvent": "2442819",
@@ -9168,12 +9168,12 @@
                 "idHomeTeam": "136454",
                 "idAwayTeam": "136468",
                 "intRound": "4",
-                "intHomeScore": null,
-                "intAwayScore": null,
+                "intHomeScore": "1",
+                "intAwayScore": "0",
                 "strTimestamp": "2026-10-06T18:45:00",
                 "dateEvent": "2026-10-06",
                 "dateEventLocal": "2026-10-06",
-                "strTime": "18:45:00",
+                "strTime": "18:45",
                 "strTimeLocal": "",
                 "strHomeTeamBadge": "https://r2.thesportsdb.com/images/media/team/badge/bz4o2m1552857077.png",
                 "strAwayTeamBadge": "https://r2.thesportsdb.com/images/media/team/badge/wgvfd21730303889.png",
@@ -9184,7 +9184,7 @@
                 "strVideo": "",
                 "strPostponed": "no",
                 "strFilename": "UEFA Nations League 2026-10-06 Belarus vs Finland",
-                "strStatus": "NS"
+                "strStatus": "2H"
             },
             {
                 "idEvent": "2442820",
@@ -9200,12 +9200,12 @@
                 "idHomeTeam": "136460",
                 "idAwayTeam": "135983",
                 "intRound": "4",
-                "intHomeScore": null,
-                "intAwayScore": null,
+                "intHomeScore": "0",
+                "intAwayScore": "4",
                 "strTimestamp": "2026-10-06T18:45:00",
                 "dateEvent": "2026-10-06",
                 "dateEventLocal": null,
-                "strTime": "18:45:00",
+                "strTime": "18:45",
                 "strTimeLocal": null,
                 "strHomeTeamBadge": "https://r2.thesportsdb.com/images/media/team/badge/dcxqck1591972290.png",
                 "strAwayTeamBadge": "https://r2.thesportsdb.com/images/media/team/badge/njbw8n1717365638.png",
@@ -9216,7 +9216,7 @@
                 "strVideo": null,
                 "strPostponed": "no",
                 "strFilename": "UEFA Nations League 2026-10-06 Moldova vs Slovakia",
-                "strStatus": "NS"
+                "strStatus": "2H"
             },
             {
                 "idEvent": "2442821",
@@ -9232,12 +9232,12 @@
                 "idHomeTeam": "136453",
                 "idAwayTeam": "135988",
                 "intRound": "4",
-                "intHomeScore": null,
-                "intAwayScore": null,
+                "intHomeScore": "0",
+                "intAwayScore": "0",
                 "strTimestamp": "2026-10-06T18:45:00",
                 "dateEvent": "2026-10-06",
                 "dateEventLocal": null,
-                "strTime": "18:45:00",
+                "strTime": "18:45",
                 "strTimeLocal": null,
                 "strHomeTeamBadge": "https://r2.thesportsdb.com/images/media/team/badge/n43zxi1730303815.png",
                 "strAwayTeamBadge": "https://r2.thesportsdb.com/images/media/team/badge/xc6kuy1742982312.png",
@@ -9248,7 +9248,7 @@
                 "strVideo": null,
                 "strPostponed": "no",
                 "strFilename": "UEFA Nations League 2026-10-06 Estonia vs Iceland",
-                "strStatus": "NS"
+                "strStatus": "2H"
             },
             {
                 "idEvent": "2475302",
@@ -9264,12 +9264,12 @@
                 "idHomeTeam": "134506",
                 "idAwayTeam": "136457",
                 "intRound": "4",
-                "intHomeScore": null,
-                "intAwayScore": null,
+                "intHomeScore": "3",
+                "intAwayScore": "0",
                 "strTimestamp": "2026-10-06T18:45:00",
                 "dateEvent": "2026-10-06",
                 "dateEventLocal": null,
-                "strTime": "18:45:00",
+                "strTime": "18:45",
                 "strTimeLocal": null,
                 "strHomeTeamBadge": "https://r2.thesportsdb.com/images/media/team/badge/mb7yqe1717365808.png",
                 "strAwayTeamBadge": "https://r2.thesportsdb.com/images/media/team/badge/v6xfhn1552943846.png",
@@ -9280,7 +9280,7 @@
                 "strVideo": null,
                 "strPostponed": "no",
                 "strFilename": "UEFA Nations League 2026-10-06 Switzerland vs North Macedonia",
-                "strStatus": "NS"
+                "strStatus": "2H"
             },
             {
                 "idEvent": "2475303",
@@ -9296,12 +9296,12 @@
                 "idHomeTeam": "136458",
                 "idAwayTeam": "136461",
                 "intRound": "4",
-                "intHomeScore": null,
-                "intAwayScore": null,
+                "intHomeScore": "0",
+                "intAwayScore": "2",
                 "strTimestamp": "2026-10-06T18:45:00",
                 "dateEvent": "2026-10-06",
                 "dateEventLocal": null,
-                "strTime": "18:45:00",
+                "strTime": "18:45",
                 "strTimeLocal": null,
                 "strHomeTeamBadge": "https://r2.thesportsdb.com/images/media/team/badge/nsakoo1713725395.png",
                 "strAwayTeamBadge": "https://r2.thesportsdb.com/images/media/team/badge/0bee7p1552858893.png",
@@ -9312,7 +9312,7 @@
                 "strVideo": null,
                 "strPostponed": "no",
                 "strFilename": "UEFA Nations League 2026-10-06 Luxembourg vs Bulgaria",
-                "strStatus": "NS"
+                "strStatus": "2H"
             },
             {
                 "idEvent": "2475304",
@@ -9328,12 +9328,12 @@
                 "idHomeTeam": "136450",
                 "idAwayTeam": "136456",
                 "intRound": "4",
-                "intHomeScore": null,
-                "intAwayScore": null,
+                "intHomeScore": "1",
+                "intAwayScore": "2",
                 "strTimestamp": "2026-10-06T18:45:00",
                 "dateEvent": "2026-10-06",
                 "dateEventLocal": null,
-                "strTime": "18:45:00",
+                "strTime": "18:45",
                 "strTimeLocal": null,
                 "strHomeTeamBadge": "https://r2.thesportsdb.com/images/media/team/badge/3691i11552945146.png",
                 "strAwayTeamBadge": "https://r2.thesportsdb.com/images/media/team/badge/s7k1x51552909864.png",
@@ -9344,7 +9344,7 @@
                 "strVideo": null,
                 "strPostponed": "no",
                 "strFilename": "UEFA Nations League 2026-10-06 Scotland vs Slovenia",
-                "strStatus": "NS"
+                "strStatus": "2H"
             },
             {
                 "idEvent": "2442822",

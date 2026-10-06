@@ -1,0 +1,60 @@
+<div class="container">
+  <h1>Bilan des paris</h1>
+  
+  @if (isLoading) {
+    <p class="text-center">Chargement du bilan...</p>
+  } @else if (erreur) {
+    <p class="text-center">Impossible de charger le bilan.</p>
+  } @else {
+    <div class="stats">
+      <div class="stat">
+        <div class="valeur">{{ bilan.matchsAnalyses }}</div>
+        <div class="libelle">Matchs analysés</div>
+      </div>
+      <div class="stat">
+        <div class="valeur" [class.positif]="bilan.roi > 0" [class.negatif]="bilan.roi < 0">
+          {{ bilan.roi === null ? '—' : ((bilan.roi * 100) | number:'1.1-1') + ' %' }}
+        </div>
+        <div class="libelle">ROI</div>
+      </div>
+      <div class="stat">
+        <div class="valeur" [class.positif]="bilan.gainUnites > 0" [class.negatif]="bilan.gainUnites < 0">
+          {{ bilan.gainUnites > 0 ? '+' : '' }}{{ bilan.gainUnites | number:'1.2-2' }}
+        </div>
+        <div class="libelle">Gain / perte (unités)</div>
+      </div>
+      <div class="stat">
+        <div class="valeur">{{ bilan.parisGagnes }} / {{ bilan.paris }}</div>
+        <div class="libelle">Paris gagnés / placés</div>
+      </div>
+    </div>
+    @if (bilan.parisEnAttente > 0) {
+      <p class="text-center">{{ bilan.parisEnAttente }} pari(s) en attente de résultat (non comptés dans le ROI).</p>
+    }
+
+    @if (bilan.detail.length === 0) {
+      <p class="text-center">Aucun pari placé pour l'instant.</p>
+    } @else {
+      <table class="detail">
+        <thead>
+          <tr><th>Date</th><th>Match</th><th>Pari</th><th>Cote</th><th>Mise</th><th>Résultat</th></tr>
+        </thead>
+        <tbody>
+          @for (p of bilan.detail; track p.idEvent + p.issue) {
+            <tr>
+              <td>{{ p.date }}</td>
+              <td>{{ p.equipeDomicile }} - {{ p.equipeExterieur }}</td>
+              <td>{{ p.issue }}</td>
+              <td>{{ p.coteBookmaker | number:'1.2-2' }}</td>
+              <td>{{ p.mise | number:'1.2-2' }}</td>
+              <td [class.positif]="p.statut === 'gagne'" [class.negatif]="p.statut === 'perdu'">
+                @if (p.statut === 'en_attente') { En attente }
+                @else { {{ p.gain > 0 ? '+' : '' }}{{ p.gain | number:'1.2-2' }} }
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    }
+  }
+</div>
