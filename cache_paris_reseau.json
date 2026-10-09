@@ -1,1 +1,74 @@
-[]
+[
+ {
+  "idEvent": "2508371",
+  "date": "2026-10-09",
+  "ligue": "Bundesliga",
+  "equipeDomicile": "Borussia Dortmund",
+  "equipeExterieur": "Werder Bremen",
+  "issue": "nul",
+  "coteBookmaker": 5.9,
+  "bookmaker": "Winamax",
+  "coteModele": 4.64,
+  "butsAttendus": [
+   1.94,
+   0.93
+  ],
+  "mise": 0.1695,
+  "statut": "en_attente",
+  "gain": null
+ },
+ {
+  "idEvent": "2508371",
+  "date": "2026-10-09",
+  "ligue": "Bundesliga",
+  "equipeDomicile": "Borussia Dortmund",
+  "equipeExterieur": "Werder Bremen",
+  "issue": "exterieure",
+  "coteBookmaker": 7.25,
+  "bookmaker": "Winamax",
+  "coteModele": 5.74,
+  "butsAttendus": [
+   1.94,
+   0.93
+  ],
+  "mise": 0.1379,
+  "statut": "en_attente",
+  "gain": null
+ },
+ {
+  "idEvent": "2527780",
+  "date": "2026-10-09",
+  "ligue": "Süper Lig",
+  "equipeDomicile": "Galatasaray",
+  "equipeExterieur": "Kasımpaşa",
+  "issue": "nul",
+  "coteBookmaker": 5.5,
+  "bookmaker": "Winamax",
+  "coteModele": 4.62,
+  "butsAttendus": [
+   1.93,
+   0.94
+  ],
+  "mise": 0.1818,
+  "statut": "en_attente",
+  "gain": null
+ },
+ {
+  "idEvent": "2527780",
+  "date": "2026-10-09",
+  "ligue": "Süper Lig",
+  "equipeDomicile": "Galatasaray",
+  "equipeExterieur": "Kasımpaşa",
+  "issue": "exterieure",
+  "coteBookmaker": 8.5,
+  "bookmaker": "Winamax",
+  "coteModele": 5.64,
+  "butsAttendus": [
+   1.93,
+   0.94
+  ],
+  "mise": 0.1176,
+  "statut": "en_attente",
+  "gain": null
+ }
+]
