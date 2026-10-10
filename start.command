@@ -1,6 +1,8 @@
 #!/bin/bash
 set -e
 
+MODE="${1:-}"
+
 ROOT="/Users/pierre/Documents/F/UCL"
 export PATH="/opt/homebrew/bin:$PATH"
 export NG_CLI_ANALYTICS=false
@@ -61,7 +63,29 @@ echo ""
 # On ouvre le site dans Chrome (profil habituel) puis on surveille l'onglet :
 # quand plus aucun onglet Chrome ne pointe vers localhost:4200, on arrete tout.
 if [ -d "/Applications/Google Chrome.app" ]; then
-    open -a "Google Chrome" "http://localhost:4200"
+    if [ "$MODE" = "bet" ]; then
+        # Deux fenetres Chrome : site a gauche (50%), Winamax a droite (50%)
+        osascript <<'BET_EOF'
+tell application "Finder" to set b to bounds of window of desktop
+set sw to item 3 of b
+set sh to item 4 of b
+set halfW to sw div 2
+
+tell application "Google Chrome"
+    activate
+
+    set w1 to make new window
+    set URL of active tab of w1 to "http://localhost:4200"
+    set bounds of w1 to {0, 25, halfW, sh}
+
+    set w2 to make new window
+    set URL of active tab of w2 to "https://www.winamax.fr/paris-sportifs"
+    set bounds of w2 to {halfW, 25, sw, sh}
+end tell
+BET_EOF
+    else
+        open -a "Google Chrome" "http://localhost:4200"
+    fi
 
     # Laisse le temps a l'onglet de s'ouvrir avant de commencer a surveiller.
     sleep 5

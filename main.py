@@ -733,15 +733,32 @@ def get_bilan_paris():
     resolus = [p for p in journal if p["statut"] != "en_attente"]
     gain = sum(p["gain"] for p in resolus)
     mises = sum(p["mise"] for p in resolus)
+
+    # Plusieurs issues d'un meme match (ex. exterieure + nul) comptent comme un seul pari.
+    par_match = {}
+    for p in journal:
+        par_match.setdefault(p["idEvent"], []).append(p)
+    groupes = []
+    for legs in par_match.values():
+        en_attente = any(l["statut"] == "en_attente" for l in legs)
+        groupes.append({
+            "idEvent": legs[0]["idEvent"], "date": legs[0]["date"],
+            "equipeDomicile": legs[0]["equipeDomicile"], "equipeExterieur": legs[0]["equipeExterieur"],
+            "legs": [{"issue": l["issue"], "coteBookmaker": l["coteBookmaker"], "mise": l["mise"]} for l in legs],
+            "mise": round(sum(l["mise"] for l in legs), 4),
+            "statut": "en_attente" if en_attente else "gagne" if any(l["statut"] == "gagne" for l in legs) else "perdu",
+            "gain": None if en_attente else round(sum(l["gain"] for l in legs), 4),
+        })
+    resolus_g = [g for g in groupes if g["statut"] != "en_attente"]
     return {
         "matchsAnalyses": len(analyses),
-        "paris": len(journal),
-        "parisGagnes": sum(p["statut"] == "gagne" for p in resolus),
-        "parisPerdus": sum(p["statut"] == "perdu" for p in resolus),
-        "parisEnAttente": len(journal) - len(resolus),
+        "paris": len(groupes),
+        "parisGagnes": sum(g["statut"] == "gagne" for g in resolus_g),
+        "parisPerdus": sum(g["statut"] == "perdu" for g in resolus_g),
+        "parisEnAttente": len(groupes) - len(resolus_g),
         "gainUnites": round(gain, 2),
         "roi": gain / mises if mises else None,
-        "detail": sorted(journal, key=lambda p: p["date"], reverse=True),
+        "detail": sorted(groupes, key=lambda g: g["date"], reverse=True),
     }
 
 @app.get("/api/selections/semaine")

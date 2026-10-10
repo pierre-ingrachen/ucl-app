@@ -40,13 +40,19 @@
           <tr><th>Date</th><th>Match</th><th>Pari</th><th>Cote</th><th>Mise</th><th>Résultat</th></tr>
         </thead>
         <tbody>
-          @for (p of bilan.detail; track p.idEvent + p.issue) {
+          @for (p of bilan.detail; track p.idEvent) {
             <tr>
               <td>{{ p.date }}</td>
               <td>{{ p.equipeDomicile }} - {{ p.equipeExterieur }}</td>
-              <td>{{ p.issue }}</td>
-              <td>{{ p.coteBookmaker | number:'1.2-2' }}</td>
-              <td>{{ p.mise | number:'1.2-2' }}</td>
+              <td>
+                @for (l of p.legs; track l.issue) { <div>{{ l.issue }}</div> }
+              </td>
+              <td>
+                @for (l of p.legs; track l.issue) { <div>{{ l.coteBookmaker | number:'1.2-2' }}</div> }
+              </td>
+              <td>
+                @for (l of p.legs; track l.issue) { <div>{{ l.mise | number:'1.2-2' }}</div> }
+              </td>
               <td [class.positif]="p.statut === 'gagne'" [class.negatif]="p.statut === 'perdu'">
                 @if (p.statut === 'en_attente') { En attente }
                 @else { {{ p.gain > 0 ? '+' : '' }}{{ p.gain | number:'1.2-2' }} }

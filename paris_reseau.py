@@ -205,15 +205,21 @@ def etape_paris(calendrier, cotes):
 
 
 def afficher_bilan(journal, nb_analyses):
+    # Plusieurs issues d'un meme match (ex. exterieure + nul) comptent comme un seul pari.
+    par_match = {}
+    for p in journal:
+        par_match.setdefault(p["idEvent"], []).append(p)
+    attente = sum(any(l["statut"] == "en_attente" for l in legs) for legs in par_match.values())
+    resolus_m = [legs for legs in par_match.values() if all(l["statut"] != "en_attente" for l in legs)]
+    gagnes = sum(any(l["statut"] == "gagne" for l in legs) for legs in resolus_m)
     resolus = [p for p in journal if p["statut"] != "en_attente"]
-    gagnes = sum(p["statut"] == "gagne" for p in resolus)
     gain = sum(p["gain"] for p in resolus)
     mises = sum(p["mise"] for p in resolus)
     print(f"## Bilan des paris du reseau — {date.today()}\n")
     print(f"- Matchs analyses aujourd'hui : {nb_analyses}")
-    print(f"- Paris resolus : {len(resolus)} ({gagnes} gagnes, {len(resolus) - gagnes} perdus)")
+    print(f"- Paris resolus : {len(resolus_m)} ({gagnes} gagnes, {len(resolus_m) - gagnes} perdus)")
     print(f"- Gain net cumule : {gain:+.2f} unites" + (f" (ROI {gain / mises:+.1%})" if mises else ""))
-    print(f"- Paris en attente : {sum(p['statut'] == 'en_attente' for p in journal)}\n")
+    print(f"- Paris en attente : {attente}\n")
     nouveaux = [p for p in journal if p["date"] == str(date.today())]
     if nouveaux:
         print("### Nouveaux paris du jour\n")
