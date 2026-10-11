@@ -86,8 +86,8 @@
    2.11
   ],
   "mise": 0.125,
-  "statut": "en_attente",
-  "gain": null
+  "statut": "perdu",
+  "gain": -0.125
  },
  {
   "idEvent": "2489133",
@@ -104,8 +104,8 @@
    1.5
   ],
   "mise": 0.1923,
-  "statut": "en_attente",
-  "gain": null
+  "statut": "perdu",
+  "gain": -0.1923
  },
  {
   "idEvent": "2489133",
@@ -122,8 +122,8 @@
    1.5
   ],
   "mise": 0.2083,
-  "statut": "en_attente",
-  "gain": null
+  "statut": "gagne",
+  "gain": 0.7915
  },
  {
   "idEvent": "2496761",
@@ -140,8 +140,8 @@
    1.77
   ],
   "mise": 0.1786,
-  "statut": "en_attente",
-  "gain": null
+  "statut": "perdu",
+  "gain": -0.1786
  },
  {
   "idEvent": "2494052",
@@ -158,8 +158,8 @@
    0.98
   ],
   "mise": 0.2041,
-  "statut": "en_attente",
-  "gain": null
+  "statut": "perdu",
+  "gain": -0.2041
  },
  {
   "idEvent": "2494052",
@@ -176,8 +176,8 @@
    0.98
   ],
   "mise": 0.1379,
-  "statut": "en_attente",
-  "gain": null
+  "statut": "perdu",
+  "gain": -0.1379
  },
  {
   "idEvent": "2489509",
@@ -194,8 +194,8 @@
    0.97
   ],
   "mise": 0.0833,
-  "statut": "en_attente",
-  "gain": null
+  "statut": "perdu",
+  "gain": -0.0833
  },
  {
   "idEvent": "2489509",
@@ -212,8 +212,8 @@
    0.97
   ],
   "mise": 0.0588,
-  "statut": "en_attente",
-  "gain": null
+  "statut": "perdu",
+  "gain": -0.0588
  },
  {
   "idEvent": "2506239",
@@ -230,8 +230,8 @@
    0.89
   ],
   "mise": 0.0741,
-  "statut": "en_attente",
-  "gain": null
+  "statut": "perdu",
+  "gain": -0.0741
  },
  {
   "idEvent": "2506239",
@@ -248,8 +248,8 @@
    0.89
   ],
   "mise": 0.0556,
-  "statut": "en_attente",
-  "gain": null
+  "statut": "perdu",
+  "gain": -0.0556
  },
  {
   "idEvent": "2506242",
@@ -266,8 +266,8 @@
    0.99
   ],
   "mise": 0.1754,
-  "statut": "en_attente",
-  "gain": null
+  "statut": "perdu",
+  "gain": -0.1754
  },
  {
   "idEvent": "2506242",
@@ -284,8 +284,8 @@
    0.99
   ],
   "mise": 0.1695,
-  "statut": "en_attente",
-  "gain": null
+  "statut": "perdu",
+  "gain": -0.1695
  },
  {
   "idEvent": "2482191",
@@ -302,8 +302,8 @@
    1.28
   ],
   "mise": 0.2041,
-  "statut": "en_attente",
-  "gain": null
+  "statut": "perdu",
+  "gain": -0.2041
  },
  {
   "idEvent": "2482191",
@@ -320,8 +320,8 @@
    1.28
   ],
   "mise": 0.1786,
-  "statut": "en_attente",
-  "gain": null
+  "statut": "perdu",
+  "gain": -0.1786
  },
  {
   "idEvent": "2482195",
@@ -338,8 +338,8 @@
    0.91
   ],
   "mise": 0.1111,
-  "statut": "en_attente",
-  "gain": null
+  "statut": "perdu",
+  "gain": -0.1111
  },
  {
   "idEvent": "2482195",
@@ -356,8 +356,8 @@
    0.91
   ],
   "mise": 0.0714,
-  "statut": "en_attente",
-  "gain": null
+  "statut": "perdu",
+  "gain": -0.0714
  },
  {
   "idEvent": "2508372",
@@ -374,8 +374,8 @@
    1.05
   ],
   "mise": 0.2041,
-  "statut": "en_attente",
-  "gain": null
+  "statut": "perdu",
+  "gain": -0.2041
  },
  {
   "idEvent": "2508372",
@@ -392,8 +392,8 @@
    1.05
   ],
   "mise": 0.1667,
-  "statut": "en_attente",
-  "gain": null
+  "statut": "gagne",
+  "gain": 0.8335
  },
  {
   "idEvent": "2508373",
@@ -410,8 +410,8 @@
    1.86
   ],
   "mise": 0.1053,
-  "statut": "en_attente",
-  "gain": null
+  "statut": "perdu",
+  "gain": -0.1053
  },
  {
   "idEvent": "2508373",
@@ -428,8 +428,8 @@
    1.86
   ],
   "mise": 0.1176,
-  "statut": "en_attente",
-  "gain": null
+  "statut": "gagne",
+  "gain": 0.882
  },
  {
   "idEvent": "2508374",
@@ -446,8 +446,8 @@
    1.23
   ],
   "mise": 0.2,
-  "statut": "en_attente",
-  "gain": null
+  "statut": "perdu",
+  "gain": -0.2
  },
  {
   "idEvent": "2508374",
@@ -464,8 +464,8 @@
    1.23
   ],
   "mise": 0.2222,
-  "statut": "en_attente",
-  "gain": null
+  "statut": "perdu",
+  "gain": -0.2222
  },
  {
   "idEvent": "2508376",
@@ -482,8 +482,8 @@
    1.11
   ],
   "mise": 0.2222,
-  "statut": "en_attente",
-  "gain": null
+  "statut": "perdu",
+  "gain": -0.2222
  },
  {
   "idEvent": "2399168",
@@ -500,8 +500,8 @@
    0.91
   ],
   "mise": 0.0952,
-  "statut": "en_attente",
-  "gain": null
+  "statut": "perdu",
+  "gain": -0.0952
  },
  {
   "idEvent": "2399168",
@@ -518,8 +518,8 @@
    0.91
   ],
   "mise": 0.0667,
-  "statut": "en_attente",
-  "gain": null
+  "statut": "perdu",
+  "gain": -0.0667
  },
  {
   "idEvent": "2494455",
@@ -536,6 +536,96 @@
    0.88
   ],
   "mise": 0.0769,
+  "statut": "perdu",
+  "gain": -0.0769
+ },
+ {
+  "idEvent": "2489134",
+  "date": "2026-10-11",
+  "ligue": "Eredivisie",
+  "equipeDomicile": "Utrecht",
+  "equipeExterieur": "Willem II",
+  "issue": "exterieure",
+  "coteBookmaker": 4.8,
+  "bookmaker": "Winamax",
+  "coteModele": 3.81,
+  "butsAttendus": [
+   1.74,
+   1.2
+  ],
+  "mise": 0.2083,
+  "statut": "en_attente",
+  "gain": null
+ },
+ {
+  "idEvent": "2506245",
+  "date": "2026-10-11",
+  "ligue": "La Liga",
+  "equipeDomicile": "Real Sociedad",
+  "equipeExterieur": "Deportivo de A Coruña",
+  "issue": "exterieure",
+  "coteBookmaker": 4.8,
+  "bookmaker": "Winamax",
+  "coteModele": 2.91,
+  "butsAttendus": [
+   1.41,
+   1.29
+  ],
+  "mise": 0.2083,
+  "statut": "en_attente",
+  "gain": null
+ },
+ {
+  "idEvent": "2482190",
+  "date": "2026-10-11",
+  "ligue": "Serie A",
+  "equipeDomicile": "Cagliari",
+  "equipeExterieur": "Juventus",
+  "issue": "domicile",
+  "coteBookmaker": 5.7,
+  "bookmaker": "Winamax",
+  "coteModele": 2.1,
+  "butsAttendus": [
+   1.59,
+   1.14
+  ],
+  "mise": 0.1754,
+  "statut": "en_attente",
+  "gain": null
+ },
+ {
+  "idEvent": "2482196",
+  "date": "2026-10-11",
+  "ligue": "Serie A",
+  "equipeDomicile": "Lecce",
+  "equipeExterieur": "Bologna",
+  "issue": "domicile",
+  "coteBookmaker": 4.2,
+  "bookmaker": "Winamax",
+  "coteModele": 2.12,
+  "butsAttendus": [
+   1.5,
+   1.07
+  ],
+  "mise": 0.2381,
+  "statut": "en_attente",
+  "gain": null
+ },
+ {
+  "idEvent": "2527778",
+  "date": "2026-10-11",
+  "ligue": "Süper Lig",
+  "equipeDomicile": "Beşiktaş",
+  "equipeExterieur": "Kocaelispor",
+  "issue": "exterieure",
+  "coteBookmaker": 7.75,
+  "bookmaker": "Winamax",
+  "coteModele": 4.85,
+  "butsAttendus": [
+   1.86,
+   1.03
+  ],
+  "mise": 0.129,
   "statut": "en_attente",
   "gain": null
  }
