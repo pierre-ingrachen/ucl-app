@@ -554,8 +554,8 @@
    1.2
   ],
   "mise": 0.2083,
-  "statut": "en_attente",
-  "gain": null
+  "statut": "perdu",
+  "gain": -0.2083
  },
  {
   "idEvent": "2506245",
@@ -572,8 +572,8 @@
    1.29
   ],
   "mise": 0.2083,
-  "statut": "en_attente",
-  "gain": null
+  "statut": "perdu",
+  "gain": -0.2083
  },
  {
   "idEvent": "2482190",
@@ -590,8 +590,8 @@
    1.14
   ],
   "mise": 0.1754,
-  "statut": "en_attente",
-  "gain": null
+  "statut": "perdu",
+  "gain": -0.1754
  },
  {
   "idEvent": "2482196",
@@ -608,8 +608,8 @@
    1.07
   ],
   "mise": 0.2381,
-  "statut": "en_attente",
-  "gain": null
+  "statut": "perdu",
+  "gain": -0.2381
  },
  {
   "idEvent": "2527778",
@@ -626,6 +626,24 @@
    1.03
   ],
   "mise": 0.129,
+  "statut": "perdu",
+  "gain": -0.129
+ },
+ {
+  "idEvent": "2481849",
+  "date": "2026-10-12",
+  "ligue": "Superliga",
+  "equipeDomicile": "AGF Aarhus",
+  "equipeExterieur": "Sønderjyske",
+  "issue": "exterieure",
+  "coteBookmaker": 4.3,
+  "bookmaker": "Winamax",
+  "coteModele": 3.54,
+  "butsAttendus": [
+   1.5,
+   1.12
+  ],
+  "mise": 0.2326,
   "statut": "en_attente",
   "gain": null
  }
