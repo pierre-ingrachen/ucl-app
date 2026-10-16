@@ -646,5 +646,59 @@
   "mise": 0.2326,
   "statut": "perdu",
   "gain": -0.2326
+ },
+ {
+  "idEvent": "2499753",
+  "date": "2026-10-16",
+  "ligue": "Bundesliga",
+  "equipeDomicile": "Rapid Vienna",
+  "equipeExterieur": "TSV Hartberg",
+  "issue": "nul",
+  "coteBookmaker": 6.0,
+  "bookmaker": "Winamax",
+  "coteModele": 4.98,
+  "butsAttendus": [
+   2.13,
+   1.03
+  ],
+  "mise": 0.1667,
+  "statut": "en_attente",
+  "gain": null
+ },
+ {
+  "idEvent": "2499753",
+  "date": "2026-10-16",
+  "ligue": "Bundesliga",
+  "equipeDomicile": "Rapid Vienna",
+  "equipeExterieur": "TSV Hartberg",
+  "issue": "exterieure",
+  "coteBookmaker": 7.5,
+  "bookmaker": "Winamax",
+  "coteModele": 5.74,
+  "butsAttendus": [
+   2.13,
+   1.03
+  ],
+  "mise": 0.1333,
+  "statut": "en_attente",
+  "gain": null
+ },
+ {
+  "idEvent": "2398936",
+  "date": "2026-10-16",
+  "ligue": "Allsvenskan",
+  "equipeDomicile": "Brommapojkarna",
+  "equipeExterieur": "Djurgården",
+  "issue": "domicile",
+  "coteBookmaker": 4.8,
+  "bookmaker": "Winamax",
+  "coteModele": 3.84,
+  "butsAttendus": [
+   1.13,
+   1.65
+  ],
+  "mise": 0.2083,
+  "statut": "en_attente",
+  "gain": null
  }
 ]
