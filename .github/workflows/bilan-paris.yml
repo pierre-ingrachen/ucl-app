@@ -49,6 +49,7 @@ jobs:
           install
 
       - name: Recuperer les cotes (mardi et vendredi, ou relance ciblee)
+        shell: bash  # pipefail : sans lui, un plantage de python derriere `| tee` reste vert
         env:
           SPORTSDB_API_KEY: ${{ secrets.SPORTSDB_API_KEY }}
           ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
@@ -61,6 +62,7 @@ jobs:
           python paris_reseau.py cotes | tee -a "$GITHUB_STEP_SUMMARY"
 
       - name: Choisir les paris du jour (reseau de neurones + loi de Poisson)
+        shell: bash  # pipefail : sans lui, un plantage de python derriere `| tee` reste vert
         env:
           SPORTSDB_API_KEY: ${{ secrets.SPORTSDB_API_KEY }}
           ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
