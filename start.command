@@ -2,6 +2,7 @@
 set -e
 
 MODE="${1:-}"
+URL_SITE="http://localhost:4200"
 
 ROOT="/Users/pierre/Documents/F/UCL"
 export PATH="/opt/homebrew/bin:$PATH"
@@ -9,10 +10,18 @@ export NG_CLI_ANALYTICS=false
 
 cd "$ROOT"
 
-echo "Recuperation des dernieres mises a jour (git pull)..."
-if ! git pull; then
-    echo "Attention : la mise a jour Git a echoue (pas de connexion, modifications locales en conflit, etc.)."
-    echo "Demarrage avec les fichiers actuels."
+if [ "$MODE" = "hors-ligne" ]; then
+    # Mode hors ligne : pas de git pull, et le backend sert les caches prepares par
+    # preparer_hors_ligne.py sans aucun appel reseau.
+    export UCL_HORS_LIGNE=1
+    URL_SITE="http://localhost:4200/championnats"
+    echo "MODE HORS LIGNE : championnats Top 5 + 6-10 du weekend, donnees pre-chargees (aucune connexion necessaire)."
+else
+    echo "Recuperation des dernieres mises a jour (git pull)..."
+    if ! git pull; then
+        echo "Attention : la mise a jour Git a echoue (pas de connexion, modifications locales en conflit, etc.)."
+        echo "Demarrage avec les fichiers actuels."
+    fi
 fi
 
 # Libere les ports au cas ou un lancement precedent ne se serait pas arrete
@@ -84,7 +93,7 @@ tell application "Google Chrome"
 end tell
 BET_EOF
     else
-        open -a "Google Chrome" "http://localhost:4200"
+        open -a "Google Chrome" "$URL_SITE"
     fi
 
     # Laisse le temps a l'onglet de s'ouvrir avant de commencer a surveiller.

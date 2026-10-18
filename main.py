@@ -1,10 +1,13 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Request, Response
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.middleware.gzip import GZipMiddleware
+from fastapi.staticfiles import StaticFiles
 import requests
 from datetime import datetime, timedelta, date
+import hashlib
 import json
 import os
+import re
 import time
 
 from dotenv import load_dotenv
@@ -19,7 +22,41 @@ def _variable_environnement_requise(nom):
         raise RuntimeError(f"Variable d'environnement '{nom}' manquante (voir .env.example).")
     return valeur
 
+# Mode hors ligne (commande `ucl-1510`) : aucun appel reseau, les caches sont servis meme
+# s'ils datent de la veille, et rien n'est reecrit sur disque. Prepare par preparer_hors_ligne.py.
+# Seul l'onglet Championnats (Top 5 + 6-10) est servi, limite aux matchs de ces dates
+# (separees par des virgules) ; les autres onglets renvoient des listes vides.
+HORS_LIGNE = os.environ.get("UCL_HORS_LIGNE") == "1"
+DATES_HORS_LIGNE = os.environ.get("UCL_DATES", "2026-10-16,2026-10-17,2026-10-18").split(",")
+LIGUES_HORS_LIGNE = ["4328", "4335", "4331", "4332", "4334",   # Top 5
+                     "4338", "4337", "4344", "4339", "4422"]   # 6-10
+# Logos telecharges par preparer_hors_ligne.py, servis sous /badges/ (voir `localiser_badges`).
+DOSSIER_BADGES = "cache_badges"
+RE_URL_BADGE = re.compile(r'https://[a-z0-9.]*thesportsdb\.com/images/media/(?:team|league)/badge/[^"\\\s]+')
+
+def nom_fichier_badge(url):
+    return hashlib.sha1(url.encode()).hexdigest()[:16] + os.path.splitext(url)[1]
+
 app = FastAPI(title="Champions League API")
+
+@app.middleware("http")
+async def localiser_badges(request: Request, call_next):
+    """Hors ligne : remplace les URLs de logos de TheSportsDB par leur copie locale
+    (/badges/...) quand elle a ete telechargee. Declare avant le GZip pour voir le JSON en clair."""
+    response = await call_next(request)
+    if not HORS_LIGNE or not request.url.path.startswith("/api/"):
+        return response
+    corps = b"".join([morceau async for morceau in response.body_iterator]).decode("utf-8")
+
+    def remplacer(m):
+        nom = nom_fichier_badge(m.group(0))
+        if os.path.exists(os.path.join(DOSSIER_BADGES, nom)):
+            return f"{request.base_url}badges/{nom}"
+        return m.group(0)
+
+    en_tetes = {k: v for k, v in response.headers.items() if k.lower() != "content-length"}
+    return Response(RE_URL_BADGE.sub(remplacer, corps), status_code=response.status_code,
+                    headers=en_tetes, media_type=response.media_type)
 
 # Compression des reponses JSON : l'historique complet des qualifications fait plusieurs Mo
 # en clair, gzip le divise par ~10 sur le reseau sans rien changer cote client.
@@ -32,6 +69,8 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+app.mount("/badges", StaticFiles(directory=DOSSIER_BADGES, check_dir=False), name="badges")
 
 API_KEY = _variable_environnement_requise("SPORTSDB_API_KEY")
 LEAGUE_IDS = ["4480", "4481", "5071"]  # UEFA Champions League, UEFA Europa League, UEFA Conference League
@@ -185,6 +224,8 @@ def requete_api_avec_retry(url, tentatives=3, delai=1.5):
     gratuite) ou de limitation de debit (429, respecte l'en-tete Retry-After si present).
     Point de passage unique pour tous les appels a l'API : ne pas utiliser requests.get
     directement ailleurs, sous peine de recreer le probleme de sur-appel."""
+    if HORS_LIGNE:
+        raise requests.exceptions.ConnectionError("Mode hors ligne : appel reseau desactive")
     for tentative in range(tentatives):
         attente = DELAI_MIN_ENTRE_APPELS_SPORTSDB - (time.monotonic() - _DERNIER_APPEL_SPORTSDB[0])
         if attente > 0:
@@ -214,6 +255,8 @@ def charger_cache_permanent(fichier):
     return {}
 
 def sauvegarder_cache_permanent(fichier, data):
+    if HORS_LIGNE:
+        return
     try:
         with open(fichier, "w", encoding="utf-8") as f: json.dump(data, f, indent=4)
     except: pass
@@ -224,7 +267,7 @@ def charger_cache(fichier):
         try:
             with open(fichier, "r", encoding="utf-8") as f:
                 cache = json.load(f)
-                if cache.get("date") == aujourd_hui_str:
+                if HORS_LIGNE or cache.get("date") == aujourd_hui_str:
                     return cache.get("data")
         except (json.JSONDecodeError, IOError):
             pass
@@ -258,11 +301,13 @@ def charger_cache_memoise(fichier):
     """Comme `charger_cache` mais en gardant le contenu parsé en mémoire tant que le fichier
     sur disque est inchangé. Réservé aux fichiers volumineux relus en lecture seule."""
     cache = _lire_json_memoise(fichier)
-    if isinstance(cache, dict) and cache.get("date") == str(date.today()):
+    if isinstance(cache, dict) and (HORS_LIGNE or cache.get("date") == str(date.today())):
         return cache.get("data")
     return None
 
 def sauvegarder_cache(fichier, data):
+    if HORS_LIGNE:
+        return
     try:
         with open(fichier, "w", encoding="utf-8") as f:
             json.dump({"date": str(date.today()), "data": data}, f, indent=4)
@@ -290,10 +335,27 @@ def categoriser_phase(match):
         return "groupe"
     return "qualifications"
 
+# Pays forcés pour certaines équipes (l'API renvoie un pays inexact ou "Monaco" / "England")
+CORRECTIONS_PAYS = {
+    "133823": "France",  # AS Monaco, comptée comme équipe française
+    "134312": "Wales",   # The New Saints (TNS), comptée comme équipe galloise
+}
+
+def appliquer_corrections_pays(cache_teams):
+    """Impose CORRECTIONS_PAYS sur le cache des pays. Retourne True si une valeur a changé."""
+    modifie = False
+    for team_id, pays in CORRECTIONS_PAYS.items():
+        if cache_teams.get(team_id) != pays:
+            cache_teams[team_id] = pays
+            modifie = True
+    return modifie
+
 def obtenir_pays_equipe(team_id, cache_teams):
     """Retourne le pays d'une équipe, en interrogeant l'API si absent du cache permanent."""
     if not team_id:
         return ""
+    if team_id in CORRECTIONS_PAYS:
+        return CORRECTIONS_PAYS[team_id]
     if team_id in cache_teams and cache_teams[team_id]:
         return cache_teams[team_id]
 
@@ -577,6 +639,8 @@ def obtenir_matchs_a_venir():
 
 @app.get("/api/matchs/a-venir")
 def get_matchs_a_venir():
+    if HORS_LIGNE:
+        return {"events": []}  # onglet non prepare en mode hors ligne
     return {"events": filtrer_matchs_semaine(obtenir_matchs_a_venir())}
 
 def obtenir_matchs_championnats_a_venir():
@@ -602,6 +666,9 @@ def obtenir_matchs_championnats_a_venir():
 def get_matchs_championnats_a_venir():
     matchs = obtenir_matchs_championnats_a_venir()
 
+    if HORS_LIGNE:
+        return {"events": [m for m in matchs if m.get("dateEvent") in DATES_HORS_LIGNE
+                           and m.get("idLeague") in LIGUES_HORS_LIGNE]}
     return {"events": filtrer_matchs_semaine(matchs)}
 
 @app.get("/api/championnats/classement/{league_id}")
@@ -880,7 +947,7 @@ def obtenir_historique_qualifications():
     avec pays de chaque equipe injecte. Mise en cache quotidienne."""
     historique = charger_cache_memoise(CACHE_HISTORY_FILE)
     cache_teams = charger_cache_permanent(CACHE_TEAMS_FILE)
-    teams_updated = False
+    teams_updated = appliquer_corrections_pays(cache_teams)
 
     if historique is None:
         historique = []
