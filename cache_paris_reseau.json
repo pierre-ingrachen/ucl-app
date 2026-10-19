@@ -986,8 +986,8 @@
    1.43
   ],
   "mise": 0.2439,
-  "statut": "en_attente",
-  "gain": null
+  "statut": "perdu",
+  "gain": -0.2439
  },
  {
   "idEvent": "2494069",
@@ -1004,8 +1004,8 @@
    1.49
   ],
   "mise": 0.1818,
-  "statut": "en_attente",
-  "gain": null
+  "statut": "perdu",
+  "gain": -0.1818
  },
  {
   "idEvent": "2506254",
@@ -1022,8 +1022,8 @@
    1.26
   ],
   "mise": 0.1429,
-  "statut": "en_attente",
-  "gain": null
+  "statut": "perdu",
+  "gain": -0.1429
  },
  {
   "idEvent": "2506254",
@@ -1040,8 +1040,8 @@
    1.26
   ],
   "mise": 0.0952,
-  "statut": "en_attente",
-  "gain": null
+  "statut": "perdu",
+  "gain": -0.0952
  },
  {
   "idEvent": "2482200",
@@ -1058,8 +1058,8 @@
    1.32
   ],
   "mise": 0.2174,
-  "statut": "en_attente",
-  "gain": null
+  "statut": "gagne",
+  "gain": 0.7826
  },
  {
   "idEvent": "2539963",
@@ -1076,8 +1076,8 @@
    1.31
   ],
   "mise": 0.1333,
-  "statut": "en_attente",
-  "gain": null
+  "statut": "perdu",
+  "gain": -0.1333
  },
  {
   "idEvent": "2539963",
@@ -1094,8 +1094,8 @@
    1.31
   ],
   "mise": 0.2128,
-  "statut": "en_attente",
-  "gain": null
+  "statut": "perdu",
+  "gain": -0.2128
  },
  {
   "idEvent": "2398938",
@@ -1112,8 +1112,8 @@
    1.55
   ],
   "mise": 0.129,
-  "statut": "en_attente",
-  "gain": null
+  "statut": "perdu",
+  "gain": -0.129
  },
  {
   "idEvent": "2398938",
@@ -1130,8 +1130,8 @@
    1.55
   ],
   "mise": 0.1695,
-  "statut": "en_attente",
-  "gain": null
+  "statut": "perdu",
+  "gain": -0.1695
  },
  {
   "idEvent": "2398940",
@@ -1148,6 +1148,60 @@
    1.5
   ],
   "mise": 0.2273,
+  "statut": "gagne",
+  "gain": 0.7728
+ },
+ {
+  "idEvent": "2513943",
+  "date": "2026-10-19",
+  "ligue": "Primeira Liga",
+  "equipeDomicile": "Braga",
+  "equipeExterieur": "Gil Vicente",
+  "issue": "exterieure",
+  "coteBookmaker": 5.1,
+  "bookmaker": "Winamax",
+  "coteModele": 3.16,
+  "butsAttendus": [
+   1.42,
+   1.19
+  ],
+  "mise": 0.1961,
+  "statut": "en_attente",
+  "gain": null
+ },
+ {
+  "idEvent": "2494064",
+  "date": "2026-10-19",
+  "ligue": "Premier League",
+  "equipeDomicile": "Tottenham Hotspur",
+  "equipeExterieur": "Coventry City",
+  "issue": "nul",
+  "coteBookmaker": 4.6,
+  "bookmaker": "Winamax",
+  "coteModele": 3.81,
+  "butsAttendus": [
+   1.35,
+   1.27
+  ],
+  "mise": 0.2174,
+  "statut": "en_attente",
+  "gain": null
+ },
+ {
+  "idEvent": "2494064",
+  "date": "2026-10-19",
+  "ligue": "Premier League",
+  "equipeDomicile": "Tottenham Hotspur",
+  "equipeExterieur": "Coventry City",
+  "issue": "exterieure",
+  "coteBookmaker": 5.4,
+  "bookmaker": "Winamax",
+  "coteModele": 2.85,
+  "butsAttendus": [
+   1.35,
+   1.27
+  ],
+  "mise": 0.1852,
   "statut": "en_attente",
   "gain": null
  }
