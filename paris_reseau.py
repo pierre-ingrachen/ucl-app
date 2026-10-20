@@ -43,7 +43,8 @@ ODDS_API_SPORT_KEYS = {
     "4621": ["soccer_austria_bundesliga"], "4330": ["soccer_spl"],
     "4347": ["soccer_sweden_allsvenskan"],
 }
-ISSUES = [("domicile", "1", "domicile"), ("nul", "N", "nul"), ("exterieure", "2", "exterieure")]
+# Pas de pari "match nul" : cette issue est volontairement exclue.
+ISSUES = [("domicile", "1", "domicile"), ("exterieure", "2", "exterieure")]
 
 
 def _lire_json(fichier, defaut):

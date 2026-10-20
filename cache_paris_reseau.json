@@ -5,24 +5,6 @@
   "ligue": "Bundesliga",
   "equipeDomicile": "Borussia Dortmund",
   "equipeExterieur": "Werder Bremen",
-  "issue": "nul",
-  "coteBookmaker": 5.9,
-  "bookmaker": "Winamax",
-  "coteModele": 4.64,
-  "butsAttendus": [
-   1.94,
-   0.93
-  ],
-  "mise": 0.1695,
-  "statut": "gagne",
-  "gain": 0.8306
- },
- {
-  "idEvent": "2508371",
-  "date": "2026-10-09",
-  "ligue": "Bundesliga",
-  "equipeDomicile": "Borussia Dortmund",
-  "equipeExterieur": "Werder Bremen",
   "issue": "exterieure",
   "coteBookmaker": 7.25,
   "bookmaker": "Winamax",
@@ -34,24 +16,6 @@
   "mise": 0.1379,
   "statut": "perdu",
   "gain": -0.1379
- },
- {
-  "idEvent": "2527780",
-  "date": "2026-10-09",
-  "ligue": "Süper Lig",
-  "equipeDomicile": "Galatasaray",
-  "equipeExterieur": "Kasımpaşa",
-  "issue": "nul",
-  "coteBookmaker": 5.5,
-  "bookmaker": "Winamax",
-  "coteModele": 4.62,
-  "butsAttendus": [
-   1.93,
-   0.94
-  ],
-  "mise": 0.1818,
-  "statut": "perdu",
-  "gain": -0.1818
  },
  {
   "idEvent": "2527780",
@@ -108,24 +72,6 @@
   "gain": -0.1923
  },
  {
-  "idEvent": "2489133",
-  "date": "2026-10-10",
-  "ligue": "Eredivisie",
-  "equipeDomicile": "Fortuna Sittard",
-  "equipeExterieur": "Twente",
-  "issue": "nul",
-  "coteBookmaker": 4.8,
-  "bookmaker": "Winamax",
-  "coteModele": 4.07,
-  "butsAttendus": [
-   1.44,
-   1.5
-  ],
-  "mise": 0.2083,
-  "statut": "gagne",
-  "gain": 0.7915
- },
- {
   "idEvent": "2496761",
   "date": "2026-10-10",
   "ligue": "Pro League",
@@ -142,24 +88,6 @@
   "mise": 0.1786,
   "statut": "perdu",
   "gain": -0.1786
- },
- {
-  "idEvent": "2494052",
-  "date": "2026-10-10",
-  "ligue": "Premier League",
-  "equipeDomicile": "Arsenal",
-  "equipeExterieur": "Leeds United",
-  "issue": "nul",
-  "coteBookmaker": 4.9,
-  "bookmaker": "Winamax",
-  "coteModele": 4.15,
-  "butsAttendus": [
-   1.69,
-   0.98
-  ],
-  "mise": 0.2041,
-  "statut": "perdu",
-  "gain": -0.2041
  },
  {
   "idEvent": "2494052",
@@ -185,24 +113,6 @@
   "ligue": "Ligue 1",
   "equipeDomicile": "Paris Saint-Germain",
   "equipeExterieur": "Le Mans",
-  "issue": "nul",
-  "coteBookmaker": 12.0,
-  "bookmaker": "Winamax",
-  "coteModele": 4.34,
-  "butsAttendus": [
-   1.8,
-   0.97
-  ],
-  "mise": 0.0833,
-  "statut": "perdu",
-  "gain": -0.0833
- },
- {
-  "idEvent": "2489509",
-  "date": "2026-10-10",
-  "ligue": "Ligue 1",
-  "equipeDomicile": "Paris Saint-Germain",
-  "equipeExterieur": "Le Mans",
   "issue": "exterieure",
   "coteBookmaker": 17.0,
   "bookmaker": "Winamax",
@@ -214,24 +124,6 @@
   "mise": 0.0588,
   "statut": "perdu",
   "gain": -0.0588
- },
- {
-  "idEvent": "2506239",
-  "date": "2026-10-10",
-  "ligue": "La Liga",
-  "equipeDomicile": "Barcelona",
-  "equipeExterieur": "Getafe",
-  "issue": "nul",
-  "coteBookmaker": 13.5,
-  "bookmaker": "Winamax",
-  "coteModele": 7.36,
-  "butsAttendus": [
-   2.84,
-   0.89
-  ],
-  "mise": 0.0741,
-  "statut": "perdu",
-  "gain": -0.0741
  },
  {
   "idEvent": "2506239",
@@ -257,24 +149,6 @@
   "ligue": "La Liga",
   "equipeDomicile": "Real Madrid",
   "equipeExterieur": "Villarreal",
-  "issue": "nul",
-  "coteBookmaker": 5.7,
-  "bookmaker": "Winamax",
-  "coteModele": 4.39,
-  "butsAttendus": [
-   1.83,
-   0.99
-  ],
-  "mise": 0.1754,
-  "statut": "perdu",
-  "gain": -0.1754
- },
- {
-  "idEvent": "2506242",
-  "date": "2026-10-10",
-  "ligue": "La Liga",
-  "equipeDomicile": "Real Madrid",
-  "equipeExterieur": "Villarreal",
   "issue": "exterieure",
   "coteBookmaker": 5.9,
   "bookmaker": "Winamax",
@@ -286,24 +160,6 @@
   "mise": 0.1695,
   "statut": "perdu",
   "gain": -0.1695
- },
- {
-  "idEvent": "2482191",
-  "date": "2026-10-10",
-  "ligue": "Serie A",
-  "equipeDomicile": "Napoli",
-  "equipeExterieur": "Frosinone",
-  "issue": "nul",
-  "coteBookmaker": 4.9,
-  "bookmaker": "Winamax",
-  "coteModele": 3.81,
-  "butsAttendus": [
-   1.33,
-   1.28
-  ],
-  "mise": 0.2041,
-  "statut": "perdu",
-  "gain": -0.2041
  },
  {
   "idEvent": "2482191",
@@ -329,24 +185,6 @@
   "ligue": "Serie A",
   "equipeDomicile": "Inter Milan",
   "equipeExterieur": "Parma",
-  "issue": "nul",
-  "coteBookmaker": 9.0,
-  "bookmaker": "Winamax",
-  "coteModele": 6.12,
-  "butsAttendus": [
-   2.5,
-   0.91
-  ],
-  "mise": 0.1111,
-  "statut": "perdu",
-  "gain": -0.1111
- },
- {
-  "idEvent": "2482195",
-  "date": "2026-10-10",
-  "ligue": "Serie A",
-  "equipeDomicile": "Inter Milan",
-  "equipeExterieur": "Parma",
   "issue": "exterieure",
   "coteBookmaker": 14.0,
   "bookmaker": "Winamax",
@@ -358,24 +196,6 @@
   "mise": 0.0714,
   "statut": "perdu",
   "gain": -0.0714
- },
- {
-  "idEvent": "2508372",
-  "date": "2026-10-10",
-  "ligue": "Bundesliga",
-  "equipeDomicile": "Hoffenheim",
-  "equipeExterieur": "Hamburg",
-  "issue": "nul",
-  "coteBookmaker": 4.9,
-  "bookmaker": "Winamax",
-  "coteModele": 4.02,
-  "butsAttendus": [
-   1.61,
-   1.05
-  ],
-  "mise": 0.2041,
-  "statut": "perdu",
-  "gain": -0.2041
  },
  {
   "idEvent": "2508372",
@@ -414,42 +234,6 @@
   "gain": -0.1053
  },
  {
-  "idEvent": "2508373",
-  "date": "2026-10-10",
-  "ligue": "Bundesliga",
-  "equipeDomicile": "Augsburg",
-  "equipeExterieur": "Bayern Munich",
-  "issue": "nul",
-  "coteBookmaker": 8.5,
-  "bookmaker": "Winamax",
-  "coteModele": 4.43,
-  "butsAttendus": [
-   1.4,
-   1.86
-  ],
-  "mise": 0.1176,
-  "statut": "gagne",
-  "gain": 0.882
- },
- {
-  "idEvent": "2508374",
-  "date": "2026-10-10",
-  "ligue": "Bundesliga",
-  "equipeDomicile": "RB Leipzig",
-  "equipeExterieur": "Eintracht Frankfurt",
-  "issue": "nul",
-  "coteBookmaker": 5.0,
-  "bookmaker": "Winamax",
-  "coteModele": 4.19,
-  "butsAttendus": [
-   1.7,
-   1.23
-  ],
-  "mise": 0.2,
-  "statut": "perdu",
-  "gain": -0.2
- },
- {
   "idEvent": "2508374",
   "date": "2026-10-10",
   "ligue": "Bundesliga",
@@ -484,24 +268,6 @@
   "mise": 0.2222,
   "statut": "perdu",
   "gain": -0.2222
- },
- {
-  "idEvent": "2399168",
-  "date": "2026-10-10",
-  "ligue": "Eliteserien",
-  "equipeDomicile": "Bodø/Glimt",
-  "equipeExterieur": "Kristiansund",
-  "issue": "nul",
-  "coteBookmaker": 10.5,
-  "bookmaker": "Winamax",
-  "coteModele": 6.95,
-  "butsAttendus": [
-   2.74,
-   0.91
-  ],
-  "mise": 0.0952,
-  "statut": "perdu",
-  "gain": -0.0952
  },
  {
   "idEvent": "2399168",
@@ -653,24 +419,6 @@
   "ligue": "Bundesliga",
   "equipeDomicile": "Rapid Vienna",
   "equipeExterieur": "TSV Hartberg",
-  "issue": "nul",
-  "coteBookmaker": 6.0,
-  "bookmaker": "Winamax",
-  "coteModele": 4.98,
-  "butsAttendus": [
-   2.13,
-   1.03
-  ],
-  "mise": 0.1667,
-  "statut": "perdu",
-  "gain": -0.1667
- },
- {
-  "idEvent": "2499753",
-  "date": "2026-10-16",
-  "ligue": "Bundesliga",
-  "equipeDomicile": "Rapid Vienna",
-  "equipeExterieur": "TSV Hartberg",
   "issue": "exterieure",
   "coteBookmaker": 7.5,
   "bookmaker": "Winamax",
@@ -700,24 +448,6 @@
   "mise": 0.2083,
   "statut": "perdu",
   "gain": -0.2083
- },
- {
-  "idEvent": "2489139",
-  "date": "2026-10-17",
-  "ligue": "Eredivisie",
-  "equipeDomicile": "ADO Den Haag",
-  "equipeExterieur": "PSV Eindhoven",
-  "issue": "nul",
-  "coteBookmaker": 6.25,
-  "bookmaker": "Winamax",
-  "coteModele": 5.17,
-  "butsAttendus": [
-   1.04,
-   2.22
-  ],
-  "mise": 0.16,
-  "statut": "perdu",
-  "gain": -0.16
  },
  {
   "idEvent": "2494062",
@@ -756,24 +486,6 @@
   "gain": -0.1754
  },
  {
-  "idEvent": "2489519",
-  "date": "2026-10-17",
-  "ligue": "Ligue 1",
-  "equipeDomicile": "Strasbourg",
-  "equipeExterieur": "Paris Saint-Germain",
-  "issue": "nul",
-  "coteBookmaker": 5.4,
-  "bookmaker": "Winamax",
-  "coteModele": 4.12,
-  "butsAttendus": [
-   1.4,
-   1.59
-  ],
-  "mise": 0.1852,
-  "statut": "perdu",
-  "gain": -0.1852
- },
- {
   "idEvent": "2506250",
   "date": "2026-10-17",
   "ligue": "La Liga",
@@ -808,42 +520,6 @@
   "mise": 0.1852,
   "statut": "perdu",
   "gain": -0.1852
- },
- {
-  "idEvent": "2506255",
-  "date": "2026-10-17",
-  "ligue": "La Liga",
-  "equipeDomicile": "Real Betis",
-  "equipeExterieur": "Barcelona",
-  "issue": "nul",
-  "coteBookmaker": 5.7,
-  "bookmaker": "Winamax",
-  "coteModele": 4.47,
-  "butsAttendus": [
-   1.24,
-   1.9
-  ],
-  "mise": 0.1754,
-  "statut": "perdu",
-  "gain": -0.1754
- },
- {
-  "idEvent": "2508378",
-  "date": "2026-10-17",
-  "ligue": "Bundesliga",
-  "equipeDomicile": "Bayern Munich",
-  "equipeExterieur": "RB Leipzig",
-  "issue": "nul",
-  "coteBookmaker": 7.25,
-  "bookmaker": "Winamax",
-  "coteModele": 5.26,
-  "butsAttendus": [
-   2.3,
-   1.13
-  ],
-  "mise": 0.1379,
-  "statut": "perdu",
-  "gain": -0.1379
  },
  {
   "idEvent": "2508378",
@@ -900,24 +576,6 @@
   "gain": -0.1667
  },
  {
-  "idEvent": "2499756",
-  "date": "2026-10-17",
-  "ligue": "Bundesliga",
-  "equipeDomicile": "Austria Lustenau",
-  "equipeExterieur": "LASK",
-  "issue": "nul",
-  "coteBookmaker": 5.0,
-  "bookmaker": "Winamax",
-  "coteModele": 4.18,
-  "butsAttendus": [
-   1.17,
-   1.71
-  ],
-  "mise": 0.2,
-  "statut": "perdu",
-  "gain": -0.2
- },
- {
   "idEvent": "2494459",
   "date": "2026-10-17",
   "ligue": "Premiership",
@@ -954,24 +612,6 @@
   "gain": -0.1562
  },
  {
-  "idEvent": "2494462",
-  "date": "2026-10-17",
-  "ligue": "Premiership",
-  "equipeDomicile": "Dundee",
-  "equipeExterieur": "Rangers",
-  "issue": "nul",
-  "coteBookmaker": 4.7,
-  "bookmaker": "Unibet",
-  "coteModele": 3.92,
-  "butsAttendus": [
-   1.26,
-   1.47
-  ],
-  "mise": 0.2128,
-  "statut": "gagne",
-  "gain": 0.7874
- },
- {
   "idEvent": "2489140",
   "date": "2026-10-18",
   "ligue": "Eredivisie",
@@ -1006,24 +646,6 @@
   "mise": 0.1818,
   "statut": "perdu",
   "gain": -0.1818
- },
- {
-  "idEvent": "2506254",
-  "date": "2026-10-18",
-  "ligue": "La Liga",
-  "equipeDomicile": "Real Madrid",
-  "equipeExterieur": "Sevilla",
-  "issue": "nul",
-  "coteBookmaker": 7.0,
-  "bookmaker": "Winamax",
-  "coteModele": 4.03,
-  "butsAttendus": [
-   1.56,
-   1.26
-  ],
-  "mise": 0.1429,
-  "statut": "perdu",
-  "gain": -0.1429
  },
  {
   "idEvent": "2506254",
@@ -1080,24 +702,6 @@
   "gain": -0.1333
  },
  {
-  "idEvent": "2539963",
-  "date": "2026-10-18",
-  "ligue": "Super League",
-  "equipeDomicile": "Panetolikos",
-  "equipeExterieur": "Olympiacos",
-  "issue": "nul",
-  "coteBookmaker": 4.7,
-  "bookmaker": "Winamax",
-  "coteModele": 3.79,
-  "butsAttendus": [
-   1.29,
-   1.31
-  ],
-  "mise": 0.2128,
-  "statut": "perdu",
-  "gain": -0.2128
- },
- {
   "idEvent": "2398938",
   "date": "2026-10-18",
   "ligue": "Allsvenskan",
@@ -1114,24 +718,6 @@
   "mise": 0.129,
   "statut": "perdu",
   "gain": -0.129
- },
- {
-  "idEvent": "2398938",
-  "date": "2026-10-18",
-  "ligue": "Allsvenskan",
-  "equipeDomicile": "Halmstad",
-  "equipeExterieur": "Hammarby",
-  "issue": "nul",
-  "coteBookmaker": 5.9,
-  "bookmaker": "Winamax",
-  "coteModele": 3.94,
-  "butsAttendus": [
-   1.06,
-   1.55
-  ],
-  "mise": 0.1695,
-  "statut": "perdu",
-  "gain": -0.1695
  },
  {
   "idEvent": "2398940",
@@ -1168,24 +754,6 @@
   "mise": 0.1961,
   "statut": "gagne",
   "gain": 0.804
- },
- {
-  "idEvent": "2494064",
-  "date": "2026-10-19",
-  "ligue": "Premier League",
-  "equipeDomicile": "Tottenham Hotspur",
-  "equipeExterieur": "Coventry City",
-  "issue": "nul",
-  "coteBookmaker": 4.6,
-  "bookmaker": "Winamax",
-  "coteModele": 3.81,
-  "butsAttendus": [
-   1.35,
-   1.27
-  ],
-  "mise": 0.2174,
-  "statut": "perdu",
-  "gain": -0.2174
  },
  {
   "idEvent": "2494064",
