@@ -772,5 +772,131 @@
   "mise": 0.1852,
   "statut": "perdu",
   "gain": -0.1852
+ },
+ {
+  "idEvent": "2514012",
+  "date": "2026-10-24",
+  "ligue": "Primeira Liga",
+  "equipeDomicile": "Gil Vicente",
+  "equipeExterieur": "Porto",
+  "issue": "domicile",
+  "coteBookmaker": 6.0,
+  "bookmaker": "Winamax",
+  "coteModele": 4.26,
+  "butsAttendus": [
+   1.1,
+   1.77
+  ],
+  "mise": 0.1667,
+  "statut": "en_attente",
+  "gain": null
+ },
+ {
+  "idEvent": "2494072",
+  "date": "2026-10-24",
+  "ligue": "Premier League",
+  "equipeDomicile": "Arsenal",
+  "equipeExterieur": "Everton",
+  "issue": "exterieure",
+  "coteBookmaker": 7.0,
+  "bookmaker": "Winamax",
+  "coteModele": 5.45,
+  "butsAttendus": [
+   1.91,
+   0.95
+  ],
+  "mise": 0.1429,
+  "statut": "en_attente",
+  "gain": null
+ },
+ {
+  "idEvent": "2508393",
+  "date": "2026-10-24",
+  "ligue": "Bundesliga",
+  "equipeDomicile": "RB Leipzig",
+  "equipeExterieur": "Elversberg",
+  "issue": "exterieure",
+  "coteBookmaker": 5.4,
+  "bookmaker": "Winamax",
+  "coteModele": 3.94,
+  "butsAttendus": [
+   1.98,
+   1.32
+  ],
+  "mise": 0.1852,
+  "statut": "en_attente",
+  "gain": null
+ },
+ {
+  "idEvent": "2539969",
+  "date": "2026-10-24",
+  "ligue": "Super League",
+  "equipeDomicile": "AEK Athens",
+  "equipeExterieur": "Panetolikos",
+  "issue": "exterieure",
+  "coteBookmaker": 12.5,
+  "bookmaker": "Winamax",
+  "coteModele": 6.15,
+  "butsAttendus": [
+   2.05,
+   0.93
+  ],
+  "mise": 0.08,
+  "statut": "en_attente",
+  "gain": null
+ },
+ {
+  "idEvent": "2399082",
+  "date": "2026-10-24",
+  "ligue": "Eliteserien",
+  "equipeDomicile": "Bodø/Glimt",
+  "equipeExterieur": "Vålerenga",
+  "issue": "exterieure",
+  "coteBookmaker": 10.5,
+  "bookmaker": "Winamax",
+  "coteModele": 7.06,
+  "butsAttendus": [
+   2.25,
+   0.93
+  ],
+  "mise": 0.0952,
+  "statut": "en_attente",
+  "gain": null
+ },
+ {
+  "idEvent": "2494467",
+  "date": "2026-10-24",
+  "ligue": "Premiership",
+  "equipeDomicile": "Rangers",
+  "equipeExterieur": "St Johnstone",
+  "issue": "exterieure",
+  "coteBookmaker": 10.0,
+  "bookmaker": "Unibet",
+  "coteModele": 5.61,
+  "butsAttendus": [
+   1.96,
+   0.96
+  ],
+  "mise": 0.1,
+  "statut": "en_attente",
+  "gain": null
+ },
+ {
+  "idEvent": "2398943",
+  "date": "2026-10-24",
+  "ligue": "Allsvenskan",
+  "equipeDomicile": "Djurgården",
+  "equipeExterieur": "Örgryte",
+  "issue": "exterieure",
+  "coteBookmaker": 10.0,
+  "bookmaker": "Winamax",
+  "coteModele": 7.84,
+  "butsAttendus": [
+   2.32,
+   0.89
+  ],
+  "mise": 0.1,
+  "statut": "en_attente",
+  "gain": null
  }
 ]
