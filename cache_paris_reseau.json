@@ -788,8 +788,8 @@
    1.77
   ],
   "mise": 0.1667,
-  "statut": "en_attente",
-  "gain": null
+  "statut": "perdu",
+  "gain": -0.1667
  },
  {
   "idEvent": "2494072",
@@ -806,8 +806,8 @@
    0.95
   ],
   "mise": 0.1429,
-  "statut": "en_attente",
-  "gain": null
+  "statut": "perdu",
+  "gain": -0.1429
  },
  {
   "idEvent": "2508393",
@@ -824,8 +824,8 @@
    1.32
   ],
   "mise": 0.1852,
-  "statut": "en_attente",
-  "gain": null
+  "statut": "perdu",
+  "gain": -0.1852
  },
  {
   "idEvent": "2539969",
@@ -842,8 +842,8 @@
    0.93
   ],
   "mise": 0.08,
-  "statut": "en_attente",
-  "gain": null
+  "statut": "perdu",
+  "gain": -0.08
  },
  {
   "idEvent": "2399082",
@@ -860,8 +860,8 @@
    0.93
   ],
   "mise": 0.0952,
-  "statut": "en_attente",
-  "gain": null
+  "statut": "gagne",
+  "gain": 0.9044
  },
  {
   "idEvent": "2494467",
@@ -878,8 +878,8 @@
    0.96
   ],
   "mise": 0.1,
-  "statut": "en_attente",
-  "gain": null
+  "statut": "perdu",
+  "gain": -0.1
  },
  {
   "idEvent": "2398943",
@@ -896,6 +896,150 @@
    0.89
   ],
   "mise": 0.1,
+  "statut": "perdu",
+  "gain": -0.1
+ },
+ {
+  "idEvent": "2514007",
+  "date": "2026-10-25",
+  "ligue": "Primeira Liga",
+  "equipeDomicile": "Nacional de Madeira",
+  "equipeExterieur": "Braga",
+  "issue": "domicile",
+  "coteBookmaker": 4.9,
+  "bookmaker": "Winamax",
+  "coteModele": 3.31,
+  "butsAttendus": [
+   1.22,
+   1.53
+  ],
+  "mise": 0.2041,
+  "statut": "en_attente",
+  "gain": null
+ },
+ {
+  "idEvent": "2514010",
+  "date": "2026-10-25",
+  "ligue": "Primeira Liga",
+  "equipeDomicile": "Sporting CP",
+  "equipeExterieur": "Académico de Viseu",
+  "issue": "exterieure",
+  "coteBookmaker": 9.0,
+  "bookmaker": "Winamax",
+  "coteModele": 4.51,
+  "butsAttendus": [
+   1.82,
+   1.07
+  ],
+  "mise": 0.1111,
+  "statut": "en_attente",
+  "gain": null
+ },
+ {
+  "idEvent": "2494076",
+  "date": "2026-10-25",
+  "ligue": "Premier League",
+  "equipeDomicile": "Hull City",
+  "equipeExterieur": "Brentford",
+  "issue": "domicile",
+  "coteBookmaker": 4.3,
+  "bookmaker": "Winamax",
+  "coteModele": 2.8,
+  "butsAttendus": [
+   1.27,
+   1.31
+  ],
+  "mise": 0.2326,
+  "statut": "en_attente",
+  "gain": null
+ },
+ {
+  "idEvent": "2506261",
+  "date": "2026-10-25",
+  "ligue": "La Liga",
+  "equipeDomicile": "Athletic Bilbao",
+  "equipeExterieur": "Getafe",
+  "issue": "exterieure",
+  "coteBookmaker": 5.2,
+  "bookmaker": "Winamax",
+  "coteModele": 3.81,
+  "butsAttendus": [
+   1.48,
+   1.03
+  ],
+  "mise": 0.1923,
+  "statut": "en_attente",
+  "gain": null
+ },
+ {
+  "idEvent": "2482216",
+  "date": "2026-10-25",
+  "ligue": "Serie A",
+  "equipeDomicile": "Lecce",
+  "equipeExterieur": "Juventus",
+  "issue": "domicile",
+  "coteBookmaker": 6.75,
+  "bookmaker": "Winamax",
+  "coteModele": 3.11,
+  "butsAttendus": [
+   1.23,
+   1.44
+  ],
+  "mise": 0.1481,
+  "statut": "en_attente",
+  "gain": null
+ },
+ {
+  "idEvent": "2508387",
+  "date": "2026-10-25",
+  "ligue": "Bundesliga",
+  "equipeDomicile": "Freiburg",
+  "equipeExterieur": "Bayern Munich",
+  "issue": "domicile",
+  "coteBookmaker": 5.7,
+  "bookmaker": "Winamax",
+  "coteModele": 2.24,
+  "butsAttendus": [
+   1.62,
+   1.32
+  ],
+  "mise": 0.1754,
+  "statut": "en_attente",
+  "gain": null
+ },
+ {
+  "idEvent": "2539968",
+  "date": "2026-10-25",
+  "ligue": "Super League",
+  "equipeDomicile": "Olympiacos",
+  "equipeExterieur": "Kalamata",
+  "issue": "exterieure",
+  "coteBookmaker": 13.5,
+  "bookmaker": "Winamax",
+  "coteModele": 3.72,
+  "butsAttendus": [
+   1.63,
+   1.15
+  ],
+  "mise": 0.0741,
+  "statut": "en_attente",
+  "gain": null
+ },
+ {
+  "idEvent": "2398948",
+  "date": "2026-10-25",
+  "ligue": "Allsvenskan",
+  "equipeDomicile": "Mjällby",
+  "equipeExterieur": "Hammarby",
+  "issue": "domicile",
+  "coteBookmaker": 4.9,
+  "bookmaker": "Winamax",
+  "coteModele": 3.4,
+  "butsAttendus": [
+   1.13,
+   1.45
+  ],
+  "mise": 0.2041,
   "statut": "en_attente",
   "gain": null
  }
