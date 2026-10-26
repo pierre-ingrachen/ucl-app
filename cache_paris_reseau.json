@@ -914,8 +914,8 @@
    1.53
   ],
   "mise": 0.2041,
-  "statut": "en_attente",
-  "gain": null
+  "statut": "gagne",
+  "gain": 0.796
  },
  {
   "idEvent": "2514010",
@@ -932,8 +932,8 @@
    1.07
   ],
   "mise": 0.1111,
-  "statut": "en_attente",
-  "gain": null
+  "statut": "gagne",
+  "gain": 0.8888
  },
  {
   "idEvent": "2494076",
@@ -950,8 +950,8 @@
    1.31
   ],
   "mise": 0.2326,
-  "statut": "en_attente",
-  "gain": null
+  "statut": "perdu",
+  "gain": -0.2326
  },
  {
   "idEvent": "2506261",
@@ -968,8 +968,8 @@
    1.03
   ],
   "mise": 0.1923,
-  "statut": "en_attente",
-  "gain": null
+  "statut": "perdu",
+  "gain": -0.1923
  },
  {
   "idEvent": "2482216",
@@ -986,8 +986,8 @@
    1.44
   ],
   "mise": 0.1481,
-  "statut": "en_attente",
-  "gain": null
+  "statut": "perdu",
+  "gain": -0.1481
  },
  {
   "idEvent": "2508387",
@@ -1004,8 +1004,8 @@
    1.32
   ],
   "mise": 0.1754,
-  "statut": "en_attente",
-  "gain": null
+  "statut": "perdu",
+  "gain": -0.1754
  },
  {
   "idEvent": "2539968",
@@ -1022,8 +1022,8 @@
    1.15
   ],
   "mise": 0.0741,
-  "statut": "en_attente",
-  "gain": null
+  "statut": "perdu",
+  "gain": -0.0741
  },
  {
   "idEvent": "2398948",
@@ -1040,6 +1040,42 @@
    1.45
   ],
   "mise": 0.2041,
+  "statut": "perdu",
+  "gain": -0.2041
+ },
+ {
+  "idEvent": "2514009",
+  "date": "2026-10-26",
+  "ligue": "Primeira Liga",
+  "equipeDomicile": "Santa Clara",
+  "equipeExterieur": "Benfica",
+  "issue": "domicile",
+  "coteBookmaker": 7.0,
+  "bookmaker": "Winamax",
+  "coteModele": 2.25,
+  "butsAttendus": [
+   1.58,
+   1.27
+  ],
+  "mise": 0.1429,
+  "statut": "en_attente",
+  "gain": null
+ },
+ {
+  "idEvent": "2489533",
+  "date": "2026-10-26",
+  "ligue": "Ligue 1",
+  "equipeDomicile": "Paris Saint-Germain",
+  "equipeExterieur": "Lyon",
+  "issue": "exterieure",
+  "coteBookmaker": 5.3,
+  "bookmaker": "Winamax",
+  "coteModele": 3.14,
+  "butsAttendus": [
+   1.58,
+   1.32
+  ],
+  "mise": 0.1887,
   "statut": "en_attente",
   "gain": null
  }
