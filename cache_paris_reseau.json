@@ -1058,8 +1058,8 @@
    1.27
   ],
   "mise": 0.1429,
-  "statut": "en_attente",
-  "gain": null
+  "statut": "perdu",
+  "gain": -0.1429
  },
  {
   "idEvent": "2489533",
@@ -1076,6 +1076,42 @@
    1.32
   ],
   "mise": 0.1887,
+  "statut": "perdu",
+  "gain": -0.1887
+ },
+ {
+  "idEvent": "2482221",
+  "date": "2026-10-27",
+  "ligue": "Serie A",
+  "equipeDomicile": "Roma",
+  "equipeExterieur": "Cagliari",
+  "issue": "exterieure",
+  "coteBookmaker": 8.0,
+  "bookmaker": "Winamax",
+  "coteModele": 5.41,
+  "butsAttendus": [
+   1.9,
+   0.96
+  ],
+  "mise": 0.125,
+  "statut": "en_attente",
+  "gain": null
+ },
+ {
+  "idEvent": "2482223",
+  "date": "2026-10-27",
+  "ligue": "Serie A",
+  "equipeDomicile": "Torino",
+  "equipeExterieur": "Como",
+  "issue": "domicile",
+  "coteBookmaker": 4.4,
+  "bookmaker": "Winamax",
+  "coteModele": 2.64,
+  "butsAttendus": [
+   1.35,
+   1.32
+  ],
+  "mise": 0.2273,
   "statut": "en_attente",
   "gain": null
  }
