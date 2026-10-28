@@ -1094,8 +1094,8 @@
    0.96
   ],
   "mise": 0.125,
-  "statut": "en_attente",
-  "gain": null
+  "statut": "perdu",
+  "gain": -0.125
  },
  {
   "idEvent": "2482223",
@@ -1112,6 +1112,60 @@
    1.32
   ],
   "mise": 0.2273,
+  "statut": "perdu",
+  "gain": -0.2273
+ },
+ {
+  "idEvent": "2482220",
+  "date": "2026-10-28",
+  "ligue": "Serie A",
+  "equipeDomicile": "Genoa",
+  "equipeExterieur": "Juventus",
+  "issue": "domicile",
+  "coteBookmaker": 4.7,
+  "bookmaker": "Winamax",
+  "coteModele": 3.43,
+  "butsAttendus": [
+   1.19,
+   1.55
+  ],
+  "mise": 0.2128,
+  "statut": "en_attente",
+  "gain": null
+ },
+ {
+  "idEvent": "2482225",
+  "date": "2026-10-28",
+  "ligue": "Serie A",
+  "equipeDomicile": "Venezia",
+  "equipeExterieur": "Inter Milan",
+  "issue": "domicile",
+  "coteBookmaker": 6.25,
+  "bookmaker": "Winamax",
+  "coteModele": 4.98,
+  "butsAttendus": [
+   1.04,
+   1.93
+  ],
+  "mise": 0.16,
+  "statut": "en_attente",
+  "gain": null
+ },
+ {
+  "idEvent": "2494470",
+  "date": "2026-10-28",
+  "ligue": "Premiership",
+  "equipeDomicile": "Celtic",
+  "equipeExterieur": "Dundee United",
+  "issue": "exterieure",
+  "coteBookmaker": 7.9,
+  "bookmaker": "Unibet",
+  "coteModele": 6.0,
+  "butsAttendus": [
+   2.14,
+   1.0
+  ],
+  "mise": 0.1266,
   "statut": "en_attente",
   "gain": null
  }
