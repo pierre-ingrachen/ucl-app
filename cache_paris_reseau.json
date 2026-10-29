@@ -1130,8 +1130,8 @@
    1.55
   ],
   "mise": 0.2128,
-  "statut": "en_attente",
-  "gain": null
+  "statut": "gagne",
+  "gain": 0.7874
  },
  {
   "idEvent": "2482225",
@@ -1148,8 +1148,8 @@
    1.93
   ],
   "mise": 0.16,
-  "statut": "en_attente",
-  "gain": null
+  "statut": "perdu",
+  "gain": -0.16
  },
  {
   "idEvent": "2494470",
@@ -1166,6 +1166,24 @@
    1.0
   ],
   "mise": 0.1266,
+  "statut": "perdu",
+  "gain": -0.1266
+ },
+ {
+  "idEvent": "2398956",
+  "date": "2026-10-29",
+  "ligue": "Allsvenskan",
+  "equipeDomicile": "Hammarby",
+  "equipeExterieur": "Sirius",
+  "issue": "exterieure",
+  "coteBookmaker": 4.9,
+  "bookmaker": "Winamax",
+  "coteModele": 3.49,
+  "butsAttendus": [
+   1.51,
+   1.14
+  ],
+  "mise": 0.2041,
   "statut": "en_attente",
   "gain": null
  }
