@@ -1184,6 +1184,78 @@
    1.14
   ],
   "mise": 0.2041,
+  "statut": "perdu",
+  "gain": -0.2041
+ },
+ {
+  "idEvent": "2514023",
+  "date": "2026-10-30",
+  "ligue": "Primeira Liga",
+  "equipeDomicile": "Casa Pia",
+  "equipeExterieur": "Sporting CP",
+  "issue": "domicile",
+  "coteBookmaker": 7.75,
+  "bookmaker": "Winamax",
+  "coteModele": 3.91,
+  "butsAttendus": [
+   1.1,
+   1.64
+  ],
+  "mise": 0.129,
+  "statut": "en_attente",
+  "gain": null
+ },
+ {
+  "idEvent": "2496774",
+  "date": "2026-10-30",
+  "ligue": "Pro League",
+  "equipeDomicile": "Zulte Waregem",
+  "equipeExterieur": "Club Brugge",
+  "issue": "domicile",
+  "coteBookmaker": 5.2,
+  "bookmaker": "Winamax",
+  "coteModele": 4.34,
+  "butsAttendus": [
+   1.05,
+   1.73
+  ],
+  "mise": 0.1923,
+  "statut": "en_attente",
+  "gain": null
+ },
+ {
+  "idEvent": "2489541",
+  "date": "2026-10-30",
+  "ligue": "Ligue 1",
+  "equipeDomicile": "Le Havre",
+  "equipeExterieur": "Paris Saint-Germain",
+  "issue": "domicile",
+  "coteBookmaker": 7.75,
+  "bookmaker": "Winamax",
+  "coteModele": 5.39,
+  "butsAttendus": [
+   1.01,
+   1.99
+  ],
+  "mise": 0.129,
+  "statut": "en_attente",
+  "gain": null
+ },
+ {
+  "idEvent": "2527806",
+  "date": "2026-10-30",
+  "ligue": "Süper Lig",
+  "equipeDomicile": "Konyaspor",
+  "equipeExterieur": "Galatasaray",
+  "issue": "domicile",
+  "coteBookmaker": 4.8,
+  "bookmaker": "Winamax",
+  "coteModele": 3.47,
+  "butsAttendus": [
+   1.14,
+   1.49
+  ],
+  "mise": 0.2083,
   "statut": "en_attente",
   "gain": null
  }
