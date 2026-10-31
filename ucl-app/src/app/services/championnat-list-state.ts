@@ -13,6 +13,9 @@ export class ChampionnatListState {
   // Autriche, Hongrie, Écosse, Suède).
   ongletActif: 'top5' | 'g610' | 'g1120' = 'top5';
 
+  // Ne garder que les matchs avec une cote élevée sur une victoire (équipe 1 ou 2).
+  coteElevee = false;
+
   // Matchs déjà chargés une fois : on les garde pour un retour instantané sur la page
   // (sans ça, le contenu se recharge et change de hauteur, ce qui casse la restauration du scroll).
   matches: Match[] = [];

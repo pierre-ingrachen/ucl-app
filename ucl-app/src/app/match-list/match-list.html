@@ -2,7 +2,7 @@
   <h1>Prochains Matchs - Coupes d'Europe</h1>
 
   @if (!isLoading && matches.length > 0) {
-    <div style="display: flex; justify-content: center; gap: 8px; margin-bottom: 20px;">
+    <div style="display: flex; justify-content: center; align-items: center; gap: 8px; margin-bottom: 20px;">
       <button (click)="competitionSelectionnee = 'toutes'"
               [style.background-color]="competitionSelectionnee === 'toutes' ? '#0c1c38' : '#eee'"
               [style.color]="competitionSelectionnee === 'toutes' ? 'white' : '#333'"
@@ -27,6 +27,10 @@
               style="padding: 8px 16px; border-radius: 15px; border: none; cursor: pointer; font-size: 0.9em;">
         Conference League
       </button>
+      <label style="margin-left: 12px; display: inline-flex; align-items: center; gap: 6px; font-size: 0.9em; color: #333; cursor: pointer;">
+        <input type="checkbox" [checked]="coteElevee" (change)="coteElevee = !coteElevee">
+        Cotes élevées
+      </label>
     </div>
   }
 

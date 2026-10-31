@@ -10,7 +10,7 @@
   }
 
   @if (!isLoading && championnats.length > 0) {
-    <div style="display: flex; justify-content: center; margin-bottom: 20px;">
+    <div style="display: flex; justify-content: center; align-items: center; margin-bottom: 20px;">
       <details class="championnat-filtre">
         <summary style="padding: 8px 16px; border-radius: 15px; border: 1px solid #ccc; background-color: white; color: #333; font-size: 0.9em; cursor: pointer;">
           {{ libelleSelection }}
@@ -29,6 +29,10 @@
           }
         </div>
       </details>
+      <label style="margin-left: 12px; display: inline-flex; align-items: center; gap: 6px; font-size: 0.9em; color: #333; cursor: pointer;">
+        <input type="checkbox" [checked]="coteElevee" (change)="coteElevee = !coteElevee">
+        Cotes élevées
+      </label>
     </div>
   }
 

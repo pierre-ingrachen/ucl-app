@@ -97,9 +97,19 @@ export class Championnats implements OnInit {
     this.state.competitionsSelectionnees = [];
   }
 
+  get coteElevee(): boolean {
+    return this.state.coteElevee;
+  }
+
+  set coteElevee(valeur: boolean) {
+    this.state.coteElevee = valeur;
+  }
+
   get matchesFiltres(): Match[] {
-    if (this.competitionsSelectionnees.length === 0) return this.matchesOnglet;
-    return this.matchesOnglet.filter(m => m.idLeague && this.competitionsSelectionnees.includes(m.idLeague));
+    const parCompetition = this.competitionsSelectionnees.length === 0
+      ? this.matchesOnglet
+      : this.matchesOnglet.filter(m => m.idLeague && this.competitionsSelectionnees.includes(m.idLeague));
+    return this.coteElevee ? parCompetition.filter(m => m.coteElevee) : parCompetition;
   }
 
   ngOnInit(): void {

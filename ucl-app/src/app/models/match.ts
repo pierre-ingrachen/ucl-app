@@ -13,6 +13,7 @@ export interface Match {
   idHomeTeam?: string;
   idAwayTeam?: string;
   localDateTime?: Date;
+  coteElevee?: boolean;
 }
 
 export interface ApiResponse {

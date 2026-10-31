@@ -374,13 +374,18 @@ def obtenir_pays_equipe(team_id, cache_teams):
 
 def obtenir_classement_national(team_id, cache_classement):
     """Retourne la position du club dans son championnat national lors de la saison
-    domestique précédente (ex: 2e / 12), en interrogeant l'API si absent du cache permanent.
-    Le format de saison des championnats nationaux n'est pas uniforme (2025-2026 ou 2025
+    domestique en cours (ex: 2e / 12), en interrogeant l'API si absent du cache. Le classement
+    évolue : une entrée n'est réutilisée que pour la journée où elle a été relevée (toujours
+    réutilisée en mode hors ligne). Si la saison en cours n'a pas encore de tableau, on se
+    rabat sur la saison précédente (la saison affichée le précise).
+    Le format de saison des championnats nationaux n'est pas uniforme (2026-2027 ou 2026
     selon les pays) : on essaie donc les deux formats possibles."""
     if not team_id:
         return None
-    if team_id in cache_classement:
-        return cache_classement[team_id]
+    aujourd_hui = str(date.today())
+    en_cache = cache_classement.get(team_id)
+    if team_id in cache_classement and (HORS_LIGNE or (en_cache or {}).get("maj") == aujourd_hui):
+        return en_cache
 
     resultat = None
     id_ligue_nationale = None
@@ -400,7 +405,7 @@ def obtenir_classement_national(team_id, cache_classement):
         # Le format de saison varie selon les pays (ex: "2025-2026" en Europe de l'Ouest,
         # "2025" pour les championnats en année civile) : chaque candidat est essayé
         # indépendamment pour qu'un format invalide n'empêche pas de tester l'autre.
-        for saison_candidate in (f"{annee - 1}-{annee}", str(annee - 1)):
+        for saison_candidate in (f"{annee}-{annee + 1}", str(annee), f"{annee - 1}-{annee}", str(annee - 1)):
             try:
                 url_classement = f"https://www.thesportsdb.com/api/v1/json/{API_KEY}/lookuptable.php?l={id_ligue_nationale}&s={saison_candidate}"
                 resp_classement = requete_api_avec_retry(url_classement)
@@ -417,11 +422,29 @@ def obtenir_classement_national(team_id, cache_classement):
                     "position": int(ligne_equipe["intRank"]),
                     "total": len(table),
                     "saison": saison_candidate,
-                    "ligue": nom_ligue_nationale
+                    "ligue": nom_ligue_nationale,
+                    "maj": aujourd_hui
                 }
                 break
 
+    if resultat is None and en_cache:
+        return en_cache  # échec réseau : on garde le dernier classement connu
     cache_classement[team_id] = resultat
+    return resultat
+
+SEUIL_COTE_ELEVEE = 3.30
+CACHE_COTES_FILE = "cache_cotes_winamax.json"
+
+def marquer_cotes_elevees(matchs):
+    """Ajoute `coteElevee` a chaque match : True si la victoire de l'equipe 1 ou de l'equipe 2
+    est cotee >= 3.30 (nul ignore). Sans cote connue, False. Les cotes elles-memes ne sont
+    jamais renvoyees au front. Travaille sur des copies (les listes viennent d'un cache memoise)."""
+    cotes = (_lire_json_ou_defaut(CACHE_COTES_FILE, {}) or {}).get("data", {})
+    resultat = []
+    for m in matchs:
+        c = cotes.get(str(m.get("idEvent"))) or {}
+        elevee = any((c.get(cle) or 0) >= SEUIL_COTE_ELEVEE for cle in ("domicile", "exterieure"))
+        resultat.append({**m, "coteElevee": elevee})
     return resultat
 
 def filtrer_matchs_semaine(matchs):
@@ -641,7 +664,7 @@ def obtenir_matchs_a_venir():
 def get_matchs_a_venir():
     if HORS_LIGNE:
         return {"events": []}  # onglet non prepare en mode hors ligne
-    return {"events": filtrer_matchs_semaine(obtenir_matchs_a_venir())}
+    return {"events": marquer_cotes_elevees(filtrer_matchs_semaine(obtenir_matchs_a_venir()))}
 
 def obtenir_matchs_championnats_a_venir():
     """Tous les matchs de la saison en cours des championnats nationaux suivis (pas seulement
@@ -667,9 +690,9 @@ def get_matchs_championnats_a_venir():
     matchs = obtenir_matchs_championnats_a_venir()
 
     if HORS_LIGNE:
-        return {"events": [m for m in matchs if m.get("dateEvent") in DATES_HORS_LIGNE
-                           and m.get("idLeague") in LIGUES_HORS_LIGNE]}
-    return {"events": filtrer_matchs_semaine(matchs)}
+        return {"events": marquer_cotes_elevees([m for m in matchs if m.get("dateEvent") in DATES_HORS_LIGNE
+                                                 and m.get("idLeague") in LIGUES_HORS_LIGNE])}
+    return {"events": marquer_cotes_elevees(filtrer_matchs_semaine(matchs))}
 
 @app.get("/api/championnats/classement/{league_id}")
 def get_classement_championnat(league_id: str):
@@ -888,7 +911,17 @@ def get_match_details(event_id: str):
     cache_classement = charger_cache_permanent(CACHE_CLASSEMENT_FILE)
 
     if event_id in cache_details:
-        return cache_details[event_id]
+        fiche = cache_details[event_id]
+        # Le classement évolue : on le remet à jour (une fois par jour et par équipe) même
+        # quand le reste de la fiche vient du cache.
+        for cle, cle_equipe in (("classementDomicile", "idHomeTeam"), ("classementExterieur", "idAwayTeam")):
+            nouveau = obtenir_classement_national(fiche.get(cle_equipe), cache_classement)
+            if nouveau and nouveau != fiche.get(cle):
+                fiche[cle] = nouveau
+                cache_details[event_id] = fiche
+                sauvegarder_cache(CACHE_DETAILS_FILE, cache_details)
+        sauvegarder_cache_permanent(CACHE_CLASSEMENT_FILE, cache_classement)
+        return fiche
 
     url = f"https://www.thesportsdb.com/api/v1/json/{API_KEY}/lookupevent.php?id={event_id}"
 

@@ -32,6 +32,14 @@ export class MatchListComponent implements OnInit {
     this.state.competitionSelectionnee = valeur;
   }
 
+  get coteElevee(): boolean {
+    return this.state.coteElevee;
+  }
+
+  set coteElevee(valeur: boolean) {
+    this.state.coteElevee = valeur;
+  }
+
   ngOnInit(): void {
     // Si on revient sur la page (retour depuis un match), on réutilise les données déjà
     // chargées : sinon le contenu se recharge et change de hauteur, ce qui empêche
@@ -55,7 +63,9 @@ export class MatchListComponent implements OnInit {
   }
 
   get matchesFiltres(): Match[] {
-    if (this.competitionSelectionnee === 'toutes') return this.matches;
-    return this.matches.filter(m => m.idLeague === this.competitionSelectionnee);
+    const parCompetition = this.competitionSelectionnee === 'toutes'
+      ? this.matches
+      : this.matches.filter(m => m.idLeague === this.competitionSelectionnee);
+    return this.coteElevee ? parCompetition.filter(m => m.coteElevee) : parCompetition;
   }
 }
