@@ -1202,8 +1202,8 @@
    1.64
   ],
   "mise": 0.129,
-  "statut": "en_attente",
-  "gain": null
+  "statut": "perdu",
+  "gain": -0.129
  },
  {
   "idEvent": "2496774",
@@ -1220,8 +1220,8 @@
    1.73
   ],
   "mise": 0.1923,
-  "statut": "en_attente",
-  "gain": null
+  "statut": "perdu",
+  "gain": -0.1923
  },
  {
   "idEvent": "2489541",
@@ -1238,8 +1238,8 @@
    1.99
   ],
   "mise": 0.129,
-  "statut": "en_attente",
-  "gain": null
+  "statut": "perdu",
+  "gain": -0.129
  },
  {
   "idEvent": "2527806",
@@ -1256,6 +1256,78 @@
    1.49
   ],
   "mise": 0.2083,
+  "statut": "perdu",
+  "gain": -0.2083
+ },
+ {
+  "idEvent": "2489157",
+  "date": "2026-10-31",
+  "ligue": "Eredivisie",
+  "equipeDomicile": "PSV Eindhoven",
+  "equipeExterieur": "Willem II",
+  "issue": "exterieure",
+  "coteBookmaker": 12.0,
+  "bookmaker": "Winamax",
+  "coteModele": 8.22,
+  "butsAttendus": [
+   2.54,
+   0.96
+  ],
+  "mise": 0.0833,
+  "statut": "en_attente",
+  "gain": null
+ },
+ {
+  "idEvent": "2496773",
+  "date": "2026-10-31",
+  "ligue": "Pro League",
+  "equipeDomicile": "Anderlecht",
+  "equipeExterieur": "Westerlo",
+  "issue": "exterieure",
+  "coteBookmaker": 4.2,
+  "bookmaker": "Winamax",
+  "coteModele": 2.83,
+  "butsAttendus": [
+   1.47,
+   1.37
+  ],
+  "mise": 0.2381,
+  "statut": "en_attente",
+  "gain": null
+ },
+ {
+  "idEvent": "2494085",
+  "date": "2026-10-31",
+  "ligue": "Premier League",
+  "equipeDomicile": "Manchester City",
+  "equipeExterieur": "Brighton and Hove Albion",
+  "issue": "exterieure",
+  "coteBookmaker": 4.2,
+  "bookmaker": "Winamax",
+  "coteModele": 3.51,
+  "butsAttendus": [
+   1.94,
+   1.43
+  ],
+  "mise": 0.2381,
+  "statut": "en_attente",
+  "gain": null
+ },
+ {
+  "idEvent": "2539980",
+  "date": "2026-10-31",
+  "ligue": "Super League",
+  "equipeDomicile": "Kifisia",
+  "equipeExterieur": "Olympiacos",
+  "issue": "domicile",
+  "coteBookmaker": 5.8,
+  "bookmaker": "Winamax",
+  "coteModele": 3.15,
+  "butsAttendus": [
+   1.22,
+   1.46
+  ],
+  "mise": 0.1724,
   "statut": "en_attente",
   "gain": null
  }
