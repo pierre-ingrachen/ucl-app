@@ -42,6 +42,9 @@ ODDS_API_SPORT_KEYS = {
     "4340": ["soccer_denmark_superliga"], "4675": ["soccer_switzerland_superleague"],
     "4621": ["soccer_austria_bundesliga"], "4330": ["soccer_spl"],
     "4347": ["soccer_sweden_allsvenskan"],
+    # Coupes d'Europe : cotes affichees sur le site uniquement (le modele ne parie que sur les championnats).
+    "4480": ["soccer_uefa_champs_league"], "4481": ["soccer_uefa_europa_league"],
+    "5071": ["soccer_uefa_europa_conference_league"],
 }
 # Pas de pari "match nul" : cette issue est volontairement exclue.
 ISSUES = [("domicile", "1", "domicile"), ("exterieure", "2", "exterieure")]
@@ -104,7 +107,8 @@ def etape_cotes(calendrier):
 
     a_interroger, par_ligue = {}, {}
     if releve_complet or peut_relancer:
-        semaine = matchs_a_venir(calendrier, cle_jour, str(aujourd_hui + timedelta(days=7)))
+        fin_semaine = str(aujourd_hui + timedelta(days=7))
+        semaine = matchs_a_venir(calendrier, cle_jour, fin_semaine) + matchs_europe_a_venir(cle_jour, fin_semaine)
         for m in semaine:
             par_ligue.setdefault(m["idLeague"], []).append(m)
     if releve_complet:
@@ -133,6 +137,17 @@ def etape_cotes(calendrier):
     print(f"- Matchs avec une cote trouvee : {sum(1 for c in cotes.values() if c.get('bookmaker'))}/{len(cotes)}")
     print(f"- Quota The Odds API restant : {quota}\n")
     return cotes
+
+
+def matchs_europe_a_venir(debut, fin):
+    """Matchs non joues des coupes d'Europe dans [debut, fin] : utilises pour relever leurs cotes
+    (affichage sur le site), jamais pour les paris du reseau."""
+    try:
+        evenements = main.obtenir_matchs_a_venir()
+    except main.HTTPException:
+        return []
+    return [e for e in evenements if e.get("idLeague") in main.COMPETITIONS_EUROPE and not est_joue(e)
+            and e.get("dateEvent") and debut <= e["dateEvent"] <= fin]
 
 
 def rejouer_championnats(calendrier):

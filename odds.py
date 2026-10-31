@@ -24,16 +24,31 @@ SEUIL_SIMILARITE_NOM = 0.6
 MOTS_IGNORES_NOM_CLUB = {"fc", "cf", "sc", "ac", "afc", "cfc", "club", "cd", "ss", "us", "ud", "sk", "fk"}
 
 
+# Clubs que les deux fournisseurs nomment differemment (langue, abreviation) : nom normalise -> forme commune.
+ALIAS_NOMS_CLUB = {
+    "olympiakospiraeus": "olympiacos", "redstarbelgrade": "crvenazvezda", "hearts": "heartofmidlothian",
+}
+
+
 def _normaliser_nom(nom):
     """Normalise un nom d'equipe pour comparaison entre fournisseurs de donnees differents
     (accents, casse, sigles de club type FC/CF qui varient d'une source a l'autre)."""
     nom = unicodedata.normalize("NFKD", nom or "").encode("ascii", "ignore").decode("ascii").lower()
     mots = [m for m in nom.split() if m not in MOTS_IGNORES_NOM_CLUB]
-    return "".join(mots)
+    nom = "".join(mots)
+    return ALIAS_NOMS_CLUB.get(nom, nom)
 
 
 def _similaire(a, b):
-    return SequenceMatcher(None, _normaliser_nom(a), _normaliser_nom(b)).ratio()
+    """Similarite de deux noms de club. Les fournisseurs ajoutent ou retirent souvent la ville
+    ("PAOK" / "PAOK Thessaloniki", "Aris" / "Aris Thessaloniki") : si un nom commence par
+    l'autre, c'est le meme club (la date identique et le test sur domicile ET exterieur
+    limitent le risque de faux rapprochement)."""
+    na, nb = _normaliser_nom(a), _normaliser_nom(b)
+    court, long_ = sorted((na, nb), key=len)
+    if len(court) >= 3 and long_.startswith(court):
+        return 1.0
+    return SequenceMatcher(None, na, nb).ratio()
 
 
 def recuperer_cotes_sport(sport_key, api_key):

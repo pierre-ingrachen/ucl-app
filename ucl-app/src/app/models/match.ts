@@ -14,6 +14,7 @@ export interface Match {
   idAwayTeam?: string;
   localDateTime?: Date;
   coteElevee?: boolean;
+  coteTrouvee?: boolean;
 }
 
 export interface ApiResponse {

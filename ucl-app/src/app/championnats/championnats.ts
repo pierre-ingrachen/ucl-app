@@ -76,21 +76,16 @@ export class Championnats implements OnInit {
   }
 
   get libelleSelection(): string {
-    const nb = this.competitionsSelectionnees.length;
-    if (nb === 0) return 'Tous les championnats';
-    if (nb === 1) return this.championnats.find(c => c.id === this.competitionsSelectionnees[0])?.nom ?? '1 championnat';
-    return `${nb} championnats sélectionnés`;
+    if (this.competitionsSelectionnees.length === 0) return 'Tous les championnats';
+    return this.championnats.find(c => c.id === this.competitionsSelectionnees[0])?.nom ?? '1 championnat';
   }
 
   estSelectionne(id: string): boolean {
     return this.competitionsSelectionnees.includes(id);
   }
 
-  toggleChampionnat(id: string): void {
-    const selection = this.competitionsSelectionnees;
-    this.state.competitionsSelectionnees = this.estSelectionne(id)
-      ? selection.filter(c => c !== id)
-      : [...selection, id];
+  selectionnerChampionnat(id: string): void {
+    this.state.competitionsSelectionnees = [id];
   }
 
   toutSelectionner(): void {

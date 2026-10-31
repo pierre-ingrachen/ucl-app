@@ -436,7 +436,7 @@ SEUIL_COTE_ELEVEE = 3.30
 CACHE_COTES_FILE = "cache_cotes_winamax.json"
 
 def marquer_cotes_elevees(matchs):
-    """Ajoute `coteElevee` a chaque match : True si la victoire de l'equipe 1 ou de l'equipe 2
+    """Ajoute `coteTrouvee` (une cote bookmaker est connue) et `coteElevee` a chaque match : True si la victoire de l'equipe 1 ou de l'equipe 2
     est cotee >= 3.30 (nul ignore). Sans cote connue, False. Les cotes elles-memes ne sont
     jamais renvoyees au front. Travaille sur des copies (les listes viennent d'un cache memoise)."""
     cotes = (_lire_json_ou_defaut(CACHE_COTES_FILE, {}) or {}).get("data", {})
@@ -444,7 +444,7 @@ def marquer_cotes_elevees(matchs):
     for m in matchs:
         c = cotes.get(str(m.get("idEvent"))) or {}
         elevee = any((c.get(cle) or 0) >= SEUIL_COTE_ELEVEE for cle in ("domicile", "exterieure"))
-        resultat.append({**m, "coteElevee": elevee})
+        resultat.append({**m, "coteElevee": elevee, "coteTrouvee": bool(c.get("bookmaker"))})
     return resultat
 
 def filtrer_matchs_semaine(matchs):

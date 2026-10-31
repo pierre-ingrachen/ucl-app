@@ -11,19 +11,19 @@
 
   @if (!isLoading && championnats.length > 0) {
     <div style="display: flex; justify-content: center; align-items: center; margin-bottom: 20px;">
-      <details class="championnat-filtre">
+      <details class="championnat-filtre" #filtre>
         <summary style="padding: 8px 16px; border-radius: 15px; border: 1px solid #ccc; background-color: white; color: #333; font-size: 0.9em; cursor: pointer;">
           {{ libelleSelection }}
         </summary>
         <div style="position: absolute; margin-top: 6px; background: white; border: 1px solid #ccc; border-radius: 10px; padding: 10px 14px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); z-index: 10; min-width: 220px; text-align: left;">
           <label style="display: flex; align-items: center; gap: 8px; padding: 5px 0; font-weight: bold; cursor: pointer;">
-            <input type="checkbox" [checked]="competitionsSelectionnees.length === 0" (change)="toutSelectionner()">
+            <input type="radio" name="championnat" [checked]="competitionsSelectionnees.length === 0" (change)="toutSelectionner(); filtre.open = false">
             Tous les championnats
           </label>
           <hr style="border: none; border-top: 1px solid #eee; margin: 4px 0;">
           @for (championnat of championnats; track championnat.id) {
             <label style="display: flex; align-items: center; gap: 8px; padding: 5px 0; cursor: pointer;">
-              <input type="checkbox" [checked]="estSelectionne(championnat.id)" (change)="toggleChampionnat(championnat.id)">
+              <input type="radio" name="championnat" [checked]="estSelectionne(championnat.id)" (change)="selectionnerChampionnat(championnat.id); filtre.open = false">
               {{ championnat.nom }}
             </label>
           }
@@ -72,6 +72,10 @@
             <span class="team-name">{{ match.strAwayTeam }}</span>
           </div>
         </div>
+        <div style="text-align: center; font-size: 0.75em; margin-top: 8px; color: #666;">
+          {{ match.coteTrouvee ? 'Cotes trouvées' : 'Cotes non trouvées' }}
+        </div>
+
 
       </div>
     }
