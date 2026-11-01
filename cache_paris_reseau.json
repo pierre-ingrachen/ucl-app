@@ -1274,8 +1274,8 @@
    0.96
   ],
   "mise": 0.0833,
-  "statut": "en_attente",
-  "gain": null
+  "statut": "perdu",
+  "gain": -0.0833
  },
  {
   "idEvent": "2496773",
@@ -1292,8 +1292,8 @@
    1.37
   ],
   "mise": 0.2381,
-  "statut": "en_attente",
-  "gain": null
+  "statut": "perdu",
+  "gain": -0.2381
  },
  {
   "idEvent": "2494085",
@@ -1310,8 +1310,8 @@
    1.43
   ],
   "mise": 0.2381,
-  "statut": "en_attente",
-  "gain": null
+  "statut": "gagne",
+  "gain": 0.7619
  },
  {
   "idEvent": "2539980",
@@ -1328,6 +1328,132 @@
    1.46
   ],
   "mise": 0.1724,
+  "statut": "perdu",
+  "gain": -0.1724
+ },
+ {
+  "idEvent": "2506278",
+  "date": "2026-11-01",
+  "ligue": "La Liga",
+  "equipeDomicile": "Racing de Santander",
+  "equipeExterieur": "Real Madrid",
+  "issue": "domicile",
+  "coteBookmaker": 8.5,
+  "bookmaker": "Winamax",
+  "coteModele": 3.85,
+  "butsAttendus": [
+   1.24,
+   1.83
+  ],
+  "mise": 0.1176,
+  "statut": "en_attente",
+  "gain": null
+ },
+ {
+  "idEvent": "2482237",
+  "date": "2026-11-01",
+  "ligue": "Serie A",
+  "equipeDomicile": "Como",
+  "equipeExterieur": "Venezia",
+  "issue": "exterieure",
+  "coteBookmaker": 7.75,
+  "bookmaker": "Winamax",
+  "coteModele": 6.22,
+  "butsAttendus": [
+   2.02,
+   0.91
+  ],
+  "mise": 0.129,
+  "statut": "en_attente",
+  "gain": null
+ },
+ {
+  "idEvent": "2508400",
+  "date": "2026-11-01",
+  "ligue": "Bundesliga",
+  "equipeDomicile": "Eintracht Frankfurt",
+  "equipeExterieur": "Hamburg",
+  "issue": "exterieure",
+  "coteBookmaker": 4.4,
+  "bookmaker": "Winamax",
+  "coteModele": 2.85,
+  "butsAttendus": [
+   1.42,
+   1.33
+  ],
+  "mise": 0.2273,
+  "statut": "en_attente",
+  "gain": null
+ },
+ {
+  "idEvent": "2527810",
+  "date": "2026-11-01",
+  "ligue": "Süper Lig",
+  "equipeDomicile": "Kasımpaşa",
+  "equipeExterieur": "Beşiktaş",
+  "issue": "domicile",
+  "coteBookmaker": 4.3,
+  "bookmaker": "Winamax",
+  "coteModele": 2.57,
+  "butsAttendus": [
+   1.41,
+   1.34
+  ],
+  "mise": 0.2326,
+  "statut": "en_attente",
+  "gain": null
+ },
+ {
+  "idEvent": "2539976",
+  "date": "2026-11-01",
+  "ligue": "Super League",
+  "equipeDomicile": "PAOK",
+  "equipeExterieur": "Asteras Tripolis",
+  "issue": "exterieure",
+  "coteBookmaker": 7.25,
+  "bookmaker": "Winamax",
+  "coteModele": 5.29,
+  "butsAttendus": [
+   1.85,
+   0.94
+  ],
+  "mise": 0.1379,
+  "statut": "en_attente",
+  "gain": null
+ },
+ {
+  "idEvent": "2493392",
+  "date": "2026-11-01",
+  "ligue": "Super League",
+  "equipeDomicile": "Young Boys",
+  "equipeExterieur": "Zürich",
+  "issue": "exterieure",
+  "coteBookmaker": 6.25,
+  "bookmaker": "Winamax",
+  "coteModele": 3.94,
+  "butsAttendus": [
+   1.85,
+   1.23
+  ],
+  "mise": 0.16,
+  "statut": "en_attente",
+  "gain": null
+ },
+ {
+  "idEvent": "2494481",
+  "date": "2026-11-01",
+  "ligue": "Premiership",
+  "equipeDomicile": "Falkirk",
+  "equipeExterieur": "Celtic",
+  "issue": "domicile",
+  "coteBookmaker": 5.0,
+  "bookmaker": "Unibet",
+  "coteModele": 4.08,
+  "butsAttendus": [
+   1.14,
+   1.76
+  ],
+  "mise": 0.2,
   "statut": "en_attente",
   "gain": null
  }
