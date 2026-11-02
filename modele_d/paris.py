@@ -1,21 +1,21 @@
 """Paris automatiques du modele D, en parallele du reseau existant (paris_reseau.py) : memes cotes
-Winamax / Betclic / Unibet (cache_cotes_winamax.json), journal separe (cache_paris_modele_d.json).
+Winamax / Betclic / Unibet (cache_cotes_winamax.json), journal separe (modele_d/journaux/paris.json).
 
 Le modele D predit les probabilites du marche (1/N/2) a partir des seules features des matchs (forme,
 Elo, buts, repos : aucune cote en entree). Ensemble de 11 modeles (logit, gradient boosting, reseaux),
-entraine sur dataset_cotes.csv (28 000 matchs, 2020-21 a aujourd'hui).
+entraine sur modele_d/donnees/dataset_cotes.csv (28 000 matchs, 2020-21 a aujourd'hui).
 
 Regle de pari (REGLE) : victoire exterieure, cote Winamax dans ]4, 6] et cote du modele au moins 20 %
 sous la cote du bookmaker (p x cote - 1 >= 0,25). Mise = 1 / cote. Regle choisie sur les saisons
 2023-24 a 2026-27 : elle n'est PAS confirmee statistiquement (voir CLAUDE.md), ce paper-trading sert
 justement a la tester sur de vraies cotes Winamax.
 
-Journal d'analyses (cache_analyses_modele_d.json) : pour CHAQUE match analyse, probabilites du modele,
+Journal d'analyses (modele_d/journaux/analyses.json) : pour CHAQUE match analyse, probabilites du modele,
 cotes du bookmaker et resultat final, pour pouvoir evaluer d'autres regles sur de vraies cotes.
 
-Usage : .venv/bin/python paris_modele_d.py [entrainer | paris | bilan]
-  entrainer : (re)entraine l'ensemble (2 min) et l'ecrit dans modele_d.pkl
-  paris     : resout les paris, analyse les matchs du jour (reentraine si modele_d.pkl a > 7 jours)
+Usage : .venv/bin/python -m modele_d.paris [entrainer | paris | bilan]
+  entrainer : (re)entraine l'ensemble (2 min) et l'ecrit dans modele_d/ressources/modele.pkl
+  paris     : resout les paris, analyse les matchs du jour (reentraine si le modele a > 7 jours)
   bilan     : affiche le bilan sans rien telecharger
 """
 import os
@@ -31,16 +31,16 @@ from sklearn.ensemble import HistGradientBoostingClassifier
 from sklearn.linear_model import LogisticRegression
 from sklearn.preprocessing import StandardScaler
 
-import construire_dataset_etendu as ext
-import construire_ratings as cr
-import entrainer_modele_d as D
-import experiences_modele as X
+from modele_d import entrainement as D
+from modele_d import experiences as X
+from modele_d import historique as ext
+from modele_d import ratings as cr
 import paris_reseau as pr
 from reseau_buts import EtatChampionnat, noms_features
 
-FICHIER_MODELE = "modele_d.pkl"
-FICHIER_PARIS = "cache_paris_modele_d.json"
-FICHIER_ANALYSES = "cache_analyses_modele_d.json"
+FICHIER_MODELE = "modele_d/ressources/modele.pkl"
+FICHIER_PARIS = "modele_d/journaux/paris.json"
+FICHIER_ANALYSES = "modele_d/journaux/analyses.json"
 AGE_MAX_MODELE_JOURS = 7
 REGLE = {"issue": "exterieure", "cote_min": 4.0, "cote_max": 6.0, "ecart_min": 0.20}
 NOMS_ISSUES = ["domicile", "nul", "exterieure"]
@@ -112,14 +112,14 @@ def entrainer_ensemble():
 
 
 def charger_ensemble():
-    """Charge modele_d.pkl. Reentraine s'il a plus de AGE_MAX_MODELE_JOURS jours, sauf si la variable
+    """Charge le modele (modele_d/ressources/modele.pkl). Reentraine s'il a plus de AGE_MAX_MODELE_JOURS jours, sauf si la variable
     d'environnement MODELE_D_FIGE est definie (GitHub Actions : pas de donnees d'entrainement, le
     modele est reentraine en local puis commite)."""
     if os.path.exists(FICHIER_MODELE):
         age_j = (time.time() - os.path.getmtime(FICHIER_MODELE)) / 86400
         if age_j <= AGE_MAX_MODELE_JOURS or os.environ.get("MODELE_D_FIGE"):
             if age_j > AGE_MAX_MODELE_JOURS:
-                print(f"- Attention : modele D vieux de {age_j:.0f} jours (reentrainer en local : python paris_modele_d.py entrainer)")
+                print(f"- Attention : modele D vieux de {age_j:.0f} jours (reentrainer en local : python -m modele_d.paris entrainer)")
             with open(FICHIER_MODELE, "rb") as f:
                 return pickle.load(f)
         print(f"Modele vieux de {age_j:.0f} jours : reentrainement")
@@ -229,6 +229,7 @@ def etape_paris_d(calendrier, cotes, aujourd_hui=None):
                 "issue": REGLE["issue"], "coteBookmaker": cote, "bookmaker": c["bookmaker"],
                 "coteModele": round(1 / float(p[k]), 2), "probaModele": round(float(p[k]), 4),
                 "mise": round(1 / cote, 4), "statut": "en_attente", "gain": None})
+    os.makedirs(os.path.dirname(FICHIER_PARIS), exist_ok=True)  # dossier absent d'un depot fraichement clone
     pr._ecrire_json(FICHIER_PARIS, journal)
     pr._ecrire_json(FICHIER_ANALYSES, analyses)
     bilan(journal, analyses, len(analyses_du_jour), aujourd_hui)
@@ -252,8 +253,8 @@ def bilan(journal, analyses, nb_analyses=None, aujourd_hui=None):
 
 if __name__ == "__main__":
     # On passe par l'import du module : les classes sauvegardees dans modele_d.pkl s'appellent
-    # alors paris_modele_d.X (et non __main__.X), et le modele se recharge depuis n'importe ou.
-    import paris_modele_d as mod
+    # alors modele_d.paris.X (et non __main__.X), et le modele se recharge depuis n'importe ou.
+    from modele_d import paris as mod
     etape = sys.argv[1] if len(sys.argv) > 1 else "paris"
     if etape == "entrainer":
         mod.entrainer_ensemble()

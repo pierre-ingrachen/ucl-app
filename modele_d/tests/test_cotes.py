@@ -1,11 +1,13 @@
-"""Tests de cotes_historiques / dataset_cotes.csv. Usage : .venv/bin/python -m unittest test_cotes_historiques -v"""
+"""Tests de cotes_historiques / dataset_cotes.csv. Usage : .venv/bin/python -m unittest modele_d.tests.test_cotes -v"""
 import os
 import unittest
 
 import numpy as np
 import pandas as pd
 
-import cotes_historiques as ch
+from modele_d import cotes_historiques as ch
+
+DATASET = "modele_d/donnees/dataset_cotes.csv"
 
 TOL = 1e-9
 
@@ -23,11 +25,11 @@ class TestProbas(unittest.TestCase):
         self.assertTrue(out["p_psc_h"].isna().all())
 
 
-@unittest.skipUnless(os.path.exists("dataset_cotes.csv"), "dataset_cotes.csv non genere")
+@unittest.skipUnless(os.path.exists(DATASET), "dataset_cotes.csv non genere")
 class TestDataset(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.df = pd.read_csv("dataset_cotes.csv", low_memory=False)
+        cls.df = pd.read_csv(DATASET, low_memory=False)
 
     def test_probas_somment_a_un_pour_chaque_match(self):
         for p in ch.COLS_1X2:

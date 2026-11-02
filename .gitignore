@@ -16,8 +16,12 @@ cache_season.json
 cache_teams.json
 cache_badges/
 
-# Cache des CSV football-data.co.uk (regenerable : cotes_historiques.py)
-data/raw/
+# Environnement et reglages propres a cette machine (le .venv est un lien vers ~/.ucl-dev-cache)
+.venv
+.claude/settings.local.json
+# Notes de travail locales de Claude : ne pas suivre
+CLAUDE.md
 
-# Probabilites des experiences (regenerable : experiences_modele.py)
-experiences_probas.pkl
+# Modele D : donnees d'entrainement, cache football-data et probabilites des experiences
+# (tout est regenerable avec les scripts de modele_d/, voir README.md)
+modele_d/donnees/

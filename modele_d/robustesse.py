@@ -1,11 +1,11 @@
-"""Analyses de robustesse du modele D (sur experiences_probas.pkl, genere par experiences_modele.py) :
+"""Analyses de robustesse du modele D (sur modele_d/donnees/experiences_probas.pkl, genere par modele_d.experiences) :
 1) stabilite de la regle "victoire exterieure" selon l ecart exige et la saison, avec IC95 ;
 2) persistance du ROI par (ligue, issue) ; 3) regles positives dans les 4 saisons de test.
-Usage : .venv/bin/python analyses_robustesse.py"""
-import sys,pickle,warnings; sys.path.insert(0,'.'); warnings.filterwarnings("ignore")
+Usage : .venv/bin/python -m modele_d.robustesse"""
+import sys,pickle,warnings; warnings.filterwarnings("ignore")
 import numpy as np, pandas as pd
-import experiences_modele as X, entrainer_modele_d as D, evaluation_paris as ev
-d=D.charger_avec_ratings(); P=pickle.load(open("experiences_probas.pkl","rb"))
+from modele_d import experiences as X, entrainement as D, evaluation as ev
+d=D.charger_avec_ratings(); P=pickle.load(open("modele_d/donnees/experiences_probas.pkl","rb"))
 T4=[2024,2025,2026,2027]
 def ens(cfgs):
     out={}
@@ -33,10 +33,10 @@ for gname,cfgs in groups.items():
             print(f"  ecart>={e:.2f}: "+"  ".join(row)+f"  | total {100*X.roi(q):5.1f}% n={len(q)} IC[{100*lo:.0f};{100*hi:.0f}]")
 
 # --- 2) et 3) ---
-import sys,pickle,warnings; sys.path.insert(0,'.'); warnings.filterwarnings("ignore")
+import sys,pickle,warnings; warnings.filterwarnings("ignore")
 import numpy as np, pandas as pd
-import experiences_modele as X, entrainer_modele_d as D
-d=D.charger_avec_ratings(); P=pickle.load(open("experiences_probas.pkl","rb"))
+from modele_d import experiences as X, entrainement as D
+d=D.charger_avec_ratings(); P=pickle.load(open("modele_d/donnees/experiences_probas.pkl","rb"))
 # E1 : ROI aveugle par (ligue, issue) sur cote>4, Bet365 -5% : persistance entre saisons paires/impaires et dev/conf
 rows=[]
 for scen in ("Bet365 cloture -5%",):

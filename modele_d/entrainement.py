@@ -14,7 +14,7 @@ caracteristiques des matchs (aucune cote en entree). On parie ensuite quand la c
 
 Sortie : tableaux detailles a l'ecran et dans resultats_modele_d.md.
 
-Usage : .venv/bin/python entrainer_modele_d.py
+Usage : .venv/bin/python -m modele_d.entrainement
 """
 import warnings
 
@@ -23,14 +23,16 @@ import pandas as pd
 import torch
 from torch import nn
 
-import entrainer_modele_b as b
-import evaluation_paris as ev
+from modele_d import evaluation as ev
 
 warnings.filterwarnings("ignore")
 torch.set_num_threads(4)
 
-FICHIER_RESULTATS = "resultats_modele_d.md"
-FICHIER_PARIS = "paris_modele_d_test.csv"
+FICHIER_RESULTATS = "modele_d/resultats/comparaison_modeles.md"
+FICHIER = "modele_d/donnees/dataset_cotes.csv"
+FICHIER_RATINGS = "modele_d/donnees/ratings_matchs.csv"
+SAISONS_TEST = [2024, 2025, 2026, 2027]  # etiquette = annee de fin de saison (2024 = 2023-24)
+COTE_MIN = 4.0
 ALPHAS = [1.0, 0.5, 0.0]
 ECARTS = [0.05, 0.10, 0.15, 0.20, 0.25, 0.30, 0.40]  # la cote du modele doit etre >= ECART % sous celle du bookmaker
 PLAFONDS = [6.0, 8.0, 12.0, np.inf]
@@ -46,6 +48,26 @@ NB_GRAINES, EPOQUES_MAX, LARGEUR, DROPOUT, LR, DECAY, BATCH = 5, 80, 96, 0.3, 1e
 CIBLE = ["p_avgc_h", "p_avgc_d", "p_avgc_a"]
 
 
+# --- Donnees ---------------------------------------------------------------------------
+
+def charger():
+    """dataset_cotes.csv trie par date, avec la saison (annee de fin), la cible y (0 = 1, 1 = N, 2 = 2)
+    et la probabilite du marche de reference (moyenne des bookmakers a la cloture, marge retiree)."""
+    d = pd.read_csv(FICHIER, low_memory=False).sort_values(["date", "ligue", "equipe_dom"]).reset_index(drop=True)
+    d["saison_fin"] = d.date.str[:4].astype(int) + (d.date.str[5:7].astype(int) >= 7)
+    d["y"] = d.resultat.map({"H": 0, "D": 1, "A": 2})
+    return d.dropna(subset=["y", "p_avgc_h", "p_avgc_d", "p_avgc_a"]).reset_index(drop=True)
+
+
+def colonnes_features(d):
+    return [c for c in d.columns if c.startswith(("dom_m", "ext_m")) or c in ("dom_rang", "ext_rang")]
+
+
+def gains(d):
+    """Matrice (n, 3) : 1 pour l'issue realisee, 0 sinon."""
+    return np.eye(3)[d.y.astype(int).to_numpy()]
+
+
 # --- Donnees et features ----------------------------------------------------------------
 
 COLS_RATINGS = ["elo_dom", "elo_ext", "elo_diff", "att_dom", "def_dom", "att_ext", "def_ext",
@@ -53,17 +75,17 @@ COLS_RATINGS = ["elo_dom", "elo_ext", "elo_diff", "att_dom", "def_dom", "att_ext
 
 
 def charger_avec_ratings():
-    """dataset_cotes.csv + ratings de force (construire_ratings.py), meme ordre de lignes que b.charger()."""
-    d = b.charger()
-    r = pd.read_csv("ratings_matchs.csv", dtype={"ligue": str}).drop_duplicates(["ligue", "date", "equipe_dom", "equipe_ext"])
+    """dataset_cotes.csv + ratings de force (ratings.py)."""
+    d = charger()
+    r = pd.read_csv(FICHIER_RATINGS, dtype={"ligue": str}).drop_duplicates(["ligue", "date", "equipe_dom", "equipe_ext"])
     d["ligue"] = d.ligue.astype(str)
     d = d.merge(r, on=["ligue", "date", "equipe_dom", "equipe_ext"], how="left", validate="m:1")
-    assert d[COLS_RATINGS].notna().all().all(), "ratings manquants : relancer construire_ratings.py"
+    assert d[COLS_RATINGS].notna().all().all(), "ratings manquants : relancer : python -m modele_d.ratings"
     return d
 
 def features(d, ligues, ratings=False):
     """Matrice d'entree : features brutes + derivees + ligue. Aucune cote."""
-    base = b.colonnes_features(d)
+    base = colonnes_features(d)
     cols = {}
     for cote in ("dom", "ext"):
         pour = np.stack([d[f"{cote}_m{i}_buts_pour"] for i in range(1, 6)], axis=1)
@@ -145,8 +167,8 @@ def marge_depuis_ecart(ecart):
 
 
 def paris(d_sous, proba, scen, ecart, plafond):
-    return ev.paris_possibles(cotes_scenario(d_sous, scen), proba, b.gains(d_sous), d_sous.date.to_numpy(),
-                              b.COTE_MIN, plafond, marge_depuis_ecart(ecart))
+    return ev.paris_possibles(cotes_scenario(d_sous, scen), proba, gains(d_sous), d_sous.date.to_numpy(),
+                              COTE_MIN, plafond, marge_depuis_ecart(ecart))
 
 
 def grille(d_sous, proba, scen):
@@ -173,7 +195,7 @@ def run_arm(d, ligues, alpha, log, ratings=False):
     """Walk-forward complet pour un ALPHA. Renvoie la liste (T, positions, probas, ecart, plafond)."""
     X = torch.tensor(features(d, ligues, ratings), dtype=torch.float32)
     sorties, details = [], []
-    for T in b.SAISONS_TEST:
+    for T in SAISONS_TEST:
         i_app = np.where(d.saison_fin <= T - 2)[0]
         i_val = np.where(d.saison_fin == T - 1)[0]
         i_tout = np.where(d.saison_fin <= T - 1)[0]
@@ -226,11 +248,11 @@ def main():
     d = charger_avec_ratings()
     ligues = sorted(d.ligue.astype(str).unique())
     pm = d[CIBLE].to_numpy()
-    test_all = d[d.saison_fin.isin(b.SAISONS_TEST)]
+    test_all = d[d.saison_fin.isin(SAISONS_TEST)]
     log(f"# Modele D : predire les cotes du marche a partir des features seules\n")
     log(f"{len(d)} matchs avec cotes, {len(features(d.head(5), ligues)[0])} entrees (sans aucune cote), "
         f"reseau {LARGEUR}-{LARGEUR // 2}, {NB_GRAINES} graines. Tests : {len(test_all)} matchs des saisons "
-        f"{', '.join(f'{T - 1}-{str(T)[2:]}' for T in b.SAISONS_TEST)}.\n")
+        f"{', '.join(f'{T - 1}-{str(T)[2:]}' for T in SAISONS_TEST)}.\n")
 
     log("## Choix faits sur la saison de validation (jamais sur le test)")
     arms = {}
@@ -265,7 +287,7 @@ def main():
         log(f"### Cote proposee : {scen}")
         lignes = []
         cotes = cotes_scenario(test_all, scen)
-        aveugle = ev.paris_possibles(cotes, np.ones_like(cotes), b.gains(test_all), test_all.date.to_numpy(), b.COTE_MIN)
+        aveugle = ev.paris_possibles(cotes, np.ones_like(cotes), gains(test_all), test_all.date.to_numpy(), COTE_MIN)
         r = ev.resume(aveugle); r["modele"] = "pari a l'aveugle (toute cote > 4)"; lignes.append(r)
         for cle, (sorties, _) in arms.items():
             p = metriques_arm(d, sorties, scen)
@@ -310,8 +332,7 @@ def main():
 
     with open(FICHIER_RESULTATS, "w", encoding="utf-8") as f:
         f.write("\n".join(sortie) + "\n")
-    resultats[(meilleur_alpha, SCENARIO_PRINCIPAL)].to_csv(FICHIER_PARIS, index=False)
-    print(f"\n(resultats complets dans {FICHIER_RESULTATS}, paris de test dans {FICHIER_PARIS})")
+    print(f"\n(resultats complets dans {FICHIER_RESULTATS})")
 
 
 if __name__ == "__main__":

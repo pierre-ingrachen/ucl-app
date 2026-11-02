@@ -5,7 +5,7 @@ Un match sans cote est exclu. dataset_reseau.csv reste inchange : ce sont deux j
 Rapprochement : meme championnat, date a +/- 1 jour (TheSportsDB est en UTC), noms de clubs
 domicile ET exterieur proches (`odds._similaire`). Chaque match n'est rapproche qu'une fois.
 
-Usage : .venv/bin/python construire_dataset_cotes.py [--refresh]
+Usage : .venv/bin/python -m modele_d.dataset_cotes [--refresh]
 """
 import logging
 import sys
@@ -14,11 +14,11 @@ from datetime import timedelta
 
 import pandas as pd
 
-import cotes_historiques as ch
+from modele_d import cotes_historiques as ch
 from odds import _normaliser_nom, _similaire
 
-FICHIER_RESEAU = "dataset_reseau_etendu.csv"  # 2020-21 a aujourd'hui (construire_dataset_etendu.py)
-FICHIER_DATASET = "dataset_cotes.csv"
+FICHIER_RESEAU = "modele_d/donnees/dataset_reseau_etendu.csv"  # 2020-21 a aujourd'hui (historique.py)
+FICHIER_DATASET = "modele_d/donnees/dataset_cotes.csv"
 SEUIL_NOM = 0.6
 
 log = logging.getLogger("cotes")

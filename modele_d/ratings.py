@@ -6,17 +6,17 @@ matchs de dataset_reseau*.csv, qui ne voient que la forme recente.
 Rejoue tous les matchs joues de matchs_reseau_bruts_ext.json (2020-23) puis matchs_reseau_bruts.json,
 championnat par championnat, et ecrit ratings_matchs.csv (cle : ligue, date, equipe_dom, equipe_ext).
 
-Usage : .venv/bin/python construire_ratings.py
+Usage : .venv/bin/python -m modele_d.ratings
 """
 import csv
 import json
 import math
 from datetime import date
 
-import construire_dataset_etendu as ext
+from modele_d import historique as ext
 import construire_dataset_reseau as base
 
-FICHIER_RATINGS = "ratings_matchs.csv"
+FICHIER_RATINGS = "modele_d/donnees/ratings_matchs.csv"
 ELO_INITIAL, ELO_PROMU, K, AVANTAGE_TERRAIN, RETOUR_MOYENNE = 1500.0, 1450.0, 20.0, 60.0, 0.25
 ALPHA_BUTS, BUTS_INITIAL, REPOS_MAX = 0.08, 1.3, 30
 COLONNES = ["ligue", "date", "equipe_dom", "equipe_ext", "elo_dom", "elo_ext", "elo_diff",

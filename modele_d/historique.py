@@ -7,7 +7,7 @@ Les saisons supplementaires sont telechargees dans matchs_reseau_bruts_ext.json,
 (championnat, saison) et seulement celles qui manquent : relancer le script reprend la ou il
 s'est arrete (le fichier est ecrit apres chaque requete).
 
-Usage : .venv/bin/python construire_dataset_etendu.py
+Usage : .venv/bin/python -m modele_d.historique
 """
 import csv
 import json
@@ -16,8 +16,8 @@ import os
 import construire_dataset_reseau as base
 import main
 
-FICHIER_BRUTS_EXT = "matchs_reseau_bruts_ext.json"
-FICHIER_DATASET_ETENDU = "dataset_reseau_etendu.csv"
+FICHIER_BRUTS_EXT = "modele_d/ressources/matchs_reseau_bruts_ext.json"
+FICHIER_DATASET_ETENDU = "modele_d/donnees/dataset_reseau_etendu.csv"
 SAISONS_EXT = ["2020-2021", "2021-2022", "2022-2023"]
 SAISONS_EXT_ANNEE_CIVILE = ["2020", "2021", "2022"]  # Norvege, Suede
 CHAMPS = ("idEvent", "dateEvent", "idHomeTeam", "idAwayTeam", "strHomeTeam", "strAwayTeam",

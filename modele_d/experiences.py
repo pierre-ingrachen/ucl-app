@@ -9,7 +9,7 @@ Protocole anti-sur-apprentissage :
 Les probabilites de chaque modele sont calculees une fois par fold ; les regles de pari (ecart exige,
 plafond de cote, issues autorisees, proba minimale) sont ensuite de simples filtres.
 
-Usage : .venv/bin/python experiences_modele.py
+Usage : .venv/bin/python -m modele_d.experiences
 """
 import itertools
 import pickle
@@ -24,13 +24,12 @@ from sklearn.ensemble import HistGradientBoostingClassifier
 from sklearn.linear_model import LogisticRegression
 from sklearn.preprocessing import StandardScaler
 
-import entrainer_modele_b as b
-import entrainer_modele_d as D
+from modele_d import entrainement as D
 
 warnings.filterwarnings("ignore")
 
 FOLDS_DEV, FOLDS_CONF = [2024, 2025], [2026, 2027]
-FICHIER_PROBAS = "experiences_probas.pkl"
+FICHIER_PROBAS = "modele_d/donnees/experiences_probas.pkl"
 SCEN_SELECTION = "Bet365 cloture -5%"       # scenario sur lequel on choisit la regle
 SCENS = ["Bet365 cloture -10%", "Bet365 cloture -5%", "Bet365 cloture"]
 MIN_PARIS_PAR_SAISON_DEV = 80
@@ -97,10 +96,10 @@ def fit_predict(modele, X, T, saison, tgt):
 def candidats(d, pos, proba, scen, T):
     sous = d.iloc[pos]
     cotes = D.cotes_scenario(sous, scen)
-    gains = b.gains(sous)
+    gains = D.gains(sous)
     n = len(pos)
     c, p, g = cotes.ravel(), proba.ravel(), gains.ravel()
-    ok = np.isfinite(c) & (c > b.COTE_MIN)
+    ok = np.isfinite(c) & (c > D.COTE_MIN)
     idx = np.where(ok)[0]
     df = pd.DataFrame({"match": pos[idx // 3], "issue": idx % 3, "cote": c[idx], "p": p[idx],
                        "gagne": g[idx], "saison": T, "date": sous.date.to_numpy()[idx // 3]})
@@ -230,7 +229,7 @@ def main():
                   f"ROI de confirmation ({SCEN_SELECTION}) : mediane {100 * np.median(conf_rois):.1f} %, "
                   f"moyenne {100 * conf_rois.mean():.1f} %, {100 * (conf_rois > 0).mean():.0f} % positives.")
     texte = "\n".join(sortie)
-    open("resultats_experiences.md", "w", encoding="utf-8").write(texte + "\n")
+    open("modele_d/resultats/experiences.md", "w", encoding="utf-8").write(texte + "\n")
     print(texte)
 
 
