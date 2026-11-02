@@ -1346,8 +1346,8 @@
    1.83
   ],
   "mise": 0.1176,
-  "statut": "en_attente",
-  "gain": null
+  "statut": "perdu",
+  "gain": -0.1176
  },
  {
   "idEvent": "2482237",
@@ -1364,8 +1364,8 @@
    0.91
   ],
   "mise": 0.129,
-  "statut": "en_attente",
-  "gain": null
+  "statut": "perdu",
+  "gain": -0.129
  },
  {
   "idEvent": "2508400",
@@ -1382,8 +1382,8 @@
    1.33
   ],
   "mise": 0.2273,
-  "statut": "en_attente",
-  "gain": null
+  "statut": "perdu",
+  "gain": -0.2273
  },
  {
   "idEvent": "2527810",
@@ -1400,8 +1400,8 @@
    1.34
   ],
   "mise": 0.2326,
-  "statut": "en_attente",
-  "gain": null
+  "statut": "perdu",
+  "gain": -0.2326
  },
  {
   "idEvent": "2539976",
@@ -1418,8 +1418,8 @@
    0.94
   ],
   "mise": 0.1379,
-  "statut": "en_attente",
-  "gain": null
+  "statut": "perdu",
+  "gain": -0.1379
  },
  {
   "idEvent": "2493392",
@@ -1436,8 +1436,8 @@
    1.23
   ],
   "mise": 0.16,
-  "statut": "en_attente",
-  "gain": null
+  "statut": "gagne",
+  "gain": 0.84
  },
  {
   "idEvent": "2494481",
@@ -1454,6 +1454,42 @@
    1.76
   ],
   "mise": 0.2,
+  "statut": "gagne",
+  "gain": 0.8
+ },
+ {
+  "idEvent": "2514015",
+  "date": "2026-11-02",
+  "ligue": "Primeira Liga",
+  "equipeDomicile": "Benfica",
+  "equipeExterieur": "Alverca",
+  "issue": "exterieure",
+  "coteBookmaker": 10.0,
+  "bookmaker": "Winamax",
+  "coteModele": 8.22,
+  "butsAttendus": [
+   2.44,
+   0.91
+  ],
+  "mise": 0.1,
+  "statut": "en_attente",
+  "gain": null
+ },
+ {
+  "idEvent": "2482233",
+  "date": "2026-11-02",
+  "ligue": "Serie A",
+  "equipeDomicile": "Atalanta",
+  "equipeExterieur": "Parma",
+  "issue": "exterieure",
+  "coteBookmaker": 5.5,
+  "bookmaker": "Winamax",
+  "coteModele": 4.6,
+  "butsAttendus": [
+   1.82,
+   1.05
+  ],
+  "mise": 0.1818,
   "statut": "en_attente",
   "gain": null
  }
