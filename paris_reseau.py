@@ -254,3 +254,11 @@ if __name__ == "__main__":
     cotes = etape_cotes(calendrier) if etape in ("cotes", "tout") else _lire_json(FICHIER_COTES, {}).get("data", {})
     if etape in ("paris", "tout"):
         etape_paris(calendrier, cotes)
+        # Modele D (paris_modele_d.py) : memes calendrier et cotes, aucun appel API en plus. Isole du
+        # reseau existant : une erreur ici ne doit jamais faire echouer l'etape ni perdre son journal.
+        try:
+            import paris_modele_d
+            print()
+            paris_modele_d.etape_paris_d(calendrier, cotes)
+        except Exception as exc:  # noqa: BLE001
+            print(f"\n## Modele D indisponible : {type(exc).__name__}: {exc}")
