@@ -51,3 +51,33 @@ h1 {
     text-align: left;
     border-bottom: 1px solid #eee;
 }
+
+.onglets {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+    margin: 16px 0;
+}
+.onglets button {
+    border: 1px solid #0c1c38;
+    background: white;
+    color: #0c1c38;
+    border-radius: 20px;
+    padding: 6px 16px;
+    cursor: pointer;
+    font-size: 0.95em;
+}
+.onglets button.actif {
+    background: #0c1c38;
+    color: white;
+}
+.description, .note {
+    text-align: center;
+    color: #555;
+    margin: 6px 0;
+}
+.note {
+    font-size: 0.85em;
+    color: #777;
+}

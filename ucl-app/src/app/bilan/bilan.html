@@ -6,6 +6,16 @@
   } @else if (erreur) {
     <p class="text-center">Impossible de charger le bilan.</p>
   } @else {
+    <div class="onglets">
+      @for (a of algos; track a.id) {
+        <button type="button" [class.actif]="a.id === bilan.id" (click)="choix = a.id">{{ a.nom }}</button>
+      }
+    </div>
+    <p class="description">{{ bilan.description }}</p>
+    @if (bilan.note) {
+      <p class="note">{{ bilan.note }}</p>
+    }
+
     <div class="stats">
       <div class="stat">
         <div class="valeur">{{ bilan.matchsAnalyses }}</div>

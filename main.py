@@ -814,12 +814,9 @@ def _lire_json_ou_defaut(fichier, defaut):
     with open(fichier, encoding="utf-8") as f:
         return json.load(f)
 
-@app.get("/api/paris/bilan")
-def get_bilan_paris():
-    """Bilan des paris du reseau (journal tenu par paris_reseau.py). Mise de chaque pari =
-    1 / cote : un pari gagne rapporte donc 1 unite brute. ROI = gain net / mises resolues."""
-    journal = _lire_json_ou_defaut(FICHIER_PARIS_RESEAU, [])
-    analyses = _lire_json_ou_defaut(FICHIER_ANALYSES_RESEAU, {})
+def _bilan_depuis_journal(journal, nb_analyses):
+    """Bilan d'un journal de paris. Mise de chaque pari = 1 / cote : un pari gagne rapporte donc
+    1 unite brute. ROI = gain net / mises resolues."""
     resolus = [p for p in journal if p["statut"] != "en_attente"]
     gain = sum(p["gain"] for p in resolus)
     mises = sum(p["mise"] for p in resolus)
@@ -838,10 +835,11 @@ def get_bilan_paris():
             "mise": round(sum(l["mise"] for l in legs), 4),
             "statut": "en_attente" if en_attente else "gagne" if any(l["statut"] == "gagne" for l in legs) else "perdu",
             "gain": None if en_attente else round(sum(l["gain"] for l in legs), 4),
+            "source": legs[0].get("source", "direct"),
         })
     resolus_g = [g for g in groupes if g["statut"] != "en_attente"]
     return {
-        "matchsAnalyses": len(analyses),
+        "matchsAnalyses": nb_analyses,
         "paris": len(groupes),
         "parisGagnes": sum(g["statut"] == "gagne" for g in resolus_g),
         "parisPerdus": sum(g["statut"] == "perdu" for g in resolus_g),
@@ -850,6 +848,44 @@ def get_bilan_paris():
         "roi": gain / mises if mises else None,
         "detail": sorted(groupes, key=lambda g: g["date"], reverse=True),
     }
+
+@app.get("/api/paris/bilan")
+def get_bilan_paris():
+    """Bilan des paris du reseau (journal tenu par paris_reseau.py)."""
+    journal = _lire_json_ou_defaut(FICHIER_PARIS_RESEAU, [])
+    return _bilan_depuis_journal(journal, len(_lire_json_ou_defaut(FICHIER_ANALYSES_RESEAU, {})))
+
+DOSSIER_JOURNAUX_D = "modele_d/journaux"
+
+@app.get("/api/paris/bilans")
+def get_bilans_paris():
+    """Bilan de chaque algorithme de paris. Le reseau de buts et le modele D (paris du jour) sont tenus
+    en direct par paris_reseau.py ; le modele D, les regles et l'IA-optimisee ont aussi un rejeu des matchs
+    2026-27 deja joues (modele_d/rejeu_2627.py : memes regles, sans fuite du futur, cotes Bet365
+    cloture -5 % faute d'historique Winamax)."""
+    meta = _lire_json_ou_defaut(f"{DOSSIER_JOURNAUX_D}/rejeu_2627_meta.json", {})
+    rejeu = lambda nom: _lire_json_ou_defaut(f"{DOSSIER_JOURNAUX_D}/rejeu_2627_{nom}.json", [])
+    note_rejeu = None
+    analyses_rejeu = meta.get("analyses", {})
+    d_analyses = _lire_json_ou_defaut(f"{DOSSIER_JOURNAUX_D}/analyses.json", {})
+    algos = [
+        ("reseau", "Réseau de buts", "Premier algorithme : réseau de neurones + loi de Poisson, cote > 4 et cote du modèle 15 % sous celle de Winamax.",
+         rejeu("reseau") + _lire_json_ou_defaut(FICHIER_PARIS_RESEAU, []),
+         analyses_rejeu.get("reseau", 0) + len(_lire_json_ou_defaut(FICHIER_ANALYSES_RESEAU, {})), None),
+        ("modele_d", "Modèle D", "Prédit les cotes du marché à partir de la forme, Elo, buts et repos ; victoire extérieure à cote ]4 ; 6] si le modèle voit 20 % de valeur.",
+         rejeu("modele_d") + _lire_json_ou_defaut(f"{DOSSIER_JOURNAUX_D}/paris.json", []), analyses_rejeu.get("modele_d", 0) + len(d_analyses), note_rejeu),
+        ("regles", "Règles", "Sans IA : on parie sur l'outsider (cote > 4) quand il a gagné au plus 1 de ses 5 derniers matchs.",
+         rejeu("regles") + _lire_json_ou_defaut(f"{DOSSIER_JOURNAUX_D}/regles_paris.json", []),
+         analyses_rejeu.get("regles", 0) + len(_lire_json_ou_defaut(f"{DOSSIER_JOURNAUX_D}/regles_analyses.json", {})), note_rejeu),
+        ("ia_optimisee", "IA-optimisée", "Modèle dédié aux outsiders (cote > 4) : probabilité de victoire par boosting + régression, pari si p × cote − 1 dépasse une marge, plafond de cote choisi sur le passé.",
+         rejeu("ia_optimisee") + _lire_json_ou_defaut("ia_optimisee/journaux/paris.json", []),
+         analyses_rejeu.get("ia_optimisee", 0) + len(_lire_json_ou_defaut("ia_optimisee/journaux/analyses.json", {})), note_rejeu),
+    ]
+    sortie = []
+    for id_, nom, description, journal, nb_analyses, note in algos:
+        sortie.append({"id": id_, "nom": nom, "description": description, "note": note,
+                       **_bilan_depuis_journal(journal, nb_analyses)})
+    return {"algos": sortie}
 
 @app.get("/api/selections/semaine")
 def get_selections_semaine():

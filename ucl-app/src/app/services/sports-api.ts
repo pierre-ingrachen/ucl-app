@@ -76,6 +76,14 @@ export class SportsApiService {
     return this.http.get<any>(`${environment.apiUrl}/api/paris/bilan`);
   }
 
+  /** Bilans de chaque algorithme de paris (réseau de buts, modèle D, règles, IA-optimisée). */
+  getBilansParis(): Observable<any> {
+    if (environment.demo) {
+      return this.http.get<any>(this.demoUrl('demo-data/bilans.json'));
+    }
+    return this.http.get<any>(`${environment.apiUrl}/api/paris/bilans`);
+  }
+
   private trierMatchsAVenir(events: Match[] | undefined): Match[] {
     if (!events) return [];
 

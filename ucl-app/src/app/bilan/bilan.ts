@@ -12,14 +12,15 @@ import { SportsApiService } from '../services/sports-api';
 export class Bilan implements OnInit {
   isLoading = true;
   erreur = false;
-  bilan: any = null;
+  algos: any[] = [];
+  choix = 'reseau';
 
   constructor(private sportsApi: SportsApiService) {}
 
   ngOnInit(): void {
-    this.sportsApi.getBilanParis().subscribe({
+    this.sportsApi.getBilansParis().subscribe({
       next: (data) => {
-        this.bilan = data;
+        this.algos = data.algos;
         this.isLoading = false;
       },
       error: (err) => {
@@ -28,6 +29,11 @@ export class Bilan implements OnInit {
         this.isLoading = false;
       }
     });
+  }
+
+  /** Bilan de l'algorithme sélectionné. */
+  get bilan(): any {
+    return this.algos.find((a) => a.id === this.choix) ?? this.algos[0];
   }
 
   get parisResolus(): number {
