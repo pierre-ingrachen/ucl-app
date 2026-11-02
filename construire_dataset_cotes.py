@@ -1,4 +1,4 @@
-"""Construit dataset_cotes.csv : les matchs de dataset_reseau.csv (resultat + 42 features
+"""Construit dataset_cotes.csv : les matchs de dataset_reseau_etendu.csv (resultat + 42 features
 "matchs precedents", sans fuite du futur) pour lesquels football-data.co.uk fournit des cotes.
 Un match sans cote est exclu. dataset_reseau.csv reste inchange : ce sont deux jeux distincts.
 
@@ -17,7 +17,7 @@ import pandas as pd
 import cotes_historiques as ch
 from odds import _normaliser_nom, _similaire
 
-FICHIER_RESEAU = "dataset_reseau.csv"
+FICHIER_RESEAU = "dataset_reseau_etendu.csv"  # 2020-21 a aujourd'hui (construire_dataset_etendu.py)
 FICHIER_DATASET = "dataset_cotes.csv"
 SEUIL_NOM = 0.6
 
@@ -32,7 +32,8 @@ ALIAS = {
     "waregem": "zultewaregem", "lacoruna": "deportivodeacoruna", "santander": "racingdesantander",
     "oviedo": "realoviedo", "a.lustenau": "austrialustenau", "tirol": "wsgtirol",
     "wsgswarovskitirol": "wsgtirol", "a.klagenfurt": "austriaklagenfurt", "aalborg": "aab",
-    "termalicab-b.": "bruk-bettermalicanieciecza", "ham-kam": "hamarkameratene", "reims": "stadereims", "hamkam": "hamarkameratene",
+    "termalicab-b.": "bruk-bettermalicanieciecza", "ham-kam": "hamarkameratene", "reims": "stadedereims", "erzurumbb": "erzurumspor", "admira": "trenkwalderadmira",
+    "gornikz.": "gornikzabrze", "leczna": "gornikleczna", "legnica": "miedzlegnica", "hamkam": "hamarkameratene",
 }
 
 

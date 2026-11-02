@@ -22,7 +22,7 @@ Méthode de récupération des cotes demandée (script Python pandas + requests)
 - Contraintes : fonctions modulaires `download`, `parse`, `compute_probs` ; logs clairs ; retries sur erreurs réseau ; un petit test vérifiant que les probabilités de chaque match somment à 1.
 
 ## Décisions de Pierre (réponses du 2026-11-02)
-- Saisons : **2023-24 à 2026-27** (même période que `dataset_reseau.csv`).
+- Saisons : **2020-21 à 2026-27** (décision du 2026-11-02 : le football a beaucoup changé à partir de 2020-21 ; on ne remonte pas avant). Au départ c'était 2023-24 à 2026-27.
 - Ligues : **toutes celles disponibles** sur football-data.co.uk.
 - Un match **sans cote est exclu** du nouveau jeu. On a donc **deux jeux de données distincts** : `dataset_reseau.csv` (inchangé, sans cotes) et `dataset_cotes.csv` (nouveau, avec cotes).
 
@@ -33,12 +33,21 @@ Méthode de récupération des cotes demandée (script Python pandas + requests)
 - Style du dépôt : code et commentaires en français, sans fuite du futur (les features d'un match n'utilisent que des matchs antérieurs).
 - **Toujours demander à Pierre avant de commit** (règle notée aussi dans README.md). Il a autorisé le commit du 2026-11-02 pour les jeux de cotes.
 
+## Modèle de paris : cahier des charges (2026-11-02)
+- Pari sur **une issue (1, N ou 2) dont la cote Winamax est > 4,00**, si le modèle estime cette cote trop élevée. Les autres issues du même match n'ont pas besoin d'être > 4.
+- **Mise = 1/cote** (un pari gagné rapporte 1 unité brute) : règle conservée, simple pour montrer la justesse. ROI = profit / total misé.
+- **Le modèle existant** (`reseau_buts.py`, `paris_reseau.py`, ses journaux, `dataset_reseau.csv`, `matchs_reseau_bruts.json`) **reste intact** : les deux modèles tournent en parallèle et seront comparés pendant les prochaines semaines. Le nouveau modèle aura ses propres fichiers.
+- **Approche B retenue** : modèle direct 1/N/2 (LightGBM ou petit réseau, log-loss) avec les 42 features + probabilités implicites du marché ; calibration (surtout cotes élevées) ; pari si `p_modèle × cote − 1` dépasse une marge. Seuils (cote > 4, écart 15 % dans `paris_reseau.py`) libres d'évolution pour améliorer le ROI.
+- Mesure : découpage temporel (jamais aléatoire), ROI avec intervalle de confiance (bootstrap), CLV, drawdown, comparaison au pari à l'aveugle (ROI −6,2 % sur les cotes maxc > 4, 26 465 paris) et à une stratégie qui suit le marché. Les cotes Winamax n'existent pas dans l'historique : tester plusieurs hypothèses (moyenne d'ouverture, Bet365, moyenne de clôture − 2 à 3 %).
+- Attention API : TheSportsDB uniquement via `main.requete_api_avec_retry` (throttling) ; The Odds API a un quota.
+
 ## Ce qui a été construit
-- `cotes_historiques.py` : `download` (cache `data/raw/`, retries), `parse` (schéma unique), `compute_probs` (probas sans marge ; calculées pour B365, B365C, PS, PSC, Max, MaxC, Avg, AvgC). Écrit `data/odds_2023_2027.csv` (16 028 matchs, 17 ligues, cotes 1X2 + plus/moins 2,5).
-- `construire_dataset_cotes.py` : rattache ces cotes aux matchs de `dataset_reseau.csv` (même ligue, date ±1 jour, noms de clubs proches + `ALIAS`), vérifie que le score est identique dans les deux sources, écrit `dataset_cotes.csv` (14 254 matchs, résultat + 42 features + cotes).
+- `cotes_historiques.py` : `download` (cache `data/raw/`, retries), `parse` (schéma unique), `compute_probs` (probas sans marge ; calculées pour B365, B365C, PS, PSC, Max, MaxC, Avg, AvgC). Écrit `data/odds_2020_2027.csv` (cotes 1X2 + plus/moins 2,5, 17 ligues, saisons 2020-21 à 2026-27).
+- `construire_dataset_etendu.py` : télécharge 2020-21 à 2022-23 de TheSportsDB (60 requêtes, dans `matchs_reseau_bruts_ext.json`, reprise possible) et écrit `dataset_reseau_etendu.csv` (33 714 matchs). `construire_dataset_reseau.py` a été refactoré (`rejouer_matchs`), sortie identique à `dataset_reseau.csv`, vérifiée.
+- `construire_dataset_cotes.py` : rattache les cotes aux matchs de `dataset_reseau_etendu.csv` (même ligue, date ±1 jour, noms de clubs proches + `ALIAS`), vérifie que le score est identique dans les deux sources, écrit `dataset_cotes.csv` (**28 665 matchs**, 17 ligues, résultat + 42 features + cotes).
 - `test_cotes_historiques.py` : probas somment à 1, au moins une cote par match, résultat cohérent, pas de doublon. Lancer : `.venv/bin/python -m unittest test_cotes_historiques -v`.
-- Exclusions normales : clubs à moins de 5 matchs d'historique (début 2023-24, promus), 8 matchs au score différent entre sources, et les ligues sans cotes (Chypre, Tchéquie, Hongrie : 0 match).
-- Les cotes Pinnacle de clôture (`psc_*`) existent pour ~75 % des matchs ; `maxc_*` et `avgc_*` pour 100 %. Les cotes d'ouverture (`*_h/d/a` sans « c ») n'existent que pour les 11 ligues principales.
+- Exclusions normales : clubs à moins de 5 matchs d'historique (début 2020-21, promus), ~14 matchs au score différent entre sources, et les ligues sans cotes (Chypre, Tchéquie, Hongrie : 0 match).
+- Cotes Pinnacle de clôture (`psc_*`) pour ~88 % des matchs ; `maxc_*` et `avgc_*` pour 100 % ; cotes d'ouverture moyennes pour ~72 % (11 ligues principales seulement).
 
 ## Constats techniques (vérifiés le 2026-11-02)
 - `www.football-data.co.uk` redirige (302) vers `football-data.co.uk` ; `requests` suit la redirection.

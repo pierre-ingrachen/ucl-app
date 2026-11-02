@@ -5,7 +5,7 @@ Deux familles de fichiers :
 - saisonniers (`mmz4281/{saison}/{code}.csv`) : cotes d'ouverture ET de cloture, nombreux bookmakers ;
 - "extra" (`new/{code}.csv`, une ligne par match, toutes saisons) : uniquement des cotes de cloture.
 
-Usage : .venv/bin/python cotes_historiques.py [--refresh]   (ecrit data/odds_2023_2027.csv)
+Usage : .venv/bin/python cotes_historiques.py [--refresh]   (ecrit data/odds_2020_2027.csv)
 """
 import logging
 import os
@@ -20,12 +20,12 @@ log = logging.getLogger("cotes")
 
 BASE_URL = "https://football-data.co.uk"  # le domaine en www. redirige vers celui-ci
 DOSSIER_BRUT = os.path.join("data", "raw")
-FICHIER_SORTIE = os.path.join("data", "odds_2023_2027.csv")
+FICHIER_SORTIE = os.path.join("data", "odds_2020_2027.csv")
 
-SAISONS = ["2324", "2425", "2526", "2627"]
+SAISONS = ["2021", "2122", "2223", "2324", "2425", "2526", "2627"]
 SAISON_COURANTE = SAISONS[-1]
 AGE_MAX_COURANT_H = 20  # le fichier de la saison en cours est retelecharge s'il date de plus de 20 h
-DATE_MIN = "2023-07-01"  # debut de la premiere saison couverte (filtre des fichiers "extra")
+DATE_MIN = "2020-08-01"  # debut de la premiere saison couverte (2020-21) (filtre des fichiers "extra")
 
 # code football-data -> (id TheSportsDB, nom) pour les championnats saisonniers
 LIGUES_SAISONNIERES = {

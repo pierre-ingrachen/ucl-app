@@ -52,15 +52,9 @@ def telecharger_matchs():
     return brut
 
 
-def main_build():
-    if "--refresh" in sys.argv or not os.path.exists(FICHIER_BRUTS):
-        brut = telecharger_matchs()
-        with open(FICHIER_BRUTS, "w", encoding="utf-8") as f:
-            json.dump(brut, f, ensure_ascii=False)
-    else:
-        with open(FICHIER_BRUTS, encoding="utf-8") as f:
-            brut = json.load(f)
-
+def rejouer_matchs(brut):
+    """Rejoue chronologiquement chaque championnat de `brut` ({ligue -> {saison -> evenements}},
+    saisons de la plus ancienne a la plus recente) et renvoie (colonnes, lignes) du dataset."""
     colonnes = ["ligue", "saison", "date", "equipe_dom", "equipe_ext"] + noms_features() + \
                ["buts_dom", "buts_ext"]
     lignes = []
@@ -80,6 +74,19 @@ def main_build():
                     lignes.append([league_id, saison, e["dateEvent"], e["strHomeTeam"], e["strAwayTeam"]]
                                   + [round(v, 4) for v in x] + [buts_dom, buts_ext])
                 etat.enregistrer(dom, ext, buts_dom, buts_ext)
+    return colonnes, lignes
+
+
+def main_build():
+    if "--refresh" in sys.argv or not os.path.exists(FICHIER_BRUTS):
+        brut = telecharger_matchs()
+        with open(FICHIER_BRUTS, "w", encoding="utf-8") as f:
+            json.dump(brut, f, ensure_ascii=False)
+    else:
+        with open(FICHIER_BRUTS, encoding="utf-8") as f:
+            brut = json.load(f)
+
+    colonnes, lignes = rejouer_matchs(brut)
 
     with open(FICHIER_DATASET, "w", newline="", encoding="utf-8") as f:
         writer = csv.writer(f)
