@@ -1,0 +1,53 @@
+[
+ {
+  "id": "2026-09-08|Utrecht|Go Ahead Eagles|d",
+  "date": "2026-09-08",
+  "ligue": "N1",
+  "equipe_dom": "Utrecht",
+  "equipe_ext": "Go Ahead Eagles",
+  "issue": "d",
+  "cote_max": 4.2,
+  "cote_moyenne": 3.82,
+  "cote_b365c": 3.9,
+  "p_marche": 0.24499120737077842,
+  "p_modele": 0.2510408544289575,
+  "gagne": true,
+  "score": "3-3",
+  "phase": "retro",
+  "ajoute_le": "2026-11-02T14:17:22"
+ },
+ {
+  "id": "2026-08-23|Porto|Arouca|d",
+  "date": "2026-08-23",
+  "ligue": "P1",
+  "equipe_dom": "Porto",
+  "equipe_ext": "Arouca",
+  "issue": "d",
+  "cote_max": 6.5,
+  "cote_moyenne": 5.28,
+  "cote_b365c": 5.0,
+  "p_marche": 0.1753309700602906,
+  "p_modele": 0.1669066860045924,
+  "gagne": false,
+  "score": "2-0",
+  "phase": "retro",
+  "ajoute_le": "2026-11-02T14:17:22"
+ },
+ {
+  "id": "2026-07-22|Bodo/Glimt|HamKam|d",
+  "date": "2026-07-22",
+  "ligue": "NOR",
+  "equipe_dom": "Bodo/Glimt",
+  "equipe_ext": "HamKam",
+  "issue": "d",
+  "cote_max": 13.0,
+  "cote_moyenne": 9.48,
+  "cote_b365c": 10.0,
+  "p_marche": 0.09702058504875406,
+  "p_modele": 0.08171081656092356,
+  "gagne": false,
+  "score": "3-0",
+  "phase": "retro",
+  "ajoute_le": "2026-11-02T14:17:22"
+ }
+]
