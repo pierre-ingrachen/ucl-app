@@ -2,7 +2,7 @@
 (deux appels separes dans le workflow GitHub Actions, cf. `python paris_reseau.py <etape>`) :
 
 1. `cotes` : recupere les cotes bookmaker de la semaine via The Odds API (releve complet le
-   mardi et le vendredi, relance ciblee les autres jours pour les matchs du lendemain sans
+   mardi, vendredi, samedi et dimanche, relance ciblee les autres jours pour les matchs du lendemain sans
    cote : meme rythme qu'avant, pour rester sous le quota gratuit). Cache : cache_cotes_winamax.json.
 2. `paris` : resout les paris en attente, puis pour chaque match du jour :
    buts attendus du reseau -> loi de Poisson -> cotes justes (1 / probabilite) -> pari pris si
@@ -30,7 +30,7 @@ ECART_MIN = 0.15  # cote du modele au moins 15 % sous la cote du bookmaker
 FICHIER_COTES = "cache_cotes_winamax.json"
 FICHIER_PARIS = "cache_paris_reseau.json"
 FICHIER_ANALYSES = "cache_analyses_reseau.json"  # {idEvent: date} des matchs passes au reseau
-JOURS_RELEVE_COMPLET = {1, 4}  # mardi, vendredi (lundi = 0)
+JOURS_RELEVE_COMPLET = {1, 4, 5, 6}  # mardi, vendredi, samedi, dimanche (lundi = 0) : 20 requetes par releve
 # Identifiants de ligue -> cles The Odds API (pas de cotes publiees pour Tchequie, Chypre, Hongrie).
 ODDS_API_SPORT_KEYS = {
     "4344": ["soccer_portugal_primeira_liga"], "4337": ["soccer_netherlands_eredivisie"],
@@ -262,3 +262,16 @@ if __name__ == "__main__":
             paris_modele_d.etape_paris_d(calendrier, cotes)
         except Exception as exc:  # noqa: BLE001
             print(f"\n## Modele D indisponible : {type(exc).__name__}: {exc}")
+        # IA-optimisee et regles : meme principe (journaux separes, memes cotes, erreurs isolees).
+        try:
+            from ia_optimisee import paris as paris_ia
+            print()
+            paris_ia.etape_paris_ia(calendrier, cotes)
+        except Exception as exc:  # noqa: BLE001
+            print(f"\n## IA-optimisee indisponible : {type(exc).__name__}: {exc}")
+        try:
+            from modele_d import paris_regles
+            print()
+            paris_regles.etape_paris_regles(calendrier, cotes)
+        except Exception as exc:  # noqa: BLE001
+            print(f"\n## Regles indisponibles : {type(exc).__name__}: {exc}")

@@ -48,7 +48,7 @@ jobs:
           done
           install
 
-      - name: Recuperer les cotes (mardi et vendredi, ou relance ciblee)
+      - name: Recuperer les cotes (mardi, vendredi, samedi et dimanche, ou relance ciblee)
         shell: bash  # pipefail : sans lui, un plantage de python derriere `| tee` reste vert
         env:
           SPORTSDB_API_KEY: ${{ secrets.SPORTSDB_API_KEY }}
@@ -61,12 +61,12 @@ jobs:
           done
           python paris_reseau.py cotes | tee -a "$GITHUB_STEP_SUMMARY"
 
-      - name: Choisir les paris du jour (reseau de neurones + loi de Poisson, puis modele D)
+      - name: Choisir les paris du jour (reseau de neurones + loi de Poisson, puis modele D, IA-optimisee et regles)
         shell: bash  # pipefail : sans lui, un plantage de python derriere `| tee` reste vert
         env:
           SPORTSDB_API_KEY: ${{ secrets.SPORTSDB_API_KEY }}
           ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
-          MODELE_D_FIGE: "1"  # le modele D (modele_d/ressources/modele.pkl) est reentraine en local, jamais ici
+          MODELE_D_FIGE: "1"  # modele D (modele_d/ressources/modele.pkl) et IA-optimisee (ia_optimisee/modele.pkl) : reentraines en local, jamais ici
         run: |
           for tentative in 1 2 3; do
             python paris_reseau.py paris | tee -a "$GITHUB_STEP_SUMMARY" && exit 0
@@ -81,7 +81,9 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add cache_paris_reseau.json cache_analyses_reseau.json cache_cotes_winamax.json
           # journaux du modele D : absents tant que le modele D n'a jamais tourne
-          for f in modele_d/journaux/paris.json modele_d/journaux/analyses.json; do
+          for f in modele_d/journaux/paris.json modele_d/journaux/analyses.json \
+                   modele_d/journaux/regles_paris.json modele_d/journaux/regles_analyses.json \
+                   ia_optimisee/journaux/paris.json ia_optimisee/journaux/analyses.json; do
             if [ -f "$f" ]; then git add "$f"; fi
           done
           if git diff --cached --quiet; then

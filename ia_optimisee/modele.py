@@ -30,43 +30,55 @@ SAISONS_TEST = [2024, 2025, 2026, 2027]  # etiquette = annee de fin de saison
 MARGES = [0.0, 0.05, 0.10, 0.15, 0.20, 0.30, 0.40]
 PLAFONDS = [6.0, 8.0, 12.0, np.inf]
 MIN_PARIS_CHOIX = 150
+def arrondi_bookmaker(cote):
+    """Cote arrondie a la decimale inferieure, comme sur Winamax (4,94 -> 4,90)."""
+    return np.floor(cote * 10 + 1e-6) / 10
+
+
 SCENARIOS = {
-    "Bet365 cloture": lambda d, k: d[f"b365c_{k}"],
-    "Bet365 cloture -5%": lambda d, k: d[f"b365c_{k}"] * 0.95,
-    "Bet365 cloture -10%": lambda d, k: d[f"b365c_{k}"] * 0.90,
-    "Moyenne cloture": lambda d, k: d[f"avgc_{k}"],
-    "Meilleure cote cloture": lambda d, k: d[f"maxc_{k}"],
+    "Bet365 cloture": lambda d, k: arrondi_bookmaker(d[f"b365c_{k}"]),
+    "Bet365 cloture -5%": lambda d, k: arrondi_bookmaker(d[f"b365c_{k}"] * 0.95),
+    "Bet365 cloture -10%": lambda d, k: arrondi_bookmaker(d[f"b365c_{k}"] * 0.90),
+    "Moyenne cloture": lambda d, k: arrondi_bookmaker(d[f"avgc_{k}"]),
+    "Meilleure cote cloture": lambda d, k: arrondi_bookmaker(d[f"maxc_{k}"]),
 }
 
 
 # --- Candidats -------------------------------------------------------------------------
 
+def variables(d, cote):
+    """Variables (sans cote) du match vues du cote de l'equipe pariee A (`cote` = "dom" ou "ext") contre B.
+    `d` : lignes de matchs avec les 42 features et les ratings (passe ou match a venir)."""
+    a, b = cote, "ext" if cote == "dom" else "dom"
+    sgn = 1 if cote == "dom" else -1
+    x = pd.DataFrame(index=d.index)
+    for i in range(1, 6):
+        x[f"a_pour{i}"], x[f"a_contre{i}"] = d[f"{a}_m{i}_buts_pour"], d[f"{a}_m{i}_buts_contre"]
+        x[f"b_pour{i}"], x[f"b_contre{i}"] = d[f"{b}_m{i}_buts_pour"], d[f"{b}_m{i}_buts_contre"]
+    for c, n in ((a, "a"), (b, "b")):
+        pour = np.stack([d[f"{c}_m{i}_buts_pour"] for i in range(1, 6)], 1)
+        contre = np.stack([d[f"{c}_m{i}_buts_contre"] for i in range(1, 6)], 1)
+        x[f"{n}_moy_pour"], x[f"{n}_moy_contre"] = pour.mean(1), contre.mean(1)
+        x[f"{n}_pts"] = np.where(pour > contre, 3, np.where(pour == contre, 1, 0)).mean(1)
+        x[f"{n}_invaincu"] = (pour >= contre).mean(1)
+        x[f"{n}_rang"] = d[f"{c}_rang"]
+        x[f"{n}_elo"], x[f"{n}_att"], x[f"{n}_def"] = d[f"elo_{c}"], d[f"att_{c}"], d[f"def_{c}"]
+        x[f"{n}_repos"], x[f"{n}_nb"] = d[f"repos_{c}"], d[f"nb_{c}"]
+    x["diff_elo"] = sgn * d["elo_diff"]
+    x["diff_rang"] = x.b_rang - x.a_rang
+    x["diff_pts"] = x.a_pts - x.b_pts
+    x["diff_buts"] = (x.a_att - x.b_def) - (x.b_att - x.a_def)
+    x["domicile"] = 1.0 if cote == "dom" else 0.0
+    x["p_elo"] = 1 / (1 + 10 ** (-(x.diff_elo) / 400))
+    return x
+
+
 def candidats(d):
-    """Une ligne par (match, issue) : feature vues du cote de l'equipe sur laquelle on parie (A) contre
+    """Une ligne par (match, issue) : variables vues du cote de l'equipe sur laquelle on parie (A) contre
     l'adversaire (B). Les cotes ne servent qu'a delimiter le segment et a decider du pari."""
     out = []
     for cote, k, gagne in (("dom", "h", 0), ("ext", "a", 2)):
-        a, b = cote, "ext" if cote == "dom" else "dom"
-        sgn = 1 if cote == "dom" else -1
-        x = pd.DataFrame(index=d.index)
-        for i in range(1, 6):
-            x[f"a_pour{i}"], x[f"a_contre{i}"] = d[f"{a}_m{i}_buts_pour"], d[f"{a}_m{i}_buts_contre"]
-            x[f"b_pour{i}"], x[f"b_contre{i}"] = d[f"{b}_m{i}_buts_pour"], d[f"{b}_m{i}_buts_contre"]
-        for c, n in ((a, "a"), (b, "b")):
-            pour = np.stack([d[f"{c}_m{i}_buts_pour"] for i in range(1, 6)], 1)
-            contre = np.stack([d[f"{c}_m{i}_buts_contre"] for i in range(1, 6)], 1)
-            x[f"{n}_moy_pour"], x[f"{n}_moy_contre"] = pour.mean(1), contre.mean(1)
-            x[f"{n}_pts"] = np.where(pour > contre, 3, np.where(pour == contre, 1, 0)).mean(1)
-            x[f"{n}_invaincu"] = (pour >= contre).mean(1)
-            x[f"{n}_rang"] = d[f"{c}_rang"]
-            x[f"{n}_elo"], x[f"{n}_att"], x[f"{n}_def"] = d[f"elo_{c}"], d[f"att_{c}"], d[f"def_{c}"]
-            x[f"{n}_repos"], x[f"{n}_nb"] = d[f"repos_{c}"], d[f"nb_{c}"]
-        x["diff_elo"] = sgn * d["elo_diff"]
-        x["diff_rang"] = x.b_rang - x.a_rang
-        x["diff_pts"] = x.a_pts - x.b_pts
-        x["diff_buts"] = (x.a_att - x.b_def) - (x.b_att - x.a_def)
-        x["domicile"] = 1.0 if cote == "dom" else 0.0
-        x["p_elo"] = 1 / (1 + 10 ** (-(x.diff_elo) / 400))
+        x = variables(d, cote)
         x["match"] = d.index
         x["issue"] = cote
         x["saison"] = d.saison_fin

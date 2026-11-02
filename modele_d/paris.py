@@ -89,8 +89,9 @@ def _ajuster(modele, Xs, tgt, saison, derniere_complete):
     return PredicteurSklearn(m)
 
 
-def entrainer_ensemble():
-    d = D.charger_avec_ratings()
+def entrainer_ensemble(d=None, ecrire=True):
+    """`d` : jeu d'entrainement (defaut : tout le jeu) ; ecrire=False pour un rejeu sans toucher modele.pkl."""
+    d = D.charger_avec_ratings() if d is None else d
     ligues = sorted(d.ligue.astype(str).unique())
     saison = d.saison_fin.to_numpy()
     derniere_complete = int(saison.max()) - 1  # la saison en cours (partielle) ne sert pas a choisir les epoques
@@ -105,9 +106,10 @@ def entrainer_ensemble():
         print(f"  [{time.time() - t0:4.0f}s] {cfg}")
     paquet = {"membres": membres, "ligues": ligues, "entraine_le": str(date.today()), "nb_matchs": len(d),
               "derniere_date": d.date.max()}
-    with open(FICHIER_MODELE, "wb") as f:
-        pickle.dump(paquet, f)
-    print(f"Ensemble de {len(membres)} modeles entraine sur {len(d)} matchs (jusqu'au {paquet['derniere_date']}) -> {FICHIER_MODELE}")
+    if ecrire:
+        with open(FICHIER_MODELE, "wb") as f:
+            pickle.dump(paquet, f)
+        print(f"Ensemble de {len(membres)} modeles entraine sur {len(d)} matchs (jusqu'au {paquet['derniere_date']}) -> {FICHIER_MODELE}")
     return paquet
 
 
@@ -180,14 +182,15 @@ def resoudre(journal, analyses, joues):
             a["resultat"] = NOMS_ISSUES[0 if gd > ge else 2 if gd < ge else 1]
 
 
-def probas_du_jour(calendrier, cotes, paquet, jour, etats=None):
-    """[(match, cotes_bookmaker, probas 1/N/2 du modele)] pour les matchs de `jour` ayant une cote.
-    Les features n'utilisent que les matchs deja joues dans `calendrier` (a tronquer pour un rejeu)."""
+def lignes_du_jour(calendrier, cotes, jour, etats=None, ligues=None):
+    """[(match, cotes_bookmaker, ligne de features)] pour les matchs de `jour` ayant une cote : 42 features +
+    ratings d'AVANT le match (aucune cote). Les features n'utilisent que les matchs deja joues dans `calendrier`
+    (a tronquer pour un rejeu). `ligues` : ne garder que ces championnats (defaut : tous)."""
     etats = etats or etats_courants(calendrier)
-    candidats, lignes = [], []
+    sortie = []
     for m in pr.matchs_a_venir(calendrier, jour, jour):
         c = cotes.get(m["idEvent"])
-        if not c or not c.get("bookmaker") or m["idLeague"] not in paquet["ligues"]:
+        if not c or not c.get("bookmaker") or (ligues is not None and m["idLeague"] not in ligues):
             continue
         champ, rat = etats[m["idLeague"]]
         x = champ.features(m["idHomeTeam"], m["idAwayTeam"])
@@ -196,11 +199,17 @@ def probas_du_jour(calendrier, cotes, paquet, jour, etats=None):
         ligne = dict(zip(noms_features(), x))
         ligne["ligue"] = m["idLeague"]
         ligne.update(zip(D.COLS_RATINGS, rat.ligne(m["idHomeTeam"], m["idAwayTeam"], date.fromisoformat(m["dateEvent"]))))
-        candidats.append((m, c))
-        lignes.append(ligne)
+        sortie.append((m, c, ligne))
+    return sortie
+
+
+def probas_du_jour(calendrier, cotes, paquet, jour, etats=None):
+    """[(match, cotes_bookmaker, probas 1/N/2 du modele)] pour les matchs de `jour` ayant une cote."""
+    lignes = lignes_du_jour(calendrier, cotes, jour, etats, ligues=paquet["ligues"])
     if not lignes:
         return []
-    return [(m, c, p) for (m, c), p in zip(candidats, probas_ensemble(paquet, pd.DataFrame(lignes)))]
+    probas = probas_ensemble(paquet, pd.DataFrame([l for _, _, l in lignes]))
+    return [(m, c, p) for (m, c, _), p in zip(lignes, probas)]
 
 
 def etape_paris_d(calendrier, cotes, aujourd_hui=None):
