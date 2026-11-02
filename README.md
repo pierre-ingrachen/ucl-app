@@ -90,6 +90,3 @@ Depuis la racine du dépôt, avec `.venv/bin/python -m modele_d.<module>` :
 Dossiers : `ressources/` (modèle entraîné + saisons brutes, **suivis** car nécessaires au workflow), `journaux/` (paris et analyses du modèle D, mis à jour par le workflow), `resultats/` (comptes rendus des expériences), `donnees/` (CSV, cache football-data, probabilités : **non suivis**, régénérables).
 
 Reconstruire les données depuis zéro, dans l'ordre : `historique` → `ratings` → `dataset_cotes` (télécharge football-data), puis `paris entrainer`. Le modèle est **figé dans le workflow** (`MODELE_D_FIGE`) : le réentraîner en local (`paris entrainer`) puis commiter `modele_d/ressources/modele.pkl`.
-
-## Fichiers non suivis par git
-`.env` (clés d'API), `.venv` (lien vers `~/.ucl-dev-cache`), `CLAUDE.md` (notes de travail locales), `modele_d/donnees/`, caches volumineux (`cache_season.json`, etc.).
