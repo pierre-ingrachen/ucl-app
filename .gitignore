@@ -15,3 +15,6 @@ cache_history_qualifs.json
 cache_season.json
 cache_teams.json
 cache_badges/
+
+# Cache des CSV football-data.co.uk (regenerable : cotes_historiques.py)
+data/raw/
