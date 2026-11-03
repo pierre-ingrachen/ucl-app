@@ -4,7 +4,7 @@ Winamax puis Betclic puis Unibet.
 Une seule requete par competition suffit : The Odds API renvoie en un appel tous les matchs
 a venir d'une competition, pas match par match (le cout de quota est de 1 credit par
 region x marche demande, quel que soit le nombre de matchs renvoyes). Le rythme d'appel
-(releve complet le mardi et le vendredi matin, relances ciblees les autres jours) est gere
+(releve complet le mardi, jeudi, samedi et dimanche matin, relances ciblees les autres jours) est gere
 par l'appelant (`main.obtenir_cotes_semaine`) ; ce module se contente d'aller chercher les
 cotes et de les associer aux matchs internes.
 """

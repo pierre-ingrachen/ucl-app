@@ -48,7 +48,7 @@ jobs:
           done
           install
 
-      - name: Recuperer les cotes (mardi, vendredi, samedi et dimanche, ou relance ciblee)
+      - name: Recuperer les cotes (mardi, jeudi, samedi et dimanche, ou relance ciblee)
         shell: bash  # pipefail : sans lui, un plantage de python derriere `| tee` reste vert
         env:
           SPORTSDB_API_KEY: ${{ secrets.SPORTSDB_API_KEY }}

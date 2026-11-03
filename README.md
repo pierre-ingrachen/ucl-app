@@ -18,7 +18,7 @@ Application de paris sportifs football : un site (backend FastAPI, front Angular
 Les quatre algorithmes cherchent la même chose : **des paris à cote élevée (> 4,00) dont l'espérance de gain serait positive**. Ils tournent chaque jour en parallèle dans le workflow `bilan-paris.yml` (`python paris_reseau.py paris`), sur les mêmes matchs et les mêmes cotes, avec chacun son journal. L'onglet **Bilan** du site affiche les quatre (`/api/paris/bilans`).
 
 **Règles communes**
-- **Cotes** : The Odds API (`odds.py`), bookmaker français dans cet ordre de priorité : Winamax, Betclic, Unibet. Relevé complet (20 requêtes : 17 championnats + 3 coupes d'Europe) le mardi, vendredi, samedi et dimanche ; relances ciblées les autres jours pour les matchs du lendemain sans cote. Quota gratuit : 500 requêtes par mois (environ 350 utilisées).
+- **Cotes** : The Odds API (`odds.py`), bookmaker français dans cet ordre de priorité : Winamax, Betclic, Unibet. Relevé complet (20 requêtes : 17 championnats + 3 coupes d'Europe) le mardi, jeudi, samedi et dimanche ; relances ciblées les autres jours pour les matchs du lendemain sans cote. Quota gratuit : 500 requêtes par mois (environ 350 utilisées).
 - **Mise = 1 / cote** : un pari gagné rapporte 1 unité brute, donc **ROI = profit / total misé**. Pas de pari sur le match nul (sauf mention contraire).
 - **Aucune fuite du futur** : les caractéristiques d'un match ne viennent que de matchs antérieurs (`EtatChampionnat`, `EtatRatings`, rejoués dans l'ordre chronologique). Les évaluations se font en **walk-forward** (entraînement sur le passé, test sur la saison suivante), jamais en découpage aléatoire.
 - **Les cotes ne sont jamais des entrées** des modèles : elles servent uniquement à décider si on parie et à calculer le gain.

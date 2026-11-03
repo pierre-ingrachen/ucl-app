@@ -2,7 +2,7 @@
 (deux appels separes dans le workflow GitHub Actions, cf. `python paris_reseau.py <etape>`) :
 
 1. `cotes` : recupere les cotes bookmaker de la semaine via The Odds API (releve complet le
-   mardi, vendredi, samedi et dimanche, relance ciblee les autres jours pour les matchs du lendemain sans
+   mardi, jeudi, samedi et dimanche, relance ciblee les autres jours pour les matchs du lendemain sans
    cote : meme rythme qu'avant, pour rester sous le quota gratuit). Cache : cache_cotes_winamax.json.
 2. `paris` : resout les paris en attente, puis pour chaque match du jour :
    buts attendus du reseau -> loi de Poisson -> cotes justes (1 / probabilite) -> pari pris si
@@ -30,7 +30,7 @@ ECART_MIN = 0.15  # cote du modele au moins 15 % sous la cote du bookmaker
 FICHIER_COTES = "cache_cotes_winamax.json"
 FICHIER_PARIS = "cache_paris_reseau.json"
 FICHIER_ANALYSES = "cache_analyses_reseau.json"  # {idEvent: date} des matchs passes au reseau
-JOURS_RELEVE_COMPLET = {1, 4, 5, 6}  # mardi, vendredi, samedi, dimanche (lundi = 0) : 20 requetes par releve
+JOURS_RELEVE_COMPLET = {1, 3, 5, 6}  # mardi, jeudi, samedi, dimanche (lundi = 0) : 20 requetes par releve
 # Identifiants de ligue -> cles The Odds API (pas de cotes publiees pour Tchequie, Chypre, Hongrie).
 ODDS_API_SPORT_KEYS = {
     "4344": ["soccer_portugal_primeira_liga"], "4337": ["soccer_netherlands_eredivisie"],
