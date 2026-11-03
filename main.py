@@ -432,12 +432,12 @@ def obtenir_classement_national(team_id, cache_classement):
     cache_classement[team_id] = resultat
     return resultat
 
-SEUIL_COTE_ELEVEE = 3.30
+SEUIL_COTE_ELEVEE = 3.50
 CACHE_COTES_FILE = "cache_cotes_winamax.json"
 
 def marquer_cotes_elevees(matchs):
     """Ajoute `coteTrouvee` (une cote bookmaker est connue) et `coteElevee` a chaque match : True si la victoire de l'equipe 1 ou de l'equipe 2
-    est cotee >= 3.30 (nul ignore). Sans cote connue, False. Les cotes elles-memes ne sont
+    est cotee >= 3.50 (nul ignore). Sans cote connue, False. Les cotes elles-memes ne sont
     jamais renvoyees au front. Travaille sur des copies (les listes viennent d'un cache memoise)."""
     cotes = (_lire_json_ou_defaut(CACHE_COTES_FILE, {}) or {}).get("data", {})
     resultat = []
