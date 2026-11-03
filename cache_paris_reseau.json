@@ -1472,8 +1472,8 @@
    0.91
   ],
   "mise": 0.1,
-  "statut": "en_attente",
-  "gain": null
+  "statut": "perdu",
+  "gain": -0.1
  },
  {
   "idEvent": "2482233",
@@ -1490,7 +1490,7 @@
    1.05
   ],
   "mise": 0.1818,
-  "statut": "en_attente",
-  "gain": null
+  "statut": "gagne",
+  "gain": 0.8181
  }
 ]
