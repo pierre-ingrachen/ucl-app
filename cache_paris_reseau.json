@@ -1492,5 +1492,23 @@
   "mise": 0.1818,
   "statut": "gagne",
   "gain": 0.8181
+ },
+ {
+  "idEvent": "2398972",
+  "date": "2026-11-06",
+  "ligue": "Allsvenskan",
+  "equipeDomicile": "Hammarby",
+  "equipeExterieur": "Elfsborg",
+  "issue": "exterieure",
+  "coteBookmaker": 5.7,
+  "bookmaker": "Winamax",
+  "coteModele": 4.7,
+  "butsAttendus": [
+   1.78,
+   1.01
+  ],
+  "mise": 0.1754,
+  "statut": "en_attente",
+  "gain": null
  }
 ]
