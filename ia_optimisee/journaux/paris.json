@@ -1,1 +1,17 @@
-[]
+[
+ {
+  "idEvent": "2539985",
+  "date": "2026-11-07",
+  "ligue": "Super League",
+  "equipeDomicile": "Aris",
+  "equipeExterieur": "Panetolikos",
+  "issue": "exterieure",
+  "coteBookmaker": 6.0,
+  "bookmaker": "Winamax",
+  "coteModele": 5.15,
+  "probaModele": 0.194,
+  "mise": 0.1667,
+  "statut": "en_attente",
+  "gain": null
+ }
+]

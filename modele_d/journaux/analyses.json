@@ -51,7 +51,7 @@
    3.3,
    3.2
   ],
-  "resultat": null
+  "resultat": "domicile"
  },
  "2489165": {
   "date": "2026-11-06",
@@ -69,7 +69,7 @@
    3.45,
    2.1
   ],
-  "resultat": null
+  "resultat": "nul"
  },
  "2496784": {
   "date": "2026-11-06",
@@ -87,7 +87,7 @@
    3.6,
    3.6
   ],
-  "resultat": null
+  "resultat": "domicile"
  },
  "2494093": {
   "date": "2026-11-06",
@@ -105,7 +105,7 @@
    3.8,
    4.3
   ],
-  "resultat": null
+  "resultat": "domicile"
  },
  "2489546": {
   "date": "2026-11-06",
@@ -123,7 +123,7 @@
    3.65,
    3.05
   ],
-  "resultat": null
+  "resultat": "domicile"
  },
  "2482245": {
   "date": "2026-11-06",
@@ -141,7 +141,7 @@
    3.4,
    2.95
   ],
-  "resultat": null
+  "resultat": "domicile"
  },
  "2508411": {
   "date": "2026-11-06",
@@ -159,7 +159,7 @@
    3.5,
    2.55
   ],
-  "resultat": null
+  "resultat": "domicile"
  },
  "2527819": {
   "date": "2026-11-06",
@@ -177,7 +177,7 @@
    3.1,
    2.45
   ],
-  "resultat": null
+  "resultat": "exterieure"
  },
  "2490308": {
   "date": "2026-11-06",
@@ -195,7 +195,7 @@
    3.55,
    3.55
   ],
-  "resultat": null
+  "resultat": "domicile"
  },
  "2490314": {
   "date": "2026-11-06",
@@ -213,7 +213,7 @@
    3.5,
    3.15
   ],
-  "resultat": null
+  "resultat": "domicile"
  },
  "2481875": {
   "date": "2026-11-06",
@@ -231,7 +231,7 @@
    3.5,
    2.4
   ],
-  "resultat": null
+  "resultat": "domicile"
  },
  "2499770": {
   "date": "2026-11-06",
@@ -249,7 +249,7 @@
    5.6,
    6.75
   ],
-  "resultat": null
+  "resultat": "domicile"
  },
  "2398972": {
   "date": "2026-11-06",
@@ -266,6 +266,924 @@
    1.33,
    4.5,
    5.7
+  ],
+  "resultat": "domicile"
+ },
+ "2514025": {
+  "date": "2026-11-07",
+  "ligue": "Primeira Liga",
+  "equipeDomicile": "Nacional de Madeira",
+  "equipeExterieur": "Académico de Viseu",
+  "probas": [
+   0.3083,
+   0.2841,
+   0.4076
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   2.65,
+   3.15,
+   2.35
+  ],
+  "resultat": null
+ },
+ "2514028": {
+  "date": "2026-11-07",
+  "ligue": "Primeira Liga",
+  "equipeDomicile": "Sporting CP",
+  "equipeExterieur": "Moreirense",
+  "probas": [
+   0.7907,
+   0.134,
+   0.0752
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   1.1,
+   7.5,
+   11.5
+  ],
+  "resultat": null
+ },
+ "2514031": {
+  "date": "2026-11-07",
+  "ligue": "Primeira Liga",
+  "equipeDomicile": "Alverca",
+  "equipeExterieur": "Casa Pia",
+  "probas": [
+   0.4795,
+   0.278,
+   0.2425
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   1.78,
+   3.35,
+   3.95
+  ],
+  "resultat": null
+ },
+ "2489166": {
+  "date": "2026-11-07",
+  "ligue": "Eredivisie",
+  "equipeDomicile": "Fortuna Sittard",
+  "equipeExterieur": "Telstar",
+  "probas": [
+   0.4897,
+   0.258,
+   0.2523
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   1.94,
+   3.4,
+   2.95
+  ],
+  "resultat": null
+ },
+ "2489167": {
+  "date": "2026-11-07",
+  "ligue": "Eredivisie",
+  "equipeDomicile": "Excelsior",
+  "equipeExterieur": "Go Ahead Eagles",
+  "probas": [
+   0.3957,
+   0.2665,
+   0.3378
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   2.45,
+   3.45,
+   2.2
+  ],
+  "resultat": null
+ },
+ "2489169": {
+  "date": "2026-11-07",
+  "ligue": "Eredivisie",
+  "equipeDomicile": "ADO Den Haag",
+  "equipeExterieur": "Sparta Rotterdam",
+  "probas": [
+   0.3798,
+   0.2612,
+   0.359
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   2.3,
+   3.4,
+   2.4
+  ],
+  "resultat": null
+ },
+ "2496781": {
+  "date": "2026-11-07",
+  "ligue": "Pro League",
+  "equipeDomicile": "Westerlo",
+  "equipeExterieur": "Charleroi",
+  "probas": [
+   0.3622,
+   0.2565,
+   0.3813
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   2.6,
+   3.5,
+   2.05
+  ],
+  "resultat": null
+ },
+ "2496786": {
+  "date": "2026-11-07",
+  "ligue": "Pro League",
+  "equipeDomicile": "Antwerp",
+  "equipeExterieur": "Lommel",
+  "probas": [
+   0.363,
+   0.2611,
+   0.3759
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   1.8,
+   3.55,
+   3.25
+  ],
+  "resultat": null
+ },
+ "2496788": {
+  "date": "2026-11-07",
+  "ligue": "Pro League",
+  "equipeDomicile": "RAAL La Louvière",
+  "equipeExterieur": "Cercle Brugge",
+  "probas": [
+   0.3786,
+   0.2625,
+   0.3589
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   2.45,
+   3.15,
+   2.35
+  ],
+  "resultat": null
+ },
+ "2494091": {
+  "date": "2026-11-07",
+  "ligue": "Premier League",
+  "equipeDomicile": "Fulham",
+  "equipeExterieur": "Newcastle United",
+  "probas": [
+   0.4155,
+   0.2831,
+   0.3015
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   1.9,
+   3.5,
+   3.2
+  ],
+  "resultat": null
+ },
+ "2494092": {
+  "date": "2026-11-07",
+  "ligue": "Premier League",
+  "equipeDomicile": "Arsenal",
+  "equipeExterieur": "Hull City",
+  "probas": [
+   0.7423,
+   0.168,
+   0.0897
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   1.09,
+   8.0,
+   14.0
+  ],
+  "resultat": null
+ },
+ "2494097": {
+  "date": "2026-11-07",
+  "ligue": "Premier League",
+  "equipeDomicile": "Leeds United",
+  "equipeExterieur": "Tottenham Hotspur",
+  "probas": [
+   0.4557,
+   0.2764,
+   0.2679
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   2.6,
+   3.15,
+   2.35
+  ],
+  "resultat": null
+ },
+ "2494098": {
+  "date": "2026-11-07",
+  "ligue": "Premier League",
+  "equipeDomicile": "Nottingham Forest",
+  "equipeExterieur": "Manchester City",
+  "probas": [
+   0.1939,
+   0.2335,
+   0.5725
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   4.25,
+   4.0,
+   1.58
+  ],
+  "resultat": null
+ },
+ "2489544": {
+  "date": "2026-11-07",
+  "ligue": "Ligue 1",
+  "equipeDomicile": "Paris Saint-Germain",
+  "equipeExterieur": "Troyes",
+  "probas": [
+   0.8133,
+   0.119,
+   0.0677
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   1.07,
+   11.0,
+   14.0
+  ],
+  "resultat": null
+ },
+ "2489548": {
+  "date": "2026-11-07",
+  "ligue": "Ligue 1",
+  "equipeDomicile": "Auxerre",
+  "equipeExterieur": "Paris FC",
+  "probas": [
+   0.3016,
+   0.2643,
+   0.4341
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   3.85,
+   3.8,
+   1.68
+  ],
+  "resultat": null
+ },
+ "2506280": {
+  "date": "2026-11-07",
+  "ligue": "La Liga",
+  "equipeDomicile": "Valencia",
+  "equipeExterieur": "Real Madrid",
+  "probas": [
+   0.1773,
+   0.2216,
+   0.6012
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   8.0,
+   6.5,
+   1.2
+  ],
+  "resultat": null
+ },
+ "2506282": {
+  "date": "2026-11-07",
+  "ligue": "La Liga",
+  "equipeDomicile": "Málaga",
+  "equipeExterieur": "Racing de Santander",
+  "probas": [
+   0.4171,
+   0.2797,
+   0.3032
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   2.25,
+   3.4,
+   2.55
+  ],
+  "resultat": null
+ },
+ "2506285": {
+  "date": "2026-11-07",
+  "ligue": "La Liga",
+  "equipeDomicile": "Espanyol",
+  "equipeExterieur": "Deportivo de A Coruña",
+  "probas": [
+   0.4306,
+   0.2959,
+   0.2736
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   2.2,
+   3.1,
+   2.85
+  ],
+  "resultat": null
+ },
+ "2506287": {
+  "date": "2026-11-07",
+  "ligue": "La Liga",
+  "equipeDomicile": "Osasuna",
+  "equipeExterieur": "Athletic Bilbao",
+  "probas": [
+   0.3435,
+   0.2905,
+   0.366
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   3.3,
+   3.3,
+   1.92
+  ],
+  "resultat": null
+ },
+ "2482238": {
+  "date": "2026-11-07",
+  "ligue": "Serie A",
+  "equipeDomicile": "Cagliari",
+  "equipeExterieur": "Frosinone",
+  "probas": [
+   0.3304,
+   0.2777,
+   0.3919
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   2.6,
+   3.55,
+   2.15
+  ],
+  "resultat": null
+ },
+ "2482241": {
+  "date": "2026-11-07",
+  "ligue": "Serie A",
+  "equipeDomicile": "Roma",
+  "equipeExterieur": "Sassuolo",
+  "probas": [
+   0.7803,
+   0.138,
+   0.0816
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   1.2,
+   6.25,
+   8.0
+  ],
+  "resultat": null
+ },
+ "2482243": {
+  "date": "2026-11-07",
+  "ligue": "Serie A",
+  "equipeDomicile": "Torino",
+  "equipeExterieur": "Lecce",
+  "probas": [
+   0.5022,
+   0.2685,
+   0.2293
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   1.7,
+   3.4,
+   4.0
+  ],
+  "resultat": null
+ },
+ "2482246": {
+  "date": "2026-11-07",
+  "ligue": "Serie A",
+  "equipeDomicile": "Parma",
+  "equipeExterieur": "Bologna",
+  "probas": [
+   0.2981,
+   0.284,
+   0.4179
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   4.0,
+   3.4,
+   1.72
+  ],
+  "resultat": null
+ },
+ "2508406": {
+  "date": "2026-11-07",
+  "ligue": "Bundesliga",
+  "equipeDomicile": "Mainz",
+  "equipeExterieur": "Bayern Munich",
+  "probas": [
+   0.145,
+   0.1682,
+   0.6868
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   6.0,
+   6.75,
+   1.23
+  ],
+  "resultat": null
+ },
+ "2508407": {
+  "date": "2026-11-07",
+  "ligue": "Bundesliga",
+  "equipeDomicile": "Borussia Dortmund",
+  "equipeExterieur": "Elversberg",
+  "probas": [
+   0.7055,
+   0.1805,
+   0.1141
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   1.2,
+   6.25,
+   7.5
+  ],
+  "resultat": null
+ },
+ "2508409": {
+  "date": "2026-11-07",
+  "ligue": "Bundesliga",
+  "equipeDomicile": "Stuttgart",
+  "equipeExterieur": "Werder Bremen",
+  "probas": [
+   0.5593,
+   0.2317,
+   0.2091
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   1.72,
+   4.1,
+   3.3
+  ],
+  "resultat": null
+ },
+ "2508410": {
+  "date": "2026-11-07",
+  "ligue": "Bundesliga",
+  "equipeDomicile": "RB Leipzig",
+  "equipeExterieur": "Augsburg",
+  "probas": [
+   0.5968,
+   0.2125,
+   0.1908
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   1.37,
+   5.1,
+   4.9
+  ],
+  "resultat": null
+ },
+ "2508412": {
+  "date": "2026-11-07",
+  "ligue": "Bundesliga",
+  "equipeDomicile": "Paderborn",
+  "equipeExterieur": "Eintracht Frankfurt",
+  "probas": [
+   0.3686,
+   0.2773,
+   0.3541
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   2.85,
+   3.5,
+   2.0
+  ],
+  "resultat": null
+ },
+ "2527815": {
+  "date": "2026-11-07",
+  "ligue": "Süper Lig",
+  "equipeDomicile": "Galatasaray",
+  "equipeExterieur": "Amed",
+  "probas": [
+   0.6905,
+   0.1873,
+   0.1222
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   1.34,
+   5.0,
+   6.0
+  ],
+  "resultat": null
+ },
+ "2527816": {
+  "date": "2026-11-07",
+  "ligue": "Süper Lig",
+  "equipeDomicile": "Göztepe",
+  "equipeExterieur": "İstanbul Başakşehir",
+  "probas": [
+   0.4259,
+   0.268,
+   0.3062
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   1.96,
+   3.55,
+   3.05
+  ],
+  "resultat": null
+ },
+ "2527820": {
+  "date": "2026-11-07",
+  "ligue": "Süper Lig",
+  "equipeDomicile": "Eyüpspor",
+  "equipeExterieur": "Kocaelispor",
+  "probas": [
+   0.2957,
+   0.2775,
+   0.4268
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   3.65,
+   3.35,
+   1.84
+  ],
+  "resultat": null
+ },
+ "2527821": {
+  "date": "2026-11-07",
+  "ligue": "Süper Lig",
+  "equipeDomicile": "Samsunspor",
+  "equipeExterieur": "Konyaspor",
+  "probas": [
+   0.3959,
+   0.2801,
+   0.3241
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   2.25,
+   3.2,
+   2.75
+  ],
+  "resultat": null
+ },
+ "2490307": {
+  "date": "2026-11-07",
+  "ligue": "Ekstraklasa",
+  "equipeDomicile": "Śląsk Wrocław",
+  "equipeExterieur": "Piast Gliwice",
+  "probas": [
+   0.3291,
+   0.2724,
+   0.3985
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   2.45,
+   3.4,
+   2.2
+  ],
+  "resultat": null
+ },
+ "2490310": {
+  "date": "2026-11-07",
+  "ligue": "Ekstraklasa",
+  "equipeDomicile": "Górnik Zabrze",
+  "equipeExterieur": "Wieczysta Kraków",
+  "probas": [
+   0.6878,
+   0.1989,
+   0.1134
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   1.47,
+   4.0,
+   4.6
+  ],
+  "resultat": null
+ },
+ "2490311": {
+  "date": "2026-11-07",
+  "ligue": "Ekstraklasa",
+  "equipeDomicile": "Korona Kielce",
+  "equipeExterieur": "Radomiak Radom",
+  "probas": [
+   0.487,
+   0.2663,
+   0.2467
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   1.66,
+   3.55,
+   3.8
+  ],
+  "resultat": null
+ },
+ "2490313": {
+  "date": "2026-11-07",
+  "ligue": "Ekstraklasa",
+  "equipeDomicile": "Widzew Łódź",
+  "equipeExterieur": "Pogoń Szczecin",
+  "probas": [
+   0.3398,
+   0.2796,
+   0.3806
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   2.0,
+   3.35,
+   2.85
+  ],
+  "resultat": null
+ },
+ "2539985": {
+  "date": "2026-11-07",
+  "ligue": "Super League",
+  "equipeDomicile": "Aris",
+  "equipeExterieur": "Panetolikos",
+  "probas": [
+   0.555,
+   0.2444,
+   0.2007
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   1.35,
+   4.2,
+   6.0
+  ],
+  "resultat": null
+ },
+ "2539987": {
+  "date": "2026-11-07",
+  "ligue": "Super League",
+  "equipeDomicile": "Volos",
+  "equipeExterieur": "Kifisia",
+  "probas": [
+   0.3434,
+   0.2868,
+   0.3698
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   2.75,
+   3.15,
+   2.15
+  ],
+  "resultat": null
+ },
+ "2399195": {
+  "date": "2026-11-07",
+  "ligue": "Eliteserien",
+  "equipeDomicile": "Rosenborg",
+  "equipeExterieur": "Start",
+  "probas": [
+   0.7816,
+   0.1359,
+   0.0825
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   1.17,
+   6.0,
+   8.0
+  ],
+  "resultat": null
+ },
+ "2481873": {
+  "date": "2026-11-07",
+  "ligue": "Superliga",
+  "equipeDomicile": "Odense BK",
+  "equipeExterieur": "Viborg",
+  "probas": [
+   0.3372,
+   0.2824,
+   0.3805
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   2.45,
+   3.5,
+   2.15
+  ],
+  "resultat": null
+ },
+ "2493398": {
+  "date": "2026-11-07",
+  "ligue": "Super League",
+  "equipeDomicile": "Luzern",
+  "equipeExterieur": "Young Boys",
+  "probas": [
+   0.3338,
+   0.2409,
+   0.4253
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   3.05,
+   4.1,
+   1.72
+  ],
+  "resultat": null
+ },
+ "2493399": {
+  "date": "2026-11-07",
+  "ligue": "Super League",
+  "equipeDomicile": "Vaduz",
+  "equipeExterieur": "Sion",
+  "probas": [
+   0.2721,
+   0.2435,
+   0.4844
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   3.1,
+   3.85,
+   1.78
+  ],
+  "resultat": null
+ },
+ "2493402": {
+  "date": "2026-11-07",
+  "ligue": "Super League",
+  "equipeDomicile": "Grasshoppers",
+  "equipeExterieur": "Lausanne-Sport",
+  "probas": [
+   0.4451,
+   0.2727,
+   0.2821
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   2.25,
+   3.4,
+   2.45
+  ],
+  "resultat": null
+ },
+ "2499771": {
+  "date": "2026-11-07",
+  "ligue": "Bundesliga",
+  "equipeDomicile": "SV Ried",
+  "equipeExterieur": "LASK",
+  "probas": [
+   0.2565,
+   0.2469,
+   0.4966
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   4.6,
+   4.3,
+   1.43
+  ],
+  "resultat": null
+ },
+ "2499774": {
+  "date": "2026-11-07",
+  "ligue": "Bundesliga",
+  "equipeDomicile": "Austria Lustenau",
+  "equipeExterieur": "Grazer AK",
+  "probas": [
+   0.372,
+   0.2743,
+   0.3537
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   2.5,
+   3.25,
+   2.25
+  ],
+  "resultat": null
+ },
+ "2494483": {
+  "date": "2026-11-07",
+  "ligue": "Premiership",
+  "equipeDomicile": "St Mirren",
+  "equipeExterieur": "Rangers",
+  "probas": [
+   0.1733,
+   0.2155,
+   0.6112
+  ],
+  "bookmaker": "Unibet",
+  "cotes": [
+   5.7,
+   4.15,
+   1.26
+  ],
+  "resultat": null
+ },
+ "2494484": {
+  "date": "2026-11-07",
+  "ligue": "Premiership",
+  "equipeDomicile": "Aberdeen",
+  "equipeExterieur": "Hibernian",
+  "probas": [
+   0.3765,
+   0.2821,
+   0.3414
+  ],
+  "bookmaker": "Unibet",
+  "cotes": [
+   2.1,
+   3.0,
+   2.5
+  ],
+  "resultat": null
+ },
+ "2494485": {
+  "date": "2026-11-07",
+  "ligue": "Premiership",
+  "equipeDomicile": "St Johnstone",
+  "equipeExterieur": "Dundee",
+  "probas": [
+   0.3685,
+   0.2824,
+   0.3492
+  ],
+  "bookmaker": "Unibet",
+  "cotes": [
+   2.15,
+   3.0,
+   2.45
+  ],
+  "resultat": null
+ },
+ "2494486": {
+  "date": "2026-11-07",
+  "ligue": "Premiership",
+  "equipeDomicile": "Dundee United",
+  "equipeExterieur": "Motherwell",
+  "probas": [
+   0.4364,
+   0.2718,
+   0.2918
+  ],
+  "bookmaker": "Unibet",
+  "cotes": [
+   1.79,
+   3.25,
+   2.9
+  ],
+  "resultat": null
+ },
+ "2398969": {
+  "date": "2026-11-07",
+  "ligue": "Allsvenskan",
+  "equipeDomicile": "Degerfors",
+  "equipeExterieur": "GAIS",
+  "probas": [
+   0.2505,
+   0.262,
+   0.4876
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   2.65,
+   3.3,
+   2.1
+  ],
+  "resultat": null
+ },
+ "2398974": {
+  "date": "2026-11-07",
+  "ligue": "Allsvenskan",
+  "equipeDomicile": "Örgryte",
+  "equipeExterieur": "Västerås",
+  "probas": [
+   0.2831,
+   0.2608,
+   0.4561
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   2.65,
+   3.35,
+   2.1
   ],
   "resultat": null
  }
