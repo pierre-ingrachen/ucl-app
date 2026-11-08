@@ -14,6 +14,7 @@ export class MesParis {
   paris: PariManuel[] = [];
 
   constructor(private service: ParisManuelsService) {
+    this.service.purger();
     this.paris = this.service.liste();
   }
 

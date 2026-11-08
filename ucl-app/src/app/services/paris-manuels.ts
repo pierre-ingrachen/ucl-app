@@ -52,6 +52,30 @@ export class ParisManuelsService {
     } catch { /* stockage indisponible */ }
   }
 
+  // Supprime les notes dont le match est passé depuis plus de `jours` jours (par défaut 0 :
+  // une note disparaît dès le lendemain du match). Les notes sans date sont conservées.
+  // Renvoie le nombre de notes supprimées.
+  purger(jours = 0): number {
+    const limite = new Date();
+    limite.setDate(limite.getDate() - jours);
+    const pad = (n: number) => String(n).padStart(2, '0');
+    const seuil = `${limite.getFullYear()}-${pad(limite.getMonth() + 1)}-${pad(limite.getDate())}`;
+    const tout = this.lireTout();
+    let nb = 0;
+    for (const [id, p] of Object.entries(tout)) {
+      if (p.dateEvent && p.dateEvent < seuil) {
+        delete tout[id];
+        nb++;
+      }
+    }
+    if (nb > 0) {
+      try {
+        localStorage.setItem(CLE, JSON.stringify(tout));
+      } catch { /* stockage indisponible */ }
+    }
+    return nb;
+  }
+
   supprimer(idMatch: string): void {
     const tout = this.lireTout();
     delete tout[idMatch];
