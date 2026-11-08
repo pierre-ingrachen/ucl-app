@@ -1508,6 +1508,330 @@
    1.01
   ],
   "mise": 0.1754,
+  "statut": "perdu",
+  "gain": -0.1754
+ },
+ {
+  "idEvent": "2514028",
+  "date": "2026-11-07",
+  "ligue": "Primeira Liga",
+  "equipeDomicile": "Sporting CP",
+  "equipeExterieur": "Moreirense",
+  "issue": "exterieure",
+  "coteBookmaker": 11.5,
+  "bookmaker": "Winamax",
+  "coteModele": 5.06,
+  "butsAttendus": [
+   1.9,
+   1.02
+  ],
+  "mise": 0.087,
+  "statut": "perdu",
+  "gain": -0.087
+ },
+ {
+  "idEvent": "2494092",
+  "date": "2026-11-07",
+  "ligue": "Premier League",
+  "equipeDomicile": "Arsenal",
+  "equipeExterieur": "Hull City",
+  "issue": "exterieure",
+  "coteBookmaker": 14.0,
+  "bookmaker": "Winamax",
+  "coteModele": 5.39,
+  "butsAttendus": [
+   1.89,
+   0.95
+  ],
+  "mise": 0.0714,
+  "statut": "perdu",
+  "gain": -0.0714
+ },
+ {
+  "idEvent": "2489544",
+  "date": "2026-11-07",
+  "ligue": "Ligue 1",
+  "equipeDomicile": "Paris Saint-Germain",
+  "equipeExterieur": "Troyes",
+  "issue": "exterieure",
+  "coteBookmaker": 14.0,
+  "bookmaker": "Winamax",
+  "coteModele": 9.62,
+  "butsAttendus": [
+   2.56,
+   0.86
+  ],
+  "mise": 0.0714,
+  "statut": "perdu",
+  "gain": -0.0714
+ },
+ {
+  "idEvent": "2506280",
+  "date": "2026-11-07",
+  "ligue": "La Liga",
+  "equipeDomicile": "Valencia",
+  "equipeExterieur": "Real Madrid",
+  "issue": "domicile",
+  "coteBookmaker": 8.0,
+  "bookmaker": "Winamax",
+  "coteModele": 4.94,
+  "butsAttendus": [
+   1.06,
+   1.94
+  ],
+  "mise": 0.125,
+  "statut": "perdu",
+  "gain": -0.125
+ },
+ {
+  "idEvent": "2508407",
+  "date": "2026-11-07",
+  "ligue": "Bundesliga",
+  "equipeDomicile": "Borussia Dortmund",
+  "equipeExterieur": "Elversberg",
+  "issue": "exterieure",
+  "coteBookmaker": 7.5,
+  "bookmaker": "Winamax",
+  "coteModele": 4.36,
+  "butsAttendus": [
+   1.67,
+   1.01
+  ],
+  "mise": 0.1333,
+  "statut": "perdu",
+  "gain": -0.1333
+ },
+ {
+  "idEvent": "2527815",
+  "date": "2026-11-07",
+  "ligue": "Süper Lig",
+  "equipeDomicile": "Galatasaray",
+  "equipeExterieur": "Amed",
+  "issue": "exterieure",
+  "coteBookmaker": 6.0,
+  "bookmaker": "Winamax",
+  "coteModele": 2.79,
+  "butsAttendus": [
+   1.61,
+   1.5
+  ],
+  "mise": 0.1667,
+  "statut": "perdu",
+  "gain": -0.1667
+ },
+ {
+  "idEvent": "2539985",
+  "date": "2026-11-07",
+  "ligue": "Super League",
+  "equipeDomicile": "Aris",
+  "equipeExterieur": "Panetolikos",
+  "issue": "exterieure",
+  "coteBookmaker": 6.0,
+  "bookmaker": "Winamax",
+  "coteModele": 4.65,
+  "butsAttendus": [
+   1.72,
+   0.99
+  ],
+  "mise": 0.1667,
+  "statut": "perdu",
+  "gain": -0.1667
+ },
+ {
+  "idEvent": "2499771",
+  "date": "2026-11-07",
+  "ligue": "Bundesliga",
+  "equipeDomicile": "SV Ried",
+  "equipeExterieur": "LASK",
+  "issue": "domicile",
+  "coteBookmaker": 4.6,
+  "bookmaker": "Winamax",
+  "coteModele": 2.66,
+  "butsAttendus": [
+   1.41,
+   1.4
+  ],
+  "mise": 0.2174,
+  "statut": "perdu",
+  "gain": -0.2174
+ },
+ {
+  "idEvent": "2494483",
+  "date": "2026-11-07",
+  "ligue": "Premiership",
+  "equipeDomicile": "St Mirren",
+  "equipeExterieur": "Rangers",
+  "issue": "domicile",
+  "coteBookmaker": 5.7,
+  "bookmaker": "Unibet",
+  "coteModele": 4.43,
+  "butsAttendus": [
+   1.11,
+   1.86
+  ],
+  "mise": 0.1754,
+  "statut": "perdu",
+  "gain": -0.1754
+ },
+ {
+  "idEvent": "2514026",
+  "date": "2026-11-08",
+  "ligue": "Primeira Liga",
+  "equipeDomicile": "Rio Ave",
+  "equipeExterieur": "Braga",
+  "issue": "domicile",
+  "coteBookmaker": 5.1,
+  "bookmaker": "Winamax",
+  "coteModele": 2.89,
+  "butsAttendus": [
+   1.25,
+   1.35
+  ],
+  "mise": 0.1961,
+  "statut": "en_attente",
+  "gain": null
+ },
+ {
+  "idEvent": "2514032",
+  "date": "2026-11-08",
+  "ligue": "Primeira Liga",
+  "equipeDomicile": "Estrela Amadora",
+  "equipeExterieur": "Benfica",
+  "issue": "domicile",
+  "coteBookmaker": 8.5,
+  "bookmaker": "Winamax",
+  "coteModele": 4.12,
+  "butsAttendus": [
+   1.05,
+   1.64
+  ],
+  "mise": 0.1176,
+  "statut": "en_attente",
+  "gain": null
+ },
+ {
+  "idEvent": "2489168",
+  "date": "2026-11-08",
+  "ligue": "Eredivisie",
+  "equipeDomicile": "Cambuur",
+  "equipeExterieur": "PSV Eindhoven",
+  "issue": "domicile",
+  "coteBookmaker": 5.4,
+  "bookmaker": "Winamax",
+  "coteModele": 3.06,
+  "butsAttendus": [
+   1.42,
+   1.67
+  ],
+  "mise": 0.1852,
+  "statut": "en_attente",
+  "gain": null
+ },
+ {
+  "idEvent": "2489173",
+  "date": "2026-11-08",
+  "ligue": "Eredivisie",
+  "equipeDomicile": "AZ Alkmaar",
+  "equipeExterieur": "Groningen",
+  "issue": "exterieure",
+  "coteBookmaker": 4.5,
+  "bookmaker": "Winamax",
+  "coteModele": 3.63,
+  "butsAttendus": [
+   1.57,
+   1.13
+  ],
+  "mise": 0.2222,
+  "statut": "en_attente",
+  "gain": null
+ },
+ {
+  "idEvent": "2506281",
+  "date": "2026-11-08",
+  "ligue": "La Liga",
+  "equipeDomicile": "Villarreal",
+  "equipeExterieur": "Getafe",
+  "issue": "exterieure",
+  "coteBookmaker": 6.0,
+  "bookmaker": "Winamax",
+  "coteModele": 3.51,
+  "butsAttendus": [
+   1.49,
+   1.12
+  ],
+  "mise": 0.1667,
+  "statut": "en_attente",
+  "gain": null
+ },
+ {
+  "idEvent": "2527814",
+  "date": "2026-11-08",
+  "ligue": "Süper Lig",
+  "equipeDomicile": "Beşiktaş",
+  "equipeExterieur": "Gençlerbirliği",
+  "issue": "exterieure",
+  "coteBookmaker": 9.0,
+  "bookmaker": "Winamax",
+  "coteModele": 5.83,
+  "butsAttendus": [
+   2.04,
+   0.97
+  ],
+  "mise": 0.1111,
+  "statut": "en_attente",
+  "gain": null
+ },
+ {
+  "idEvent": "2539988",
+  "date": "2026-11-08",
+  "ligue": "Super League",
+  "equipeDomicile": "Iraklis 1908",
+  "equipeExterieur": "Panathinaikos",
+  "issue": "domicile",
+  "coteBookmaker": 6.5,
+  "bookmaker": "Winamax",
+  "coteModele": 4.03,
+  "butsAttendus": [
+   1.06,
+   1.63
+  ],
+  "mise": 0.1538,
+  "statut": "en_attente",
+  "gain": null
+ },
+ {
+  "idEvent": "2399197",
+  "date": "2026-11-08",
+  "ligue": "Eliteserien",
+  "equipeDomicile": "Tromsø",
+  "equipeExterieur": "Bodø/Glimt",
+  "issue": "domicile",
+  "coteBookmaker": 5.9,
+  "bookmaker": "Winamax",
+  "coteModele": 3.56,
+  "butsAttendus": [
+   1.13,
+   1.53
+  ],
+  "mise": 0.1695,
+  "statut": "en_attente",
+  "gain": null
+ },
+ {
+  "idEvent": "2398971",
+  "date": "2026-11-08",
+  "ligue": "Allsvenskan",
+  "equipeDomicile": "Halmstad",
+  "equipeExterieur": "Djurgården",
+  "issue": "domicile",
+  "coteBookmaker": 6.0,
+  "bookmaker": "Winamax",
+  "coteModele": 3.89,
+  "butsAttendus": [
+   1.07,
+   1.58
+  ],
+  "mise": 0.1667,
   "statut": "en_attente",
   "gain": null
  }
