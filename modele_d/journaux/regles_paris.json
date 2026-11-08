@@ -22,8 +22,8 @@
   "coteBookmaker": 14.0,
   "bookmaker": "Winamax",
   "mise": 0.0714,
-  "statut": "en_attente",
-  "gain": null
+  "statut": "perdu",
+  "gain": -0.0714
  },
  {
   "idEvent": "2494098",
@@ -35,8 +35,8 @@
   "coteBookmaker": 4.25,
   "bookmaker": "Winamax",
   "mise": 0.2353,
-  "statut": "en_attente",
-  "gain": null
+  "statut": "gagne",
+  "gain": 0.7647
  },
  {
   "idEvent": "2489544",
@@ -48,8 +48,8 @@
   "coteBookmaker": 14.0,
   "bookmaker": "Winamax",
   "mise": 0.0714,
-  "statut": "en_attente",
-  "gain": null
+  "statut": "perdu",
+  "gain": -0.0714
  },
  {
   "idEvent": "2506280",
@@ -61,8 +61,8 @@
   "coteBookmaker": 8.0,
   "bookmaker": "Winamax",
   "mise": 0.125,
-  "statut": "en_attente",
-  "gain": null
+  "statut": "perdu",
+  "gain": -0.125
  },
  {
   "idEvent": "2482241",
@@ -74,8 +74,8 @@
   "coteBookmaker": 8.0,
   "bookmaker": "Winamax",
   "mise": 0.125,
-  "statut": "en_attente",
-  "gain": null
+  "statut": "perdu",
+  "gain": -0.125
  },
  {
   "idEvent": "2508410",
@@ -87,8 +87,8 @@
   "coteBookmaker": 4.9,
   "bookmaker": "Winamax",
   "mise": 0.2041,
-  "statut": "en_attente",
-  "gain": null
+  "statut": "perdu",
+  "gain": -0.2041
  },
  {
   "idEvent": "2490310",
@@ -100,8 +100,8 @@
   "coteBookmaker": 4.6,
   "bookmaker": "Winamax",
   "mise": 0.2174,
-  "statut": "en_attente",
-  "gain": null
+  "statut": "perdu",
+  "gain": -0.2174
  },
  {
   "idEvent": "2539985",
@@ -113,8 +113,8 @@
   "coteBookmaker": 6.0,
   "bookmaker": "Winamax",
   "mise": 0.1667,
-  "statut": "en_attente",
-  "gain": null
+  "statut": "perdu",
+  "gain": -0.1667
  },
  {
   "idEvent": "2399195",
@@ -126,8 +126,8 @@
   "coteBookmaker": 8.0,
   "bookmaker": "Winamax",
   "mise": 0.125,
-  "statut": "en_attente",
-  "gain": null
+  "statut": "perdu",
+  "gain": -0.125
  },
  {
   "idEvent": "2494483",
@@ -139,6 +139,188 @@
   "coteBookmaker": 5.7,
   "bookmaker": "Unibet",
   "mise": 0.1754,
+  "statut": "perdu",
+  "gain": -0.1754
+ },
+ {
+  "idEvent": "2514024",
+  "date": "2026-11-08",
+  "ligue": "Primeira Liga",
+  "equipeDomicile": "Vitória de Guimarães",
+  "equipeExterieur": "Porto",
+  "issue": "domicile",
+  "coteBookmaker": 4.7,
+  "bookmaker": "Winamax",
+  "mise": 0.2128,
+  "statut": "en_attente",
+  "gain": null
+ },
+ {
+  "idEvent": "2514026",
+  "date": "2026-11-08",
+  "ligue": "Primeira Liga",
+  "equipeDomicile": "Rio Ave",
+  "equipeExterieur": "Braga",
+  "issue": "domicile",
+  "coteBookmaker": 5.1,
+  "bookmaker": "Winamax",
+  "mise": 0.1961,
+  "statut": "en_attente",
+  "gain": null
+ },
+ {
+  "idEvent": "2514032",
+  "date": "2026-11-08",
+  "ligue": "Primeira Liga",
+  "equipeDomicile": "Estrela Amadora",
+  "equipeExterieur": "Benfica",
+  "issue": "domicile",
+  "coteBookmaker": 8.5,
+  "bookmaker": "Winamax",
+  "mise": 0.1176,
+  "statut": "en_attente",
+  "gain": null
+ },
+ {
+  "idEvent": "2496783",
+  "date": "2026-11-08",
+  "ligue": "Pro League",
+  "equipeDomicile": "Gent",
+  "equipeExterieur": "Kortrijk",
+  "issue": "exterieure",
+  "coteBookmaker": 5.8,
+  "bookmaker": "Winamax",
+  "mise": 0.1724,
+  "statut": "en_attente",
+  "gain": null
+ },
+ {
+  "idEvent": "2494095",
+  "date": "2026-11-08",
+  "ligue": "Premier League",
+  "equipeDomicile": "Crystal Palace",
+  "equipeExterieur": "Liverpool",
+  "issue": "domicile",
+  "coteBookmaker": 4.8,
+  "bookmaker": "Winamax",
+  "mise": 0.2083,
+  "statut": "en_attente",
+  "gain": null
+ },
+ {
+  "idEvent": "2508405",
+  "date": "2026-11-08",
+  "ligue": "Bundesliga",
+  "equipeDomicile": "Freiburg",
+  "equipeExterieur": "Union Berlin",
+  "issue": "exterieure",
+  "coteBookmaker": 5.2,
+  "bookmaker": "Winamax",
+  "mise": 0.1923,
+  "statut": "en_attente",
+  "gain": null
+ },
+ {
+  "idEvent": "2508408",
+  "date": "2026-11-08",
+  "ligue": "Bundesliga",
+  "equipeDomicile": "Hoffenheim",
+  "equipeExterieur": "Schalke 04",
+  "issue": "exterieure",
+  "coteBookmaker": 4.4,
+  "bookmaker": "Winamax",
+  "mise": 0.2273,
+  "statut": "en_attente",
+  "gain": null
+ },
+ {
+  "idEvent": "2527814",
+  "date": "2026-11-08",
+  "ligue": "Süper Lig",
+  "equipeDomicile": "Beşiktaş",
+  "equipeExterieur": "Gençlerbirliği",
+  "issue": "exterieure",
+  "coteBookmaker": 9.0,
+  "bookmaker": "Winamax",
+  "mise": 0.1111,
+  "statut": "en_attente",
+  "gain": null
+ },
+ {
+  "idEvent": "2527817",
+  "date": "2026-11-08",
+  "ligue": "Süper Lig",
+  "equipeDomicile": "Alanyaspor",
+  "equipeExterieur": "Trabzonspor",
+  "issue": "domicile",
+  "coteBookmaker": 4.5,
+  "bookmaker": "Winamax",
+  "mise": 0.2222,
+  "statut": "en_attente",
+  "gain": null
+ },
+ {
+  "idEvent": "2539983",
+  "date": "2026-11-08",
+  "ligue": "Super League",
+  "equipeDomicile": "AEK Athens",
+  "equipeExterieur": "Levadiakos",
+  "issue": "exterieure",
+  "coteBookmaker": 9.0,
+  "bookmaker": "Winamax",
+  "mise": 0.1111,
+  "statut": "en_attente",
+  "gain": null
+ },
+ {
+  "idEvent": "2539988",
+  "date": "2026-11-08",
+  "ligue": "Super League",
+  "equipeDomicile": "Iraklis 1908",
+  "equipeExterieur": "Panathinaikos",
+  "issue": "domicile",
+  "coteBookmaker": 6.5,
+  "bookmaker": "Winamax",
+  "mise": 0.1538,
+  "statut": "en_attente",
+  "gain": null
+ },
+ {
+  "idEvent": "2399197",
+  "date": "2026-11-08",
+  "ligue": "Eliteserien",
+  "equipeDomicile": "Tromsø",
+  "equipeExterieur": "Bodø/Glimt",
+  "issue": "domicile",
+  "coteBookmaker": 5.9,
+  "bookmaker": "Winamax",
+  "mise": 0.1695,
+  "statut": "en_attente",
+  "gain": null
+ },
+ {
+  "idEvent": "2494482",
+  "date": "2026-11-08",
+  "ligue": "Premiership",
+  "equipeDomicile": "Celtic",
+  "equipeExterieur": "Kilmarnock",
+  "issue": "exterieure",
+  "coteBookmaker": 9.0,
+  "bookmaker": "Unibet",
+  "mise": 0.1111,
+  "statut": "en_attente",
+  "gain": null
+ },
+ {
+  "idEvent": "2398971",
+  "date": "2026-11-08",
+  "ligue": "Allsvenskan",
+  "equipeDomicile": "Halmstad",
+  "equipeExterieur": "Djurgården",
+  "issue": "domicile",
+  "coteBookmaker": 6.0,
+  "bookmaker": "Winamax",
+  "mise": 0.1667,
   "statut": "en_attente",
   "gain": null
  }
