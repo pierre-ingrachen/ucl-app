@@ -1,0 +1,23 @@
+.container { max-width: 900px; margin: 0 auto; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+h1 { text-align: center; color: #0c1c38; }
+.text-center { text-align: center; color: #666; }
+.carte {
+  position: relative; background: white; border-radius: 10px; margin-bottom: 20px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1); transition: transform 0.2s;
+}
+.carte:hover { transform: translateY(-3px); }
+.lien { display: block; padding: 20px; color: inherit; text-decoration: none; text-align: center; }
+.date-time { font-size: 0.85em; color: #777; font-weight: bold; margin-bottom: 12px; }
+.equipes { display: flex; justify-content: center; align-items: center; gap: 14px; flex-wrap: wrap; }
+.equipe { display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px; border-radius: 15px; font-weight: bold; color: #0c1c38; }
+.equipe img { width: 28px; height: 28px; object-fit: contain; }
+.equipe.choisie { background: #e0e7ff; color: #1e3a8a; }
+.vs { font-weight: bold; color: #ccc; }
+.resume { margin-top: 12px; color: #0c1c38; }
+.attendue { color: #888; font-size: 0.9em; margin-left: 6px; }
+.note { margin-top: 8px; color: #555; font-size: 0.9em; font-style: italic; }
+.suppr {
+  position: absolute; top: 8px; right: 8px; width: 28px; height: 28px; border: none; border-radius: 50%;
+  background: transparent; color: #aaa; cursor: pointer; font-size: 0.9em;
+}
+.suppr:hover { background: #fee2e2; color: #b91c1c; }

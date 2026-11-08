@@ -1,0 +1,37 @@
+<div class="container">
+  <h1>Mes notes</h1>
+
+  @if (paris.length === 0) {
+    <p class="text-center">Aucune note pour l'instant. Ouvre un match et remplis la boîte « Mon pari ».</p>
+  } @else {
+    @for (p of paris; track p.idMatch) {
+      <div class="carte">
+        <a class="lien" [routerLink]="['/match', p.idMatch]">
+          <div class="date-time">
+            @if (p.dateEvent) { {{ p.dateEvent | date:'EEEE d MMMM' | titlecase }} }
+            @if (p.heure) { · {{ p.heure.substring(0, 5) }} }
+            @if (p.ligue) { · {{ p.ligue }} }
+          </div>
+          <div class="equipes">
+            <span class="equipe" [class.choisie]="p.equipe === 'home'">
+              @if (p.badgeDomicile) { <img [src]="p.badgeDomicile" alt=""> }
+              {{ p.domicile }}
+            </span>
+            <span class="vs">VS</span>
+            <span class="equipe" [class.choisie]="p.equipe === 'away'">
+              @if (p.badgeExterieur) { <img [src]="p.badgeExterieur" alt=""> }
+              {{ p.exterieur }}
+            </span>
+          </div>
+          <div class="resume">
+            @if (equipeChoisie(p)) { <strong>{{ equipeChoisie(p) }}</strong> }
+            @if (p.cote) { @ <strong>{{ p.cote | number:'1.2-2' }}</strong> }
+            @if (p.coteAttendue) { <span class="attendue">(attendue : {{ p.coteAttendue | number:'1.2-2' }})</span> }
+          </div>
+          @if (p.note) { <div class="note">{{ p.note }}</div> }
+        </a>
+        <button type="button" class="suppr" (click)="supprimer(p)" aria-label="Supprimer">✕</button>
+      </div>
+    }
+  }
+</div>

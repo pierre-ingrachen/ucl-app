@@ -1,0 +1,39 @@
+
+/* Boîte « Mon pari » */
+.boite-pari {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  margin-top: 30px;
+  text-align: left;
+}
+.boite-pari h3 { color: #0c1c38; margin: 0 0 15px 0; text-align: center; }
+.tuiles { display: flex; align-items: stretch; gap: 10px; }
+.vs-pari { align-self: center; font-size: 1.3em; font-weight: bold; color: #ccc; }
+.tuile-equipe {
+  flex: 1;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px;
+  min-height: 130px; padding: 14px 10px;
+  background: #f5f5f5; border: 2px solid transparent; border-radius: 10px;
+  font: inherit; color: #0c1c38; cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, transform 0.15s;
+}
+.tuile-equipe:hover { background: #eef1f7; transform: translateY(-2px); }
+.tuile-equipe img { width: 56px; height: 56px; object-fit: contain; }
+.tuile-equipe .nom { font-weight: bold; }
+.tuile-equipe .coche { min-height: 1.2em; font-size: 0.85em; font-weight: bold; color: #0c1c38; }
+.tuile-equipe.choisie { background: #e0e7ff; border-color: #1e3a8a; }
+.champs { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; align-items: end; margin-top: 18px; }
+.boite-pari label { display: flex; flex-direction: column; gap: 5px; font-size: 0.85em; font-weight: bold; color: #555; }
+.boite-pari label small { font-weight: normal; color: #888; }
+.champ-note { margin-top: 15px; }
+.boite-pari input {
+  padding: 10px; border: 1px solid #ccc; border-radius: 5px;
+  font: inherit; font-weight: normal; color: #0c1c38;
+  width: 100%; box-sizing: border-box;
+}
+.boite-pari input:focus { outline: none; border-color: #1e3a8a; box-shadow: 0 0 0 2px #e0e7ff; }
+.verdict { margin: 14px 0 0; padding: 8px 12px; border-radius: 8px; font-size: 0.9em; background: #fef3c7; color: #b45309; }
+.verdict.ok { background: #dcfce7; color: #15803d; }
+@media (max-width: 500px) { .champs { grid-template-columns: 1fr; } }

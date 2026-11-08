@@ -336,6 +336,40 @@
     </div>
     }
 
+    <!-- Mon pari : saisie manuelle, enregistrée dans le navigateur -->
+    <div class="boite-pari">
+      <h3>Mon pari</h3>
+      <div class="tuiles" role="radiogroup" aria-label="Équipe sur laquelle parier">
+        <button type="button" role="radio" [attr.aria-checked]="pari.equipe === 'home'" (click)="choisirEquipe('home')" class="tuile-equipe" [class.choisie]="pari.equipe === 'home'">
+          <img [src]="match.strHomeTeamBadge" alt="">
+          <span class="nom">{{ match.strHomeTeam }}</span>
+          <span class="coche">{{ pari.equipe === 'home' ? '✓ Pari' : '' }}</span>
+        </button>
+        <div class="vs-pari">VS</div>
+        <button type="button" role="radio" [attr.aria-checked]="pari.equipe === 'away'" (click)="choisirEquipe('away')" class="tuile-equipe" [class.choisie]="pari.equipe === 'away'">
+          <img [src]="match.strAwayTeamBadge" alt="">
+          <span class="nom">{{ match.strAwayTeam }}</span>
+          <span class="coche">{{ pari.equipe === 'away' ? '✓ Pari' : '' }}</span>
+        </button>
+      </div>
+      <div class="champs">
+        <label>Cote trouvée
+          <input #champCote type="text" inputmode="decimal" placeholder="0.00" [value]="formaterCote(pari.cote)" (blur)="validerCote('cote', $event)" (keydown.enter)="$any($event.target).blur()">
+        </label>
+        <label>Cote attendue <small>(facultatif)</small>
+          <input type="text" inputmode="decimal" placeholder="0.00" [value]="formaterCote(pari.coteAttendue)" (blur)="validerCote('coteAttendue', $event)" (keydown.enter)="$any($event.target).blur()">
+        </label>
+      </div>
+      <label class="champ-note">Note
+        <input type="text" [ngModel]="pari.note" (ngModelChange)="majPari('note', $event)" placeholder="Ex. Très bons résultats à domicile : VALUE">
+      </label>
+      @if (pari.cote && pari.coteAttendue) {
+        <p class="verdict" [class.ok]="pari.cote >= pari.coteAttendue">
+          {{ pari.cote >= pari.coteAttendue ? 'Cote atteinte : tu peux parier.' : 'Cote pas encore atteinte (il manque ' + (pari.coteAttendue - pari.cote | number:'1.2-2') + ').' }}
+        </p>
+      }
+    </div>
+
     <!-- Classement (championnat national ou phase de ligue européenne) -->
     @if (estChampionnatNational || estCompetitionEurope) {
       <div style="background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); margin-top: 20px; text-align: left;">

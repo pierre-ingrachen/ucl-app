@@ -1,13 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { CommonModule, Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { SportsApiService } from '../services/sports-api';
+import { ParisManuelsService, PariManuel } from '../services/paris-manuels';
 import { getFlagUrl } from '../services/flags';
 
 @Component({
   selector: 'app-match-details',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './match-details.html',
   styleUrls: ['./match-details.css']
 })
@@ -26,6 +28,73 @@ export class MatchDetails implements OnInit {
   // déterminer si un club a été exempté de qualifications lors d'une campagne passée.
   private historiqueComplet: any[] = [];
 
+  // Pari saisi à la main (enregistré dans le navigateur, une entrée par match).
+  pari: PariManuel = {
+    idMatch: '', equipe: '', cote: null, coteAttendue: null, note: '',
+    domicile: '', exterieur: ''
+  };
+
+  private chargerPari(): void {
+    const id = this.route.snapshot.paramMap.get('id') ?? '';
+    const existant = this.parisManuels.get(id);
+    if (existant) {
+      this.pari = existant;
+      return;
+    }
+    // Reprise de l'ancien format (une clé par match) si présent.
+    try {
+      const ancien = localStorage.getItem('pari-manuel-' + id);
+      if (ancien) {
+        this.pari = { ...this.pari, ...JSON.parse(ancien) };
+        this.majPari('note', this.pari.note);
+        localStorage.removeItem('pari-manuel-' + id);
+      }
+    } catch { /* ignoré */ }
+  }
+
+  formaterCote(v: number | null): string {
+    return v == null ? '' : v.toFixed(2);
+  }
+
+  // Valide à la sortie du champ (virgule acceptée) et réaffiche toujours 2 décimales : 5 -> 5.00.
+  validerCote(champ: 'cote' | 'coteAttendue', event: Event): void {
+    const input = event.target as HTMLInputElement;
+    const n = parseFloat(input.value.replace(',', '.'));
+    const valeur = isFinite(n) && n >= 1 ? n : null;
+    this.majPari(champ, valeur);
+    input.value = this.formaterCote(valeur);
+  }
+
+  @ViewChild('champCote') champCote?: ElementRef<HTMLInputElement>;
+
+  choisirEquipe(cote: 'home' | 'away'): void {
+    const selection = this.pari.equipe !== cote;
+    this.majPari('equipe', selection ? cote : '');
+    // Après un choix, le curseur va directement dans « cote trouvée ».
+    if (selection) this.champCote?.nativeElement.focus();
+  }
+
+  majPari(champ: 'equipe' | 'cote' | 'note' | 'coteAttendue', valeur: any): void {
+    if (champ === 'cote' || champ === 'coteAttendue') {
+      this.pari[champ] = valeur === '' || valeur == null ? null : Number(valeur);
+    } else {
+      (this.pari as any)[champ] = valeur ?? '';
+    }
+    const m = this.match;
+    this.pari = {
+      ...this.pari,
+      idMatch: String(m?.idEvent ?? this.route.snapshot.paramMap.get('id')),
+      domicile: m?.strHomeTeam ?? '',
+      exterieur: m?.strAwayTeam ?? '',
+      badgeDomicile: m?.strHomeTeamBadge,
+      badgeExterieur: m?.strAwayTeamBadge,
+      ligue: m?.strLeague,
+      dateEvent: m?.dateEvent,
+      heure: m?.strTime,
+    };
+    this.parisManuels.enregistrer(this.pari);
+  }
+
   modeDomicile: 'club' | 'national' = 'club';
   modeExterieur: 'club' | 'national' = 'club';
 
@@ -36,7 +105,8 @@ export class MatchDetails implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private sportsApi: SportsApiService,
-    private location: Location
+    private location: Location,
+    private parisManuels: ParisManuelsService
   ) {}
 
   retourAuxMatchs(): void {
@@ -75,6 +145,7 @@ export class MatchDetails implements OnInit {
       this.sportsApi.getMatchDetails(matchId).subscribe({
         next: (data) => {
           this.match = data;
+          this.chargerPari();
           if (this.estChampionnatNational) {
             // Le backend a déjà rempli match.historiqueDomicile / historiqueExterieur
             // (5 derniers matchs de championnat) : pas besoin de l'historique des qualifs.
