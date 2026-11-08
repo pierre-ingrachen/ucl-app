@@ -262,16 +262,10 @@ if __name__ == "__main__":
             paris_modele_d.etape_paris_d(calendrier, cotes)
         except Exception as exc:  # noqa: BLE001
             print(f"\n## Modele D indisponible : {type(exc).__name__}: {exc}")
-        # IA-optimisee et regles : meme principe (journaux separes, memes cotes, erreurs isolees).
+        # IA-optimisee : meme principe (journaux separes, memes cotes, erreurs isolees).
         try:
             from ia_optimisee import paris as paris_ia
             print()
             paris_ia.etape_paris_ia(calendrier, cotes)
         except Exception as exc:  # noqa: BLE001
             print(f"\n## IA-optimisee indisponible : {type(exc).__name__}: {exc}")
-        try:
-            from modele_d import paris_regles
-            print()
-            paris_regles.etape_paris_regles(calendrier, cotes)
-        except Exception as exc:  # noqa: BLE001
-            print(f"\n## Regles indisponibles : {type(exc).__name__}: {exc}")

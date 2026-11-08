@@ -45,18 +45,8 @@ Fichiers : `paris.py` (production), `entrainement.py`, `ratings.py`, `experience
 
 Résultats : meilleure piste à environ +12 % sur 257 paris (Bet365 −5 %), mais aucune règle positive sur les 4 saisons à Bet365 −10 %, et un intervalle de confiance très large.
 
-### 3. Règles (`modele_d/regles.py`, `paris_regles.py`)
-Fichiers : `regles.py` (la règle), `paris_regles.py` (paris du jour), journaux `modele_d/journaux/regles_paris.json` et `regles_analyses.json`. **Aucune IA, aucun entraînement.**
 
-1. **Repérer l'outsider** : l'équipe dont la victoire a la cote la plus haute (domicile ou extérieur).
-2. **Regarder sa forme** : pourcentage de victoires sur ses 5 derniers matchs.
-3. **Décider** : on parie sur sa victoire si **sa cote est > 4,00 ET s'il a gagné au plus 1 de ses 5 derniers matchs** (≤ 20 %). Intuition : le marché surpaie la forme récente, donc plus l'outsider est en forme, plus son ROI est mauvais.
-
-La fonction `parier()` reçoit aussi d'autres pourcentages (matchs sans défaite, victoires au même lieu) qui ne sont pas utilisés par la règle actuelle.
-
-Résultats : 2020-2026, **−3,4 % à la meilleure cote du marché** (8 623 paris), environ −17 % aux cotes de clôture Bet365 ; elle perd nettement en 2026-27.
-
-### 4. IA-optimisée (`ia_optimisee/`)
+### 3. IA-optimisée (`ia_optimisee/`)
 Fichiers : `modele.py` (variables, modèle, évaluation), `paris.py` (entraînement et paris du jour), `resultats.md` (compte rendu), `modele.pkl` (modèle figé), journaux `journaux/paris.json` et `analyses.json`. Conçue pour la finalité **maximiser le ROI sur les outsiders à cote > 4**.
 
 1. **Un candidat = un (match, issue)**, vu du côté de l'équipe sur laquelle on parie (A) contre l'adversaire (B). Variables sans cote : buts des 5 derniers matchs de chaque équipe, moyennes, points, matchs sans défaite, rangs, Elo, forces offensive et défensive, repos, nombre de matchs, écarts A − B, indicateur « à domicile », probabilité Elo.
@@ -84,7 +74,6 @@ Depuis la racine du dépôt, avec `.venv/bin/python -m modele_d.<module>` :
 | `cotes_historiques`, `dataset_cotes` | Cotes football-data.co.uk, puis rattachement aux matchs : `donnees/dataset_cotes.csv`. |
 | `experiences`, `robustesse`, `evaluation` | Banc d'essai (walk-forward), analyses de robustesse, métriques (ROI, IC, CLV, drawdown). |
 | `rafraichir_donnees`, `rejeu_2627` | Mise à jour des jeux jusqu'aux derniers matchs joués ; rejeu des algorithmes sur 2026-27. |
-| `paris_regles` | Paris du jour de l'algorithme à règles. |
 | `tests/test_cotes.py` | `.venv/bin/python -m unittest modele_d.tests.test_cotes -v` |
 
 Dossiers : `ressources/` (modèle entraîné + saisons brutes, **suivis** car nécessaires au workflow), `journaux/` (paris et analyses du modèle D, mis à jour par le workflow), `resultats/` (comptes rendus des expériences), `donnees/` (CSV, cache football-data, probabilités : **non suivis**, régénérables).

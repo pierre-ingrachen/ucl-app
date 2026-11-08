@@ -1,4 +1,4 @@
-"""Rejoue les trois nouveaux algorithmes (modele D, regles, IA-optimisee) sur les matchs de la saison
+"""Rejoue les deux nouveaux algorithmes (modele D, IA-optimisee) sur les matchs de la saison
 2026-27 deja joues, sans fuite du futur : modeles entraines uniquement sur les matchs AVANT le
 2026-07-01, regles de l'IA-optimisee choisies sur les saisons precedentes, features d'avant-match.
 
@@ -24,7 +24,6 @@ from reseau_buts import noms_features, probas_1n2
 from ia_optimisee import modele as ia
 from modele_d import entrainement as D
 from modele_d import paris as pd_
-from modele_d import paris_regles as regles_live
 
 DEBUT = "2026-07-01"
 HYPOTHESES = {"Bet365 cloture -5%": ("b365c", 0.95), "Moyenne cloture": ("avgc", 1.0), "Meilleure cote cloture": ("maxc", 1.0)}
@@ -48,16 +47,6 @@ def paris_modele_d(p, d_test, hyp):
     c = cote(d_test, "exterieure", hyp).to_numpy()
     k = [pd_.pari_retenu(p[i, 2], c[i]) for i in range(len(d_test))]
     return pd.DataFrame({"i": d_test.index[k], "issue": "exterieure"})
-
-
-def paris_regles(d_test, hyp):
-    cd, ce = cote(d_test, "domicile", hyp), cote(d_test, "exterieure", hyp)
-    lignes = []
-    for i, r in d_test.iterrows():
-        issue = regles_live.decision(r, cd[i], ce[i])
-        if issue:
-            lignes.append({"i": i, "issue": issue})
-    return pd.DataFrame(lignes, columns=["i", "issue"])
 
 
 def paris_ia(c, p, hyp):
@@ -136,10 +125,10 @@ def main():
     p_r = probas_reseau(d_train, d_test)
     resultats = {}
     for hyp in HYPOTHESES:
-        resultats[hyp] = {"modele_d": paris_modele_d(p_d, d_test, hyp), "regles": paris_regles(d_test, hyp),
+        resultats[hyp] = {"modele_d": paris_modele_d(p_d, d_test, hyp),
                           "reseau": paris_reseau(p_r, d_test, hyp)}
         resultats[hyp]["ia_optimisee"], resultats[hyp]["regle_ia"] = paris_ia(c_ia, p_ia, hyp)
-    json_noms = {"reseau": "Réseau de buts", "modele_d": "Modèle D", "regles": "Règles", "ia_optimisee": "IA-optimisée"}
+    json_noms = {"reseau": "Réseau de buts", "modele_d": "Modèle D", "ia_optimisee": "IA-optimisée"}
     lignes_md = {}
     for hyp in HYPOTHESES:
         lignes_md[hyp] = []
@@ -155,10 +144,9 @@ def main():
         with open(f"{DOSSIER}/rejeu_2627_{algo}.json", "w", encoding="utf-8") as f:
             json.dump(j, f, ensure_ascii=False, indent=1)
         print(algo, stats(j))
-    # matchs reellement passes dans chaque algorithme : tous pour le modele D, ceux avec cotes dom. et ext.
-    # pour les regles, ceux ayant au moins un candidat (victoire dom./ext. a cote moyenne >= 3,3) pour l'IA
+    # matchs reellement passes dans chaque algorithme : tous pour le modele D, ceux ayant au moins un candidat
+    # (victoire dom./ext. a cote moyenne >= 3,3) pour l'IA
     analyses = {"reseau": int((d_test.date < DEBUT_DIRECT_RESEAU).sum()), "modele_d": int(len(d_test)),
-                "regles": int(d_test[["b365c_h", "b365c_a"]].notna().all(axis=1).sum()),
                 "ia_optimisee": int(c_ia.loc[(c_ia.saison == 2027) & p_ia.notna(), "match"].nunique())}
     with open(f"{DOSSIER}/rejeu_2627_meta.json", "w", encoding="utf-8") as f:
         json.dump({"matchs": int(len(d_test)), "jusqu_au": d_test.date.max(), "cotes": LIBELLE_COTE, "analyses": analyses}, f, ensure_ascii=False)

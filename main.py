@@ -860,7 +860,7 @@ DOSSIER_JOURNAUX_D = "modele_d/journaux"
 @app.get("/api/paris/bilans")
 def get_bilans_paris():
     """Bilan de chaque algorithme de paris. Le reseau de buts et le modele D (paris du jour) sont tenus
-    en direct par paris_reseau.py ; le modele D, les regles et l'IA-optimisee ont aussi un rejeu des matchs
+    en direct par paris_reseau.py ; le modele D et l'IA-optimisee ont aussi un rejeu des matchs
     2026-27 deja joues (modele_d/rejeu_2627.py : memes regles, sans fuite du futur, cotes Bet365
     cloture -5 % faute d'historique Winamax)."""
     meta = _lire_json_ou_defaut(f"{DOSSIER_JOURNAUX_D}/rejeu_2627_meta.json", {})
@@ -874,9 +874,6 @@ def get_bilans_paris():
          analyses_rejeu.get("reseau", 0) + len(_lire_json_ou_defaut(FICHIER_ANALYSES_RESEAU, {})), None),
         ("modele_d", "Modèle D", "Prédit les cotes du marché à partir de la forme, Elo, buts et repos ; victoire extérieure à cote ]4 ; 6] si le modèle voit 20 % de valeur.",
          rejeu("modele_d") + _lire_json_ou_defaut(f"{DOSSIER_JOURNAUX_D}/paris.json", []), analyses_rejeu.get("modele_d", 0) + len(d_analyses), note_rejeu),
-        ("regles", "Règles", "Sans IA : on parie sur l'outsider (cote > 4) quand il a gagné au plus 1 de ses 5 derniers matchs.",
-         rejeu("regles") + _lire_json_ou_defaut(f"{DOSSIER_JOURNAUX_D}/regles_paris.json", []),
-         analyses_rejeu.get("regles", 0) + len(_lire_json_ou_defaut(f"{DOSSIER_JOURNAUX_D}/regles_analyses.json", {})), note_rejeu),
         ("ia_optimisee", "IA-optimisée", "Modèle dédié aux outsiders (cote > 4) : probabilité de victoire par boosting + régression, pari si p × cote − 1 dépasse une marge, plafond de cote choisi sur le passé.",
          rejeu("ia_optimisee") + _lire_json_ou_defaut("ia_optimisee/journaux/paris.json", []),
          analyses_rejeu.get("ia_optimisee", 0) + len(_lire_json_ou_defaut("ia_optimisee/journaux/analyses.json", {})), note_rejeu),
