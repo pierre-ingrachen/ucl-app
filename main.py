@@ -318,7 +318,7 @@ def marquer_cotes_elevees(matchs):
         resultat.append({**m, "coteElevee": elevee, "coteTrouvee": bool(c.get("bookmaker"))})
     return resultat
 
-JOURS_AFFICHES = 8  # TEST (2026-11-13) : 8 jours au lieu de 7 ; remettre 7 apres le test
+JOURS_AFFICHES = int(os.environ.get("UCL_JOURS_AFFICHES", "7"))  # jours de matchs affiches (UCL_JOURS_AFFICHES pour tester plus long)
 
 def filtrer_matchs_semaine(matchs):
     """Restreint une liste de matchs à ceux prévus entre aujourd'hui et dans JOURS_AFFICHES jours."""
