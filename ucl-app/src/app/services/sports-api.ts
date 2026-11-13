@@ -78,7 +78,7 @@ export class SportsApiService {
       today.setHours(0, 0, 0, 0);
 
       const nextWeek = new Date(today);
-      nextWeek.setDate(today.getDate() + 8); // TEST (2026-11-13) : 8 jours au lieu de 7 (voir JOURS_AFFICHES dans main.py)
+      nextWeek.setDate(today.getDate() + 7);
 
       candidats = events.filter(match => {
         if (!match.dateEvent) return false;
