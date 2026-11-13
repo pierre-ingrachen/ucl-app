@@ -209,6 +209,19 @@ class TestSansTheSportsDB(unittest.TestCase):
         self.assertTrue(fiche["strHomeCountry"])
         self.assertEqual(client.get("/api/match/0000").status_code, 404)
 
+    def test_ligues_sans_fournisseur_restent_affichees(self):
+        from fastapi.testclient import TestClient
+        main = self.main
+        main._cache_source.clear()
+        ancien, main.JOURS_AFFICHES = main.JOURS_AFFICHES, 15
+        try:
+            ligues = {e["idLeague"] for e in TestClient(main.app).get("/api/championnats/matchs/a-venir").json()["events"]}
+        finally:
+            main.JOURS_AFFICHES = ancien
+            main._cache_source.clear()
+        for id_ligue in ("4631", "4630", "4690"):  # Tchequie, Chypre, Hongrie : base locale
+            self.assertIn(id_ligue, ligues)
+
     def test_logos_reecrits_vers_la_copie_locale(self):
         from fastapi.testclient import TestClient
         main = self.main

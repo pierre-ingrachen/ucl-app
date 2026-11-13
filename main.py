@@ -529,6 +529,12 @@ def matchs_semaine_via_source(ids_ligues):
         return None
     if not any(rapport["sources"].values()):
         return None
+    # Ligues sans aucun fournisseur gratuit (Tchequie, Chypre, Hongrie) : leurs matchs viennent de la base locale
+    # (calendrier publie a l'avance, non mis a jour), sinon ils disparaitraient du site.
+    sans_source = {i for i, src in rapport["sources"].items() if src is None}
+    fin = str(date.today() + timedelta(days=JOURS_AFFICHES))
+    evenements = evenements + [dict(e) for e in locaux if e.get("idLeague") in sans_source
+                               and e.get("strPostponed") != "yes" and str(date.today()) <= (e.get("dateEvent") or "") <= fin]
     _cache_source[cle] = (time.monotonic(), evenements)
     return evenements
 
