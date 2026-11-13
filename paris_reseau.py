@@ -80,28 +80,37 @@ def charger_calendrier():
     """{ligue -> {saison -> evenements}} : historique fige (matchs_reseau_bruts.json) complete avec
     les resultats recents et les matchs a venir.
 
-    Source (variable SOURCE_CALENDRIER) : « auto » (defaut) = ESPN, avec The Odds API en secours
-    (package `calendrier/`) ; TheSportsDB n'est interroge que pour les ligues qu'aucun
-    fournisseur gratuit ne couvre en resultats (Pologne, Suisse, Tchequie, Chypre, Hongrie), et
-    en repli complet si le nouveau module echoue. « thesportsdb » = ancien comportement."""
+    Source (variable SOURCE_CALENDRIER) : « auto » (defaut) = package `calendrier/`, AUCUN appel
+    TheSportsDB : ESPN (resultats et a venir), football-data (resultats Pologne et Suisse), The Odds API
+    (secours a venir). Tchequie, Chypre et Hongrie n'ont aucun fournisseur gratuit : leurs resultats
+    restent figes (sans cotes, donc sans paris). Si le package echoue, repli sur TheSportsDB uniquement
+    si SPORTSDB_API_KEY est definie. « thesportsdb » = ancien comportement."""
     brut = _lire_json(FICHIER_BRUTS, {})
-    ligues_tsdb, tolerant = list(main.DOMESTIC_LEAGUES), False
+    ligues_tsdb = list(main.DOMESTIC_LEAGUES)
     if os.environ.get("SOURCE_CALENDRIER", "auto") != "thesportsdb":
         try:
             from calendrier import source
             brut, rapport = source.completer_calendrier(brut, ids_ligues=list(main.DOMESTIC_LEAGUES))
-            ligues_tsdb = sorted(set(rapport["ligues_sans_resultats"]) | set(rapport["ligues_espn_en_panne"]))
-            tolerant = True
+            ligues_tsdb = []  # plus aucun appel TheSportsDB
             par_source = {}
             for id_ligue, src in rapport["sources"].items():
                 if id_ligue in main.DOMESTIC_LEAGUES:
                     par_source.setdefault(src or "aucune", []).append(main.DOMESTIC_LEAGUES[id_ligue])
-            print(f"## Calendrier — {rapport['resultats_nouveaux']} resultats recuperes, "
-                  + ", ".join(f"{src} : {len(noms)} ligues" for src, noms in sorted(par_source.items())) + "\n")
+            print(f"## Calendrier — {rapport['resultats_nouveaux']} resultats ESPN, "
+                  f"{rapport['resultats_footballdata']} resultats football-data ; a venir : "
+                  + ", ".join(f"{src} : {len(noms)} ligues" for src, noms in sorted(par_source.items())))
+            if rapport["ligues_sans_resultats"] or rapport["ligues_espn_en_panne"]:
+                gelees = [main.DOMESTIC_LEAGUES[i] for i in rapport["ligues_sans_resultats"]]
+                panne = [main.DOMESTIC_LEAGUES[i] for i in rapport["ligues_espn_en_panne"]]
+                print(f"- Resultats figes (aucune source gratuite) : {', '.join(gelees) or 'aucune'} ; "
+                      f"ESPN en panne (rattrapage au prochain run) : {', '.join(panne) or 'aucune'}")
+            print()
         except Exception as exc:  # noqa: BLE001
-            print(f"## Calendrier ESPN/Odds API indisponible ({type(exc).__name__}: {exc}) : repli TheSportsDB\n")
-            brut, ligues_tsdb = _lire_json(FICHIER_BRUTS, {}), list(main.DOMESTIC_LEAGUES)
-    return _calendrier_thesportsdb(brut, ligues_tsdb, tolerant)
+            if not main.API_KEY:
+                raise
+            print(f"## Calendrier gratuit indisponible ({type(exc).__name__}: {exc}) : repli TheSportsDB\n")
+            brut = _lire_json(FICHIER_BRUTS, {})
+    return _calendrier_thesportsdb(brut, ligues_tsdb)
 
 
 def est_joue(e):

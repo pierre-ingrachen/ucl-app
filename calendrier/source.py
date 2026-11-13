@@ -20,7 +20,7 @@ import os
 import sys
 from datetime import date, timedelta
 
-from . import espn, odds_api
+from . import espn, footballdata, odds_api
 from .equipes import Annuaire, RESSOURCES
 from .ligues import LIGUES, CHAMPIONNATS, COUPES_EUROPE, saison
 
@@ -144,7 +144,8 @@ def a_venir(debut, fin, locaux=(), ids_ligues=None, annuaire=None, secours=True,
 
 
 def completer_calendrier(brut, aujourd_hui=None, horizon=HORIZON_JOURS, ids_ligues=None, annuaire=None,
-                         persister=True, session_espn=None, session_odds=None, cle_odds=None, secours=True):
+                         persister=True, session_espn=None, session_odds=None, cle_odds=None, secours=True,
+                         session_fd=None):
     """Met a jour `brut` ({ligue: {saison: [evenements]}}, format de matchs_reseau_bruts.json) avec
     les resultats recents et les matchs des `horizon` prochains jours, et le renvoie.
 
@@ -193,6 +194,18 @@ def completer_calendrier(brut, aujourd_hui=None, horizon=HORIZON_JOURS, ids_ligu
         if LIGUES[i]["espn"] and i not in panne:
             recents["couvert_jusqu_au"][i] = str(aujourd_hui)
 
+    # 1 bis. Ligues sans ESPN mais avec fichier football-data (Pologne, Suisse) : fichier retelecharge en
+    # entier a chaque run (petit), seuls les resultats rattaches a un match du calendrier local sont gardes.
+    fd, panne_fd = footballdata.resultats([i for i in ids if not LIGUES[i]["espn"]], annuaire,
+                                          aujourd_hui - timedelta(RECUL_MAX_JOURS), session_fd)
+    fd_joues, fd_rattaches = [], 0
+    if fd:
+        fusion, _ = rattacher(fd, locaux)
+        fd_joues = [e for e in fusion if not str(e["idEvent"]).startswith("x")]  # « x... » = absent du calendrier local
+        fd_rattaches = len(fd_joues)
+        for e in fd_joues:
+            recents["evenements"][e["idEvent"]] = {k: e.get(k) for k in CHAMPS_RECENTS}
+
     # 2. A venir.
     venir, rapport_venir = a_venir(aujourd_hui, aujourd_hui + timedelta(horizon), locaux, ids, annuaire, secours,
                                    session_espn, session_odds, cle_odds)
@@ -216,7 +229,9 @@ def completer_calendrier(brut, aujourd_hui=None, horizon=HORIZON_JOURS, ids_ligu
 
     rapport = dict(rapport_venir, ignores=rapport_venir["ignores"] + ign1,
                    resultats_nouveaux=len(joues), ligues_espn_en_panne=sorted(panne),
-                   ligues_sans_resultats=[i for i in ids if not LIGUES[i]["espn"]])
+                   resultats_footballdata=fd_rattaches,
+                   ligues_sans_resultats=[i for i in ids if not LIGUES[i]["espn"]
+                                          and (i not in footballdata.CODES or i in panne_fd)])
     return brut, rapport
 
 

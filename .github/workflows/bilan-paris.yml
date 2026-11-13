@@ -51,7 +51,6 @@ jobs:
       - name: Recuperer les cotes (mardi, jeudi, samedi et dimanche, ou relance ciblee)
         shell: bash  # pipefail : sans lui, un plantage de python derriere `| tee` reste vert
         env:
-          SPORTSDB_API_KEY: ${{ secrets.SPORTSDB_API_KEY }}
           ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
         run: |
           for tentative in 1 2 3; do
@@ -64,7 +63,6 @@ jobs:
       - name: Choisir les paris du jour (reseau de neurones + loi de Poisson, puis modele D, IA-optimisee)
         shell: bash  # pipefail : sans lui, un plantage de python derriere `| tee` reste vert
         env:
-          SPORTSDB_API_KEY: ${{ secrets.SPORTSDB_API_KEY }}
           ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
           MODELE_D_FIGE: "1"  # modele D (modele_d/ressources/modele.pkl) et IA-optimisee (ia_optimisee/modele.pkl) : reentraines en local, jamais ici
         run: |

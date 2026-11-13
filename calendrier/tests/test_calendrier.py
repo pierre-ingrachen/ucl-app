@@ -12,7 +12,7 @@ from datetime import date
 
 import requests
 
-from calendrier import espn, odds_api, source
+from calendrier import espn, footballdata, odds_api, source
 from calendrier.equipes import Annuaire, normaliser
 from calendrier.ligues import LIGUES, saison
 
@@ -349,11 +349,67 @@ class TestCompleterCalendrier(unittest.TestCase):
         self.assertEqual(rap["resultats_nouveaux"], 1)
         self.assertEqual(rap["ligues_sans_resultats"], [])
 
-    def test_ligues_sans_espn_signalees(self):
-        _, rap = source.completer_calendrier({}, aujourd_hui=date(2026, 11, 13), ids_ligues=["4422", "4675"],
+    def test_ligues_sans_resultats_gratuits_signalees(self):
+        # Tchequie et Chypre : ni ESPN ni football-data. Pologne : football-data en panne -> signalee aussi.
+        _, rap = source.completer_calendrier({}, aujourd_hui=date(2026, 11, 13), ids_ligues=["4631", "4630", "4422"],
                                              annuaire=annuaire(), persister=False, secours=False,
-                                             session_espn=FausseSession(routeur_espn({})))
-        self.assertEqual(rap["ligues_sans_resultats"], ["4422", "4675"])
+                                             session_espn=FausseSession(routeur_espn({})),
+                                             session_fd=FausseSession(lambda u, p: Reponse(None, 503)))
+        self.assertEqual(rap["ligues_sans_resultats"], ["4631", "4630", "4422"])
+
+
+CSV_POL = ("Country,League,Season,Date,Time,Home,Away,HG,AG,Res\n"
+           "Poland,Ekstraklasa,2026/2027,08/11/2026,15:00,Piast Gliwice,Korona Kielce,2,1,H\n"
+           "Poland,Ekstraklasa,2026/2027,09/11/2026,15:00,Piast Gliwice,Club Inconnu,1,1,D\n"
+           "Poland,Ekstraklasa,2026/2027,10/11/2026,15:00,Piast Gliwice,Korona Kielce,,,\n"
+           "Poland,Ekstraklasa,2025/2026,01/03/2026,15:00,Piast Gliwice,Korona Kielce,0,0,D\n")
+
+
+class FausseReponseCsv(Reponse):
+    def __init__(self, texte, code=200):
+        super().__init__(None, code)
+        self.content = texte.encode("utf-8")
+
+
+class TestFootballData(unittest.TestCase):
+    def setUp(self):
+        footballdata.time.sleep = lambda s: None
+
+    def test_resultats_filtres_et_clubs_inconnus_ignores(self):
+        session = FausseSession(lambda u, p: FausseReponseCsv(CSV_POL))
+        evs, panne = footballdata.resultats(["4422", "4334"], annuaire(), date(2026, 8, 1), session)
+        self.assertEqual(panne, set())
+        self.assertEqual(len(evs), 1)  # club inconnu, score vide et saison passee ecartes ; 4334 sans fichier
+        e = evs[0]
+        self.assertEqual((e["idHomeTeam"], e["idAwayTeam"], e["intHomeScore"], e["intAwayScore"], e["dateEvent"],
+                          e["strSeason"]), ("8", "9", "2", "1", "2026-11-08", "2026-2027"))
+        self.assertTrue(session.appels[0][0].endswith("/new/POL.csv"))
+
+    def test_fichier_invalide_ou_injoignable(self):
+        with self.assertRaises(footballdata.ErreurFootballData):
+            footballdata.telecharger("POL", FausseSession(lambda u, p: FausseReponseCsv("<html>nope</html>")), tentatives=1)
+        _, panne = footballdata.resultats(["4422"], annuaire(), date(2026, 8, 1),
+                                          FausseSession(lambda u, p: FausseReponseCsv("", 503)))
+        self.assertEqual(panne, {"4422"})
+
+    def test_completer_integre_resultats_pologne_sans_creer_de_match(self):
+        dossier = tempfile.TemporaryDirectory()
+        ancien, source.FICHIER_RECENTS = source.FICHIER_RECENTS, os.path.join(dossier.name, "r.json")
+        try:
+            brut = {"4422": {"2026-2027": [dict(idEvent="900", dateEvent="2026-11-08", idHomeTeam="8", idAwayTeam="9",
+                                                strHomeTeam="Piast Gliwice", strAwayTeam="Korona Kielce",
+                                                intHomeScore=None, intAwayScore=None)]}}
+            res, rap = source.completer_calendrier(
+                brut, aujourd_hui=date(2026, 11, 13), ids_ligues=["4422"], annuaire=annuaire(), persister=False,
+                secours=False, session_espn=FausseSession(routeur_espn({})),
+                session_fd=FausseSession(lambda u, p: FausseReponseCsv(CSV_POL)))
+            evs = res["4422"]["2026-2027"]
+            self.assertEqual(len(evs), 1)  # aucun doublon, aucun match invente
+            self.assertEqual((evs[0]["idEvent"], evs[0]["intHomeScore"], evs[0]["intAwayScore"]), ("900", "2", "1"))
+            self.assertEqual((rap["resultats_footballdata"], rap["ligues_sans_resultats"]), (1, []))
+        finally:
+            source.FICHIER_RECENTS = ancien
+            dossier.cleanup()
 
 
 @unittest.skipUnless(os.environ.get("CALENDRIER_LIVE") == "1", "test en ligne : CALENDRIER_LIVE=1")

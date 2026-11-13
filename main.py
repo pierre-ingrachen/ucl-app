@@ -74,7 +74,10 @@ app.add_middleware(
 
 app.mount("/badges", StaticFiles(directory=DOSSIER_BADGES, check_dir=False), name="badges")
 
-API_KEY = _variable_environnement_requise("SPORTSDB_API_KEY")
+# Cle TheSportsDB (abonnement payant) : OPTIONNELLE depuis la branche free-ucl. Sans elle, tout appel
+# TheSportsDB leve ConnectionError (voir requete_api_avec_retry) et les fonctionnalites du site qui en
+# dependent (fiches de detail, classements, historique europeen) se rabattent sur leurs caches.
+API_KEY = os.environ.get("SPORTSDB_API_KEY") or None
 LEAGUE_IDS = ["4480", "4481", "5071"]  # UEFA Champions League, UEFA Europa League, UEFA Conference League
 COMPETITIONS_EUROPE = {
     "4480": "UEFA Champions League",
@@ -212,6 +215,8 @@ def requete_api_avec_retry(url, tentatives=3, delai=1.5):
     directement ailleurs, sous peine de recreer le probleme de sur-appel."""
     if HORS_LIGNE:
         raise requests.exceptions.ConnectionError("Mode hors ligne : appel reseau desactive")
+    if not API_KEY:
+        raise requests.exceptions.ConnectionError("TheSportsDB desactive : SPORTSDB_API_KEY absente")
     for tentative in range(tentatives):
         attente = DELAI_MIN_ENTRE_APPELS_SPORTSDB - (time.monotonic() - _DERNIER_APPEL_SPORTSDB[0])
         if attente > 0:

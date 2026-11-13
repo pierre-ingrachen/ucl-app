@@ -8,9 +8,11 @@ Deux fournisseurs gratuits, au format des événements TheSportsDB (`idEvent`, `
 | **ESPN** (`espn.py`) | principal : à venir **et** scores | 15 championnats + 3 coupes d'Europe | gratuit, sans clé |
 | **The Odds API** (`odds_api.py`, point `/events`) | secours : à venir seulement | 17 championnats + 3 coupes, dont Pologne et Suisse | gratuit, **0 crédit** de quota |
 
+| **football-data.co.uk** (`footballdata.py`) | résultats Pologne et Suisse | 2 ligues sans ESPN | gratuit, ~5 jours de retard |
+
 ESPN ne publie ni la Pologne, ni la Suisse, ni la Tchéquie, ni Chypre, ni la Hongrie (catalogue
 vérifié le 2026-11-13) ; The Odds API ne publie ni la Tchéquie, ni Chypre, ni la Hongrie : ces trois
-ligues restent sans calendrier (elles n'ont de toute façon pas de cotes).
+ligues restent sans calendrier ni résultats (elles n'ont de toute façon pas de cotes, donc pas de paris).
 
 ## Comment ça marche
 
@@ -36,12 +38,13 @@ ligues restent sans calendrier (elles n'ont de toute façon pas de cotes).
 
 ## Branchements
 
-- `paris_reseau.py` : `charger_calendrier` (ESPN + secours, TheSportsDB seulement pour les ligues sans
-  résultats : Pologne, Suisse, Tchéquie, Chypre, Hongrie ; repli complet si le paquet échoue) et
-  `matchs_europe_a_venir`.
-- `main.py` : `/api/matchs/a-venir` et `/api/championnats/matchs/a-venir` (cache de 20 min). Les fiches de
-  détail (`/api/match/{id}`), classements et historiques utilisent toujours TheSportsDB.
-- Variable `SOURCE_CALENDRIER` : `auto` (défaut) ou `thesportsdb` (ancien comportement partout).
+- `paris_reseau.py` : `charger_calendrier` (**aucun appel TheSportsDB** en mode `auto` : ESPN + football-data +
+  secours The Odds API ; repli TheSportsDB seulement si le paquet échoue ET que `SPORTSDB_API_KEY` existe) et
+  `matchs_europe_a_venir`. Le réentraînement (`modele_d/rafraichir_donnees.py`) passe par `charger_calendrier`.
+- `main.py` : `/api/matchs/a-venir` et `/api/championnats/matchs/a-venir` (cache de 20 min). `SPORTSDB_API_KEY`
+  est **optionnelle** : sans elle, tout appel TheSportsDB lève `ConnectionError`. Les fiches de détail
+  (`/api/match/{id}`), classements et historiques européens en dépendent encore (voir ci-dessous).
+- Variable `SOURCE_CALENDRIER` : `auto` (défaut) ou `thesportsdb` (ancien comportement partout, clé requise).
 - Workflow : `evenements_recents.json` et `pont_espn.json` sont committés avec les journaux.
 
 ## Commandes
@@ -62,3 +65,6 @@ CALENDRIER_LIVE=1 .venv/bin/python -m unittest calendrier.tests.test_calendrier 
 - Un match abandonné n'a pas de score chez ESPN (TheSportsDB le note 0-0) : il n'entre pas dans l'historique.
 - Validation du 2026-11-13 : 560 scores comparés à TheSportsDB depuis le 21/09, 559 identiques ; le seul écart
   (Rizespor–Erzurumspor, 2-1 contre 0-0) est probablement un score TheSportsDB périmé.
+- Les résultats de Pologne/Suisse arrivent avec ~5 jours de retard (football-data) : un pari sur ces ligues est
+  résolu quand le fichier est à jour.
+- Reste sur TheSportsDB (clé requise, sinon caches figés) : fiches de détail, classements, historique européen.
