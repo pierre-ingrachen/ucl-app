@@ -12,6 +12,9 @@ import time
 
 from dotenv import load_dotenv
 
+from calendrier.base import Base
+from calendrier.logos import nom_fichier_badge
+
 load_dotenv()
 
 def _variable_environnement_requise(nom):
@@ -30,30 +33,34 @@ HORS_LIGNE = os.environ.get("UCL_HORS_LIGNE") == "1"
 DATES_HORS_LIGNE = os.environ.get("UCL_DATES", "2026-10-16,2026-10-17,2026-10-18").split(",")
 LIGUES_HORS_LIGNE = ["4328", "4335", "4331", "4332", "4334",   # Top 5
                      "4338", "4337", "4344", "4339", "4422"]   # 6-10
-# Logos telecharges par preparer_hors_ligne.py, servis sous /badges/ (voir `localiser_badges`).
-DOSSIER_BADGES = "cache_badges"
+# Base locale (calendrier/base/) : evenements, clubs, classements nationaux et logos de TOUTES les saisons
+# affichees par le site. Remplace TheSportsDB (voir calendrier/README.md) ; mise a jour par le workflow.
+BASE = Base()
+# Logos stockes dans la base, servis sous /badges/ (voir `localiser_badges`).
+DOSSIER_BADGES = os.path.join(BASE.racine, "badges")
 # Logos TheSportsDB, et logos ESPN (clubs absents de l'annuaire TheSportsDB, cf. calendrier/).
 RE_URL_BADGE = re.compile(r'https://[a-z0-9.]*thesportsdb\.com/images/media/(?:team|league)/badge/[^"\\\s]+'
                           r'|https://a\.espncdn\.com/i/teamlogos/soccer/\d+/\d+\.png')
-
-def nom_fichier_badge(url):
-    return hashlib.sha1(url.encode()).hexdigest()[:16] + os.path.splitext(url)[1]
 
 app = FastAPI(title="Champions League API")
 
 @app.middleware("http")
 async def localiser_badges(request: Request, call_next):
-    """Hors ligne : remplace les URLs de logos de TheSportsDB par leur copie locale
-    (/badges/...) quand elle a ete telechargee. Declare avant le GZip pour voir le JSON en clair."""
+    """Remplace les URLs de logos distantes (TheSportsDB, ESPN) par leur copie locale (/badges/...) quand
+    elle existe dans la base. Declare avant le GZip pour voir le JSON en clair."""
     response = await call_next(request)
-    if not HORS_LIGNE or not request.url.path.startswith("/api/"):
+    if not request.url.path.startswith("/api/"):
         return response
     corps = b"".join([morceau async for morceau in response.body_iterator]).decode("utf-8")
+    # Derriere un proxy (Render), le schema et l'hote d'origine sont dans les en-tetes X-Forwarded-*.
+    schema = request.headers.get("x-forwarded-proto") or request.url.scheme
+    hote = request.headers.get("x-forwarded-host") or request.headers.get("host") or request.url.netloc
+    racine = f"{schema}://{hote}/badges/"
 
     def remplacer(m):
         nom = nom_fichier_badge(m.group(0))
         if os.path.exists(os.path.join(DOSSIER_BADGES, nom)):
-            return f"{request.base_url}badges/{nom}"
+            return racine + nom
         return m.group(0)
 
     en_tetes = {k: v for k, v in response.headers.items() if k.lower() != "content-length"}
@@ -74,10 +81,6 @@ app.add_middleware(
 
 app.mount("/badges", StaticFiles(directory=DOSSIER_BADGES, check_dir=False), name="badges")
 
-# Cle TheSportsDB (abonnement payant) : OPTIONNELLE depuis la branche free-ucl. Sans elle, tout appel
-# TheSportsDB leve ConnectionError (voir requete_api_avec_retry) et les fonctionnalites du site qui en
-# dependent (fiches de detail, classements, historique europeen) se rabattent sur leurs caches.
-API_KEY = os.environ.get("SPORTSDB_API_KEY") or None
 LEAGUE_IDS = ["4480", "4481", "5071"]  # UEFA Champions League, UEFA Europa League, UEFA Conference League
 COMPETITIONS_EUROPE = {
     "4480": "UEFA Champions League",
@@ -193,51 +196,9 @@ def zone_championnat(league_id, rang, total):
         return "Relegation"
     return None
 
-CACHE_SEASON_FILE = "cache_season.json"
 CACHE_DETAILS_FILE = "cache_details.json"
-CACHE_HISTORY_FILE = "cache_history_qualifs.json"
-CACHE_TEAMS_FILE = "cache_teams.json"
-CACHE_CLASSEMENT_FILE = "cache_classement.json"
-CACHE_CHAMPIONNAT_SEASON_FILE = "cache_championnat_season.json"
-CACHE_CHAMPIONNAT_HISTORIQUE_FILE = "cache_championnat_historique.json"
 FICHIER_PARIS_RESEAU = "cache_paris_reseau.json"
 FICHIER_ANALYSES_RESEAU = "cache_analyses_reseau.json"
-_DERNIER_APPEL_SPORTSDB = [0.0]
-DELAI_MIN_ENTRE_APPELS_SPORTSDB = 0.3  # secondes entre deux appels, pour rester sous la
-# limite de débit de l'offre gratuite TheSportsDB (déclenchée dans le passé quand tous
-# les appels d'un run partaient sans aucun espacement).
-
-def requete_api_avec_retry(url, tentatives=3, delai=1.5):
-    """GET vers TheSportsDB avec espacement global entre appels (throttling) et
-    nouvelles tentatives en cas d'indisponibilite ponctuelle (503, frequent sur l'offre
-    gratuite) ou de limitation de debit (429, respecte l'en-tete Retry-After si present).
-    Point de passage unique pour tous les appels a l'API : ne pas utiliser requests.get
-    directement ailleurs, sous peine de recreer le probleme de sur-appel."""
-    if HORS_LIGNE:
-        raise requests.exceptions.ConnectionError("Mode hors ligne : appel reseau desactive")
-    if not API_KEY:
-        raise requests.exceptions.ConnectionError("TheSportsDB desactive : SPORTSDB_API_KEY absente")
-    for tentative in range(tentatives):
-        attente = DELAI_MIN_ENTRE_APPELS_SPORTSDB - (time.monotonic() - _DERNIER_APPEL_SPORTSDB[0])
-        if attente > 0:
-            time.sleep(attente)
-        response = requests.get(url, timeout=20)
-        _DERNIER_APPEL_SPORTSDB[0] = time.monotonic()
-
-        if response.status_code == 429:
-            if tentative == tentatives - 1:
-                return response
-            try:
-                attente_429 = float(response.headers.get("Retry-After", delai * (tentative + 1) * 3))
-            except ValueError:
-                attente_429 = delai * (tentative + 1) * 3
-            time.sleep(attente_429)
-            continue
-        if response.status_code != 503 or tentative == tentatives - 1:
-            return response
-        time.sleep(delai)
-    return response
-
 def charger_cache_permanent(fichier):
     if os.path.exists(fichier):
         try:
@@ -262,38 +223,6 @@ def charger_cache(fichier):
                     return cache.get("data")
         except (json.JSONDecodeError, IOError):
             pass
-    return None
-
-# Cache mémoire des fichiers JSON volumineux (season, championnats, historique des qualifs) :
-# sans ça, chaque requête re-parse plusieurs Mo depuis le disque (l'ouverture d'une fiche de
-# match en relit ~9 Mo rien que pour regrouper les matchs de la semaine). Invalidé
-# automatiquement dès que le fichier change sur disque (mtime + taille), donc transparent
-# vis-à-vis du rafraîchissement quotidien et des `git pull`.
-_cache_memoire_json = {}
-
-def _lire_json_memoise(fichier):
-    try:
-        st = os.stat(fichier)
-    except OSError:
-        return None
-    signature = (st.st_mtime_ns, st.st_size)
-    entree = _cache_memoire_json.get(fichier)
-    if entree is not None and entree[0] == signature:
-        return entree[1]
-    try:
-        with open(fichier, "r", encoding="utf-8") as f:
-            data = json.load(f)
-    except (json.JSONDecodeError, IOError, OSError):
-        return None
-    _cache_memoire_json[fichier] = (signature, data)
-    return data
-
-def charger_cache_memoise(fichier):
-    """Comme `charger_cache` mais en gardant le contenu parsé en mémoire tant que le fichier
-    sur disque est inchangé. Réservé aux fichiers volumineux relus en lecture seule."""
-    cache = _lire_json_memoise(fichier)
-    if isinstance(cache, dict) and (HORS_LIGNE or cache.get("date") == str(date.today())):
-        return cache.get("data")
     return None
 
 def sauvegarder_cache(fichier, data):
@@ -332,96 +261,47 @@ CORRECTIONS_PAYS = {
     "134312": "Wales",   # The New Saints (TNS), comptée comme équipe galloise
 }
 
-def appliquer_corrections_pays(cache_teams):
-    """Impose CORRECTIONS_PAYS sur le cache des pays. Retourne True si une valeur a changé."""
-    modifie = False
-    for team_id, pays in CORRECTIONS_PAYS.items():
-        if cache_teams.get(team_id) != pays:
-            cache_teams[team_id] = pays
-            modifie = True
-    return modifie
-
-def obtenir_pays_equipe(team_id, cache_teams):
-    """Retourne le pays d'une équipe, en interrogeant l'API si absent du cache permanent."""
+def obtenir_pays_equipe(team_id, cache_teams=None):
+    """Pays d'une equipe, lu dans la base locale (releve TheSportsDB du snapshot, puis pays de la ligue pour
+    les clubs ajoutes depuis). `cache_teams` n'est plus utilise (signature conservee)."""
     if not team_id:
         return ""
-    if team_id in CORRECTIONS_PAYS:
-        return CORRECTIONS_PAYS[team_id]
-    if team_id in cache_teams and cache_teams[team_id]:
-        return cache_teams[team_id]
+    return CORRECTIONS_PAYS.get(team_id) or BASE.pays(team_id)
 
-    url = f"https://www.thesportsdb.com/api/v1/json/{API_KEY}/lookupteam.php?id={team_id}"
-    try:
-        resp = requete_api_avec_retry(url)
-        if resp.status_code == 200 and resp.json().get("teams"):
-            pays = resp.json()["teams"][0].get("strCountry", "")
-            cache_teams[team_id] = pays
-            return pays
-    except requests.exceptions.RequestException:
-        pass
+def _ligue_suivie_du_club(team_id):
+    """Id du championnat suivi (DOMESTIC_LEAGUES) dans lequel le club joue la saison en cours, d'apres les
+    matchs de la base ; sinon son championnat national releve par TheSportsDB s'il est suivi ; sinon None."""
+    for league_id in DOMESTIC_LEAGUES:
+        if any(team_id in (m.get("idHomeTeam"), m.get("idAwayTeam"))
+               for m in BASE.evenements_saison(league_id, saison_actuelle_ligue(league_id))):
+            return league_id
+    ligue = BASE.ligue_nationale(team_id)
+    return ligue["id"] if ligue and ligue["id"] in DOMESTIC_LEAGUES else None
 
-    cache_teams.setdefault(team_id, "")
-    return cache_teams[team_id]
+def obtenir_classement_national(team_id, cache_classement=None):
+    """Position du club dans son championnat national (ex: 2e / 12) pour la saison en cours, sinon la
+    precedente (la saison affichee le precise).
 
-def obtenir_classement_national(team_id, cache_classement):
-    """Retourne la position du club dans son championnat national lors de la saison
-    domestique en cours (ex: 2e / 12), en interrogeant l'API si absent du cache. Le classement
-    évolue : une entrée n'est réutilisée que pour la journée où elle a été relevée (toujours
-    réutilisée en mode hors ligne). Si la saison en cours n'a pas encore de tableau, on se
-    rabat sur la saison précédente (la saison affichée le précise).
-    Le format de saison des championnats nationaux n'est pas uniforme (2026-2027 ou 2026
-    selon les pays) : on essaie donc les deux formats possibles."""
+    - championnat suivi (20 pays) : classement RECALCULE depuis les resultats de la base (meme methode que
+      le classement affiche par le site) ;
+    - autre championnat (Kazakhstan, Israel...) : table figee au snapshot TheSportsDB (`maj` = date du releve) ;
+    - club inconnu : None.
+    `cache_classement` n'est plus utilise (signature conservee)."""
     if not team_id:
         return None
-    aujourd_hui = str(date.today())
-    en_cache = cache_classement.get(team_id)
-    if team_id in cache_classement and (HORS_LIGNE or (en_cache or {}).get("maj") == aujourd_hui):
-        return en_cache
-
-    resultat = None
-    id_ligue_nationale = None
-    nom_ligue_nationale = None
-
-    try:
-        url_equipe = f"https://www.thesportsdb.com/api/v1/json/{API_KEY}/lookupteam.php?id={team_id}"
-        resp = requete_api_avec_retry(url_equipe)
-        equipes = resp.json().get("teams") if resp.status_code == 200 else None
-        id_ligue_nationale = equipes[0].get("idLeague") if equipes else None
-        nom_ligue_nationale = equipes[0].get("strLeague") if equipes else None
-    except requests.exceptions.RequestException:
-        id_ligue_nationale = None
-
-    if id_ligue_nationale:
-        annee = int(SEASON.split("-")[0])
-        # Le format de saison varie selon les pays (ex: "2025-2026" en Europe de l'Ouest,
-        # "2025" pour les championnats en année civile) : chaque candidat est essayé
-        # indépendamment pour qu'un format invalide n'empêche pas de tester l'autre.
-        for saison_candidate in (f"{annee}-{annee + 1}", str(annee), f"{annee - 1}-{annee}", str(annee - 1)):
-            try:
-                url_classement = f"https://www.thesportsdb.com/api/v1/json/{API_KEY}/lookuptable.php?l={id_ligue_nationale}&s={saison_candidate}"
-                resp_classement = requete_api_avec_retry(url_classement)
-                table = resp_classement.json().get("table") if resp_classement.status_code == 200 else None
-            except requests.exceptions.RequestException:
-                continue
-
-            if not table:
-                continue
-
-            ligne_equipe = next((ligne for ligne in table if ligne.get("idTeam") == team_id), None)
-            if ligne_equipe:
-                resultat = {
-                    "position": int(ligne_equipe["intRank"]),
-                    "total": len(table),
-                    "saison": saison_candidate,
-                    "ligue": nom_ligue_nationale,
-                    "maj": aujourd_hui
-                }
-                break
-
-    if resultat is None and en_cache:
-        return en_cache  # échec réseau : on garde le dernier classement connu
-    cache_classement[team_id] = resultat
-    return resultat
+    team_id = str(team_id)
+    league_id = _ligue_suivie_du_club(team_id)
+    if league_id is None:
+        return BASE.classement_national_gele(team_id)
+    nom_ligue = (BASE.ligue_nationale(team_id) or {}).get("nom") or DOMESTIC_LEAGUES[league_id]
+    for saison in (saison_actuelle_ligue(league_id), saisons_passees_ligue(league_id)[-1]):
+        table = calculer_classements_saison(league_id, nom_ligue, saison, BASE.evenements_saison(league_id, saison),
+                                            vues=("general",))["general"]
+        ligne = next((l for l in table if l.get("idTeam") == team_id), None)
+        if ligne:
+            return {"position": int(ligne["intRank"]), "total": len(table), "saison": saison,
+                    "ligue": nom_ligue, "maj": str(date.today())}
+    return None
 
 SEUIL_COTE_ELEVEE = 3.50
 CACHE_COTES_FILE = "cache_cotes_winamax.json"
@@ -458,27 +338,12 @@ def filtrer_matchs_semaine(matchs):
 
     return matchs_filtres
 
-def charger_historique_championnat(league_id, cache_historique):
-    """Tous les matchs déjà joués d'un championnat national, sur les saisons passées
-    suivies et la saison en cours."""
-    if league_id in cache_historique:
-        return cache_historique[league_id]
-
-    matchs = []
-    for season in saisons_passees_ligue(league_id) + [saison_actuelle_ligue(league_id)]:
-        url = f"https://www.thesportsdb.com/api/v1/json/{API_KEY}/eventsseason.php?id={league_id}&s={season}"
-        try:
-            resp = requete_api_avec_retry(url)
-            resp.raise_for_status()
-            for m in resp.json().get("events", []) or []:
-                if m.get("intHomeScore") is None or m.get("intAwayScore") is None:
-                    continue
-                matchs.append(m)
-        except requests.exceptions.RequestException:
-            continue
-
-    cache_historique[league_id] = matchs
-    return matchs
+def charger_historique_championnat(league_id, cache_historique=None):
+    """Tous les matchs deja joues d'un championnat national, sur les saisons passees suivies et la saison
+    en cours, lus dans la base locale. `cache_historique` n'est plus utilise (signature conservee)."""
+    return [m for saison in saisons_passees_ligue(league_id) + [saison_actuelle_ligue(league_id)]
+            for m in BASE.evenements_saison(league_id, saison)
+            if m.get("intHomeScore") is not None and m.get("intAwayScore") is not None]
 
 def calculer_classements_saison(league_id, league_name, season, matchs_ligue,
                                 vues=("general", "domicile", "exterieur"),
@@ -635,35 +500,19 @@ def obtenir_derniers_matchs_championnat(team_id, league_id, league_name, avant_d
     return resultat
 
 def obtenir_matchs_a_venir():
-    """Tous les matchs de la saison en cours des 3 competitions europeennes
-    (pas seulement ceux de la semaine), avec mise en cache quotidienne."""
-    matchs = charger_cache_memoise(CACHE_SEASON_FILE)
+    """Tous les matchs de la saison en cours des 3 competitions europeennes (pas seulement ceux de la
+    semaine), depuis la base locale (mise a jour par le workflow quotidien)."""
+    return [m for league_id in LEAGUE_IDS for m in BASE.evenements_saison(league_id, SEASON)]
 
-    if matchs is None:
-        matchs = []
-        for league_id in LEAGUE_IDS:
-            url = f"https://www.thesportsdb.com/api/v1/json/{API_KEY}/eventsseason.php?id={league_id}&s={SEASON}"
-            try:
-                response = requete_api_avec_retry(url)
-                response.raise_for_status()
-                matchs.extend(response.json().get("events", []) or [])
-            except requests.exceptions.RequestException:
-                raise HTTPException(status_code=500, detail="Erreur lors de la communication avec TheSportsDB")
-        sauvegarder_cache(CACHE_SEASON_FILE, matchs)
-
-    return matchs
-
-# Source du calendrier (variable SOURCE_CALENDRIER) : « auto » = ESPN avec The Odds API en secours
-# (package `calendrier/`), TheSportsDB en dernier recours ; « thesportsdb » = ancienne source seule.
-SOURCE_CALENDRIER = os.environ.get("SOURCE_CALENDRIER", "auto")
+# Calendrier en direct : ESPN avec The Odds API en secours (package `calendrier/`) ; en cas d'echec, la base locale.
 DUREE_CACHE_SOURCE = 1200  # secondes : evite ~160 requetes ESPN a chaque affichage du site
 _cache_source = {}
 
-def matchs_semaine_via_source(ids_ligues, fichier_cache_tsdb, locaux_defaut=()):
-    """Matchs des 7 prochains jours (et ceux deja joues aujourd'hui) via `calendrier/`, avec les
-    identifiants TheSportsDB du cache local (mapping du site conserve) ; None si la source est
-    desactivee, injoignable ou ne couvre aucune ligue (l'appelant retombe alors sur TheSportsDB)."""
-    if SOURCE_CALENDRIER == "thesportsdb" or HORS_LIGNE:
+def matchs_semaine_via_source(ids_ligues):
+    """Matchs des JOURS_AFFICHES prochains jours (et ceux deja joues aujourd'hui) via `calendrier/`, avec
+    les identifiants et champs de la base locale ; None si la source est desactivee (mode hors ligne) ou
+    injoignable (l'appelant retombe alors sur la base locale seule)."""
+    if HORS_LIGNE:
         return None
     cle = (tuple(ids_ligues), date.today())
     en_cache = _cache_source.get(cle)
@@ -671,12 +520,12 @@ def matchs_semaine_via_source(ids_ligues, fichier_cache_tsdb, locaux_defaut=()):
         return en_cache[1]
     try:
         from calendrier import source
-        locaux = (_lire_json_ou_defaut(fichier_cache_tsdb, {}) or {}).get("data") or (
-            locaux_defaut() if callable(locaux_defaut) else list(locaux_defaut))
+        locaux = [e for i in ids_ligues
+                  for e in BASE.evenements_saison(i, saison_actuelle_ligue(i) if i in DOMESTIC_LEAGUES else SEASON)]
         evenements, rapport = source.a_venir(date.today(), date.today() + timedelta(days=JOURS_AFFICHES), locaux,
                                              list(ids_ligues), inclure_joues=True)
     except Exception as exc:  # noqa: BLE001
-        print(f"Calendrier ESPN/Odds API indisponible ({type(exc).__name__}: {exc}), repli TheSportsDB")
+        print(f"Calendrier ESPN/Odds API indisponible ({type(exc).__name__}: {exc}), base locale utilisee")
         return None
     if not any(rapport["sources"].values()):
         return None
@@ -687,37 +536,21 @@ def matchs_semaine_via_source(ids_ligues, fichier_cache_tsdb, locaux_defaut=()):
 def get_matchs_a_venir():
     if HORS_LIGNE:
         return {"events": []}  # onglet non prepare en mode hors ligne
-    from calendrier.equipes import charger_locaux_europe
-    via_source = matchs_semaine_via_source(list(COMPETITIONS_EUROPE), CACHE_SEASON_FILE, charger_locaux_europe)
+    via_source = matchs_semaine_via_source(list(COMPETITIONS_EUROPE))
     if via_source is not None:
         return {"events": marquer_cotes_elevees(via_source)}
     return {"events": marquer_cotes_elevees(filtrer_matchs_semaine(obtenir_matchs_a_venir()))}
 
 def obtenir_matchs_championnats_a_venir():
-    """Tous les matchs de la saison en cours des championnats nationaux suivis (pas seulement
-    ceux de la semaine), avec mise en cache quotidienne."""
-    matchs = charger_cache_memoise(CACHE_CHAMPIONNAT_SEASON_FILE)
-
-    if matchs is None:
-        matchs = []
-        for league_id in DOMESTIC_LEAGUES:
-            url = f"https://www.thesportsdb.com/api/v1/json/{API_KEY}/eventsseason.php?id={league_id}&s={saison_actuelle_ligue(league_id)}"
-            try:
-                response = requete_api_avec_retry(url)
-                response.raise_for_status()
-                matchs.extend(response.json().get("events", []) or [])
-            except requests.exceptions.RequestException:
-                raise HTTPException(status_code=500, detail="Erreur lors de la communication avec TheSportsDB")
-        sauvegarder_cache(CACHE_CHAMPIONNAT_SEASON_FILE, matchs)
-
-    return matchs
+    """Tous les matchs de la saison en cours des championnats nationaux suivis (pas seulement ceux de la
+    semaine), depuis la base locale (mise a jour par le workflow quotidien)."""
+    return [m for league_id in DOMESTIC_LEAGUES
+            for m in BASE.evenements_saison(league_id, saison_actuelle_ligue(league_id))]
 
 @app.get("/api/championnats/matchs/a-venir")
 def get_matchs_championnats_a_venir():
     if not HORS_LIGNE:
-        from calendrier.source import locaux_depuis_fichier
-        via_source = matchs_semaine_via_source(list(DOMESTIC_LEAGUES), CACHE_CHAMPIONNAT_SEASON_FILE,
-                                               lambda: locaux_depuis_fichier("matchs_reseau_bruts.json", list(DOMESTIC_LEAGUES)))
+        via_source = matchs_semaine_via_source(list(DOMESTIC_LEAGUES))
         if via_source is not None:
             return {"events": marquer_cotes_elevees(via_source)}
     matchs = obtenir_matchs_championnats_a_venir()
@@ -735,12 +568,7 @@ def get_classement_championnat(league_id: str):
     nom_ligue = DOMESTIC_LEAGUES[league_id]
     saison_actuelle = saison_actuelle_ligue(league_id)
     saison_precedente = saisons_passees_ligue(league_id)[-1]
-
-    cache_historique = charger_cache(CACHE_CHAMPIONNAT_HISTORIQUE_FILE) or {}
-    deja_en_cache = league_id in cache_historique
-    matchs_ligue = charger_historique_championnat(league_id, cache_historique)
-    if not deja_en_cache:
-        sauvegarder_cache(CACHE_CHAMPIONNAT_HISTORIQUE_FILE, cache_historique)
+    matchs_ligue = charger_historique_championnat(league_id)
 
     return {
         "ligue": nom_ligue,
@@ -891,127 +719,75 @@ def get_bilans_paris():
 @app.get("/api/match/{event_id}")
 def get_match_details(event_id: str):
     cache_details = charger_cache(CACHE_DETAILS_FILE) or {}
-    cache_teams = charger_cache_permanent(CACHE_TEAMS_FILE)
-    cache_classement = charger_cache_permanent(CACHE_CLASSEMENT_FILE)
 
     if event_id in cache_details:
         fiche = cache_details[event_id]
-        # Le classement évolue : on le remet à jour (une fois par jour et par équipe) même
-        # quand le reste de la fiche vient du cache.
+        # Le classement évolue : on le remet à jour même quand le reste de la fiche vient du cache.
         for cle, cle_equipe in (("classementDomicile", "idHomeTeam"), ("classementExterieur", "idAwayTeam")):
-            nouveau = obtenir_classement_national(fiche.get(cle_equipe), cache_classement)
+            nouveau = obtenir_classement_national(fiche.get(cle_equipe))
             if nouveau and nouveau != fiche.get(cle):
                 fiche[cle] = nouveau
                 cache_details[event_id] = fiche
                 sauvegarder_cache(CACHE_DETAILS_FILE, cache_details)
-        sauvegarder_cache_permanent(CACHE_CLASSEMENT_FILE, cache_classement)
         return fiche
 
-    url = f"https://www.thesportsdb.com/api/v1/json/{API_KEY}/lookupevent.php?id={event_id}"
+    # Le match vient de la base locale ; un match tout juste apparu (pas encore ecrit dans la base par le
+    # workflow quotidien) est retrouve dans le calendrier ESPN deja charge pour la liste.
+    match_data = BASE.evenement(event_id) or next(
+        (e for _, evenements in _cache_source.values() for e in evenements if str(e.get("idEvent")) == event_id), None)
+    if not match_data:
+        raise HTTPException(status_code=404, detail="Match introuvable")
+    match_data = dict(match_data)
 
-    try:
-        response = requete_api_avec_retry(url)
-        response.raise_for_status()
-        data = response.json()
+    match_data["strHomeCountry"] = obtenir_pays_equipe(match_data.get("idHomeTeam"))
+    match_data["strAwayCountry"] = obtenir_pays_equipe(match_data.get("idAwayTeam"))
+    match_data["strPhase"] = categoriser_phase(match_data)
 
-        if data.get("events") and len(data["events"]) > 0:
-            match_data = data["events"][0]
+    # Position en championnat national, pour toutes les compétitions
+    match_data["classementDomicile"] = obtenir_classement_national(match_data.get("idHomeTeam"))
+    match_data["classementExterieur"] = obtenir_classement_national(match_data.get("idAwayTeam"))
 
-            # Injection des pays pour le match cliqué (recherche via l'API si absent du cache)
-            match_data["strHomeCountry"] = obtenir_pays_equipe(match_data.get("idHomeTeam"), cache_teams)
-            match_data["strAwayCountry"] = obtenir_pays_equipe(match_data.get("idAwayTeam"), cache_teams)
-            match_data["strPhase"] = categoriser_phase(match_data)
-            sauvegarder_cache_permanent(CACHE_TEAMS_FILE, cache_teams)
+    # Pour un match de championnat national (onglet "Championnats") : les 5 derniers matchs de chaque équipe
+    # dans cette compétition, avec le classement de l'adversaire lors de la saison où chacun a eu lieu.
+    id_ligue = match_data.get("idLeague")
+    if id_ligue in DOMESTIC_LEAGUES:
+        nom_ligue = DOMESTIC_LEAGUES[id_ligue]
+        date_match = match_data.get("dateEvent", "")
+        match_data["historiqueDomicile"] = obtenir_derniers_matchs_championnat(
+            match_data.get("idHomeTeam"), id_ligue, nom_ligue, date_match, None)
+        match_data["historiqueExterieur"] = obtenir_derniers_matchs_championnat(
+            match_data.get("idAwayTeam"), id_ligue, nom_ligue, date_match, None)
 
-            # Position en championnat national la saison précédente, pour toutes les compétitions
-            match_data["classementDomicile"] = obtenir_classement_national(match_data.get("idHomeTeam"), cache_classement)
-            match_data["classementExterieur"] = obtenir_classement_national(match_data.get("idAwayTeam"), cache_classement)
-            sauvegarder_cache_permanent(CACHE_CLASSEMENT_FILE, cache_classement)
+    cache_details[event_id] = match_data
+    sauvegarder_cache(CACHE_DETAILS_FILE, cache_details)
+    return match_data
 
-            # Pour un match de championnat national (onglet "Championnats") : les 5 derniers
-            # matchs de chaque équipe dans cette compétition, avec le classement de l'adversaire
-            # lors de la saison où chacun de ces matchs a eu lieu.
-            id_ligue = match_data.get("idLeague")
-            cache_championnat_historique = charger_cache(CACHE_CHAMPIONNAT_HISTORIQUE_FILE) or {}
-
-            if id_ligue in DOMESTIC_LEAGUES:
-                nom_ligue = DOMESTIC_LEAGUES[id_ligue]
-                date_match = match_data.get("dateEvent", "")
-
-                match_data["historiqueDomicile"] = obtenir_derniers_matchs_championnat(
-                    match_data.get("idHomeTeam"), id_ligue, nom_ligue, date_match,
-                    cache_championnat_historique
-                )
-                match_data["historiqueExterieur"] = obtenir_derniers_matchs_championnat(
-                    match_data.get("idAwayTeam"), id_ligue, nom_ligue, date_match,
-                    cache_championnat_historique
-                )
-
-            sauvegarder_cache(CACHE_CHAMPIONNAT_HISTORIQUE_FILE, cache_championnat_historique)
-
-            cache_details[event_id] = match_data
-            sauvegarder_cache(CACHE_DETAILS_FILE, cache_details)
-
-            return match_data
-        else:
-            raise HTTPException(status_code=404, detail="Match introuvable")
-    except requests.exceptions.RequestException:
-        raise HTTPException(status_code=500, detail="Erreur API")
+_cache_historique_europe = {}
 
 def obtenir_historique_qualifications():
-    """Historique complet (3 dernieres saisons + saison en cours deja jouee)
-    des matchs de qualification/groupe/finale des 3 competitions europeennes,
-    avec pays de chaque equipe injecte. Mise en cache quotidienne."""
-    historique = charger_cache_memoise(CACHE_HISTORY_FILE)
-    cache_teams = charger_cache_permanent(CACHE_TEAMS_FILE)
-    teams_updated = appliquer_corrections_pays(cache_teams)
+    """Historique complet (3 dernieres saisons + saison en cours deja jouee) des matchs de
+    qualification/groupe/finale des 3 competitions europeennes, avec pays de chaque equipe injecte, depuis la
+    base locale. Memoise tant que les fichiers de la base ne changent pas."""
+    signature = tuple(os.path.getmtime(BASE.chemin_saison(l, s)) if os.path.exists(BASE.chemin_saison(l, s)) else 0
+                      for l in LEAGUE_IDS for s in PAST_SEASONS + [SEASON]) + (
+        os.path.getmtime(os.path.join(BASE.racine, "equipes.json")) if os.path.exists(
+            os.path.join(BASE.racine, "equipes.json")) else 0,)
+    if _cache_historique_europe.get("signature") == signature:
+        return _cache_historique_europe["historique"]
 
-    if historique is None:
-        historique = []
-        equipes_uniques = set()
-        
-        for league_id in LEAGUE_IDS:
-            for season in PAST_SEASONS + [SEASON]:
-                url = f"https://www.thesportsdb.com/api/v1/json/{API_KEY}/eventsseason.php?id={league_id}&s={season}"
-                try:
-                    response = requete_api_avec_retry(url)
-                    response.raise_for_status()
-                    matchs = response.json().get("events", [])
-
-                    if matchs:
-                        for match in matchs:
-                            # Pour la saison en cours, seuls les matchs déjà joués comptent comme historique
-                            if season == SEASON and match.get("intHomeScore") is None:
-                                continue
-                            match["strPhase"] = categoriser_phase(match)
-                            historique.append(match)
-                            equipes_uniques.add(match.get("idHomeTeam"))
-                            equipes_uniques.add(match.get("idAwayTeam"))
-                except requests.exceptions.RequestException:
+    historique = []
+    for league_id in LEAGUE_IDS:
+        for season in PAST_SEASONS + [SEASON]:
+            for match in BASE.evenements_saison(league_id, season):
+                # Pour la saison en cours, seuls les matchs deja joues comptent comme historique
+                if season == SEASON and match.get("intHomeScore") is None:
                     continue
-                
-        # Recherche des pays avec sécurité anti-blocage (0.6s par équipe manquante)
-        for team_id in equipes_uniques:
-            if team_id and team_id not in cache_teams:
-                url = f"https://www.thesportsdb.com/api/v1/json/{API_KEY}/lookupteam.php?id={team_id}"
-                try:
-                    resp = requete_api_avec_retry(url)
-                    if resp.status_code == 200 and resp.json().get("teams"):
-                        cache_teams[team_id] = resp.json()["teams"][0].get("strCountry", "")
-                        teams_updated = True
-                        time.sleep(0.6)
-                except requests.exceptions.RequestException:
-                    cache_teams[team_id] = ""
-
-        # Injection dans l'historique
-        for match in historique:
-            match["strHomeCountry"] = cache_teams.get(match.get("idHomeTeam"), "")
-            match["strAwayCountry"] = cache_teams.get(match.get("idAwayTeam"), "")
-            
-        sauvegarder_cache(CACHE_HISTORY_FILE, historique)
-        if teams_updated:
-            sauvegarder_cache_permanent(CACHE_TEAMS_FILE, cache_teams)
-
+                match = dict(match)
+                match["strPhase"] = categoriser_phase(match)
+                match["strHomeCountry"] = obtenir_pays_equipe(match.get("idHomeTeam"))
+                match["strAwayCountry"] = obtenir_pays_equipe(match.get("idAwayTeam"))
+                historique.append(match)
+    _cache_historique_europe.update(signature=signature, historique=historique)
     return historique
 
 def enrichir_historique_pour_affichage(historique):

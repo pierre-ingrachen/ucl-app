@@ -66,7 +66,7 @@ def convertir(ligne, id_ligue, annuaire, depuis):
         "idEvent": None, "idLeague": id_ligue, "strSeason": saison(id_ligue, jour),
         "idHomeTeam": id_dom, "idAwayTeam": id_ext,
         "strHomeTeam": annuaire.nom(id_dom, nom_dom), "strAwayTeam": annuaire.nom(id_ext, nom_ext),
-        "dateEvent": jour.isoformat(), "strTime": "00:00:00", "strTimestamp": f"{jour.isoformat()}T00:00:00",
+        "dateEvent": jour.isoformat(), "strTime": None, "strTimestamp": None,  # football-data ne donne pas l'heure UTC : jamais utilisee
         "intHomeScore": score_dom, "intAwayScore": score_ext, "strStatus": "FT", "strPostponed": "no",
         "source": "footballdata",
     }

@@ -20,7 +20,8 @@ import os
 import sys
 from datetime import date, timedelta
 
-from . import espn, footballdata, odds_api
+from . import espn, footballdata, logos, odds_api
+from .base import Base
 from .equipes import Annuaire, RESSOURCES
 from .ligues import LIGUES, CHAMPIONNATS, COUPES_EUROPE, saison
 
@@ -32,6 +33,7 @@ RECUL_MAX_JOURS = 120         # plafond du rattrapage au premier run
 TOLERANCE_REPORT_JOURS = 120  # un match deplace de moins de 120 jours reste le meme match
 CHAMPS_RECENTS = ("idEvent", "idLeague", "strSeason", "idHomeTeam", "idAwayTeam", "strHomeTeam", "strAwayTeam",
                   "dateEvent", "intHomeScore", "intAwayScore")  # le cache ne garde que le strict necessaire
+CLES_SCORE = ("intHomeScore", "intAwayScore", "strStatus", "strPostponed", "source")
 CLES_DYNAMIQUES = ("dateEvent", "strTime", "strTimestamp", "intHomeScore", "intAwayScore", "strStatus",
                    "strPostponed", "source")
 
@@ -67,7 +69,8 @@ def rattacher(evenements, locaux):
                                                       - date.fromisoformat(e["dateEvent"])).days))
             utilises.add(local["idEvent"])
             fusion = dict(local)
-            fusion.update({k: e.get(k) for k in CLES_DYNAMIQUES})
+            cles = CLES_SCORE if e.get("source") == "footballdata" else CLES_DYNAMIQUES  # date locale != date UTC
+            fusion.update({k: e.get(k) for k in cles if e.get(k) is not None or k.startswith("int")})
             for cle in ("strHomeTeamBadge", "strAwayTeamBadge", "strLeagueBadge", "strVenue"):
                 if not fusion.get(cle):
                     fusion[cle] = e.get(cle)
@@ -145,15 +148,18 @@ def a_venir(debut, fin, locaux=(), ids_ligues=None, annuaire=None, secours=True,
 
 def completer_calendrier(brut, aujourd_hui=None, horizon=HORIZON_JOURS, ids_ligues=None, annuaire=None,
                          persister=True, session_espn=None, session_odds=None, cle_odds=None, secours=True,
-                         session_fd=None):
+                         session_fd=None, base=None):
     """Met a jour `brut` ({ligue: {saison: [evenements]}}, format de matchs_reseau_bruts.json) avec
     les resultats recents et les matchs des `horizon` prochains jours, et le renvoie.
 
     - resultats : ESPN, de la derniere date couverte (memorisee par ligue) jusqu'a aujourd'hui ;
       ajoutes au cache `evenements_recents.json` pour ne pas les retelecharger ;
     - a venir : `a_venir` (ESPN, secours The Odds API) ;
-    - les ligues sans ESPN sont listees dans rapport["ligues_sans_resultats"] : leurs scores doivent
-      venir d'ailleurs (TheSportsDB) tant qu'aucun fournisseur gratuit ne les couvre.
+    - Pologne et Suisse : resultats football-data ; les ligues sans aucun fournisseur gratuit (Tchequie,
+      Chypre, Hongrie) sont listees dans rapport["ligues_sans_resultats"] (resultats figes) ;
+    - `base` (calendrier.base.Base) : base locale du site. Si fournie, elle sert de calendrier local (evenements
+      complets : tour, stade, logos) et recoit les resultats, les nouveaux matchs et les nouveaux clubs ; ses
+      logos manquants sont telecharges.
     Renvoie (brut, rapport)."""
     aujourd_hui = aujourd_hui or date.today()
     annuaire = annuaire or Annuaire()
@@ -166,6 +172,10 @@ def completer_calendrier(brut, aujourd_hui=None, horizon=HORIZON_JOURS, ids_ligu
     # Calendrier local de la saison en cours, a plat, pour le rattachement des idEvent.
     locaux = []
     for i in ids:
+        de_la_base = base.evenements_saison(i, saison_courante(i)) if base else []
+        if de_la_base:
+            locaux += [dict(e) for e in de_la_base if e.get("dateEvent")]
+            continue
         for e in brut.get(i, {}).get(saison_courante(i), []):
             if e.get("dateEvent"):
                 locaux.append(dict(e, idLeague=i, strSeason=saison_courante(i)))
@@ -226,13 +236,59 @@ def completer_calendrier(brut, aujourd_hui=None, horizon=HORIZON_JOURS, ids_ligu
             liste.append(minimal)
     if persister:
         _ecrire_recents(recents)
+    ajoutes_base = (0, 0, 0)
+    if base and persister:
+        completes = joues + fd_joues + venir  # evenements COMPLETS de ce run (jamais le cache minimal des runs passes)
+        base.completer_equipes(completes)
+        modifies, ajoutes = base.upsert(completes)
+        ok, echecs, _ = logos.telecharger_manquants(base)
+        ajoutes_base = (modifies, ajoutes, len(echecs))
 
     rapport = dict(rapport_venir, ignores=rapport_venir["ignores"] + ign1,
                    resultats_nouveaux=len(joues), ligues_espn_en_panne=sorted(panne),
-                   resultats_footballdata=fd_rattaches,
+                   resultats_footballdata=fd_rattaches, base_modifiee=ajoutes_base,
                    ligues_sans_resultats=[i for i in ids if not LIGUES[i]["espn"]
                                           and (i not in footballdata.CODES or i in panne_fd)])
     return brut, rapport
+
+
+def mettre_a_jour_europe(base, aujourd_hui=None, horizon=HORIZON_JOURS, annuaire=None, persister=True,
+                         session_espn=None, session_odds=None, cle_odds=None, secours=True):
+    """Met a jour la base locale pour les 3 coupes d'Europe : resultats ESPN depuis la derniere date couverte
+    (memorisee dans le meme fichier que les championnats, cle = id de la competition), matchs a venir (ESPN,
+    secours The Odds API), tours de qualification inclus. N'alimente jamais `brut` (historique des modeles :
+    championnats seulement). Renvoie un rapport {"resultats", "base_modifiee": (modifies, ajoutes, logos_echecs),
+    "ligues_espn_en_panne"}."""
+    aujourd_hui = aujourd_hui or date.today()
+    annuaire = annuaire or Annuaire()
+    ids = list(COUPES_EUROPE)
+    recents = _lire_recents()
+    locaux = [dict(e) for i in ids for e in base.evenements_saison(i, saison(i, aujourd_hui))]
+
+    taches = []
+    for i in ids:
+        derniere = max((e["dateEvent"] for e in locaux if e["idLeague"] == i and e.get("intHomeScore") is not None),
+                       default=None)
+        depart = recents["couvert_jusqu_au"].get(i) or derniere or str(aujourd_hui - timedelta(RECUL_MAX_JOURS))
+        depart = max(date.fromisoformat(depart) - timedelta(RECUL_JOURS), aujourd_hui - timedelta(RECUL_MAX_JOURS))
+        taches += [(i, depart + timedelta(k)) for k in range((aujourd_hui - depart).days + 1)]
+    passes, panne, _ = espn.evenements(taches, annuaire, session_espn)
+    joues, _ = rattacher([e for e in passes if e["intHomeScore"] is not None], locaux)
+    for i in ids:
+        if i not in panne:
+            recents["couvert_jusqu_au"][i] = str(aujourd_hui)
+    venir, _ = a_venir(aujourd_hui, aujourd_hui + timedelta(horizon), locaux, ids, annuaire, secours,
+                       session_espn, session_odds, cle_odds)
+    resultat = (0, 0, 0)
+    if persister:
+        _ecrire_recents(recents)
+        completes = joues + venir
+        base.completer_equipes(completes)
+        modifies, ajoutes = base.upsert(completes)
+        _, echecs, _ = logos.telecharger_manquants(base)
+        resultat = (modifies, ajoutes, len(echecs))
+    annuaire.sauvegarder_pont()
+    return {"resultats": len(joues), "base_modifiee": resultat, "ligues_espn_en_panne": sorted(panne)}
 
 
 def _afficher(evenements, rapport):
@@ -262,8 +318,8 @@ if __name__ == "__main__":
         brut = json.load(f)
     locaux = [dict(e, idLeague=i, strSeason=s) for i, ss in brut.items() for s, ev in ss.items()
               for e in ev if s == saison(i, date.today())]
-    from .equipes import charger_locaux_europe
-    locaux += charger_locaux_europe()
+    base_locale = Base()
+    locaux += [e for i in COUPES_EUROPE for e in base_locale.evenements_saison(i, saison(i, date.today()))]
     ann = Annuaire()
     evs, rap = a_venir(date.today(), date.today() + timedelta(jours), locaux, annuaire=ann)
     if commande == "prochains":

@@ -12,7 +12,7 @@ import json
 import os
 import sys
 
-import main  # constantes (ligues, saisons) et requete_api_avec_retry (throttling TheSportsDB)
+import main  # constantes (ligues, saisons)
 from reseau_buts import EtatChampionnat, noms_features
 
 FICHIER_BRUTS = "matchs_reseau_bruts.json"
@@ -33,23 +33,10 @@ def saisons_ligue(league_id):
 
 
 def telecharger_matchs():
-    """Tous les evenements (joues ou non) de chaque ligue, sur la saison precedente et la courante."""
-    brut = {}
-    for league_id, nom in main.DOMESTIC_LEAGUES.items():
-        brut[league_id] = {}
-        for saison in saisons_ligue(league_id):
-            url = (f"https://www.thesportsdb.com/api/v1/json/{main.API_KEY}/"
-                   f"eventsseason.php?id={league_id}&s={saison}")
-            resp = main.requete_api_avec_retry(url)
-            resp.raise_for_status()
-            evenements = resp.json().get("events") or []
-            brut[league_id][saison] = [
-                {k: e.get(k) for k in ("idEvent", "dateEvent", "idHomeTeam", "idAwayTeam",
-                                       "strHomeTeam", "strAwayTeam", "intHomeScore", "intAwayScore")}
-                for e in evenements
-            ]
-            print(f"{nom} {saison} : {len(evenements)} evenements")
-    return brut
+    """TheSportsDB n'est plus utilise (abonnement resilie) : matchs_reseau_bruts.json est fige, la saison en
+    cours se met a jour par `calendrier/` (paris_reseau.charger_calendrier). Garde-fou explicite."""
+    raise SystemExit("--refresh n'existe plus : TheSportsDB est retire. Les saisons passees sont figees dans "
+                     "matchs_reseau_bruts.json ; la saison en cours vient de calendrier/ (ESPN, football-data).")
 
 
 def rejouer_matchs(brut):

@@ -11,7 +11,7 @@
    Journal : cache_paris_reseau.json (mise = 1 / cote : un pari gagne rapporte 1 unite brute).
 
 `tout` (defaut, pratique en local) enchaine les deux. Variables d'environnement :
-SPORTSDB_API_KEY et ODDS_API_KEY.
+ODDS_API_KEY (plus aucune cle TheSportsDB).
 """
 import json
 import os
@@ -20,7 +20,7 @@ from datetime import date, datetime, timedelta
 
 import numpy as np
 
-import main  # requete_api_avec_retry, API_KEY, ligues et saisons
+import main  # ligues et saisons
 from construire_dataset_reseau import FICHIER_BRUTS, saisons_ligue
 from calendrier.ligues import LIGUES
 from odds import recuperer_toutes_les_cotes
@@ -51,66 +51,40 @@ def _ecrire_json(fichier, data):
         json.dump(data, f, ensure_ascii=False, indent=1)
 
 
-def _calendrier_thesportsdb(brut, ids_ligues, tolerant=False):
-    """Recharge la saison en cours de ces ligues depuis TheSportsDB (ancienne source). `tolerant` :
-    en cas d'erreur on garde ce que `brut` contient deja au lieu d'echouer."""
-    for league_id in ids_ligues:
-        saison = main.saison_actuelle_ligue(league_id)
-        url = (f"https://www.thesportsdb.com/api/v1/json/{main.API_KEY}/"
-               f"eventsseason.php?id={league_id}&s={saison}")
-        try:
-            resp = main.requete_api_avec_retry(url)
-            resp.raise_for_status()
-            evenements = resp.json().get("events") or []
-        except Exception as exc:  # noqa: BLE001
-            if not tolerant:
-                raise
-            print(f"- TheSportsDB indisponible pour {main.DOMESTIC_LEAGUES[league_id]} "
-                  f"({type(exc).__name__}) : calendrier local conserve")
-            continue
-        brut.setdefault(league_id, {})[saison] = [
-            {k: e.get(k) for k in ("idEvent", "dateEvent", "idHomeTeam", "idAwayTeam",
-                                   "strHomeTeam", "strAwayTeam", "intHomeScore", "intAwayScore")}
-            for e in evenements
-        ]
-    return brut
-
-
 def charger_calendrier():
-    """{ligue -> {saison -> evenements}} : historique fige (matchs_reseau_bruts.json) complete avec
-    les resultats recents et les matchs a venir.
-
-    Source (variable SOURCE_CALENDRIER) : « auto » (defaut) = package `calendrier/`, AUCUN appel
-    TheSportsDB : ESPN (resultats et a venir), football-data (resultats Pologne et Suisse), The Odds API
-    (secours a venir). Tchequie, Chypre et Hongrie n'ont aucun fournisseur gratuit : leurs resultats
-    restent figes (sans cotes, donc sans paris). Si le package echoue, repli sur TheSportsDB uniquement
-    si SPORTSDB_API_KEY est definie. « thesportsdb » = ancien comportement."""
-    brut = _lire_json(FICHIER_BRUTS, {})
-    ligues_tsdb = list(main.DOMESTIC_LEAGUES)
-    if os.environ.get("SOURCE_CALENDRIER", "auto") != "thesportsdb":
-        try:
-            from calendrier import source
-            brut, rapport = source.completer_calendrier(brut, ids_ligues=list(main.DOMESTIC_LEAGUES))
-            ligues_tsdb = []  # plus aucun appel TheSportsDB
-            par_source = {}
-            for id_ligue, src in rapport["sources"].items():
-                if id_ligue in main.DOMESTIC_LEAGUES:
-                    par_source.setdefault(src or "aucune", []).append(main.DOMESTIC_LEAGUES[id_ligue])
-            print(f"## Calendrier — {rapport['resultats_nouveaux']} resultats ESPN, "
-                  f"{rapport['resultats_footballdata']} resultats football-data ; a venir : "
-                  + ", ".join(f"{src} : {len(noms)} ligues" for src, noms in sorted(par_source.items())))
-            if rapport["ligues_sans_resultats"] or rapport["ligues_espn_en_panne"]:
-                gelees = [main.DOMESTIC_LEAGUES[i] for i in rapport["ligues_sans_resultats"]]
-                panne = [main.DOMESTIC_LEAGUES[i] for i in rapport["ligues_espn_en_panne"]]
-                print(f"- Resultats figes (aucune source gratuite) : {', '.join(gelees) or 'aucune'} ; "
-                      f"ESPN en panne (rattrapage au prochain run) : {', '.join(panne) or 'aucune'}")
-            print()
-        except Exception as exc:  # noqa: BLE001
-            if not main.API_KEY:
-                raise
-            print(f"## Calendrier gratuit indisponible ({type(exc).__name__}: {exc}) : repli TheSportsDB\n")
-            brut = _lire_json(FICHIER_BRUTS, {})
-    return _calendrier_thesportsdb(brut, ligues_tsdb)
+    """{ligue -> {saison -> evenements}} : historique fige (matchs_reseau_bruts.json) complete avec les
+    resultats recents et les matchs a venir, via le package `calendrier/` (AUCUN appel TheSportsDB) : ESPN
+    (resultats et a venir), football-data (resultats Pologne et Suisse), The Odds API (secours a venir).
+    Met aussi a jour la base locale du site (`calendrier/base/` : evenements, clubs, logos).
+    Tchequie, Chypre et Hongrie n'ont aucun fournisseur gratuit : leurs resultats restent figes (sans cotes,
+    donc sans paris)."""
+    from calendrier import source
+    from calendrier.base import Base
+    brut, rapport = source.completer_calendrier(_lire_json(FICHIER_BRUTS, {}), ids_ligues=list(main.DOMESTIC_LEAGUES),
+                                                base=Base())
+    par_source = {}
+    for id_ligue, src in rapport["sources"].items():
+        if id_ligue in main.DOMESTIC_LEAGUES:
+            par_source.setdefault(src or "aucune", []).append(main.DOMESTIC_LEAGUES[id_ligue])
+    modifies, ajoutes, logos_manquants = rapport["base_modifiee"]
+    print(f"## Calendrier — {rapport['resultats_nouveaux']} resultats ESPN, {rapport['resultats_footballdata']} "
+          f"resultats football-data ; a venir : "
+          + ", ".join(f"{src} : {len(noms)} ligues" for src, noms in sorted(par_source.items())))
+    print(f"- Base locale : {modifies} matchs mis a jour, {ajoutes} ajoutes, {logos_manquants} logos non telecharges")
+    if rapport["ligues_sans_resultats"] or rapport["ligues_espn_en_panne"]:
+        gelees = [main.DOMESTIC_LEAGUES[i] for i in rapport["ligues_sans_resultats"]]
+        panne = [main.DOMESTIC_LEAGUES[i] for i in rapport["ligues_espn_en_panne"]]
+        print(f"- Resultats figes (aucune source gratuite) : {', '.join(gelees) or 'aucune'} ; "
+              f"ESPN en panne (rattrapage au prochain run) : {', '.join(panne) or 'aucune'}")
+    try:  # coupes d'Europe : base du site uniquement (jamais l'historique des modeles), erreurs isolees
+        europe = source.mettre_a_jour_europe(Base())
+        print(f"- Coupes d'Europe : {europe['resultats']} resultats, base {europe['base_modifiee'][0]} mis a jour / "
+              f"{europe['base_modifiee'][1]} ajoutes" + (f", ESPN en panne : {europe['ligues_espn_en_panne']}"
+                                                         if europe["ligues_espn_en_panne"] else ""))
+    except Exception as exc:  # noqa: BLE001
+        print(f"- Coupes d'Europe : mise a jour impossible ({type(exc).__name__}: {exc}), base inchangee")
+    print()
+    return brut
 
 
 def est_joue(e):
@@ -173,24 +147,19 @@ def etape_cotes(calendrier):
 
 
 def matchs_europe_a_venir(debut, fin):
-    """Matchs non joues des coupes d'Europe dans [debut, fin] : utilises pour relever leurs cotes
-    (affichage sur le site), jamais pour les paris du reseau. Les identifiants restent ceux du site
-    (instantane `calendrier/ressources/locaux_europe.json`), sinon TheSportsDB (ancienne source)."""
-    if os.environ.get("SOURCE_CALENDRIER", "auto") != "thesportsdb":
-        try:
-            from calendrier import source
-            from calendrier.equipes import charger_locaux_europe
-            evenements, _ = source.a_venir(date.fromisoformat(debut), date.fromisoformat(fin),
-                                           charger_locaux_europe(), ids_ligues=list(main.COMPETITIONS_EUROPE))
-            return evenements
-        except Exception as exc:  # noqa: BLE001
-            print(f"- Calendrier europeen ESPN/Odds API indisponible ({type(exc).__name__}) : repli TheSportsDB")
+    """Matchs non joues des coupes d'Europe dans [debut, fin] : utilises pour relever leurs cotes (affichage
+    sur le site), jamais pour les paris du reseau. Identifiants et tours viennent de la base locale."""
+    from calendrier import source
+    from calendrier.base import Base
+    base = Base()
+    locaux = [e for i in main.COMPETITIONS_EUROPE for e in base.evenements_saison(i, main.SEASON)]
     try:
-        evenements = main.obtenir_matchs_a_venir()
-    except main.HTTPException:
-        return []
-    return [e for e in evenements if e.get("idLeague") in main.COMPETITIONS_EUROPE and not est_joue(e)
-            and e.get("dateEvent") and debut <= e["dateEvent"] <= fin]
+        evenements, _ = source.a_venir(date.fromisoformat(debut), date.fromisoformat(fin), locaux,
+                                       ids_ligues=list(main.COMPETITIONS_EUROPE))
+        return evenements
+    except Exception as exc:  # noqa: BLE001
+        print(f"- Calendrier europeen ESPN/Odds API indisponible ({type(exc).__name__}) : base locale")
+        return [e for e in locaux if not est_joue(e) and e.get("dateEvent") and debut <= e["dateEvent"] <= fin]
 
 
 def rejouer_championnats(calendrier):

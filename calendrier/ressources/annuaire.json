@@ -9,13 +9,13 @@
 },
 "134108": {
 "nom": "Benfica",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/hj4kyc1781152436.png",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/s5kxf01794325225.png",
 "ligues": [
 "4344"
 ]
 },
 "134115": {
-"nom": "Vitória de Guimarães",
+"nom": "Guimaraes",
 "badge": "https://r2.thesportsdb.com/images/media/team/badge/af52z61628855707.png",
 "ligues": [
 "4344"
@@ -43,7 +43,7 @@
 ]
 },
 "134114": {
-"nom": "Porto",
+"nom": "FC Porto",
 "badge": "https://r2.thesportsdb.com/images/media/team/badge/xu47rb1628855600.png",
 "ligues": [
 "4344"
@@ -86,9 +86,10 @@
 },
 "135502": {
 "nom": "Tondela",
-"badge": "",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/o7nqff1628856081.png",
 "ligues": [
-"4344"
+"4344",
+"4662"
 ]
 },
 "134107": {
@@ -121,7 +122,7 @@
 },
 "135708": {
 "nom": "Sporting CP",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/5hiuk71783137875.png",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/ohj6ih1628855978.png",
 "ligues": [
 "4344"
 ]
@@ -240,9 +241,10 @@
 },
 "133766": {
 "nom": "Heracles Almelo",
-"badge": "",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/vyyvss1473534851.png",
 "ligues": [
-"4337"
+"4337",
+"4641"
 ]
 },
 "133769": {
@@ -268,9 +270,10 @@
 },
 "133765": {
 "nom": "RKC Waalwijk",
-"badge": "",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/11v54c1659096848.png",
 "ligues": [
-"4337"
+"4337",
+"4641"
 ]
 },
 "133770": {
@@ -296,37 +299,42 @@
 },
 "133773": {
 "nom": "NAC Breda",
-"badge": "",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/ute4en1544965805.png",
 "ligues": [
-"4337"
+"4337",
+"4641"
 ]
 },
 "133867": {
 "nom": "FC Volendam",
-"badge": "",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/rdouic1625167940.png",
 "ligues": [
-"4337"
+"4337",
+"4641"
 ]
 },
 "133771": {
 "nom": "De Graafschap",
-"badge": "",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/36habq1718289995.png",
 "ligues": [
-"4337"
+"4337",
+"4641"
 ]
 },
 "133761": {
 "nom": "Roda JC",
-"badge": "",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/nmlzx31601664391.png",
 "ligues": [
-"4337"
+"4337",
+"4641"
 ]
 },
 "137996": {
 "nom": "Almere City",
-"badge": "",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/qhxtg31579206207.png",
 "ligues": [
-"4337"
+"4337",
+"4641"
 ]
 },
 "133760": {
@@ -373,7 +381,7 @@
 },
 "133789": {
 "nom": "Club Brugge",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/mz8y0q1771129880.png",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/ov3w9j1536001717.png",
 "ligues": [
 "4338"
 ]
@@ -436,7 +444,7 @@
 },
 "133779": {
 "nom": "Genk",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/ijp86h1788968480.png",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/tp06te1534875918.png",
 "ligues": [
 "4338"
 ]
@@ -492,9 +500,10 @@
 },
 "138142": {
 "nom": "Beerschot",
-"badge": "",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/2dahay1595605631.png",
 "ligues": [
-"4338"
+"4338",
+"4623"
 ]
 },
 "140081": {
@@ -505,7 +514,7 @@
 ]
 },
 "138141": {
-"nom": "Union Saint-Gilloise",
+"nom": "St. Gilloise",
 "badge": "https://r2.thesportsdb.com/images/media/team/badge/ljszp41654601742.png",
 "ligues": [
 "4338"
@@ -555,7 +564,7 @@
 },
 "133602": {
 "nom": "Liverpool",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/kfaher1737969724.png",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/uvxuqq1448813372.png",
 "ligues": [
 "4328"
 ]
@@ -568,21 +577,22 @@
 ]
 },
 "133636": {
-"nom": "West Ham United",
-"badge": "",
+"nom": "West Ham",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/yutyxs1467459956.png",
 "ligues": [
-"4328"
+"4328",
+"4329"
 ]
 },
 "134777": {
 "nom": "Newcastle United",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/kwaz8w1793219401.png",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/lhwuiz1621593302.png",
 "ligues": [
 "4328"
 ]
 },
 "133616": {
-"nom": "Tottenham Hotspur",
+"nom": "Tottenham",
 "badge": "https://r2.thesportsdb.com/images/media/team/badge/dfyfhl1604094109.png",
 "ligues": [
 "4328"
@@ -618,7 +628,7 @@
 },
 "133610": {
 "nom": "Chelsea",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/pbf4ul1782638263.png",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/yvwvtu1448813215.png",
 "ligues": [
 "4328"
 ]
@@ -632,9 +642,10 @@
 },
 "133599": {
 "nom": "Wolverhampton Wanderers",
-"badge": "",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/u9qr031621593327.png",
 "ligues": [
-"4328"
+"4328",
+"4329"
 ]
 },
 "133612": {
@@ -646,14 +657,15 @@
 },
 "133623": {
 "nom": "Burnley",
-"badge": "",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/ql7nl31686893820.png",
 "ligues": [
-"4328"
+"4328",
+"4329"
 ]
 },
 "133601": {
 "nom": "Aston Villa",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/uwzw561787679026.png",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/jykrpv1717309891.png",
 "ligues": [
 "4328"
 ]
@@ -695,7 +707,7 @@
 },
 "133720": {
 "nom": "Nottingham Forest",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/sar2y41781740886.png",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/bk4qjs1546440351.png",
 "ligues": [
 "4328"
 ]
@@ -709,9 +721,10 @@
 },
 "133861": {
 "nom": "Nantes",
-"badge": "",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/mla9x61678808018.png",
 "ligues": [
-"4334"
+"4334",
+"4401"
 ]
 },
 "133711": {
@@ -814,16 +827,18 @@
 },
 "133883": {
 "nom": "Metz",
-"badge": "",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/1iuew61688452857.png",
 "ligues": [
-"4334"
+"4334",
+"4401"
 ]
 },
 "133717": {
 "nom": "St Etienne",
-"badge": "",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/m4ej831656423694.png",
 "ligues": [
-"4334"
+"4334",
+"4401"
 ]
 },
 "133707": {
@@ -1017,9 +1032,10 @@
 },
 "133733": {
 "nom": "Mallorca",
-"badge": "",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/ssptsx1473503730.png",
 "ligues": [
-"4335"
+"4335",
+"4400"
 ]
 },
 "133734": {
@@ -1045,9 +1061,10 @@
 },
 "134700": {
 "nom": "Girona",
-"badge": "",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/kfu7zu1659897499.png",
 "ligues": [
-"4335"
+"4335",
+"4400"
 ]
 },
 "133674": {
@@ -1066,9 +1083,10 @@
 },
 "134784": {
 "nom": "Hellas Verona",
-"badge": "",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/p6camf1593457737.png",
 "ligues": [
-"4332"
+"4332",
+"4394"
 ]
 },
 "133682": {
@@ -1227,9 +1245,10 @@
 },
 "134224": {
 "nom": "Cremonese",
-"badge": "",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/6ng2vy1579708291.png",
 "ligues": [
-"4332"
+"4332",
+"4394"
 ]
 },
 "133664": {
@@ -1261,7 +1280,7 @@
 ]
 },
 "133814": {
-"nom": "Eintracht Frankfurt",
+"nom": "Ein Frankfurt",
 "badge": "https://r2.thesportsdb.com/images/media/team/badge/rurwpy1473453269.png",
 "ligues": [
 "4331"
@@ -1346,9 +1365,10 @@
 },
 "133655": {
 "nom": "Wolfsburg",
-"badge": "",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/ci9trv1778399557.png",
 "ligues": [
-"4331"
+"4331",
+"4399"
 ]
 },
 "133666": {
@@ -1394,7 +1414,7 @@
 ]
 },
 "133807": {
-"nom": "Fenerbahçe",
+"nom": "Fenerbahce",
 "badge": "https://r2.thesportsdb.com/images/media/team/badge/twxxvs1448199691.png",
 "ligues": [
 "4339"
@@ -1402,9 +1422,10 @@
 },
 "138983": {
 "nom": "Fatih Karagümrük",
-"badge": "",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/bfb84y1580847945.png",
 "ligues": [
-"4339"
+"4339",
+"4676"
 ]
 },
 "134227": {
@@ -1430,7 +1451,7 @@
 },
 "133804": {
 "nom": "Galatasaray",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/io7jk21767941298.png",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/75fphr1537381190.png",
 "ligues": [
 "4339"
 ]
@@ -1472,9 +1493,10 @@
 },
 "133802": {
 "nom": "Kayserispor",
-"badge": "",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/bvskgi1601668985.png",
 "ligues": [
-"4339"
+"4339",
+"4676"
 ]
 },
 "133834": {
@@ -1500,9 +1522,10 @@
 },
 "133799": {
 "nom": "Antalyaspor",
-"badge": "",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/vqoral1601669436.png",
 "ligues": [
-"4339"
+"4339",
+"4676"
 ]
 },
 "133798": {
@@ -1542,9 +1565,10 @@
 },
 "138982": {
 "nom": "Adana Demirspor",
-"badge": "",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/hewt221626264325.png",
 "ligues": [
-"4339"
+"4339",
+"4679"
 ]
 },
 "138946": {
@@ -1590,14 +1614,14 @@
 ]
 },
 "135302": {
-"nom": "Pogoń Szczecin",
+"nom": "Pogon Szczecin",
 "badge": "https://r2.thesportsdb.com/images/media/team/badge/uxyuwx1448219553.png",
 "ligues": [
 "4422"
 ]
 },
 "133952": {
-"nom": "Śląsk Wrocław",
+"nom": "Slask Wroclaw",
 "badge": "https://r2.thesportsdb.com/images/media/team/badge/vvvryp1448219776.png",
 "ligues": [
 "4422"
@@ -1647,9 +1671,10 @@
 },
 "135299": {
 "nom": "Lechia Gdańsk",
-"badge": "",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/92qkyn1601412225.png",
 "ligues": [
-"4422"
+"4422",
+"4661"
 ]
 },
 "135296": {
@@ -1674,17 +1699,18 @@
 ]
 },
 "135303": {
-"nom": "Wisła Kraków",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/y9j7hv1781237442.png",
+"nom": "Wisla Krakow",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/hctds11709146583.png",
 "ligues": [
 "4422"
 ]
 },
 "135495": {
 "nom": "Bruk-Bet Termalica Nieciecza",
-"badge": "",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/m1tod31628431456.png",
 "ligues": [
-"4422"
+"4422",
+"4661"
 ]
 },
 "138916": {
@@ -1723,7 +1749,7 @@
 ]
 },
 "134015": {
-"nom": "Viktoria Plzeň",
+"nom": "Viktoria Plzen",
 "badge": "https://r2.thesportsdb.com/images/media/team/badge/at8i2h1679265942.png",
 "ligues": [
 "4631"
@@ -1794,9 +1820,10 @@
 },
 "136679": {
 "nom": "Karviná",
-"badge": "",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/5w2blo1578836734.png",
 "ligues": [
-"4631"
+"4631",
+"4954"
 ]
 },
 "136684": {
@@ -1842,7 +1869,7 @@
 ]
 },
 "134000": {
-"nom": "Mladá Boleslav",
+"nom": "Mlada Boleslav",
 "badge": "https://r2.thesportsdb.com/images/media/team/badge/o8x4y51578836726.png",
 "ligues": [
 "4631"
@@ -1878,9 +1905,10 @@
 },
 "135709": {
 "nom": "AEL",
-"badge": "",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/xlln3b1782459015.png",
 "ligues": [
-"4336"
+"4336",
+"4640"
 ]
 },
 "133742": {
@@ -1940,8 +1968,8 @@
 ]
 },
 "133754": {
-"nom": "Olympiacos",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/xckasq1721291508.png",
+"nom": "Olympiakos",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/7kr3e11718292709.png",
 "ligues": [
 "4336"
 ]
@@ -2045,7 +2073,7 @@
 ]
 },
 "135497": {
-"nom": "Bodø/Glimt",
+"nom": "Bodoe/Glimt",
 "badge": "https://r2.thesportsdb.com/images/media/team/badge/uqpwwx1449165943.png",
 "ligues": [
 "4358"
@@ -2088,16 +2116,18 @@
 },
 "134564": {
 "nom": "Strømsgodset",
-"badge": "",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/wow1ny1746032568.png",
 "ligues": [
-"4358"
+"4358",
+"4457"
 ]
 },
 "134572": {
 "nom": "Haugesund",
-"badge": "",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/vx4q8p1602448530.png",
 "ligues": [
-"4358"
+"4358",
+"4457"
 ]
 },
 "134571": {
@@ -2193,7 +2223,7 @@
 },
 "133893": {
 "nom": "Brøndby",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/usxoux1784825763.png",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/ywswyw1473535498.png",
 "ligues": [
 "4340"
 ]
@@ -2228,9 +2258,10 @@
 },
 "136188": {
 "nom": "Vejle",
-"badge": "",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/fhlqev1532855346.png",
 "ligues": [
-"4340"
+"4340",
+"4683"
 ]
 },
 "134307": {
@@ -2248,8 +2279,8 @@
 ]
 },
 "133999": {
-"nom": "APOEL Nicosia",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/j5m0pu1779579095.png",
+"nom": "Apoel Nicosia",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/ccra6l1579035947.png",
 "ligues": [
 "4630"
 ]
@@ -2333,16 +2364,18 @@
 },
 "137925": {
 "nom": "Ethnikos Achna",
-"badge": "",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/6zhk1u1690408020.png",
 "ligues": [
-"4630"
+"4630",
+"4953"
 ]
 },
 "137924": {
 "nom": "Enosis Neon Paralimni",
-"badge": "",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/0o6dwd1579035978.png",
 "ligues": [
-"4630"
+"4630",
+"4953"
 ]
 },
 "141094": {
@@ -2361,9 +2394,10 @@
 },
 "141091": {
 "nom": "Akritas Chlorakas",
-"badge": "",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/4ycs8n1615835199.png",
 "ligues": [
-"4630"
+"4630",
+"4953"
 ]
 },
 "136037": {
@@ -2374,7 +2408,7 @@
 ]
 },
 "134123": {
-"nom": "Luzern",
+"nom": "Lucerne",
 "badge": "https://r2.thesportsdb.com/images/media/team/badge/rsupty1473587847.png",
 "ligues": [
 "4675"
@@ -2388,14 +2422,14 @@
 ]
 },
 "134396": {
-"nom": "Zürich",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/af50gk1779213314.png",
+"nom": "Zurich",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/ouekvr1657983777.png",
 "ligues": [
 "4675"
 ]
 },
 "133957": {
-"nom": "Basel",
+"nom": "FC Basel",
 "badge": "https://r2.thesportsdb.com/images/media/team/badge/xppxwr1473791183.png",
 "ligues": [
 "4675"
@@ -2459,9 +2493,10 @@
 },
 "138984": {
 "nom": "Winterthur",
-"badge": "",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/bimd8z1580926541.png",
 "ligues": [
-"4675"
+"4675",
+"4713"
 ]
 },
 "138986": {
@@ -2577,7 +2612,7 @@
 ]
 },
 "134620": {
-"nom": "Ferencváros",
+"nom": "Ferencvaros",
 "badge": "https://r2.thesportsdb.com/images/media/team/badge/wk17od1688115265.png",
 "ligues": [
 "4690"
@@ -2598,7 +2633,7 @@
 ]
 },
 "138186": {
-"nom": "Zalaegerszeg",
+"nom": "Zalaegerszegi TE",
 "badge": "https://r2.thesportsdb.com/images/media/team/badge/nvno281579728587.png",
 "ligues": [
 "4690"
@@ -2606,16 +2641,18 @@
 },
 "134003": {
 "nom": "Videoton FC Fehervar",
-"badge": "",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/nazltv1579728595.png",
 "ligues": [
-"4690"
+"4690",
+"4965"
 ]
 },
 "134611": {
 "nom": "Diósgyőr",
-"badge": "",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/pe891o1775081887.png",
 "ligues": [
-"4690"
+"4690",
+"4965"
 ]
 },
 "138181": {
@@ -2647,7 +2684,7 @@
 ]
 },
 "138182": {
-"nom": "Puskás Akadémia",
+"nom": "Puskás Akadémia FC",
 "badge": "https://r2.thesportsdb.com/images/media/team/badge/mojpg21625319167.png",
 "ligues": [
 "4690"
@@ -2669,9 +2706,10 @@
 },
 "142854": {
 "nom": "Kecskeméti TE",
-"badge": "",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/e9l8ep1626446998.png",
 "ligues": [
-"4690"
+"4690",
+"4965"
 ]
 },
 "141231": {
@@ -2704,7 +2742,7 @@
 },
 "133645": {
 "nom": "Kilmarnock",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/ihxzq71785820059.png",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/xssqtu1447596951.png",
 "ligues": [
 "4330"
 ]
@@ -2718,9 +2756,10 @@
 },
 "134133": {
 "nom": "Livingston",
-"badge": "",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/1o38ll1749203191.png",
 "ligues": [
-"4330"
+"4330",
+"4395"
 ]
 },
 "133638": {
@@ -2774,9 +2813,10 @@
 },
 "133648": {
 "nom": "Dunfermline Athletic",
-"badge": "",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/uuvrvr1473539630.png",
 "ligues": [
-"4330"
+"4330",
+"4395"
 ]
 },
 "133942": {
@@ -2795,9 +2835,10 @@
 },
 "134134": {
 "nom": "Partick Thistle",
-"badge": "",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/j801au1705640268.png",
 "ligues": [
-"4330"
+"4330",
+"4395"
 ]
 },
 "133641": {
@@ -2809,9 +2850,10 @@
 },
 "134251": {
 "nom": "Arbroath",
-"badge": "",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/dw18ig1750743416.png",
 "ligues": [
-"4330"
+"4330",
+"4395"
 ]
 },
 "138105": {
@@ -2836,7 +2878,7 @@
 ]
 },
 "134162": {
-"nom": "Djurgården",
+"nom": "Djurgaarden",
 "badge": "https://r2.thesportsdb.com/images/media/team/badge/yuuwru1425411493.png",
 "ligues": [
 "4347"
@@ -2858,13 +2900,14 @@
 },
 "134165": {
 "nom": "Norrkoping",
-"badge": "",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/87sdp61676027891.png",
 "ligues": [
-"4347"
+"4347",
+"4403"
 ]
 },
 "134002": {
-"nom": "Kalmar",
+"nom": "Kalmar FF",
 "badge": "https://r2.thesportsdb.com/images/media/team/badge/3tnu4i1688449562.png",
 "ligues": [
 "4347"
@@ -2892,10 +2935,11 @@
 ]
 },
 "134732": {
-"nom": "Ostersund",
-"badge": "",
+"nom": "Östersund",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/6pvzqm1592144722.png",
 "ligues": [
-"4347"
+"4347",
+"4403"
 ]
 },
 "133951": {
@@ -2906,10 +2950,11 @@
 ]
 },
 "134730": {
-"nom": "Varbergs BoIS FC",
-"badge": "",
+"nom": "Varberg",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/qsppwu1429976928.png",
 "ligues": [
-"4347"
+"4347",
+"4403"
 ]
 },
 "134483": {
@@ -2920,14 +2965,14 @@
 ]
 },
 "134160": {
-"nom": "Häcken",
+"nom": "Hacken",
 "badge": "https://r2.thesportsdb.com/images/media/team/badge/zyl9m01523905866.png",
 "ligues": [
 "4347"
 ]
 },
 "134166": {
-"nom": "Malmö",
+"nom": "Malmo FF",
 "badge": "https://r2.thesportsdb.com/images/media/team/badge/429jzd1779940315.png",
 "ligues": [
 "4347"
@@ -2963,9 +3008,10 @@
 },
 "134726": {
 "nom": "IFK Varnamo",
-"badge": "",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/j1vlpe1639778697.png",
 "ligues": [
-"4347"
+"4347",
+"4403"
 ]
 },
 "134729": {
@@ -2977,16 +3023,18 @@
 },
 "134171": {
 "nom": "Osters IF",
-"badge": "",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/8s0ejz1644586526.png",
 "ligues": [
-"4347"
+"4347",
+"4403"
 ]
 },
 "147479": {
 "nom": "AVS",
-"badge": "",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/xp8oqb1688676544.png",
 "ligues": [
-"4344"
+"4344",
+"4662"
 ]
 },
 "143704": {
@@ -3000,7 +3048,8 @@
 "nom": "Torreense",
 "badge": "https://r2.thesportsdb.com/images/media/team/badge/byn6c21659694982.png",
 "ligues": [
-"4344"
+"4344",
+"4662"
 ]
 },
 "138856": {
@@ -3019,9 +3068,10 @@
 },
 "134236": {
 "nom": "FC Den Bosch",
-"badge": "",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/3ftbir1489836926.png",
 "ligues": [
-"4337"
+"4337",
+"4641"
 ]
 },
 "138004": {
@@ -3040,16 +3090,18 @@
 },
 "133863": {
 "nom": "Dender",
-"badge": "",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/r4ihc61654884430.png",
 "ligues": [
-"4338"
+"4338",
+"4623"
 ]
 },
 "147430": {
 "nom": "Patro Eisden",
-"badge": "",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/rfwwc11687871596.png",
 "ligues": [
-"4338"
+"4338",
+"4623"
 ]
 },
 "148488": {
@@ -3061,9 +3113,10 @@
 },
 "143872": {
 "nom": "RFC Liège",
-"badge": "",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/o4tofi1687871593.png",
 "ligues": [
-"4338"
+"4338",
+"4623"
 ]
 },
 "133888": {
@@ -3117,16 +3170,18 @@
 },
 "135467": {
 "nom": "Red Star",
-"badge": "",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/so4unb1658758422.png",
 "ligues": [
-"4334"
+"4334",
+"4401"
 ]
 },
 "137652": {
 "nom": "Rodez AF",
-"badge": "",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/e8rjka1576848094.png",
 "ligues": [
-"4334"
+"4334",
+"4401"
 ]
 },
 "133848": {
@@ -3152,9 +3207,10 @@
 },
 "135455": {
 "nom": "Real Oviedo",
-"badge": "",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/yuwqus1447590681.png",
 "ligues": [
-"4335"
+"4335",
+"4400"
 ]
 },
 "133726": {
@@ -3194,16 +3250,18 @@
 },
 "133859": {
 "nom": "Pisa",
-"badge": "",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/2eso9w1579708309.png",
 "ligues": [
-"4332"
+"4332",
+"4394"
 ]
 },
 "134696": {
 "nom": "FC Heidenheim",
-"badge": "",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/lbj7g01608236988.png",
 "ligues": [
-"4331"
+"4331",
+"4399"
 ]
 },
 "134693": {
@@ -3222,9 +3280,10 @@
 },
 "133813": {
 "nom": "St Pauli",
-"badge": "",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/5qupxa1608237013.png",
 "ligues": [
-"4331"
+"4331",
+"4399"
 ]
 },
 "138411": {
@@ -3327,9 +3386,10 @@
 },
 "135660": {
 "nom": "Arka Gdynia",
-"badge": "",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/i6ls7n1698553767.png",
 "ligues": [
-"4422"
+"4422",
+"4661"
 ]
 },
 "152462": {
@@ -3341,16 +3401,18 @@
 },
 "141113": {
 "nom": "Táborsko",
-"badge": "",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/im7hbd1615835923.png",
 "ligues": [
-"4631"
+"4631",
+"4954"
 ]
 },
 "136682": {
 "nom": "Dukla Praha",
-"badge": "",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/n950g01578837378.png",
 "ligues": [
-"4631"
+"4631",
+"4954"
 ]
 },
 "141108": {
@@ -3369,9 +3431,10 @@
 },
 "133832": {
 "nom": "Panserraikos",
-"badge": "",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/uz7slk1689689598.png",
 "ligues": [
-"4336"
+"4336",
+"4640"
 ]
 },
 "144147": {
@@ -3425,9 +3488,10 @@
 },
 "134750": {
 "nom": "Bryne",
-"badge": "",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/e3t5fg1690695712.png",
 "ligues": [
-"4358"
+"4358",
+"4457"
 ]
 },
 "139047": {
@@ -3439,9 +3503,10 @@
 },
 "138451": {
 "nom": "Fredericia",
-"badge": "",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/q2qi7p1580134434.png",
 "ligues": [
-"4340"
+"4340",
+"4683"
 ]
 },
 "141104": {
@@ -3488,16 +3553,18 @@
 },
 "138985": {
 "nom": "Aarau",
-"badge": "",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/dl36ft1580926666.png",
 "ligues": [
-"4675"
+"4675",
+"4713"
 ]
 },
 "139412": {
 "nom": "Blau-Weiß Linz",
-"badge": "",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/7qazvh1583516559.png",
 "ligues": [
-"4621"
+"4621",
+"4796"
 ]
 },
 "139415": {
@@ -3523,9 +3590,10 @@
 },
 "141222": {
 "nom": "Kazincbarcika",
-"badge": "",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/957alm1617288444.png",
 "ligues": [
-"4690"
+"4690",
+"4965"
 ]
 },
 "137821": {
@@ -3584,665 +3652,1493 @@
 "4347"
 ]
 },
-"137974": {
-"nom": "Víkingur Reykjavík",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/srhq2w1579111270.png",
-"ligues": []
-},
-"133979": {
-"nom": "Vardar",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/8vj1d11738559246.png",
-"ligues": []
-},
-"134018": {
-"nom": "KuPS",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/qmrrop1717396470.png",
-"ligues": []
-},
-"140040": {
-"nom": "Lincoln Red Imps",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/w1d87s1594393899.png",
-"ligues": []
-},
-"137792": {
-"nom": "Inter Club d'Escaldes",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/tbxkcc1789008725.png",
-"ligues": []
-},
-"138051": {
-"nom": "KÍ Klaksvík",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/4vq0i41579294709.png",
-"ligues": []
-},
-"152523": {
-"nom": "Atert Bissen",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/bcpfwg1751837534.png",
-"ligues": []
-},
-"138082": {
-"nom": "Tre Fiori",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/rvtlzi1690787341.png",
-"ligues": []
-},
-"138007": {
-"nom": "Larne",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/pg8k1v1615586095.png",
-"ligues": []
-},
-"137938": {
-"nom": "Borac Banja Luka",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/wj4g311579090126.png",
-"ligues": []
-},
-"134085": {
-"nom": "Levski Sofia",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/9krgx71781149189.png",
-"ligues": []
-},
-"137892": {
-"nom": "Ararat-Armenia",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/g396se1596470244.png",
-"ligues": []
-},
-"137984": {
-"nom": "Riga FC",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/0cup9s1579192235.png",
-"ligues": []
-},
-"137992": {
-"nom": "Kauno Žalgiris",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/yf8m3t1714153414.png",
-"ligues": []
-},
-"140098": {
-"nom": "Drita",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/o1gp0h1596487425.png",
-"ligues": []
-},
-"134039": {
-"nom": "Floriana",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/zzd9zb1747880322.png",
-"ligues": []
-},
-"133978": {
-"nom": "Shamrock Rovers",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/u1zowj1491504381.png",
-"ligues": []
-},
-"138341": {
-"nom": "Sabah Baku",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/5cw7q91723051971.png",
-"ligues": []
-},
-"134312": {
-"nom": "The New Saints",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/rxbv2i1689313887.png",
-"ligues": []
-},
-"134602": {
-"nom": "Kairat Almaty",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/sz5y1m1579285078.png",
-"ligues": []
-},
-"134310": {
-"nom": "Sutjeska",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/jgxq3z1565903948.png",
-"ligues": []
-},
-"133967": {
-"nom": "Flora Tallinn",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/2m6xuv1769308039.png",
-"ligues": []
-},
-"138046": {
-"nom": "Iberia 1999",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/ifxpmk1615900731.png",
-"ligues": []
-},
-"138123": {
-"nom": "Petrocub Hîncești",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/r2mzoe1781541722.png",
-"ligues": []
-},
-"140667": {
-"nom": "Egnatia",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/4tufos1639086825.png",
-"ligues": []
-},
-"142515": {
-"nom": "Maxline Vitebsk",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/wl5hg71779336693.png",
-"ligues": []
-},
-"138188": {
-"nom": "Universitatea Craiova",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/1jdz2y1579793710.png",
-"ligues": []
-},
-"133961": {
-"nom": "Dinamo Zagreb",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/zcb6f61784988620.png",
-"ligues": []
-},
-"134799": {
-"nom": "Hapoel Be'er Sheva",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/ar5zft1781239007.png",
-"ligues": []
-},
-"134090": {
-"nom": "Slovan Bratislava",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/uzkg701781199823.png",
-"ligues": []
-},
-"133987": {
-"nom": "Crvena Zvezda",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/osgmbz1781157114.png",
-"ligues": []
-},
-"134318": {
-"nom": "Celje",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/amvs371681106952.png",
-"ligues": []
-},
-"134126": {
-"nom": "Shakhtar Donetsk",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/sqrxsr1421791799.png",
-"ligues": []
-},
-"135702": {
-"nom": "Qarabağ",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/f9h2by1725001244.png",
-"ligues": []
-},
-"140785": {
-"nom": "Vestri",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/27f6gb1614288091.png",
-"ligues": []
-},
-"133962": {
-"nom": "Sheriff Tiraspol",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/6exmnv1781242046.png",
-"ligues": []
-},
-"138213": {
-"nom": "Aluminij",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/a92sr81579812977.png",
-"ligues": []
-},
-"133944": {
-"nom": "Dynamo Kyiv",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/ktbncx1781158762.png",
-"ligues": []
-},
-"138198": {
-"nom": "Universitatea Cluj",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/fn9rwv1579794565.png",
-"ligues": []
-},
-"134019": {
-"nom": "Hajduk Split",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/23mvtk1579955412.png",
-"ligues": []
-},
-"133975": {
-"nom": "Žilina",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/rwsikr1627419286.png",
-"ligues": []
-},
-"134022": {
-"nom": "Vojvodina",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/adh59u1703173053.png",
-"ligues": []
-},
-"134088": {
-"nom": "CSKA Sofia",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/e9tykm1752947048.png",
-"ligues": []
-},
-"134354": {
-"nom": "Derry City",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/i5u42j1602256316.png",
-"ligues": []
-},
-"134315": {
-"nom": "Maccabi Tel Aviv",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/oeer261781239315.png",
-"ligues": []
-},
-"138349": {
-"nom": "UNA Strassen",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/vdbv301717394741.png",
-"ligues": []
-},
-"134344": {
-"nom": "La Fiorita",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/88cp6y1697348957.png",
-"ligues": []
-},
-"147403": {
-"nom": "Elbasani",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/39pb2n1692001424.png",
-"ligues": []
-},
-"133946": {
-"nom": "BATE Borisov",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/236x941779334253.png",
-"ligues": []
-},
-"136786": {
-"nom": "Connah's Quay Nomads",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/w2zhrr1689313681.png",
-"ligues": []
-},
-"141258": {
-"nom": "Ballkani",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/y7p62a1617290077.png",
-"ligues": []
-},
-"138340": {
-"nom": "Zirə",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/db1o7v1580055971.png",
-"ligues": []
-},
-"134042": {
-"nom": "Torpedo Kutaisi",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/tic3ym1534787566.png",
-"ligues": []
-},
-"134064": {
-"nom": "Differdange 03",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/micxvx1513257944.png",
-"ligues": []
-},
-"136687": {
-"nom": "Ilves",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/jhx8vm1578953713.png",
-"ligues": []
-},
-"136783": {
-"nom": "Caernarfon Town",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/3k7gu21781246334.png",
-"ligues": []
-},
-"134046": {
-"nom": "Levadia Tallinn",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/nsdow61769308517.png",
-"ligues": []
-},
-"137902": {
-"nom": "Dinamo Minsk",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/1k4scn1779334298.png",
-"ligues": []
-},
-"138073": {
-"nom": "Sileks",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/ixjlou1579439194.png",
-"ligues": []
-},
-"135672": {
-"nom": "Alashkert",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/gn2ndx1742401876.png",
-"ligues": []
-},
-"148411": {
-"nom": "Elimai Semey",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/rts8gq1715688377.png",
-"ligues": []
-},
-"134060": {
-"nom": "Nõmme Kalju",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/il67bu1741016276.png",
-"ligues": []
-},
-"133964": {
-"nom": "Linfield",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/ltysm01595013702.png",
-"ligues": []
-},
-"134013": {
-"nom": "FK Sarajevo",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/znka271579113347.png",
-"ligues": []
-},
-"134086": {
-"nom": "Inter Turku",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/xoi4oo1738193128.png",
-"ligues": []
-},
-"134065": {
-"nom": "NSÍ Runavík",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/v5sv0k1712728278.png",
-"ligues": []
+"137790": {
+"nom": "Atlètic d'Escaldes",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/0mf6rh1578826999.png",
+"ligues": [
+"4618"
+]
+},
+"133983": {
+"nom": "Budućnost Podgorica",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/kckpa11579467122.png",
+"ligues": [
+"4656"
+]
+},
+"134790": {
+"nom": "Tre Penne",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/4okh511625317060.png",
+"ligues": [
+"4667"
+]
+},
+"134347": {
+"nom": "Breiðablik",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/fkbtng1512142899.png",
+"ligues": [
+"4642"
+]
 },
 "138133": {
 "nom": "Ħamrun Spartans",
 "badge": "https://r2.thesportsdb.com/images/media/team/badge/mmqcjl1579535584.png",
-"ligues": []
+"ligues": [
+"4653"
+]
 },
-"138346": {
-"nom": "Mondorf-les-Bains",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/q257d01580066006.png",
-"ligues": []
+"134400": {
+"nom": "Maccabi Haifa",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/t73b501639433206.png",
+"ligues": [
+"4644"
+]
 },
-"134385": {
-"nom": "Dinamo Tbilisi",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/mtef0m1781222095.png",
-"ligues": []
+"133967": {
+"nom": "Flora Tallinn",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/2m6xuv1769308039.png",
+"ligues": [
+"4634"
+]
 },
-"137486": {
-"nom": "Pen-y-Bont",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/u2e7vz1781845554.png",
-"ligues": []
+"140040": {
+"nom": "Lincoln Red Imps",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/w1d87s1594393899.png",
+"ligues": [
+"4964"
+]
 },
-"134346": {
-"nom": "FC Santa Coloma",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/oazed11693288887.png",
-"ligues": []
+"135702": {
+"nom": "Qarabağ",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/f9h2by1725001244.png",
+"ligues": [
+"4693"
+]
 },
-"140666": {
-"nom": "Dinamo City",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/mdqmna1743410388.png",
-"ligues": []
-},
-"134342": {
-"nom": "Astana",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/p74kfi1772124582.png",
-"ligues": []
-},
-"137800": {
-"nom": "Vllaznia Shkodër",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/7ubfvy1753811723.png",
-"ligues": []
-},
-"143606": {
-"nom": "Malisheva",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/cjeu8v1717396344.png",
-"ligues": []
-},
-"137941": {
-"nom": "Velež Mostar",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/fdfq1v1662658079.png",
-"ligues": []
-},
-"134084": {
-"nom": "Milsami Orhei",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/rebsn21682081795.png",
-"ligues": []
-},
-"133995": {
-"nom": "Dila Gori",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/6h9m7t1579289130.png",
-"ligues": []
-},
-"138086": {
-"nom": "Virtus",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/2c3exd1717398070.png",
-"ligues": []
-},
-"138078": {
-"nom": "Petrovac",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/tolryp1579467109.png",
-"ligues": []
-},
-"134095": {
-"nom": "Žalgiris Vilnius",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/4x8gap1579201999.png",
-"ligues": []
-},
-"136122": {
-"nom": "Liepāja",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/z6u5m81579192184.png",
-"ligues": []
-},
-"140118": {
-"nom": "Dečić",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/khom7w1721284656.png",
-"ligues": []
-},
-"134043": {
-"nom": "Bohemians",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/78i24h1734625752.png",
-"ligues": []
-},
-"140100": {
-"nom": "St Joseph's",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/fwrohu1596489266.png",
-"ligues": []
-},
-"141007": {
-"nom": "Hegelmann",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/k9vxp51771082643.png",
-"ligues": []
-},
-"137975": {
-"nom": "Paide Linnameeskond",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/uy580e1615407731.png",
-"ligues": []
-},
-"134340": {
-"nom": "Glentoran",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/wummso1513778239.png",
-"ligues": []
-},
-"137985": {
-"nom": "RFS",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/cep7qg1644854951.png",
-"ligues": []
-},
-"140099": {
-"nom": "Europa FC",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/6sjygh1596488495.png",
-"ligues": []
-},
-"134024": {
-"nom": "Shkëndija",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/4wv7i21717397649.png",
-"ligues": []
-},
-"146569": {
-"nom": "Marsaxlokk",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/plb4ps1747880112.png",
-"ligues": []
-},
-"137896": {
-"nom": "Pyunik Yerevan",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/h8jwvd1579003944.png",
-"ligues": []
-},
-"137790": {
-"nom": "Atlètic d'Escaldes",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/0mf6rh1578826999.png",
-"ligues": []
-},
-"142321": {
-"nom": "Mornar",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/vvvmjo1625755743.png",
-"ligues": []
-},
-"134621": {
-"nom": "Stjarnan",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/em9xaz1591537148.png",
-"ligues": []
-},
-"134026": {
-"nom": "Víkingur Gøta",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/tqgvkm1579294757.png",
-"ligues": []
-},
-"134004": {
-"nom": "Spartak Trnava",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/acn7n91679266730.png",
-"ligues": []
-},
-"140107": {
-"nom": "CSKA 1948",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/sk7o651690873092.png",
-"ligues": []
-},
-"141839": {
-"nom": "Železničar Pančevo",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/h4nw5d1624714466.png",
-"ligues": []
-},
-"138337": {
-"nom": "Neftçi PFK",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/e22lhu1725001718.png",
-"ligues": []
-},
-"134336": {
-"nom": "HB Tórshavn",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/ui2kzh1701701397.png",
-"ligues": []
-},
-"137973": {
-"nom": "Valur",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/uhi6qr1717395070.png",
-"ligues": []
+"137897": {
+"nom": "Urartu",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/m9kga71579004188.png",
+"ligues": [
+"4619"
+]
 },
 "134341": {
 "nom": "Zrinjski Mostar",
 "badge": "https://r2.thesportsdb.com/images/media/team/badge/sursuu1436260214.png",
-"ligues": []
+"ligues": [
+"4624"
+]
 },
-"134005": {
-"nom": "FCSB",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/123g021759420850.png",
-"ligues": []
+"134033": {
+"nom": "Olimpija Ljubljana",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/zsigfn1534874586.png",
+"ligues": [
+"4692"
+]
 },
-"145004": {
-"nom": "Auda Kekava",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/3kalsl1644854872.png",
-"ligues": []
+"137988": {
+"nom": "Valmieras FK",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/0tlmvq1646830475.png",
+"ligues": [
+"5527"
+]
 },
-"143605": {
-"nom": "Dukagjini",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/ten38q1688449471.png",
-"ligues": []
+"137799": {
+"nom": "Partizani Tirana",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/shg04y1578828329.png",
+"ligues": [
+"4617"
+]
 },
-"135992": {
-"nom": "Beitar Jerusalem",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/lsg64h1781239463.png",
-"ligues": []
+"133946": {
+"nom": "BATE Borisov",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/236x941779334253.png",
+"ligues": [
+"4622"
+]
 },
-"133953": {
-"nom": "HJK Helsinki",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/z43x021775498790.png",
-"ligues": []
+"138051": {
+"nom": "KÍ Klaksvík",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/4vq0i41579294709.png",
+"ligues": [
+"4635"
+]
 },
-"138006": {
-"nom": "Coleraine",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/uwt05l1615586079.png",
-"ligues": []
+"134095": {
+"nom": "Žalgiris Vilnius",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/4x8gap1579201999.png",
+"ligues": [
+"4651"
+]
 },
-"134791": {
-"nom": "Valletta",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/e5zovd1781221579.png",
-"ligues": []
+"138074": {
+"nom": "Struga",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/9ol54t1717398191.png",
+"ligues": [
+"4652"
+]
 },
-"137993": {
-"nom": "Panevėžys",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/roci9r1579201885.png",
-"ligues": []
-},
-"138042": {
-"nom": "Tobol",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/elz47y1772123854.png",
-"ligues": []
-},
-"134124": {
-"nom": "Hapoel Tel-Aviv",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/19siqf1781239772.png",
-"ligues": []
+"141258": {
+"nom": "Ballkani",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/y7p62a1617290077.png",
+"ligues": [
+"4968"
+]
 },
 "133981": {
 "nom": "Ludogorets Razgrad",
 "badge": "https://r2.thesportsdb.com/images/media/team/badge/35cw6l1752946925.png",
-"ligues": []
+"ligues": [
+"4626"
+]
 },
-"134051": {
-"nom": "Zimbru Chișinău",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/yrgtxe1579519929.png",
-"ligues": []
+"133978": {
+"nom": "Shamrock Rovers",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/u1zowj1491504381.png",
+"ligues": [
+"4643"
+]
 },
-"137895": {
-"nom": "Noah",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/qylmss1720503567.png",
-"ligues": []
+"138926": {
+"nom": "Farul Constanta",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/37r50u1638479392.png",
+"ligues": [
+"4691"
+]
 },
-"140180": {
-"nom": "Polissya Zhytomyr",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/6r8o5l1725171180.png",
-"ligues": []
+"133962": {
+"nom": "Sheriff Tiraspol",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/6exmnv1781242046.png",
+"ligues": [
+"4655"
+]
 },
-"146860": {
-"nom": "LNZ Cherkasy",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/599dyl1660849995.png",
-"ligues": []
+"134090": {
+"nom": "Slovan Bratislava",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/uzkg701781199823.png",
+"ligues": [
+"4672"
+]
+},
+"140353": {
+"nom": "Swift Hesperange",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/smjkfa1689527719.png",
+"ligues": [
+"4694"
+]
+},
+"133953": {
+"nom": "HJK Helsinki",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/z43x021775498790.png",
+"ligues": [
+"4636"
+]
+},
+"138007": {
+"nom": "Larne",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/pg8k1v1615586095.png",
+"ligues": [
+"4659"
+]
+},
+"134342": {
+"nom": "Astana",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/p74kfi1772124582.png",
+"ligues": [
+"4649"
+]
+},
+"134385": {
+"nom": "Dinamo Tbilisi",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/mtef0m1781222095.png",
+"ligues": [
+"4638"
+]
+},
+"134312": {
+"nom": "The New Saints",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/rxbv2i1689313887.png",
+"ligues": [
+"4472"
+]
+},
+"136857": {
+"nom": "SC Dnipro-1",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/2zamz31573324523.png",
+"ligues": [
+"4519"
+]
+},
+"133961": {
+"nom": "Dinamo Zagreb",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/araidi1579955395.png",
+"ligues": [
+"4629"
+]
+},
+"137856": {
+"nom": "TSC Bačka Topola",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/1bnnu81703173169.png",
+"ligues": [
+"5074"
+]
+},
+"133987": {
+"nom": "Crvena Zvezda",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/osgmbz1781157114.png",
+"ligues": [
+"4671"
+]
+},
+"134126": {
+"nom": "Shakhtar Donetsk",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/sqrxsr1421791799.png",
+"ligues": [
+"4354"
+]
+},
+"137974": {
+"nom": "Víkingur Reykjavík",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/srhq2w1579111270.png",
+"ligues": [
+"4642"
+]
+},
+"137993": {
+"nom": "Panevėžys",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/roci9r1579201885.png",
+"ligues": [
+"4651"
+]
+},
+"140118": {
+"nom": "Dečić",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/khom7w1721284656.png",
+"ligues": [
+"4656"
+]
+},
+"138086": {
+"nom": "Virtus",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/2c3exd1717398070.png",
+"ligues": [
+"4667"
+]
+},
+"134005": {
+"nom": "FCSB",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/123g021759420850.png",
+"ligues": [
+"4691"
+]
+},
+"134032": {
+"nom": "UE Santa Coloma",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/adcqi31678028194.png",
+"ligues": [
+"4904"
+]
+},
+"137985": {
+"nom": "RFS",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/cep7qg1644854951.png",
+"ligues": [
+"4650"
+]
+},
+"134064": {
+"nom": "Differdange 03",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/micxvx1513257944.png",
+"ligues": [
+"4694"
+]
+},
+"138043": {
+"nom": "Dinamo Batumi",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/3npx941579289150.png",
+"ligues": [
+"4638"
+]
+},
+"134318": {
+"nom": "Celje",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/amvs371681106952.png",
+"ligues": [
+"4692"
+]
+},
+"134077": {
+"nom": "Ordabasy Shymkent",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/lfwd2m1717398455.png",
+"ligues": [
+"4649"
+]
+},
+"138123": {
+"nom": "Petrocub Hîncești",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/r2mzoe1781541722.png",
+"ligues": [
+"4655"
+]
+},
+"137938": {
+"nom": "Borac Banja Luka",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/wj4g311579090126.png",
+"ligues": [
+"4624"
+]
+},
+"140667": {
+"nom": "Egnatia",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/4tufos1639086825.png",
+"ligues": [
+"4617"
+]
+},
+"137902": {
+"nom": "Dinamo Minsk",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/1k4scn1779334298.png",
+"ligues": [
+"4622"
+]
+},
+"137896": {
+"nom": "Pyunik Yerevan",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/h8jwvd1579003944.png",
+"ligues": [
+"4619"
+]
+},
+"133944": {
+"nom": "Dynamo Kyiv",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/ktbncx1781158762.png",
+"ligues": [
+"4354"
+]
 },
 "133960": {
 "nom": "Partizan Belgrade",
 "badge": "https://r2.thesportsdb.com/images/media/team/badge/xe41k11781157208.png",
-"ligues": []
+"ligues": [
+"4671"
+]
 },
-"134399": {
-"nom": "Rijeka",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/z8bxvi1603310975.png",
-"ligues": []
+"134315": {
+"nom": "Maccabi Tel Aviv",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/oeer261781239315.png",
+"ligues": [
+"4644"
+]
 },
-"133955": {
-"nom": "CFR Cluj",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/81uzfv1507891573.png",
-"ligues": []
+"134018": {
+"nom": "KuPS",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/qmrrop1717396470.png",
+"ligues": [
+"4636"
+]
 },
-"134604": {
-"nom": "Koper",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/i9k3rx1596478499.png",
-"ligues": []
+"134084": {
+"nom": "Milsami Orhei",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/rebsn21682081795.png",
+"ligues": [
+"4655"
+]
 },
-"137869": {
-"nom": "DAC 1904 Dunajská Streda",
-"badge": "https://r2.thesportsdb.com/images/media/team/badge/z6x4ox1627419310.png",
-"ligues": []
+"138046": {
+"nom": "Iberia 1999",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/ifxpmk1615900731.png",
+"ligues": [
+"4638"
+]
+},
+"137895": {
+"nom": "Noah",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/qylmss1720503567.png",
+"ligues": [
+"4619"
+]
+},
+"134046": {
+"nom": "Levadia Tallinn",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/nsdow61769308517.png",
+"ligues": [
+"4634"
+]
+},
+"134602": {
+"nom": "Kairat Almaty",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/sz5y1m1579285078.png",
+"ligues": [
+"4649"
+]
+},
+"140098": {
+"nom": "Drita",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/o1gp0h1596487425.png",
+"ligues": [
+"4968"
+]
+},
+"134024": {
+"nom": "Shkëndija",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/4wv7i21717397649.png",
+"ligues": [
+"4652"
+]
+},
+"134026": {
+"nom": "Víkingur Gøta",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/tqgvkm1579294757.png",
+"ligues": [
+"4635"
+]
+},
+"137792": {
+"nom": "Inter Club d'Escaldes",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/tbxkcc1789008725.png",
+"ligues": [
+"4618"
+]
 },
 "138033": {
 "nom": "Shelbourne",
 "badge": "https://r2.thesportsdb.com/images/media/team/badge/brh8t91579281545.png",
-"ligues": []
+"ligues": [
+"4643"
+]
+},
+"133964": {
+"nom": "Linfield",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/ltysm01595013702.png",
+"ligues": [
+"4659"
+]
+},
+"134399": {
+"nom": "Rijeka",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/z8bxvi1603310975.png",
+"ligues": [
+"4629"
+]
+},
+"133979": {
+"nom": "Vardar",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/8vj1d11738559246.png",
+"ligues": [
+"4652"
+]
+},
+"152523": {
+"nom": "Atert Bissen",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/bcpfwg1751837534.png",
+"ligues": [
+"4694"
+]
+},
+"138082": {
+"nom": "Tre Fiori",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/rvtlzi1690787341.png",
+"ligues": [
+"4667"
+]
+},
+"134085": {
+"nom": "Levski Sofia",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/9krgx71781149189.png",
+"ligues": [
+"4626"
+]
+},
+"137892": {
+"nom": "Ararat-Armenia",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/g396se1596470244.png",
+"ligues": [
+"4619"
+]
+},
+"137984": {
+"nom": "Riga FC",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/0cup9s1579192235.png",
+"ligues": [
+"4650"
+]
+},
+"137992": {
+"nom": "Kauno Žalgiris",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/yf8m3t1714153414.png",
+"ligues": [
+"4651"
+]
+},
+"134039": {
+"nom": "Floriana",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/zzd9zb1747880322.png",
+"ligues": [
+"4653"
+]
+},
+"138341": {
+"nom": "Sabah FC",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/5cw7q91723051971.png",
+"ligues": [
+"4693"
+]
+},
+"134310": {
+"nom": "Sutjeska",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/jgxq3z1565903948.png",
+"ligues": [
+"4656"
+]
+},
+"142515": {
+"nom": "Maxline Vitebsk",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/wl5hg71779336693.png",
+"ligues": [
+"4622"
+]
+},
+"138188": {
+"nom": "Universitatea Craiova",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/1jdz2y1579793710.png",
+"ligues": [
+"4691"
+]
+},
+"134799": {
+"nom": "Hapoel Be'er Sheva",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/ar5zft1781239007.png",
+"ligues": [
+"4644"
+]
+},
+"134422": {
+"nom": "Zorya",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/vrqtvv1447700054.png",
+"ligues": [
+"4354"
+]
+},
+"134617": {
+"nom": "Cukaricki",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/sk6owo1512571250.png",
+"ligues": [
+"4671"
+]
+},
+"134343": {
+"nom": "Botev Plovdiv",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/owfvww1512067986.png",
+"ligues": [
+"4626"
+]
+},
+"133948": {
+"nom": "Maribor",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/titlog1776705066.png",
+"ligues": [
+"4692"
+]
+},
+"147629": {
+"nom": "Corvinul Hunedoara",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/4xsvhl1690278556.png",
+"ligues": [
+"4691"
+]
+},
+"138340": {
+"nom": "Zirə",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/db1o7v1580055971.png",
+"ligues": [
+"4693"
+]
+},
+"137871": {
+"nom": "MFK Ružomberok",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/vuqyby1578947692.png",
+"ligues": [
+"4672"
+]
+},
+"138042": {
+"nom": "Tobol",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/elz47y1772123854.png",
+"ligues": [
+"4649"
+]
+},
+"141261": {
+"nom": "Llapi",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/fw1o5q1617290095.png",
+"ligues": [
+"4968"
+]
+},
+"134022": {
+"nom": "Vojvodina",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/adh59u1703173053.png",
+"ligues": [
+"4671"
+]
+},
+"135998": {
+"nom": "Maccabi Petach Tikva",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/3bvby91720417514.png",
+"ligues": [
+"4644"
+]
+},
+"142826": {
+"nom": "Kryvbas Kryvyi Rih",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/2e11ks1681107496.png",
+"ligues": [
+"4354"
+]
+},
+"133955": {
+"nom": "CFR Cluj",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/81uzfv1507891573.png",
+"ligues": [
+"4691"
+]
+},
+"140101": {
+"nom": "Prishtina",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/34hhvh1753897677.png",
+"ligues": [
+"4968"
+]
+},
+"136687": {
+"nom": "Ilves",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/jhx8vm1578953713.png",
+"ligues": [
+"4636"
+]
+},
+"134004": {
+"nom": "Spartak Trnava",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/acn7n91679266730.png",
+"ligues": [
+"4672"
+]
+},
+"140520": {
+"nom": "Aktobe",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/tt0rtn1751479739.png",
+"ligues": [
+"4649"
+]
+},
+"140785": {
+"nom": "Vestri",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/27f6gb1614288091.png",
+"ligues": [
+"4906"
+]
+},
+"138213": {
+"nom": "Aluminij",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/a92sr81579812977.png",
+"ligues": [
+"4692"
+]
+},
+"138198": {
+"nom": "Universitatea Cluj",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/fn9rwv1579794565.png",
+"ligues": [
+"4691"
+]
+},
+"134019": {
+"nom": "Hajduk Split",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/23mvtk1579955412.png",
+"ligues": [
+"4629"
+]
+},
+"133975": {
+"nom": "Žilina",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/rwsikr1627419286.png",
+"ligues": [
+"4672"
+]
+},
+"134088": {
+"nom": "CSKA Sofia",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/e9tykm1752947048.png",
+"ligues": [
+"4626"
+]
+},
+"134354": {
+"nom": "Derry City",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/i5u42j1602256316.png",
+"ligues": [
+"4643"
+]
+},
+"133965": {
+"nom": "B36 Torshavn",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/48jik11579294682.png",
+"ligues": [
+"4635"
+]
+},
+"137975": {
+"nom": "Paide Linnameeskond",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/uy580e1615407731.png",
+"ligues": [
+"4634"
+]
+},
+"133947": {
+"nom": "F91 Dudelange",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/2azngc1751838514.png",
+"ligues": [
+"4694"
+]
+},
+"134792": {
+"nom": "St Patricks",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/rdm7121546008891.png",
+"ligues": [
+"4643"
+]
+},
+"134336": {
+"nom": "HB Tórshavn",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/ui2kzh1701701397.png",
+"ligues": [
+"4635"
+]
+},
+"137486": {
+"nom": "Pen-y-Bont",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/u2e7vz1781845554.png",
+"ligues": [
+"4472"
+]
+},
+"134346": {
+"nom": "FC Santa Coloma",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/oazed11693288887.png",
+"ligues": [
+"4618"
+]
+},
+"138347": {
+"nom": "Progrès Niederkorn",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/fqc5wl1580073855.png",
+"ligues": [
+"4694"
+]
+},
+"140102": {
+"nom": "Gjilani",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/y4kncq1635867907.png",
+"ligues": [
+"4968"
+]
+},
+"134037": {
+"nom": "SK Tirana",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/9vp5r11639086886.png",
+"ligues": [
+"4617"
+]
+},
+"134035": {
+"nom": "Birkirkara",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/fvd5wr1512142459.png",
+"ligues": [
+"4653"
+]
+},
+"134344": {
+"nom": "La Fiorita",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/88cp6y1697348957.png",
+"ligues": [
+"4667"
+]
+},
+"134051": {
+"nom": "Zimbru Chișinău",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/yrgtxe1579519929.png",
+"ligues": [
+"4655"
+]
+},
+"134027": {
+"nom": "Trans Narva",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/j20glc1615407888.png",
+"ligues": [
+"4634"
+]
+},
+"137934": {
+"nom": "Željezničar Sarajevo",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/74o51a1579089797.png",
+"ligues": [
+"4624"
+]
+},
+"137800": {
+"nom": "Vllaznia Shkodër",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/7ubfvy1753811723.png",
+"ligues": [
+"4617"
+]
+},
+"135672": {
+"nom": "Alashkert",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/gn2ndx1742401876.png",
+"ligues": [
+"4619"
+]
+},
+"146385": {
+"nom": "Arsenal Tivat",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/j6pgl11655569390.png",
+"ligues": [
+"4656"
+]
+},
+"134042": {
+"nom": "Torpedo Kutaisi",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/tic3ym1534787566.png",
+"ligues": [
+"4638"
+]
+},
+"134013": {
+"nom": "FK Sarajevo",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/znka271579113347.png",
+"ligues": [
+"4624"
+]
+},
+"139982": {
+"nom": "FC Haka",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/gjeor01592499154.png",
+"ligues": [
+"5474"
+]
+},
+"134078": {
+"nom": "Crusaders",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/qmld3x1717396833.png",
+"ligues": [
+"4659"
+]
+},
+"134352": {
+"nom": "Honka",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/2zw0cm1578953683.png",
+"ligues": [
+"5186"
+]
+},
+"134608": {
+"nom": "Neman Grodno",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/wwjql71579012952.png",
+"ligues": [
+"4622"
+]
+},
+"137970": {
+"nom": "KA Akureyri",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/iqfox01779106859.png",
+"ligues": [
+"4642"
+]
+},
+"136786": {
+"nom": "Connah's Quay Nomads",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/w2zhrr1689313681.png",
+"ligues": [
+"4472"
+]
+},
+"137869": {
+"nom": "DAC 1904 Dunajská Streda",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/z6x4ox1627419310.png",
+"ligues": [
+"4672"
+]
+},
+"133995": {
+"nom": "Dila Gori",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/6h9m7t1579289130.png",
+"ligues": [
+"4638"
+]
+},
+"138090": {
+"nom": "Cosmos",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/bs230v1656065244.png",
+"ligues": [
+"4667"
+]
+},
+"141007": {
+"nom": "Hegelmann",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/k9vxp51771082643.png",
+"ligues": [
+"4651"
+]
+},
+"138072": {
+"nom": "Shkupi",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/t6jzag1688449892.png",
+"ligues": [
+"5907"
+]
+},
+"138134": {
+"nom": "Gżira United",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/d8bba11579535546.png",
+"ligues": [
+"4653"
+]
+},
+"134340": {
+"nom": "Glentoran",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/wummso1513778239.png",
+"ligues": [
+"4659"
+]
+},
+"138070": {
+"nom": "Makedonija GjP",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/ov6nv61579438210.png",
+"ligues": [
+"5907"
+]
+},
+"140057": {
+"nom": "Haverfordwest County",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/7h3c0u1691820376.png",
+"ligues": [
+"4472"
+]
+},
+"143605": {
+"nom": "Dukagjini",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/ten38q1688449471.png",
+"ligues": [
+"4968"
+]
+},
+"140099": {
+"nom": "Europa FC",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/6sjygh1596488495.png",
+"ligues": [
+"4964"
+]
+},
+"141212": {
+"nom": "FCB Magpies",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/e3olmk1655823459.png",
+"ligues": [
+"4964"
+]
+},
+"134618": {
+"nom": "Dundalk",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/o87ec11681105824.png",
+"ligues": [
+"4643"
+]
+},
+"134321": {
+"nom": "Domzale",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/perup21579812948.png",
+"ligues": [
+"4519"
+]
+},
+"138135": {
+"nom": "Balzan FC",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/4d27ov1679111789.png",
+"ligues": [
+"4653"
+]
+},
+"140107": {
+"nom": "CSKA 1948",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/sk7o651690873092.png",
+"ligues": [
+"4626"
+]
+},
+"137910": {
+"nom": "Torpedo-BelAZ Zhodino",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/fshm6i1779341961.png",
+"ligues": [
+"4622"
+]
+},
+"145004": {
+"nom": "Auda Kekava",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/3kalsl1644854872.png",
+"ligues": [
+"4650"
+]
+},
+"134041": {
+"nom": "Osijek",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/kly3v31578830575.png",
+"ligues": [
+"4629"
+]
+},
+"138192": {
+"nom": "Sepsi OSK Sfântu Gheorghe",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/ggoh1h1638479369.png",
+"ligues": [
+"4691"
+]
+},
+"135992": {
+"nom": "Beitar Jerusalem",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/lsg64h1781239463.png",
+"ligues": [
+"4644"
+]
+},
+"138335": {
+"nom": "Gabala FK",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/vut8fo1580055063.png",
+"ligues": [
+"4693"
+]
+},
+"138337": {
+"nom": "Neftçi PFK",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/e22lhu1725001718.png",
+"ligues": [
+"4693"
+]
+},
+"134428": {
+"nom": "Vorskla",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/3s6lte1603126962.png",
+"ligues": [
+"4834"
+]
+},
+"137941": {
+"nom": "Velež Mostar",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/fdfq1v1662658079.png",
+"ligues": [
+"4624"
+]
+},
+"143606": {
+"nom": "Malisheva",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/cjeu8v1717396344.png",
+"ligues": [
+"4968"
+]
+},
+"137973": {
+"nom": "Valur",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/uhi6qr1717395070.png",
+"ligues": [
+"4642"
+]
+},
+"137978": {
+"nom": "Tallinna Kalev",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/cghk4d1741016566.png",
+"ligues": [
+"4958"
+]
+},
+"140100": {
+"nom": "St Joseph's",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/fwrohu1596489266.png",
+"ligues": [
+"4964"
+]
+},
+"145677": {
+"nom": "FA Šiauliai",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/ax1i4t1645740530.png",
+"ligues": [
+"4651"
+]
 },
 "138217": {
 "nom": "Bravo",
 "badge": "https://r2.thesportsdb.com/images/media/team/badge/szjnx81579812986.png",
-"ligues": []
+"ligues": [
+"4692"
+]
+},
+"135903": {
+"nom": "Bala",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/z0lys31719251363.png",
+"ligues": [
+"5315"
+]
+},
+"136783": {
+"nom": "Caernarfon Town",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/3k7gu21781246334.png",
+"ligues": [
+"4472"
+]
+},
+"134621": {
+"nom": "Stjarnan",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/em9xaz1591537148.png",
+"ligues": [
+"4642"
+]
+},
+"137878": {
+"nom": "VPS",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/vpavez1578953729.png",
+"ligues": [
+"4636"
+]
+},
+"142321": {
+"nom": "Mornar",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/vvvmjo1625755743.png",
+"ligues": [
+"4656"
+]
+},
+"138349": {
+"nom": "UNA Strassen",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/vdbv301717394741.png",
+"ligues": [
+"4694"
+]
+},
+"143484": {
+"nom": "Tikveš",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/rkarpi1717396094.png",
+"ligues": [
+"4652"
+]
+},
+"146569": {
+"nom": "Marsaxlokk",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/plb4ps1747880112.png",
+"ligues": [
+"4653"
+]
+},
+"136122": {
+"nom": "Liepāja",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/z6u5m81579192184.png",
+"ligues": [
+"4650"
+]
+},
+"137905": {
+"nom": "Isloch Minsk Raion",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/llhqz71579012098.png",
+"ligues": [
+"4622"
+]
+},
+"134063": {
+"nom": "Cliftonville",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/f376e11615586063.png",
+"ligues": [
+"4659"
+]
+},
+"138339": {
+"nom": "Sumgayit FK",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/94qs2l1717397515.png",
+"ligues": [
+"4693"
+]
+},
+"137915": {
+"nom": "Cherno More",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/2x9ixx1579033375.png",
+"ligues": [
+"4626"
+]
+},
+"148159": {
+"nom": "TransINVEST Vilnius",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/03zbiv1712749374.png",
+"ligues": [
+"4651"
+]
+},
+"140180": {
+"nom": "Polissya Zhytomyr",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/6r8o5l1725171180.png",
+"ligues": [
+"4354"
+]
+},
+"134795": {
+"nom": "Sliema",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/xeios61520796912.png",
+"ligues": [
+"4653"
+]
+},
+"141776": {
+"nom": "Radnički 1923",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/30a8an1624623873.png",
+"ligues": [
+"4671"
+]
+},
+"135673": {
+"nom": "SJK Seinajoki",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/h4yevt1738986061.png",
+"ligues": [
+"4636"
+]
+},
+"139740": {
+"nom": "Racing Union Luxembourg",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/sfoawv1589301786.png",
+"ligues": [
+"4694"
+]
+},
+"134060": {
+"nom": "Nõmme Kalju",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/il67bu1741016276.png",
+"ligues": [
+"4634"
+]
+},
+"138073": {
+"nom": "Sileks",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/ixjlou1579439194.png",
+"ligues": [
+"4652"
+]
+},
+"134049": {
+"nom": "BFC Daugavpils",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/mbst421579192438.png",
+"ligues": [
+"4650"
+]
+},
+"138071": {
+"nom": "Rabotnichki",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/i2s3v11579438252.png",
+"ligues": [
+"5907"
+]
+},
+"137901": {
+"nom": "Dynamo Brest",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/7qcior1625318617.png",
+"ligues": [
+"4622"
+]
+},
+"134604": {
+"nom": "Koper",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/i9k3rx1596478499.png",
+"ligues": [
+"4692"
+]
+},
+"134065": {
+"nom": "NSÍ Runavík",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/v5sv0k1712728278.png",
+"ligues": [
+"4635"
+]
+},
+"135944": {
+"nom": "Dungannon Swifts",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/90yjoh1615586084.png",
+"ligues": [
+"4659"
+]
+},
+"137989": {
+"nom": "Banga Gargždai",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/2gc9e11579201869.png",
+"ligues": [
+"4651"
+]
 },
 "137798": {
 "nom": "Varaždin",
 "badge": "https://r2.thesportsdb.com/images/media/team/badge/r82ai21578830558.png",
-"ligues": []
+"ligues": [
+"4629"
+]
+},
+"144994": {
+"nom": "Spaeri",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/6fhsgc1735404028.png",
+"ligues": [
+"4638"
+]
+},
+"140069": {
+"nom": "Novi Pazar",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/qc4e101595000305.png",
+"ligues": [
+"4671"
+]
+},
+"146883": {
+"nom": "Araz-Naxçıvan",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/zt02cf1689793480.png",
+"ligues": [
+"4693"
+]
+},
+"140666": {
+"nom": "Dinamo City",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/mdqmna1743410388.png",
+"ligues": [
+"4617"
+]
+},
+"138132": {
+"nom": "Hibernians",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/cnoiwc1747880176.png",
+"ligues": [
+"4653"
+]
+},
+"137916": {
+"nom": "Arda Kardzhali",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/cd9dbr1753610663.png",
+"ligues": [
+"4626"
+]
+},
+"135483": {
+"nom": "Oleksandriya",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/wrxkb41603126932.png",
+"ligues": [
+"4677"
+]
+},
+"134603": {
+"nom": "Košice",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/19i24v1659090638.png",
+"ligues": [
+"4672"
+]
+},
+"147403": {
+"nom": "Elbasani",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/39pb2n1692001424.png",
+"ligues": [
+"4617"
+]
+},
+"148411": {
+"nom": "Elimai Semey",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/rts8gq1715688377.png",
+"ligues": [
+"4649"
+]
+},
+"134086": {
+"nom": "Inter Turku",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/xoi4oo1738193128.png",
+"ligues": [
+"4636"
+]
+},
+"138346": {
+"nom": "Mondorf-les-Bains",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/q257d01580066006.png",
+"ligues": [
+"4694"
+]
+},
+"138078": {
+"nom": "Petrovac",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/tolryp1579467109.png",
+"ligues": [
+"4656"
+]
+},
+"134043": {
+"nom": "Bohemians",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/78i24h1734625752.png",
+"ligues": [
+"4643"
+]
+},
+"141839": {
+"nom": "Železničar Pančevo",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/h4nw5d1624714466.png",
+"ligues": [
+"4671"
+]
+},
+"138006": {
+"nom": "Coleraine",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/uwt05l1615586079.png",
+"ligues": [
+"4659"
+]
+},
+"134791": {
+"nom": "Valletta",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/e5zovd1781221579.png",
+"ligues": [
+"4653"
+]
+},
+"134124": {
+"nom": "Hapoel Tel-Aviv",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/19siqf1781239772.png",
+"ligues": [
+"4644"
+]
+},
+"146860": {
+"nom": "LNZ Cherkasy",
+"badge": "https://r2.thesportsdb.com/images/media/team/badge/599dyl1660849995.png",
+"ligues": [
+"4354"
+]
 }
 },
 "ligues": {
-"4344": "https://r2.thesportsdb.com/images/media/league/badge/3tgdke1782689102.png",
-"4337": "https://r2.thesportsdb.com/images/media/league/badge/5cdsu21725984946.png",
-"4338": "https://r2.thesportsdb.com/images/media/league/badge/xj8azr1786316931.png",
 "4328": "https://r2.thesportsdb.com/images/media/league/badge/gasy9d1737743125.png",
+"4330": "https://r2.thesportsdb.com/images/media/league/badge/72d3zc1688333496.png",
+"4331": "https://r2.thesportsdb.com/images/media/league/badge/teqh1b1679952008.png",
+"4332": "https://r2.thesportsdb.com/images/media/league/badge/67q3q21679951383.png",
 "4334": "https://r2.thesportsdb.com/images/media/league/badge/9f7z9d1742983155.png",
 "4335": "https://r2.thesportsdb.com/images/media/league/badge/ja4it51687628717.png",
-"4332": "https://r2.thesportsdb.com/images/media/league/badge/67q3q21679951383.png",
-"4331": "https://r2.thesportsdb.com/images/media/league/badge/teqh1b1679952008.png",
-"4339": "https://r2.thesportsdb.com/images/media/league/badge/dikktz1785779891.png",
-"4422": "https://r2.thesportsdb.com/images/media/league/badge/l3jovw1516960585.png",
-"4631": "https://r2.thesportsdb.com/images/media/league/badge/g6dyni1791697685.png",
 "4336": "https://r2.thesportsdb.com/images/media/league/badge/sni7f51782459204.png",
-"4358": "https://r2.thesportsdb.com/images/media/league/badge/owo80l1512822583.png",
+"4337": "https://r2.thesportsdb.com/images/media/league/badge/5cdsu21725984946.png",
+"4338": "https://r2.thesportsdb.com/images/media/league/badge/xj8azr1786316931.png",
+"4339": "https://r2.thesportsdb.com/images/media/league/badge/dikktz1785779891.png",
 "4340": "https://r2.thesportsdb.com/images/media/league/badge/28uq381687624585.png",
-"4630": "https://r2.thesportsdb.com/images/media/league/badge/ivdlve1760652025.png",
-"4675": "https://r2.thesportsdb.com/images/media/league/badge/id6q2r1635867584.png",
-"4621": "https://r2.thesportsdb.com/images/media/league/badge/vcgyu71686617925.png",
-"4690": "https://r2.thesportsdb.com/images/media/league/badge/7o3q3t1616017529.png",
-"4330": "https://r2.thesportsdb.com/images/media/league/badge/72d3zc1688333496.png",
+"4344": "https://r2.thesportsdb.com/images/media/league/badge/3tgdke1782689102.png",
 "4347": "https://r2.thesportsdb.com/images/media/league/badge/denok11707459183.png",
+"4358": "https://r2.thesportsdb.com/images/media/league/badge/owo80l1512822583.png",
+"4422": "https://r2.thesportsdb.com/images/media/league/badge/l3jovw1516960585.png",
 "4480": "https://r2.thesportsdb.com/images/media/league/badge/facv1u1742998896.png",
 "4481": "https://r2.thesportsdb.com/images/media/league/badge/mlsr7d1718774547.png",
+"4621": "https://r2.thesportsdb.com/images/media/league/badge/vcgyu71686617925.png",
+"4630": "https://r2.thesportsdb.com/images/media/league/badge/ivdlve1760652025.png",
+"4631": "https://r2.thesportsdb.com/images/media/league/badge/g6dyni1791697685.png",
+"4675": "https://r2.thesportsdb.com/images/media/league/badge/id6q2r1635867584.png",
+"4690": "https://r2.thesportsdb.com/images/media/league/badge/7o3q3t1616017529.png",
 "5071": "https://r2.thesportsdb.com/images/media/league/badge/ymfo5j1718775759.png"
 }
 }

@@ -22,7 +22,6 @@ from difflib import SequenceMatcher
 RESSOURCES = os.path.join(os.path.dirname(os.path.abspath(__file__)), "ressources")
 FICHIER_ANNUAIRE = os.path.join(RESSOURCES, "annuaire.json")
 FICHIER_PONT_ESPN = os.path.join(RESSOURCES, "pont_espn.json")
-FICHIER_LOCAUX_EUROPE = os.path.join(RESSOURCES, "locaux_europe.json")
 RACINE = os.path.dirname(os.path.dirname(RESSOURCES))
 
 SEUIL_SIMILARITE = 0.82  # plus strict que odds.py (0.6) : ici il n'y a pas la date pour verifier
@@ -153,7 +152,9 @@ class Annuaire:
 
 
 def construire(racine=None):
-    """Construit annuaire.json depuis les historiques et caches locaux (ids, noms, logos)."""
+    """Construit annuaire.json (ids, noms et logos servant a rapprocher les noms des fournisseurs) depuis les
+    historiques locaux (2020 -> aujourd'hui) et la base locale (`calendrier/base/`) : plus aucune dependance
+    aux caches non versionnes."""
     racine = racine or RACINE
     equipes, ligues_logos = {}, {}
 
@@ -167,51 +168,31 @@ def construire(racine=None):
         if id_ligue and id_ligue not in e["ligues"]:
             e["ligues"].append(id_ligue)
 
-    # 1. Historiques (ids et noms de tous les matchs 2020 -> aujourd'hui) : du plus ancien au plus recent,
-    #    pour que le nom retenu soit le plus recent.
-    fichiers = [os.path.join(racine, "modele_d", "ressources", "matchs_reseau_bruts_ext.json"),
-                os.path.join(racine, "matchs_reseau_bruts.json")]
-    for fichier in fichiers:
+    # 1. Historiques (ids et noms de tous les matchs), du plus ancien au plus recent : le nom retenu est le dernier.
+    for fichier in (os.path.join(racine, "modele_d", "ressources", "matchs_reseau_bruts_ext.json"),
+                    os.path.join(racine, "matchs_reseau_bruts.json")):
         for id_ligue, saisons in _lire(fichier, {}).items():
             for saison in sorted(saisons):
                 for e in saisons[saison]:
                     club(e.get("idHomeTeam"), e.get("strHomeTeam"), id_ligue)
                     club(e.get("idAwayTeam"), e.get("strAwayTeam"), id_ligue)
-    # 2. Caches TheSportsDB (logos, ligues, clubs europeens).
-    for nom_cache in ("cache_championnat_season.json", "cache_season.json"):
-        cache = _lire(os.path.join(racine, nom_cache), {})
-        for e in (cache.get("data") if isinstance(cache, dict) else cache) or []:
-            id_ligue = e.get("idLeague")
+    # 2. Base locale : noms et logos TheSportsDB les plus recents, logos de ligue.
+    from .base import Base
+    base = Base(os.path.join(racine, "calendrier", "base"))
+    for id_club, fiche in base.equipes().items():
+        club(id_club, fiche.get("nom"), (fiche.get("ligue") or {}).get("id"), fiche.get("badge"))
+    dossier = os.path.join(base.racine, "evenements")
+    for f in sorted(os.listdir(dossier)) if os.path.isdir(dossier) else []:
+        for e in base._lire(os.path.join(dossier, f), []):
             if e.get("strLeagueBadge"):
-                ligues_logos[id_ligue] = e["strLeagueBadge"]
+                ligues_logos[e["idLeague"]] = e["strLeagueBadge"]
             for cote in ("Home", "Away"):
                 club(e.get(f"id{cote}Team"), e.get(f"str{cote}Team"), None, e.get(f"str{cote}TeamBadge"))
     return {"equipes": equipes, "ligues": ligues_logos}
 
 
-def construire_locaux_europe(racine=None):
-    """Instantane des matchs europeens de la saison (cache_season.json de TheSportsDB) : leurs
-    idEvent et leur tour (intRound, necessaire a la phase affichee) restent ceux du site meme sans
-    appel a TheSportsDB. A refaire quand le tirage de la phase suivante est connu."""
-    cache = _lire(os.path.join(racine or RACINE, "cache_season.json"), {})
-    champs = ("idEvent", "idLeague", "strSeason", "idHomeTeam", "idAwayTeam", "strHomeTeam", "strAwayTeam",
-              "dateEvent", "strTime", "strTimestamp", "intRound", "strEvent", "strVenue", "strLeague",
-              "strLeagueBadge", "strHomeTeamBadge", "strAwayTeamBadge", "intHomeScore", "intAwayScore",
-              "strStatus", "strFilename")
-    return [{k: e.get(k) for k in champs} for e in ((cache.get("data") if isinstance(cache, dict) else cache) or [])]
-
-
-def charger_locaux_europe():
-    return _lire(FICHIER_LOCAUX_EUROPE, [])
-
-
 if __name__ == "__main__":
     if sys.argv[1:] == ["construire"]:
-        locaux = construire_locaux_europe()
-        if locaux:
-            with open(FICHIER_LOCAUX_EUROPE, "w", encoding="utf-8") as f:
-                json.dump(locaux, f, ensure_ascii=False, indent=0)
-            print(f"{len(locaux)} matchs europeens -> {FICHIER_LOCAUX_EUROPE}")
         donnees = construire()
         os.makedirs(RESSOURCES, exist_ok=True)
         with open(FICHIER_ANNUAIRE, "w", encoding="utf-8") as f:

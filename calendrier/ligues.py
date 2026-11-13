@@ -27,10 +27,12 @@ LIGUES = {
     "4690": {"nom": "NB I", "pays": "Hongrie", "espn": None, "odds": None},
     "4330": {"nom": "Premiership", "pays": "Écosse", "espn": "sco.1", "odds": ["soccer_spl"]},
     "4347": {"nom": "Allsvenskan", "pays": "Suède", "espn": "swe.1", "odds": ["soccer_sweden_allsvenskan"], "civile": True},
-    # Coupes d'Europe
-    "4480": {"nom": "UEFA Champions League", "pays": None, "espn": "uefa.champions", "odds": ["soccer_uefa_champs_league"], "europe": True},
-    "4481": {"nom": "UEFA Europa League", "pays": None, "espn": "uefa.europa", "odds": ["soccer_uefa_europa_league"], "europe": True},
-    "5071": {"nom": "UEFA Conference League", "pays": None, "espn": "uefa.europa.conf",
+    # Coupes d'Europe : `espn_extra` = ligues ESPN distinctes des tours de qualification (que TheSportsDB rangeait dans la meme competition)
+    "4480": {"nom": "UEFA Champions League", "pays": None, "espn": "uefa.champions", "espn_extra": ["uefa.champions_qual"],
+             "odds": ["soccer_uefa_champs_league"], "europe": True},
+    "4481": {"nom": "UEFA Europa League", "pays": None, "espn": "uefa.europa", "espn_extra": ["uefa.europa_qual"],
+             "odds": ["soccer_uefa_europa_league"], "europe": True},
+    "5071": {"nom": "UEFA Conference League", "pays": None, "espn": "uefa.europa.conf", "espn_extra": ["uefa.europa.conf_qual"],
              "odds": ["soccer_uefa_europa_conference_league"], "europe": True},
 }
 CHAMPIONNATS = [i for i, l in LIGUES.items() if not l.get("europe")]

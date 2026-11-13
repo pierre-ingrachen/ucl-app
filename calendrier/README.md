@@ -1,70 +1,69 @@
-# calendrier : matchs à venir et résultats récents sans TheSportsDB
+# calendrier : base locale + fournisseurs gratuits (plus aucun appel TheSportsDB)
 
-Deux fournisseurs gratuits, au format des événements TheSportsDB (`idEvent`, `idHomeTeam`,
-`strHomeTeamBadge`, …) : le reste du dépôt (journaux, historiques, front) n'a rien à changer.
+Tout ce que le site, les paris et le réentraînement tiraient de TheSportsDB est maintenant **dans le dépôt**
+(`calendrier/base/`) et mis à jour chaque jour par des sources gratuites. `SPORTSDB_API_KEY` n'existe plus
+(sauf pour `migration_tsdb.py`, outil ponctuel).
+
+## La base locale (`calendrier/base/`, versionnée)
+
+| Fichier | Contenu | Taille |
+|---|---|---|
+| `evenements/<ligue>_<saison>.json` | 52 saisons : 20 championnats (saison précédente + en cours) et 3 coupes d'Europe (2023-24 → en cours), au format TheSportsDB (tour, stade, logos, scores, statut) | 11 Mo |
+| `equipes.json` | 599 clubs : nom, **pays**, championnat national, logo | |
+| `classements_nationaux.json` | tables figées de 63 ligues non suivies (Kazakhstan, Israël…), pour la position « championnat national » des clubs européens | |
+| `badges/` | 736 logos (clubs, ligues, ESPN), version réduite, nommés d'après l'URL d'origine | 25 Mo |
+
+Le backend (`main.py`) lit uniquement cette base : classements (recalculés depuis les résultats), 5 derniers matchs,
+fiches de détail, historique européen, pays, position nationale. Les URLs de logos sont réécrites vers
+`/badges/<fichier>` (copie locale). Les saisons terminées ne sont plus jamais réécrites ; la saison en cours est
+mise à jour par `Base.upsert` sans jamais effacer un champ statique (tour, stade, logo) par une valeur vide.
+
+## Mise à jour quotidienne (workflow, `paris_reseau.charger_calendrier`)
 
 | Fournisseur | Rôle | Couvre | Coût |
 |---|---|---|---|
-| **ESPN** (`espn.py`) | principal : à venir **et** scores | 15 championnats + 3 coupes d'Europe | gratuit, sans clé |
-| **The Odds API** (`odds_api.py`, point `/events`) | secours : à venir seulement | 17 championnats + 3 coupes, dont Pologne et Suisse | gratuit, **0 crédit** de quota |
+| **ESPN** (`espn.py`) | scores + matchs à venir (+ tours : phase ESPN → `intRound`, qualifications européennes) | 15 championnats, 3 coupes | gratuit, sans clé |
+| **football-data.co.uk** (`footballdata.py`) | résultats Pologne, Suisse (~5 jours de retard) | 2 ligues sans ESPN | gratuit |
+| **The Odds API** `/events` (`odds_api.py`) | secours : matchs à venir | 17 championnats, 3 coupes | gratuit, **0 crédit** |
 
-| **football-data.co.uk** (`footballdata.py`) | résultats Pologne et Suisse | 2 ligues sans ESPN | gratuit, ~5 jours de retard |
+Tchéquie, Chypre, Hongrie : aucun fournisseur gratuit, résultats figés (pas de cotes, donc pas de paris).
 
-ESPN ne publie ni la Pologne, ni la Suisse, ni la Tchéquie, ni Chypre, ni la Hongrie (catalogue
-vérifié le 2026-11-13) ; The Odds API ne publie ni la Tchéquie, ni Chypre, ni la Hongrie : ces trois
-ligues restent sans calendrier ni résultats (elles n'ont de toute façon pas de cotes, donc pas de paris).
-
-## Comment ça marche
-
-- `source.a_venir` : par ligue, ESPN d'abord ; The Odds API si la ligue n'est pas couverte par ESPN,
-  si ESPN est en panne, ou si ESPN renvoie une semaine vide alors que le calendrier local annonce des matchs.
-- `source.completer_calendrier(brut)` : met à jour `{ligue: {saison: [événements]}}` (format de
-  `matchs_reseau_bruts.json`) avec les résultats ESPN récents et les matchs des 8 prochains jours. Les
-  résultats déjà récupérés sont mémorisés dans `ressources/evenements_recents.json` (premier run : ~45 s,
-  ensuite quelques secondes).
-- **Identifiants** : un match reprend l'`idEvent` TheSportsDB du calendrier local (même ligue, saison,
-  domicile, extérieur, date la plus proche) : journaux, cotes et pages de détail restent valides, et les
-  champs statiques (tour, stade) sont conservés. Un match absent du calendrier local reçoit
-  `x<ligue>-<domicile>-<extérieur>-<date>`, identique quel que soit le fournisseur.
-- **Noms de clubs** (`equipes.py`) : normalisation (accents, ø/ł, sigles FC/SC…), comparaison au sein de la ligue
-  (tous les clubs pour les coupes d'Europe), seuil 0,82, refus des cas ambigus. `ressources/pont_espn.json`
-  mémorise les rapprochements sûrs (id ESPN → id TheSportsDB) et peut être corrigé à la main. Un club
-  inconnu (promu) reçoit l'id provisoire `inconnu-<nom>` : il n'a pas d'historique, donc aucune prédiction.
-- **Logos** : logo TheSportsDB si le club est dans `ressources/annuaire.json` (639 clubs, 23 logos de ligue,
-  construit depuis les historiques et caches locaux), sinon logo ESPN. Le mode hors ligne de `main.py`
-  télécharge aussi les logos ESPN.
-- **Coupes d'Europe** : `ressources/locaux_europe.json` (instantané de `cache_season.json`) garde les `idEvent`
-  et les tours (`intRound`, phase affichée). À régénérer quand un nouveau tirage est connu.
-
-## Branchements
-
-- `paris_reseau.py` : `charger_calendrier` (**aucun appel TheSportsDB** en mode `auto` : ESPN + football-data +
-  secours The Odds API ; repli TheSportsDB seulement si le paquet échoue ET que `SPORTSDB_API_KEY` existe) et
-  `matchs_europe_a_venir`. Le réentraînement (`modele_d/rafraichir_donnees.py`) passe par `charger_calendrier`.
-- `main.py` : `/api/matchs/a-venir` et `/api/championnats/matchs/a-venir` (cache de 20 min). `SPORTSDB_API_KEY`
-  est **optionnelle** : sans elle, tout appel TheSportsDB lève `ConnectionError`. Les fiches de détail
-  (`/api/match/{id}`), classements et historiques européens en dépendent encore (voir ci-dessous).
-- Variable `SOURCE_CALENDRIER` : `auto` (défaut) ou `thesportsdb` (ancien comportement partout, clé requise).
-- Workflow : `evenements_recents.json` et `pont_espn.json` sont committés avec les journaux.
+- `source.completer_calendrier` : championnats → `brut` (historique des modèles) **et** base ; `source.mettre_a_jour_europe` :
+  coupes d'Europe → base uniquement. Curseur par ligue dans `ressources/evenements_recents.json` : un run raté est
+  rattrapé au suivant.
+- **Identifiants** : un match reprend l'`idEvent` TheSportsDB de la base (journaux, cotes, fiches restent valides) ;
+  un match inconnu reçoit `x<ligue>-<dom>-<ext>-<date>`, identique d'un fournisseur à l'autre.
+- **Noms de clubs** (`equipes.py`) : normalisation + `ALIAS_NOMS` + `ressources/pont_espn.json` ; un club nouveau
+  (promu) est ajouté à `equipes.json` avec le pays majoritaire de sa ligue et son logo ESPN, téléchargé dans `badges/`.
+- Le workflow committe `calendrier/base/`, `evenements_recents.json` et `pont_espn.json`.
 
 ## Commandes
 
 ```
 .venv/bin/python -m calendrier.source prochains 8        # matchs des 8 prochains jours + source de chaque ligue
 .venv/bin/python -m calendrier.source diagnostic 14      # clubs non rapprochés, ligues sans fournisseur
-.venv/bin/python -m calendrier.equipes construire        # annuaire + instantané européen (après un rafraîchissement TheSportsDB)
-.venv/bin/python -m unittest calendrier.tests.test_calendrier -v
+.venv/bin/python -m calendrier.logos                     # télécharge les logos manquants
+.venv/bin/python -m calendrier.equipes construire        # régénère ressources/annuaire.json
+.venv/bin/python -m unittest calendrier.tests.test_calendrier calendrier.tests.test_base -v
 CALENDRIER_LIVE=1 .venv/bin/python -m unittest calendrier.tests.test_calendrier   # + test ESPN réel
 ```
 
+`python -m calendrier.migration_tsdb` : snapshot ponctuel de TheSportsDB (fait le 2026-11-13, abonnement actif).
+À ne relancer que si l'abonnement existe encore ; `--refresh` refait tout.
+
+## Validation (2026-11-13)
+
+- Classements des saisons précédentes et des 3 coupes d'Europe : **identiques** à l'ancien site ; saison en cours :
+  identiques à jeu de matchs égal (écarts = 5 jours de résultats en plus). Fiches de détail : pays, phase, 5 derniers
+  matchs identiques. Historique européen : 3296 anciens matchs tous présents, +54 récents.
+- Scores ESPN vs TheSportsDB : 559/560 identiques ; football-data : 61/61 identiques.
+- 53 tests hors ligne ; test garde-fou : aucun appel TheSportsDB dans le code de production.
+
 ## Limites
 
-- L'API ESPN n'est ni officielle ni documentée : elle peut changer. Les champs sont vérifiés, un match mal
-  formé est ignoré et compté, jamais deviné ; un score illisible laisse le match « à jouer ».
-- ESPN n'accepte pas de plage de dates (400) : une requête par ligue et par jour.
-- Un match abandonné n'a pas de score chez ESPN (TheSportsDB le note 0-0) : il n'entre pas dans l'historique.
-- Validation du 2026-11-13 : 560 scores comparés à TheSportsDB depuis le 21/09, 559 identiques ; le seul écart
-  (Rizespor–Erzurumspor, 2-1 contre 0-0) est probablement un score TheSportsDB périmé.
-- Les résultats de Pologne/Suisse arrivent avec ~5 jours de retard (football-data) : un pari sur ces ligues est
-  résolu quand le fichier est à jour.
-- Reste sur TheSportsDB (clé requise, sinon caches figés) : fiches de détail, classements, historique européen.
+- ESPN n'est ni officielle ni documentée : champs vérifiés, match mal formé ignoré et compté, score illisible → « à jouer ».
+- ESPN n'accepte pas de plage de dates : une requête par ligue et par jour.
+- Match abandonné : pas de score chez ESPN (TheSportsDB le notait 0-0) : il n'entre pas dans l'historique.
+- Classement national d'une ligue non suivie : table figée à la date du snapshot (`maj`).
+- Résultats Pologne/Suisse en retard de ~5 jours : un pari n'est résolu qu'une fois football-data à jour.
+- Clubs de ligues non suivies sans pays/logo : pays vide, logo ESPN. Poids du dépôt : ~37 Mo (logos 25 Mo).

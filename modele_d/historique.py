@@ -40,17 +40,9 @@ def telecharger_saisons_ext():
     ext = _lire(FICHIER_BRUTS_EXT)
     a_faire = [(lid, s) for lid in main.DOMESTIC_LEAGUES for s in saisons_ext(lid)
                if s not in ext.get(lid, {})]
-    print(f"{len(a_faire)} requetes TheSportsDB a faire")
-    for lid, saison in a_faire:
-        url = (f"https://www.thesportsdb.com/api/v1/json/{main.API_KEY}/"
-               f"eventsseason.php?id={lid}&s={saison}")
-        resp = main.requete_api_avec_retry(url)
-        resp.raise_for_status()
-        evenements = resp.json().get("events") or []
-        ext.setdefault(lid, {})[saison] = [{k: e.get(k) for k in CHAMPS} for e in evenements]
-        with open(FICHIER_BRUTS_EXT, "w", encoding="utf-8") as f:
-            json.dump(ext, f, ensure_ascii=False)
-        print(f"{main.DOMESTIC_LEAGUES[lid]} {saison} : {len(evenements)} evenements")
+    if a_faire:
+        raise SystemExit(f"{len(a_faire)} saisons manquantes dans {FICHIER_BRUTS_EXT} et TheSportsDB est retire : "
+                         "elles ne peuvent plus etre telechargees (le fichier est complet a ce jour).")
     return ext
 
 

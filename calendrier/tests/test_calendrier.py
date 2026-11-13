@@ -144,7 +144,6 @@ class TestLigues(unittest.TestCase):
         self.assertEqual(saison("4328", "2026-06-30"), "2025-2026")
 
     def test_coherence_avec_main(self):
-        os.environ.setdefault("SPORTSDB_API_KEY", "test")
         import main
         self.assertEqual({i: n for i, n in main.DOMESTIC_LEAGUES.items()}, {i: LIGUES[i]["nom"] for i in main.DOMESTIC_LEAGUES})
         self.assertEqual(set(main.COMPETITIONS_EUROPE), {i for i, l in LIGUES.items() if l.get("europe")})

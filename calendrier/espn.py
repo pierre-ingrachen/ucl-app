@@ -58,7 +58,21 @@ def telecharger_jour(slug, jour, session=None, tentatives=3):
     raise ErreurEspn(f"{slug} {jour} : {derniere}")
 
 
-def convertir(brut, id_ligue, annuaire):
+# Phase ESPN (`season.slug`) -> tour TheSportsDB (`intRound`) : de quoi retrouver la phase affichee (qualifications /
+# phase de ligue / phase finale, cf. main.categoriser_phase). La phase de ligue n'a pas de numero de journee chez
+# ESPN : le match est normalement deja dans la base (calendrier de la phase de ligue publie a l'avance).
+TOURS_PAR_PHASE = {"knockout-round-playoffs": "32", "round-of-16": "16", "quarterfinals": "125",
+                   "semifinals": "150", "final": "200"}
+
+
+def tour(brut, qualification):
+    """`intRound` deduit de la phase ESPN, ou None si inconnue (match sans tour : classe « qualifications »)."""
+    if qualification:
+        return "400"
+    return TOURS_PAR_PHASE.get(((brut.get("season") or {}).get("slug")) or "")
+
+
+def convertir(brut, id_ligue, annuaire, qualification=False):
     """Evenement ESPN -> evenement au format TheSportsDB, ou None s'il est inexploitable.
     Le logo ESPN n'est utilise que si le club n'a pas de logo TheSportsDB dans l'annuaire."""
     try:
@@ -92,7 +106,7 @@ def convertir(brut, id_ligue, annuaire):
         "idLeague": id_ligue,
         "strLeague": LIGUES[id_ligue]["nom"],
         "strLeagueBadge": annuaire.logo_ligue(id_ligue),
-        "strSeason": saison(id_ligue, horodatage.date()),
+        "strSeason": saison(id_ligue, horodatage.date()), "intRound": tour(brut, qualification),
         "strEvent": f"{nom_dom} vs {nom_ext}",
         "strHomeTeam": nom_dom, "strAwayTeam": nom_ext,
         "idHomeTeam": id_dom, "idAwayTeam": id_ext,
@@ -111,28 +125,34 @@ def convertir(brut, id_ligue, annuaire):
 
 
 def evenements(taches, annuaire, session=None):
-    """Evenements ESPN pour des couples (id_ligue, jour). Les ligues sans slug ESPN sont ignorees.
-    Renvoie (evenements, ligues_en_panne, nb_ignores) : une ligue est « en panne » si au moins un
-    de ses jours a echoue (l'appelant la completera par le secours The Odds API)."""
-    taches = [(i, j) for i, j in taches if LIGUES[i]["espn"]]
+    """Evenements ESPN pour des couples (id_ligue, jour). Les ligues sans slug ESPN sont ignorees ; les coupes
+    d'Europe interrogent aussi leur ligue de qualifications (`espn_extra`).
+    Renvoie (evenements, ligues_en_panne, nb_ignores) : une ligue est « en panne » si au moins un de
+    ses jours a echoue (l'appelant la completera par le secours The Odds API)."""
+    requetes = []  # (id_ligue, slug, jour, qualification)
+    for id_ligue, jour in taches:
+        if LIGUES[id_ligue]["espn"]:
+            requetes.append((id_ligue, LIGUES[id_ligue]["espn"], jour, False))
+            requetes += [(id_ligue, slug, jour, True) for slug in LIGUES[id_ligue].get("espn_extra", [])]
     resultats, en_panne = [], set()
 
     def tache(t):
-        id_ligue, jour = t
+        id_ligue, slug, jour, qualification = t
         try:
-            return id_ligue, telecharger_jour(LIGUES[id_ligue]["espn"], jour, session), None
+            return id_ligue, qualification, telecharger_jour(slug, jour, session), None
         except ErreurEspn as exc:
-            return id_ligue, [], exc
+            return id_ligue, qualification, [], exc
 
     with ThreadPoolExecutor(THREADS) as pool:
-        retours = list(pool.map(tache, taches))
+        retours = list(pool.map(tache, requetes))
     ignores = 0
-    for id_ligue, bruts, erreur in retours:
+    for id_ligue, qualification, bruts, erreur in retours:
         if erreur:
             journal.warning("ESPN : %s", erreur)
-            en_panne.add(id_ligue)
+            if not qualification:  # une panne des qualifications seules ne declasse pas la ligue
+                en_panne.add(id_ligue)
         for brut in bruts:
-            e = convertir(brut, id_ligue, annuaire)
+            e = convertir(brut, id_ligue, annuaire, qualification)
             if e is None:
                 ignores += 1
             else:
