@@ -32,7 +32,9 @@ LIGUES_HORS_LIGNE = ["4328", "4335", "4331", "4332", "4334",   # Top 5
                      "4338", "4337", "4344", "4339", "4422"]   # 6-10
 # Logos telecharges par preparer_hors_ligne.py, servis sous /badges/ (voir `localiser_badges`).
 DOSSIER_BADGES = "cache_badges"
-RE_URL_BADGE = re.compile(r'https://[a-z0-9.]*thesportsdb\.com/images/media/(?:team|league)/badge/[^"\\\s]+')
+# Logos TheSportsDB, et logos ESPN (clubs absents de l'annuaire TheSportsDB, cf. calendrier/).
+RE_URL_BADGE = re.compile(r'https://[a-z0-9.]*thesportsdb\.com/images/media/(?:team|league)/badge/[^"\\\s]+'
+                          r'|https://a\.espncdn\.com/i/teamlogos/soccer/\d+/\d+\.png')
 
 def nom_fichier_badge(url):
     return hashlib.sha1(url.encode()).hexdigest()[:16] + os.path.splitext(url)[1]
@@ -431,10 +433,12 @@ def marquer_cotes_elevees(matchs):
         resultat.append({**m, "coteElevee": elevee, "coteTrouvee": bool(c.get("bookmaker"))})
     return resultat
 
+JOURS_AFFICHES = 8  # TEST (2026-11-13) : 8 jours au lieu de 7 ; remettre 7 apres le test
+
 def filtrer_matchs_semaine(matchs):
-    """Restreint une liste de matchs à ceux prévus entre aujourd'hui et dans 7 jours."""
+    """Restreint une liste de matchs à ceux prévus entre aujourd'hui et dans JOURS_AFFICHES jours."""
     aujourd_hui = datetime.now()
-    dans_7_jours = aujourd_hui + timedelta(days=7)
+    dans_7_jours = aujourd_hui + timedelta(days=JOURS_AFFICHES)
     matchs_filtres = []
 
     for match in matchs:
@@ -644,10 +648,44 @@ def obtenir_matchs_a_venir():
 
     return matchs
 
+# Source du calendrier (variable SOURCE_CALENDRIER) : « auto » = ESPN avec The Odds API en secours
+# (package `calendrier/`), TheSportsDB en dernier recours ; « thesportsdb » = ancienne source seule.
+SOURCE_CALENDRIER = os.environ.get("SOURCE_CALENDRIER", "auto")
+DUREE_CACHE_SOURCE = 1200  # secondes : evite ~160 requetes ESPN a chaque affichage du site
+_cache_source = {}
+
+def matchs_semaine_via_source(ids_ligues, fichier_cache_tsdb, locaux_defaut=()):
+    """Matchs des 7 prochains jours (et ceux deja joues aujourd'hui) via `calendrier/`, avec les
+    identifiants TheSportsDB du cache local (mapping du site conserve) ; None si la source est
+    desactivee, injoignable ou ne couvre aucune ligue (l'appelant retombe alors sur TheSportsDB)."""
+    if SOURCE_CALENDRIER == "thesportsdb" or HORS_LIGNE:
+        return None
+    cle = (tuple(ids_ligues), date.today())
+    en_cache = _cache_source.get(cle)
+    if en_cache and time.monotonic() - en_cache[0] < DUREE_CACHE_SOURCE:
+        return en_cache[1]
+    try:
+        from calendrier import source
+        locaux = (_lire_json_ou_defaut(fichier_cache_tsdb, {}) or {}).get("data") or (
+            locaux_defaut() if callable(locaux_defaut) else list(locaux_defaut))
+        evenements, rapport = source.a_venir(date.today(), date.today() + timedelta(days=JOURS_AFFICHES), locaux,
+                                             list(ids_ligues), inclure_joues=True)
+    except Exception as exc:  # noqa: BLE001
+        print(f"Calendrier ESPN/Odds API indisponible ({type(exc).__name__}: {exc}), repli TheSportsDB")
+        return None
+    if not any(rapport["sources"].values()):
+        return None
+    _cache_source[cle] = (time.monotonic(), evenements)
+    return evenements
+
 @app.get("/api/matchs/a-venir")
 def get_matchs_a_venir():
     if HORS_LIGNE:
         return {"events": []}  # onglet non prepare en mode hors ligne
+    from calendrier.equipes import charger_locaux_europe
+    via_source = matchs_semaine_via_source(list(COMPETITIONS_EUROPE), CACHE_SEASON_FILE, charger_locaux_europe)
+    if via_source is not None:
+        return {"events": marquer_cotes_elevees(via_source)}
     return {"events": marquer_cotes_elevees(filtrer_matchs_semaine(obtenir_matchs_a_venir()))}
 
 def obtenir_matchs_championnats_a_venir():
@@ -671,6 +709,12 @@ def obtenir_matchs_championnats_a_venir():
 
 @app.get("/api/championnats/matchs/a-venir")
 def get_matchs_championnats_a_venir():
+    if not HORS_LIGNE:
+        from calendrier.source import locaux_depuis_fichier
+        via_source = matchs_semaine_via_source(list(DOMESTIC_LEAGUES), CACHE_CHAMPIONNAT_SEASON_FILE,
+                                               lambda: locaux_depuis_fichier("matchs_reseau_bruts.json", list(DOMESTIC_LEAGUES)))
+        if via_source is not None:
+            return {"events": marquer_cotes_elevees(via_source)}
     matchs = obtenir_matchs_championnats_a_venir()
 
     if HORS_LIGNE:

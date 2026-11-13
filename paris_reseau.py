@@ -22,6 +22,7 @@ import numpy as np
 
 import main  # requete_api_avec_retry, API_KEY, ligues et saisons
 from construire_dataset_reseau import FICHIER_BRUTS, saisons_ligue
+from calendrier.ligues import LIGUES
 from odds import recuperer_toutes_les_cotes
 from reseau_buts import EtatChampionnat, charger_modele, cotes_match, predire_lambdas
 
@@ -32,20 +33,8 @@ FICHIER_PARIS = "cache_paris_reseau.json"
 FICHIER_ANALYSES = "cache_analyses_reseau.json"  # {idEvent: date} des matchs passes au reseau
 JOURS_RELEVE_COMPLET = {1, 3, 5, 6}  # mardi, jeudi, samedi, dimanche (lundi = 0) : 20 requetes par releve
 # Identifiants de ligue -> cles The Odds API (pas de cotes publiees pour Tchequie, Chypre, Hongrie).
-ODDS_API_SPORT_KEYS = {
-    "4344": ["soccer_portugal_primeira_liga"], "4337": ["soccer_netherlands_eredivisie"],
-    "4338": ["soccer_belgium_first_div"], "4328": ["soccer_epl"],
-    "4334": ["soccer_france_ligue_one"], "4335": ["soccer_spain_la_liga"],
-    "4332": ["soccer_italy_serie_a"], "4331": ["soccer_germany_bundesliga"],
-    "4339": ["soccer_turkey_super_league"], "4422": ["soccer_poland_ekstraklasa"],
-    "4336": ["soccer_greece_super_league"], "4358": ["soccer_norway_eliteserien"],
-    "4340": ["soccer_denmark_superliga"], "4675": ["soccer_switzerland_superleague"],
-    "4621": ["soccer_austria_bundesliga"], "4330": ["soccer_spl"],
-    "4347": ["soccer_sweden_allsvenskan"],
-    # Coupes d'Europe : cotes affichees sur le site uniquement (le modele ne parie que sur les championnats).
-    "4480": ["soccer_uefa_champs_league"], "4481": ["soccer_uefa_europa_league"],
-    "5071": ["soccer_uefa_europa_conference_league"],
-}
+# Coupes d'Europe : cotes affichees sur le site uniquement (le modele ne parie que sur les championnats).
+ODDS_API_SPORT_KEYS = {i: l["odds"] for i, l in LIGUES.items() if l["odds"]}
 # Pas de pari "match nul" : cette issue est volontairement exclue.
 ISSUES = [("domicile", "1", "domicile"), ("exterieure", "2", "exterieure")]
 
@@ -62,22 +51,57 @@ def _ecrire_json(fichier, data):
         json.dump(data, f, ensure_ascii=False, indent=1)
 
 
-def charger_calendrier():
-    """{ligue -> {saison -> evenements}} : historique fige (matchs_reseau_bruts.json) dont la
-    saison en cours est rechargee depuis TheSportsDB (resultats et calendrier a jour)."""
-    brut = _lire_json(FICHIER_BRUTS, {})
-    for league_id in main.DOMESTIC_LEAGUES:
+def _calendrier_thesportsdb(brut, ids_ligues, tolerant=False):
+    """Recharge la saison en cours de ces ligues depuis TheSportsDB (ancienne source). `tolerant` :
+    en cas d'erreur on garde ce que `brut` contient deja au lieu d'echouer."""
+    for league_id in ids_ligues:
         saison = main.saison_actuelle_ligue(league_id)
         url = (f"https://www.thesportsdb.com/api/v1/json/{main.API_KEY}/"
                f"eventsseason.php?id={league_id}&s={saison}")
-        resp = main.requete_api_avec_retry(url)
-        resp.raise_for_status()
+        try:
+            resp = main.requete_api_avec_retry(url)
+            resp.raise_for_status()
+            evenements = resp.json().get("events") or []
+        except Exception as exc:  # noqa: BLE001
+            if not tolerant:
+                raise
+            print(f"- TheSportsDB indisponible pour {main.DOMESTIC_LEAGUES[league_id]} "
+                  f"({type(exc).__name__}) : calendrier local conserve")
+            continue
         brut.setdefault(league_id, {})[saison] = [
             {k: e.get(k) for k in ("idEvent", "dateEvent", "idHomeTeam", "idAwayTeam",
                                    "strHomeTeam", "strAwayTeam", "intHomeScore", "intAwayScore")}
-            for e in (resp.json().get("events") or [])
+            for e in evenements
         ]
     return brut
+
+
+def charger_calendrier():
+    """{ligue -> {saison -> evenements}} : historique fige (matchs_reseau_bruts.json) complete avec
+    les resultats recents et les matchs a venir.
+
+    Source (variable SOURCE_CALENDRIER) : « auto » (defaut) = ESPN, avec The Odds API en secours
+    (package `calendrier/`) ; TheSportsDB n'est interroge que pour les ligues qu'aucun
+    fournisseur gratuit ne couvre en resultats (Pologne, Suisse, Tchequie, Chypre, Hongrie), et
+    en repli complet si le nouveau module echoue. « thesportsdb » = ancien comportement."""
+    brut = _lire_json(FICHIER_BRUTS, {})
+    ligues_tsdb, tolerant = list(main.DOMESTIC_LEAGUES), False
+    if os.environ.get("SOURCE_CALENDRIER", "auto") != "thesportsdb":
+        try:
+            from calendrier import source
+            brut, rapport = source.completer_calendrier(brut, ids_ligues=list(main.DOMESTIC_LEAGUES))
+            ligues_tsdb = sorted(set(rapport["ligues_sans_resultats"]) | set(rapport["ligues_espn_en_panne"]))
+            tolerant = True
+            par_source = {}
+            for id_ligue, src in rapport["sources"].items():
+                if id_ligue in main.DOMESTIC_LEAGUES:
+                    par_source.setdefault(src or "aucune", []).append(main.DOMESTIC_LEAGUES[id_ligue])
+            print(f"## Calendrier — {rapport['resultats_nouveaux']} resultats recuperes, "
+                  + ", ".join(f"{src} : {len(noms)} ligues" for src, noms in sorted(par_source.items())) + "\n")
+        except Exception as exc:  # noqa: BLE001
+            print(f"## Calendrier ESPN/Odds API indisponible ({type(exc).__name__}: {exc}) : repli TheSportsDB\n")
+            brut, ligues_tsdb = _lire_json(FICHIER_BRUTS, {}), list(main.DOMESTIC_LEAGUES)
+    return _calendrier_thesportsdb(brut, ligues_tsdb, tolerant)
 
 
 def est_joue(e):
@@ -141,7 +165,17 @@ def etape_cotes(calendrier):
 
 def matchs_europe_a_venir(debut, fin):
     """Matchs non joues des coupes d'Europe dans [debut, fin] : utilises pour relever leurs cotes
-    (affichage sur le site), jamais pour les paris du reseau."""
+    (affichage sur le site), jamais pour les paris du reseau. Les identifiants restent ceux du site
+    (instantane `calendrier/ressources/locaux_europe.json`), sinon TheSportsDB (ancienne source)."""
+    if os.environ.get("SOURCE_CALENDRIER", "auto") != "thesportsdb":
+        try:
+            from calendrier import source
+            from calendrier.equipes import charger_locaux_europe
+            evenements, _ = source.a_venir(date.fromisoformat(debut), date.fromisoformat(fin),
+                                           charger_locaux_europe(), ids_ligues=list(main.COMPETITIONS_EUROPE))
+            return evenements
+        except Exception as exc:  # noqa: BLE001
+            print(f"- Calendrier europeen ESPN/Odds API indisponible ({type(exc).__name__}) : repli TheSportsDB")
     try:
         evenements = main.obtenir_matchs_a_venir()
     except main.HTTPException:

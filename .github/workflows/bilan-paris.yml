@@ -81,8 +81,10 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add cache_paris_reseau.json cache_analyses_reseau.json cache_cotes_winamax.json
           # journaux du modele D : absents tant que le modele D n'a jamais tourne
+          # calendrier ESPN : resultats recents deja recuperes + clubs rapproches (evite de tout retelecharger)
           for f in modele_d/journaux/paris.json modele_d/journaux/analyses.json \
-                   ia_optimisee/journaux/paris.json ia_optimisee/journaux/analyses.json; do
+                   ia_optimisee/journaux/paris.json ia_optimisee/journaux/analyses.json \
+                   calendrier/ressources/evenements_recents.json calendrier/ressources/pont_espn.json; do
             if [ -f "$f" ]; then git add "$f"; fi
           done
           if git diff --cached --quiet; then
