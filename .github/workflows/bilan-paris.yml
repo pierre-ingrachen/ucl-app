@@ -3,7 +3,7 @@ name: Bilan quotidien des paris
 on:
   # Declenchement unique : planificateur externe (cron-job.org) via l'API
   # workflow_dispatch -> execution immediate, sans file d'attente GitHub.
-  # (Pas de cron natif GitHub : il doublerait les appels a TheSportsDB et a The Odds API.)
+  # (Pas de cron natif GitHub : il doublerait les appels a The Odds API et a ESPN.)
   workflow_dispatch:
     inputs:
       source:
@@ -82,6 +82,7 @@ jobs:
           # calendrier gratuit : base locale du site (matchs, clubs, logos) + resultats recents + clubs rapproches
           git add calendrier/base calendrier/ressources/evenements_recents.json calendrier/ressources/pont_espn.json
           for f in modele_d/journaux/paris.json modele_d/journaux/analyses.json \
+                   modele_d/journaux/regles_paris.json modele_d/journaux/regles_analyses.json \
                    ia_optimisee/journaux/paris.json ia_optimisee/journaux/analyses.json; do
             if [ -f "$f" ]; then git add "$f"; fi
           done
