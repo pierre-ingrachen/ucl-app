@@ -2446,5 +2446,149 @@
    2.4
   ],
   "resultat": "nul"
+ },
+ "2496796": {
+  "date": "2026-11-20",
+  "ligue": "Pro League",
+  "equipeDomicile": "Cercle Brugge",
+  "equipeExterieur": "Westerlo",
+  "probas": [
+   0.4111,
+   0.2589,
+   0.33
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   1.9,
+   3.6,
+   2.9
+  ],
+  "resultat": null
+ },
+ "2489558": {
+  "date": "2026-11-20",
+  "ligue": "Ligue 1",
+  "equipeDomicile": "Troyes",
+  "equipeExterieur": "Le Havre",
+  "probas": [
+   0.4351,
+   0.2852,
+   0.2797
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   2.05,
+   3.25,
+   3.1
+  ],
+  "resultat": null
+ },
+ "2506290": {
+  "date": "2026-11-20",
+  "ligue": "La Liga",
+  "equipeDomicile": "Athletic Bilbao",
+  "equipeExterieur": "Espanyol",
+  "probas": [
+   0.5015,
+   0.2768,
+   0.2216
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   1.39,
+   4.3,
+   5.8
+  ],
+  "resultat": null
+ },
+ "2508414": {
+  "date": "2026-11-20",
+  "ligue": "Bundesliga",
+  "equipeDomicile": "Bayern Munich",
+  "equipeExterieur": "Köln",
+  "probas": [
+   0.8451,
+   0.1015,
+   0.0534
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   1.05,
+   11.0,
+   15.0
+  ],
+  "resultat": null
+ },
+ "2490317": {
+  "date": "2026-11-20",
+  "ligue": "Ekstraklasa",
+  "equipeDomicile": "Pogoń Szczecin",
+  "equipeExterieur": "Śląsk Wrocław",
+  "probas": [
+   0.5758,
+   0.2359,
+   0.1884
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   1.7,
+   3.6,
+   3.55
+  ],
+  "resultat": null
+ },
+ "2490318": {
+  "date": "2026-11-20",
+  "ligue": "Ekstraklasa",
+  "equipeDomicile": "Piast Gliwice",
+  "equipeExterieur": "Korona Kielce",
+  "probas": [
+   0.5019,
+   0.2606,
+   0.2375
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   2.35,
+   3.3,
+   2.4
+  ],
+  "resultat": null
+ },
+ "2399203": {
+  "date": "2026-11-20",
+  "ligue": "Eliteserien",
+  "equipeDomicile": "Molde",
+  "equipeExterieur": "Bodø/Glimt",
+  "probas": [
+   0.2874,
+   0.225,
+   0.4876
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   3.1,
+   4.2,
+   1.72
+  ],
+  "resultat": null
+ },
+ "2481879": {
+  "date": "2026-11-20",
+  "ligue": "Superliga",
+  "equipeDomicile": "AGF Aarhus",
+  "equipeExterieur": "Lyngby",
+  "probas": [
+   0.6129,
+   0.2171,
+   0.1699
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   1.64,
+   3.75,
+   3.75
+  ],
+  "resultat": null
  }
 }

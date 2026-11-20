@@ -58,5 +58,20 @@
   "mise": 0.1667,
   "statut": "perdu",
   "gain": -0.1667
+ },
+ {
+  "idEvent": "2506290",
+  "date": "2026-11-20",
+  "ligue": "La Liga",
+  "equipeDomicile": "Athletic Bilbao",
+  "equipeExterieur": "Espanyol",
+  "issue": "exterieure",
+  "coteBookmaker": 5.8,
+  "bookmaker": "Winamax",
+  "coteModele": 4.57,
+  "probaModele": 0.2188,
+  "mise": 0.1724,
+  "statut": "en_attente",
+  "gain": null
  }
 ]
