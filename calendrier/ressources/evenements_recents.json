@@ -1,23 +1,23 @@
 {
 "couvert_jusqu_au": {
-"4328": "2026-11-20",
-"4330": "2026-11-20",
-"4331": "2026-11-20",
-"4332": "2026-11-20",
-"4334": "2026-11-20",
-"4335": "2026-11-20",
-"4336": "2026-11-20",
-"4337": "2026-11-20",
-"4338": "2026-11-20",
-"4339": "2026-11-20",
-"4340": "2026-11-20",
-"4344": "2026-11-20",
-"4347": "2026-11-20",
-"4358": "2026-11-20",
-"4480": "2026-11-20",
-"4481": "2026-11-20",
-"4621": "2026-11-20",
-"5071": "2026-11-20"
+"4328": "2026-11-21",
+"4330": "2026-11-21",
+"4331": "2026-11-21",
+"4332": "2026-11-21",
+"4334": "2026-11-21",
+"4335": "2026-11-21",
+"4336": "2026-11-21",
+"4337": "2026-11-21",
+"4338": "2026-11-21",
+"4339": "2026-11-21",
+"4340": "2026-11-21",
+"4344": "2026-11-21",
+"4347": "2026-11-21",
+"4358": "2026-11-21",
+"4480": "2026-11-21",
+"4481": "2026-11-21",
+"4621": "2026-11-21",
+"5071": "2026-11-21"
 },
 "evenements": {
 "2398919": {
@@ -1112,6 +1112,18 @@
 "strHomeTeam": "Viking",
 "strSeason": "2026"
 },
+"2399203": {
+"dateEvent": "2026-11-20",
+"idAwayTeam": "135497",
+"idEvent": "2399203",
+"idHomeTeam": "133958",
+"idLeague": "4358",
+"intAwayScore": "4",
+"intHomeScore": "2",
+"strAwayTeam": "Bodø/Glimt",
+"strHomeTeam": "Molde",
+"strSeason": "2026"
+},
 "2477943": {
 "dateEvent": "2026-09-20",
 "idAwayTeam": "134160",
@@ -1698,6 +1710,18 @@
 "intHomeScore": "1",
 "strAwayTeam": "Lyngby",
 "strHomeTeam": "Silkeborg IF",
+"strSeason": "2026-2027"
+},
+"2481879": {
+"dateEvent": "2026-11-20",
+"idAwayTeam": "133900",
+"idEvent": "2481879",
+"idHomeTeam": "133899",
+"idLeague": "4340",
+"intAwayScore": "1",
+"intHomeScore": "2",
+"strAwayTeam": "Lyngby",
+"strHomeTeam": "AGF Aarhus",
 "strSeason": "2026-2027"
 },
 "2482178": {
@@ -3834,6 +3858,18 @@
 "intHomeScore": "1",
 "strAwayTeam": "Marseille",
 "strHomeTeam": "Lens",
+"strSeason": "2026-2027"
+},
+"2489558": {
+"dateEvent": "2026-11-20",
+"idAwayTeam": "133862",
+"idEvent": "2489558",
+"idHomeTeam": "134789",
+"idLeague": "4334",
+"intAwayScore": "1",
+"intHomeScore": "3",
+"strAwayTeam": "Le Havre",
+"strHomeTeam": "Troyes",
 "strSeason": "2026-2027"
 },
 "2490189": {
@@ -7664,6 +7700,18 @@
 "strHomeTeam": "RAAL La Louvière",
 "strSeason": "2026-2027"
 },
+"2496796": {
+"dateEvent": "2026-11-20",
+"idAwayTeam": "133790",
+"idEvent": "2496796",
+"idHomeTeam": "133782",
+"idLeague": "4338",
+"intAwayScore": "0",
+"intHomeScore": "1",
+"strAwayTeam": "Westerlo",
+"strHomeTeam": "Cercle Brugge",
+"strSeason": "2026-2027"
+},
 "2499739": {
 "dateEvent": "2026-09-20",
 "idAwayTeam": "137743",
@@ -8816,6 +8864,18 @@
 "strHomeTeam": "Elche",
 "strSeason": "2026-2027"
 },
+"2506290": {
+"dateEvent": "2026-11-20",
+"idAwayTeam": "133734",
+"idEvent": "2506290",
+"idHomeTeam": "133727",
+"idLeague": "4335",
+"intAwayScore": "1",
+"intHomeScore": "0",
+"strAwayTeam": "Espanyol",
+"strHomeTeam": "Athletic Bilbao",
+"strSeason": "2026-2027"
+},
 "2508360": {
 "dateEvent": "2026-09-18",
 "idAwayTeam": "134690",
@@ -9462,6 +9522,18 @@
 "intHomeScore": "1",
 "strAwayTeam": "Bayer Leverkusen",
 "strHomeTeam": "Köln",
+"strSeason": "2026-2027"
+},
+"2508414": {
+"dateEvent": "2026-11-20",
+"idAwayTeam": "133654",
+"idEvent": "2508414",
+"idHomeTeam": "133664",
+"idLeague": "4331",
+"intAwayScore": "1",
+"intHomeScore": "1",
+"strAwayTeam": "Köln",
+"strHomeTeam": "Bayern Munich",
 "strSeason": "2026-2027"
 },
 "2513943": {

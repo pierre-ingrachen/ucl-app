@@ -1850,6 +1850,222 @@
    0.98
   ],
   "mise": 0.1724,
+  "statut": "gagne",
+  "gain": 0.8275
+ },
+ {
+  "idEvent": "2496790",
+  "date": "2026-11-21",
+  "ligue": "Pro League",
+  "equipeDomicile": "Mechelen",
+  "equipeExterieur": "Club Brugge",
+  "issue": "domicile",
+  "coteBookmaker": 5.6,
+  "bookmaker": "Winamax",
+  "coteModele": 4.64,
+  "butsAttendus": [
+   1.1,
+   1.92
+  ],
+  "mise": 0.1786,
+  "statut": "en_attente",
+  "gain": null
+ },
+ {
+  "idEvent": "2494100",
+  "date": "2026-11-21",
+  "ligue": "Premier League",
+  "equipeDomicile": "Newcastle United",
+  "equipeExterieur": "Arsenal",
+  "issue": "domicile",
+  "coteBookmaker": 5.1,
+  "bookmaker": "Winamax",
+  "coteModele": 3.96,
+  "butsAttendus": [
+   1.06,
+   1.59
+  ],
+  "mise": 0.1961,
+  "statut": "en_attente",
+  "gain": null
+ },
+ {
+  "idEvent": "2489554",
+  "date": "2026-11-21",
+  "ligue": "Ligue 1",
+  "equipeDomicile": "Nice",
+  "equipeExterieur": "Paris Saint-Germain",
+  "issue": "domicile",
+  "coteBookmaker": 5.4,
+  "bookmaker": "Winamax",
+  "coteModele": 2.84,
+  "butsAttendus": [
+   1.52,
+   1.67
+  ],
+  "mise": 0.1852,
+  "statut": "en_attente",
+  "gain": null
+ },
+ {
+  "idEvent": "2489555",
+  "date": "2026-11-21",
+  "ligue": "Ligue 1",
+  "equipeDomicile": "Monaco",
+  "equipeExterieur": "Auxerre",
+  "issue": "exterieure",
+  "coteBookmaker": 6.5,
+  "bookmaker": "Winamax",
+  "coteModele": 5.15,
+  "butsAttendus": [
+   1.88,
+   0.99
+  ],
+  "mise": 0.1538,
+  "statut": "en_attente",
+  "gain": null
+ },
+ {
+  "idEvent": "2506293",
+  "date": "2026-11-21",
+  "ligue": "La Liga",
+  "equipeDomicile": "Real Madrid",
+  "equipeExterieur": "Celta Vigo",
+  "issue": "exterieure",
+  "coteBookmaker": 13.5,
+  "bookmaker": "Winamax",
+  "coteModele": 8.35,
+  "butsAttendus": [
+   2.39,
+   0.88
+  ],
+  "mise": 0.0741,
+  "statut": "en_attente",
+  "gain": null
+ },
+ {
+  "idEvent": "2482251",
+  "date": "2026-11-21",
+  "ligue": "Serie A",
+  "equipeDomicile": "Napoli",
+  "equipeExterieur": "Torino",
+  "issue": "exterieure",
+  "coteBookmaker": 5.3,
+  "bookmaker": "Winamax",
+  "coteModele": 3.41,
+  "butsAttendus": [
+   1.51,
+   1.17
+  ],
+  "mise": 0.1887,
+  "statut": "en_attente",
+  "gain": null
+ },
+ {
+  "idEvent": "2482255",
+  "date": "2026-11-21",
+  "ligue": "Serie A",
+  "equipeDomicile": "Parma",
+  "equipeExterieur": "Roma",
+  "issue": "domicile",
+  "coteBookmaker": 8.5,
+  "bookmaker": "Winamax",
+  "coteModele": 4.14,
+  "butsAttendus": [
+   1.11,
+   1.74
+  ],
+  "mise": 0.1176,
+  "statut": "en_attente",
+  "gain": null
+ },
+ {
+  "idEvent": "2482256",
+  "date": "2026-11-21",
+  "ligue": "Serie A",
+  "equipeDomicile": "Como",
+  "equipeExterieur": "Cagliari",
+  "issue": "exterieure",
+  "coteBookmaker": 8.25,
+  "bookmaker": "Winamax",
+  "coteModele": 5.32,
+  "butsAttendus": [
+   1.88,
+   0.96
+  ],
+  "mise": 0.1212,
+  "statut": "en_attente",
+  "gain": null
+ },
+ {
+  "idEvent": "2508417",
+  "date": "2026-11-21",
+  "ligue": "Bundesliga",
+  "equipeDomicile": "Bayer Leverkusen",
+  "equipeExterieur": "Paderborn",
+  "issue": "exterieure",
+  "coteBookmaker": 8.0,
+  "bookmaker": "Winamax",
+  "coteModele": 4.52,
+  "butsAttendus": [
+   1.86,
+   1.09
+  ],
+  "mise": 0.125,
+  "statut": "en_attente",
+  "gain": null
+ },
+ {
+  "idEvent": "2527831",
+  "date": "2026-11-21",
+  "ligue": "Süper Lig",
+  "equipeDomicile": "Kocaelispor",
+  "equipeExterieur": "Fenerbahçe",
+  "issue": "domicile",
+  "coteBookmaker": 4.9,
+  "bookmaker": "Winamax",
+  "coteModele": 3.83,
+  "butsAttendus": [
+   1.16,
+   1.7
+  ],
+  "mise": 0.2041,
+  "statut": "en_attente",
+  "gain": null
+ },
+ {
+  "idEvent": "2539995",
+  "date": "2026-11-21",
+  "ligue": "Super League",
+  "equipeDomicile": "Kalamata",
+  "equipeExterieur": "AEK Athens",
+  "issue": "domicile",
+  "coteBookmaker": 6.0,
+  "bookmaker": "Winamax",
+  "coteModele": 3.99,
+  "butsAttendus": [
+   1.17,
+   1.78
+  ],
+  "mise": 0.1667,
+  "statut": "en_attente",
+  "gain": null
+ },
+ {
+  "idEvent": "2499778",
+  "date": "2026-11-21",
+  "ligue": "Bundesliga",
+  "equipeDomicile": "LASK",
+  "equipeExterieur": "TSV Hartberg",
+  "issue": "exterieure",
+  "coteBookmaker": 6.5,
+  "bookmaker": "Winamax",
+  "coteModele": 3.63,
+  "butsAttendus": [
+   1.79,
+   1.28
+  ],
+  "mise": 0.1538,
   "statut": "en_attente",
   "gain": null
  }
