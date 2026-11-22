@@ -1868,8 +1868,8 @@
    1.92
   ],
   "mise": 0.1786,
-  "statut": "en_attente",
-  "gain": null
+  "statut": "perdu",
+  "gain": -0.1786
  },
  {
   "idEvent": "2494100",
@@ -1886,8 +1886,8 @@
    1.59
   ],
   "mise": 0.1961,
-  "statut": "en_attente",
-  "gain": null
+  "statut": "perdu",
+  "gain": -0.1961
  },
  {
   "idEvent": "2489554",
@@ -1904,8 +1904,8 @@
    1.67
   ],
   "mise": 0.1852,
-  "statut": "en_attente",
-  "gain": null
+  "statut": "perdu",
+  "gain": -0.1852
  },
  {
   "idEvent": "2489555",
@@ -1922,8 +1922,8 @@
    0.99
   ],
   "mise": 0.1538,
-  "statut": "en_attente",
-  "gain": null
+  "statut": "perdu",
+  "gain": -0.1538
  },
  {
   "idEvent": "2506293",
@@ -1940,8 +1940,8 @@
    0.88
   ],
   "mise": 0.0741,
-  "statut": "en_attente",
-  "gain": null
+  "statut": "perdu",
+  "gain": -0.0741
  },
  {
   "idEvent": "2482251",
@@ -1958,8 +1958,8 @@
    1.17
   ],
   "mise": 0.1887,
-  "statut": "en_attente",
-  "gain": null
+  "statut": "perdu",
+  "gain": -0.1887
  },
  {
   "idEvent": "2482255",
@@ -1976,8 +1976,8 @@
    1.74
   ],
   "mise": 0.1176,
-  "statut": "en_attente",
-  "gain": null
+  "statut": "perdu",
+  "gain": -0.1176
  },
  {
   "idEvent": "2482256",
@@ -1994,8 +1994,8 @@
    0.96
   ],
   "mise": 0.1212,
-  "statut": "en_attente",
-  "gain": null
+  "statut": "perdu",
+  "gain": -0.1212
  },
  {
   "idEvent": "2508417",
@@ -2012,8 +2012,8 @@
    1.09
   ],
   "mise": 0.125,
-  "statut": "en_attente",
-  "gain": null
+  "statut": "perdu",
+  "gain": -0.125
  },
  {
   "idEvent": "2527831",
@@ -2030,8 +2030,8 @@
    1.7
   ],
   "mise": 0.2041,
-  "statut": "en_attente",
-  "gain": null
+  "statut": "perdu",
+  "gain": -0.2041
  },
  {
   "idEvent": "2539995",
@@ -2048,8 +2048,8 @@
    1.78
   ],
   "mise": 0.1667,
-  "statut": "en_attente",
-  "gain": null
+  "statut": "perdu",
+  "gain": -0.1667
  },
  {
   "idEvent": "2499778",
@@ -2066,6 +2066,186 @@
    1.28
   ],
   "mise": 0.1538,
+  "statut": "perdu",
+  "gain": -0.1538
+ },
+ {
+  "idEvent": "2496793",
+  "date": "2026-11-22",
+  "ligue": "Pro League",
+  "equipeDomicile": "Kortrijk",
+  "equipeExterieur": "Union Saint-Gilloise",
+  "issue": "domicile",
+  "coteBookmaker": 6.0,
+  "bookmaker": "Winamax",
+  "coteModele": 4.36,
+  "butsAttendus": [
+   1.05,
+   1.73
+  ],
+  "mise": 0.1667,
+  "statut": "en_attente",
+  "gain": null
+ },
+ {
+  "idEvent": "2494107",
+  "date": "2026-11-22",
+  "ligue": "Premier League",
+  "equipeDomicile": "Hull City",
+  "equipeExterieur": "Brighton and Hove Albion",
+  "issue": "domicile",
+  "coteBookmaker": 5.5,
+  "bookmaker": "Winamax",
+  "coteModele": 4.1,
+  "butsAttendus": [
+   1.11,
+   1.73
+  ],
+  "mise": 0.1818,
+  "statut": "en_attente",
+  "gain": null
+ },
+ {
+  "idEvent": "2506289",
+  "date": "2026-11-22",
+  "ligue": "La Liga",
+  "equipeDomicile": "Barcelona",
+  "equipeExterieur": "Villarreal",
+  "issue": "exterieure",
+  "coteBookmaker": 10.5,
+  "bookmaker": "Winamax",
+  "coteModele": 8.3,
+  "butsAttendus": [
+   2.45,
+   0.91
+  ],
+  "mise": 0.0952,
+  "statut": "en_attente",
+  "gain": null
+ },
+ {
+  "idEvent": "2506295",
+  "date": "2026-11-22",
+  "ligue": "La Liga",
+  "equipeDomicile": "Getafe",
+  "equipeExterieur": "Atlético Madrid",
+  "issue": "domicile",
+  "coteBookmaker": 5.75,
+  "bookmaker": "Winamax",
+  "coteModele": 4.62,
+  "butsAttendus": [
+   1.03,
+   1.78
+  ],
+  "mise": 0.1739,
+  "statut": "en_attente",
+  "gain": null
+ },
+ {
+  "idEvent": "2482250",
+  "date": "2026-11-22",
+  "ligue": "Serie A",
+  "equipeDomicile": "AC Milan",
+  "equipeExterieur": "Frosinone",
+  "issue": "exterieure",
+  "coteBookmaker": 4.6,
+  "bookmaker": "Winamax",
+  "coteModele": 3.74,
+  "butsAttendus": [
+   1.78,
+   1.25
+  ],
+  "mise": 0.2174,
+  "statut": "en_attente",
+  "gain": null
+ },
+ {
+  "idEvent": "2482252",
+  "date": "2026-11-22",
+  "ligue": "Serie A",
+  "equipeDomicile": "Juventus",
+  "equipeExterieur": "Venezia",
+  "issue": "exterieure",
+  "coteBookmaker": 8.0,
+  "bookmaker": "Winamax",
+  "coteModele": 4.86,
+  "butsAttendus": [
+   1.73,
+   0.95
+  ],
+  "mise": 0.125,
+  "statut": "en_attente",
+  "gain": null
+ },
+ {
+  "idEvent": "2527824",
+  "date": "2026-11-22",
+  "ligue": "Süper Lig",
+  "equipeDomicile": "Konyaspor",
+  "equipeExterieur": "Beşiktaş",
+  "issue": "domicile",
+  "coteBookmaker": 4.6,
+  "bookmaker": "Winamax",
+  "coteModele": 3.67,
+  "butsAttendus": [
+   1.11,
+   1.54
+  ],
+  "mise": 0.2174,
+  "statut": "en_attente",
+  "gain": null
+ },
+ {
+  "idEvent": "2539989",
+  "date": "2026-11-22",
+  "ligue": "Super League",
+  "equipeDomicile": "Olympiacos",
+  "equipeExterieur": "Iraklis 1908",
+  "issue": "exterieure",
+  "coteBookmaker": 10.5,
+  "bookmaker": "Winamax",
+  "coteModele": 6.75,
+  "butsAttendus": [
+   2.16,
+   0.92
+  ],
+  "mise": 0.0952,
+  "statut": "en_attente",
+  "gain": null
+ },
+ {
+  "idEvent": "2539990",
+  "date": "2026-11-22",
+  "ligue": "Super League",
+  "equipeDomicile": "Panathinaikos",
+  "equipeExterieur": "OFI",
+  "issue": "exterieure",
+  "coteBookmaker": 8.0,
+  "bookmaker": "Winamax",
+  "coteModele": 6.26,
+  "butsAttendus": [
+   2.11,
+   0.95
+  ],
+  "mise": 0.125,
+  "statut": "en_attente",
+  "gain": null
+ },
+ {
+  "idEvent": "2539991",
+  "date": "2026-11-22",
+  "ligue": "Super League",
+  "equipeDomicile": "PAOK",
+  "equipeExterieur": "Kifisia",
+  "issue": "exterieure",
+  "coteBookmaker": 6.75,
+  "bookmaker": "Winamax",
+  "coteModele": 3.13,
+  "butsAttendus": [
+   1.49,
+   1.26
+  ],
+  "mise": 0.1481,
   "statut": "en_attente",
   "gain": null
  }

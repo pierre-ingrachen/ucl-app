@@ -73,5 +73,50 @@
   "mise": 0.1724,
   "statut": "gagne",
   "gain": 0.8275
+ },
+ {
+  "idEvent": "2494107",
+  "date": "2026-11-22",
+  "ligue": "Premier League",
+  "equipeDomicile": "Hull City",
+  "equipeExterieur": "Brighton and Hove Albion",
+  "issue": "domicile",
+  "coteBookmaker": 5.5,
+  "bookmaker": "Winamax",
+  "coteModele": 5.34,
+  "probaModele": 0.1873,
+  "mise": 0.1818,
+  "statut": "en_attente",
+  "gain": null
+ },
+ {
+  "idEvent": "2506295",
+  "date": "2026-11-22",
+  "ligue": "La Liga",
+  "equipeDomicile": "Getafe",
+  "equipeExterieur": "Atlético Madrid",
+  "issue": "domicile",
+  "coteBookmaker": 5.75,
+  "bookmaker": "Winamax",
+  "coteModele": 5.36,
+  "probaModele": 0.1867,
+  "mise": 0.1739,
+  "statut": "en_attente",
+  "gain": null
+ },
+ {
+  "idEvent": "2527824",
+  "date": "2026-11-22",
+  "ligue": "Süper Lig",
+  "equipeDomicile": "Konyaspor",
+  "equipeExterieur": "Beşiktaş",
+  "issue": "domicile",
+  "coteBookmaker": 4.6,
+  "bookmaker": "Winamax",
+  "coteModele": 4.54,
+  "probaModele": 0.2202,
+  "mise": 0.2174,
+  "statut": "en_attente",
+  "gain": null
  }
 ]

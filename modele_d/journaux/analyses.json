@@ -2607,7 +2607,7 @@
    3.5,
    2.3
   ],
-  "resultat": null
+  "resultat": "exterieure"
  },
  "2489176": {
   "date": "2026-11-21",
@@ -2625,7 +2625,7 @@
    3.75,
    3.05
   ],
-  "resultat": null
+  "resultat": "exterieure"
  },
  "2489177": {
   "date": "2026-11-21",
@@ -2643,7 +2643,7 @@
    6.5,
    9.0
   ],
-  "resultat": null
+  "resultat": "exterieure"
  },
  "2489179": {
   "date": "2026-11-21",
@@ -2661,7 +2661,7 @@
    4.1,
    1.6
   ],
-  "resultat": null
+  "resultat": "exterieure"
  },
  "2489182": {
   "date": "2026-11-21",
@@ -2679,7 +2679,7 @@
    3.35,
    2.95
   ],
-  "resultat": null
+  "resultat": "exterieure"
  },
  "2496790": {
   "date": "2026-11-21",
@@ -2697,7 +2697,7 @@
    4.8,
    1.32
   ],
-  "resultat": null
+  "resultat": "exterieure"
  },
  "2496792": {
   "date": "2026-11-21",
@@ -2715,7 +2715,7 @@
    3.3,
    2.75
   ],
-  "resultat": null
+  "resultat": "nul"
  },
  "2496794": {
   "date": "2026-11-21",
@@ -2733,7 +2733,7 @@
    3.45,
    3.05
   ],
-  "resultat": null
+  "resultat": "nul"
  },
  "2496797": {
   "date": "2026-11-21",
@@ -2751,7 +2751,7 @@
    4.4,
    5.4
   ],
-  "resultat": null
+  "resultat": "domicile"
  },
  "2494100": {
   "date": "2026-11-21",
@@ -2769,7 +2769,7 @@
    4.0,
    1.46
   ],
-  "resultat": null
+  "resultat": "nul"
  },
  "2494101": {
   "date": "2026-11-21",
@@ -2787,7 +2787,7 @@
    3.35,
    3.6
   ],
-  "resultat": null
+  "resultat": "domicile"
  },
  "2494103": {
   "date": "2026-11-21",
@@ -2805,7 +2805,7 @@
    4.1,
    5.1
   ],
-  "resultat": null
+  "resultat": "domicile"
  },
  "2494104": {
   "date": "2026-11-21",
@@ -2823,7 +2823,7 @@
    3.35,
    3.35
   ],
-  "resultat": null
+  "resultat": "exterieure"
  },
  "2494105": {
   "date": "2026-11-21",
@@ -2841,7 +2841,7 @@
    5.25,
    6.75
   ],
-  "resultat": null
+  "resultat": "nul"
  },
  "2494108": {
   "date": "2026-11-21",
@@ -2859,7 +2859,7 @@
    3.6,
    3.95
   ],
-  "resultat": null
+  "resultat": "nul"
  },
  "2494109": {
   "date": "2026-11-21",
@@ -2877,7 +2877,7 @@
    3.3,
    2.5
   ],
-  "resultat": null
+  "resultat": "domicile"
  },
  "2489552": {
   "date": "2026-11-21",
@@ -2895,7 +2895,7 @@
    3.15,
    2.95
   ],
-  "resultat": null
+  "resultat": "exterieure"
  },
  "2489554": {
   "date": "2026-11-21",
@@ -2913,7 +2913,7 @@
    5.2,
    1.35
   ],
-  "resultat": null
+  "resultat": "exterieure"
  },
  "2489555": {
   "date": "2026-11-21",
@@ -2931,7 +2931,7 @@
    5.1,
    6.5
   ],
-  "resultat": null
+  "resultat": "nul"
  },
  "2489556": {
   "date": "2026-11-21",
@@ -2949,7 +2949,7 @@
    3.55,
    2.8
   ],
-  "resultat": null
+  "resultat": "exterieure"
  },
  "2489560": {
   "date": "2026-11-21",
@@ -2967,7 +2967,7 @@
    3.65,
    3.0
   ],
-  "resultat": null
+  "resultat": "nul"
  },
  "2506291": {
   "date": "2026-11-21",
@@ -2985,7 +2985,7 @@
    3.15,
    2.3
   ],
-  "resultat": null
+  "resultat": "nul"
  },
  "2506293": {
   "date": "2026-11-21",
@@ -3003,7 +3003,7 @@
    7.75,
    13.5
   ],
-  "resultat": null
+  "resultat": "domicile"
  },
  "2506297": {
   "date": "2026-11-21",
@@ -3021,7 +3021,7 @@
    3.35,
    3.65
   ],
-  "resultat": null
+  "resultat": "exterieure"
  },
  "2482248": {
   "date": "2026-11-21",
@@ -3039,7 +3039,7 @@
    4.6,
    6.75
   ],
-  "resultat": null
+  "resultat": "domicile"
  },
  "2482251": {
   "date": "2026-11-21",
@@ -3057,7 +3057,7 @@
    4.1,
    5.3
   ],
-  "resultat": null
+  "resultat": "domicile"
  },
  "2482255": {
   "date": "2026-11-21",
@@ -3075,7 +3075,7 @@
    5.75,
    1.22
   ],
-  "resultat": null
+  "resultat": "exterieure"
  },
  "2482256": {
   "date": "2026-11-21",
@@ -3093,7 +3093,7 @@
    5.75,
    8.25
   ],
-  "resultat": null
+  "resultat": "domicile"
  },
  "2508416": {
   "date": "2026-11-21",
@@ -3111,7 +3111,7 @@
    4.4,
    1.5
   ],
-  "resultat": null
+  "resultat": "exterieure"
  },
  "2508417": {
   "date": "2026-11-21",
@@ -3129,7 +3129,7 @@
    6.75,
    8.0
   ],
-  "resultat": null
+  "resultat": "domicile"
  },
  "2508418": {
   "date": "2026-11-21",
@@ -3147,7 +3147,7 @@
    3.8,
    2.3
   ],
-  "resultat": null
+  "resultat": "domicile"
  },
  "2508420": {
   "date": "2026-11-21",
@@ -3165,7 +3165,7 @@
    3.85,
    1.7
   ],
-  "resultat": null
+  "resultat": "nul"
  },
  "2508421": {
   "date": "2026-11-21",
@@ -3183,7 +3183,7 @@
    4.5,
    1.41
   ],
-  "resultat": null
+  "resultat": "exterieure"
  },
  "2508422": {
   "date": "2026-11-21",
@@ -3201,7 +3201,7 @@
    3.5,
    1.88
   ],
-  "resultat": null
+  "resultat": "exterieure"
  },
  "2527825": {
   "date": "2026-11-21",
@@ -3219,7 +3219,7 @@
    6.75,
    8.5
   ],
-  "resultat": null
+  "resultat": "domicile"
  },
  "2527826": {
   "date": "2026-11-21",
@@ -3237,7 +3237,7 @@
    3.4,
    2.65
   ],
-  "resultat": null
+  "resultat": "domicile"
  },
  "2527830": {
   "date": "2026-11-21",
@@ -3255,7 +3255,7 @@
    3.85,
    3.85
   ],
-  "resultat": null
+  "resultat": "exterieure"
  },
  "2527831": {
   "date": "2026-11-21",
@@ -3273,7 +3273,7 @@
    4.2,
    1.49
   ],
-  "resultat": null
+  "resultat": "nul"
  },
  "2490316": {
   "date": "2026-11-21",
@@ -3345,7 +3345,7 @@
    4.6,
    1.32
   ],
-  "resultat": null
+  "resultat": "exterieure"
  },
  "2399205": {
   "date": "2026-11-21",
@@ -3363,7 +3363,7 @@
    3.8,
    1.72
   ],
-  "resultat": null
+  "resultat": "domicile"
  },
  "2399206": {
   "date": "2026-11-21",
@@ -3381,7 +3381,7 @@
    4.4,
    4.2
   ],
-  "resultat": null
+  "resultat": "exterieure"
  },
  "2493405": {
   "date": "2026-11-21",
@@ -3453,7 +3453,7 @@
    5.4,
    6.5
   ],
-  "resultat": null
+  "resultat": "domicile"
  },
  "2499779": {
   "date": "2026-11-21",
@@ -3471,7 +3471,7 @@
    3.75,
    3.65
   ],
-  "resultat": null
+  "resultat": "exterieure"
  },
  "2499780": {
   "date": "2026-11-21",
@@ -3489,7 +3489,7 @@
    4.3,
    1.37
   ],
-  "resultat": null
+  "resultat": "exterieure"
  },
  "2494488": {
   "date": "2026-11-21",
@@ -3507,7 +3507,7 @@
    5.5,
    8.5
   ],
-  "resultat": null
+  "resultat": "domicile"
  },
  "2494489": {
   "date": "2026-11-21",
@@ -3525,7 +3525,7 @@
    3.3,
    3.05
   ],
-  "resultat": null
+  "resultat": "exterieure"
  },
  "2494490": {
   "date": "2026-11-21",
@@ -3543,7 +3543,7 @@
    3.15,
    2.35
   ],
-  "resultat": null
+  "resultat": "exterieure"
  },
  "2494491": {
   "date": "2026-11-21",
@@ -3561,7 +3561,7 @@
    3.2,
    1.83
   ],
-  "resultat": null
+  "resultat": "exterieure"
  },
  "2494492": {
   "date": "2026-11-21",
@@ -3579,7 +3579,7 @@
    3.8,
    1.38
   ],
-  "resultat": null
+  "resultat": "exterieure"
  },
  "2494493": {
   "date": "2026-11-21",
@@ -3597,7 +3597,7 @@
    3.25,
    3.5
   ],
-  "resultat": null
+  "resultat": "domicile"
  },
  "2398975": {
   "date": "2026-11-21",
@@ -3615,7 +3615,7 @@
    3.7,
    2.75
   ],
-  "resultat": null
+  "resultat": "nul"
  },
  "2398977": {
   "date": "2026-11-21",
@@ -3633,7 +3633,7 @@
    3.3,
    3.05
   ],
-  "resultat": null
+  "resultat": "domicile"
  },
  "2477957": {
   "date": "2026-11-21",
@@ -3650,6 +3650,924 @@
    2.9,
    3.25,
    2.0
+  ],
+  "resultat": "nul"
+ },
+ "2489174": {
+  "date": "2026-11-22",
+  "ligue": "Eredivisie",
+  "equipeDomicile": "Ajax",
+  "equipeExterieur": "ADO Den Haag",
+  "probas": [
+   0.7721,
+   0.1474,
+   0.0806
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   1.11,
+   7.0,
+   9.5
+  ],
+  "resultat": null
+ },
+ "2489178": {
+  "date": "2026-11-22",
+  "ligue": "Eredivisie",
+  "equipeDomicile": "Go Ahead Eagles",
+  "equipeExterieur": "Fortuna Sittard",
+  "probas": [
+   0.4209,
+   0.2646,
+   0.3145
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   1.62,
+   3.75,
+   3.75
+  ],
+  "resultat": null
+ },
+ "2489180": {
+  "date": "2026-11-22",
+  "ligue": "Eredivisie",
+  "equipeDomicile": "Twente",
+  "equipeExterieur": "Willem II",
+  "probas": [
+   0.8385,
+   0.105,
+   0.0565
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   1.03,
+   9.0,
+   14.0
+  ],
+  "resultat": null
+ },
+ "2489181": {
+  "date": "2026-11-22",
+  "ligue": "Eredivisie",
+  "equipeDomicile": "Sparta Rotterdam",
+  "equipeExterieur": "AZ Alkmaar",
+  "probas": [
+   0.2797,
+   0.2413,
+   0.479
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   3.75,
+   3.9,
+   1.6
+  ],
+  "resultat": null
+ },
+ "2496789": {
+  "date": "2026-11-22",
+  "ligue": "Pro League",
+  "equipeDomicile": "Lommel",
+  "equipeExterieur": "Standard Liège",
+  "probas": [
+   0.4143,
+   0.2689,
+   0.3168
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   2.85,
+   3.35,
+   1.96
+  ],
+  "resultat": null
+ },
+ "2496793": {
+  "date": "2026-11-22",
+  "ligue": "Pro League",
+  "equipeDomicile": "Kortrijk",
+  "equipeExterieur": "Union Saint-Gilloise",
+  "probas": [
+   0.1218,
+   0.1707,
+   0.7075
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   6.0,
+   4.6,
+   1.31
+  ],
+  "resultat": null
+ },
+ "2496795": {
+  "date": "2026-11-22",
+  "ligue": "Pro League",
+  "equipeDomicile": "Beveren",
+  "equipeExterieur": "Gent",
+  "probas": [
+   0.235,
+   0.2444,
+   0.5206
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   3.3,
+   3.3,
+   1.86
+  ],
+  "resultat": null
+ },
+ "2494102": {
+  "date": "2026-11-22",
+  "ligue": "Premier League",
+  "equipeDomicile": "Liverpool",
+  "equipeExterieur": "Manchester United",
+  "probas": [
+   0.5311,
+   0.2446,
+   0.2243
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   1.6,
+   4.0,
+   4.0
+  ],
+  "resultat": null
+ },
+ "2494107": {
+  "date": "2026-11-22",
+  "ligue": "Premier League",
+  "equipeDomicile": "Hull City",
+  "equipeExterieur": "Brighton and Hove Albion",
+  "probas": [
+   0.2062,
+   0.2389,
+   0.5549
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   5.5,
+   4.1,
+   1.42
+  ],
+  "resultat": null
+ },
+ "2489553": {
+  "date": "2026-11-22",
+  "ligue": "Ligue 1",
+  "equipeDomicile": "Marseille",
+  "equipeExterieur": "Le Mans",
+  "probas": [
+   0.6628,
+   0.1966,
+   0.1406
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   1.36,
+   4.8,
+   5.75
+  ],
+  "resultat": null
+ },
+ "2489557": {
+  "date": "2026-11-22",
+  "ligue": "Ligue 1",
+  "equipeDomicile": "Lorient",
+  "equipeExterieur": "Rennes",
+  "probas": [
+   0.3715,
+   0.2592,
+   0.3692
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   2.7,
+   3.25,
+   2.25
+  ],
+  "resultat": null
+ },
+ "2489559": {
+  "date": "2026-11-22",
+  "ligue": "Ligue 1",
+  "equipeDomicile": "Paris FC",
+  "equipeExterieur": "Angers",
+  "probas": [
+   0.6421,
+   0.2021,
+   0.1558
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   1.24,
+   5.5,
+   8.5
+  ],
+  "resultat": null
+ },
+ "2506289": {
+  "date": "2026-11-22",
+  "ligue": "La Liga",
+  "equipeDomicile": "Barcelona",
+  "equipeExterieur": "Villarreal",
+  "probas": [
+   0.7553,
+   0.1536,
+   0.0911
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   1.13,
+   7.25,
+   10.5
+  ],
+  "resultat": null
+ },
+ "2506295": {
+  "date": "2026-11-22",
+  "ligue": "La Liga",
+  "equipeDomicile": "Getafe",
+  "equipeExterieur": "Atlético Madrid",
+  "probas": [
+   0.234,
+   0.271,
+   0.495
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   5.75,
+   4.1,
+   1.45
+  ],
+  "resultat": null
+ },
+ "2506296": {
+  "date": "2026-11-22",
+  "ligue": "La Liga",
+  "equipeDomicile": "Osasuna",
+  "equipeExterieur": "Málaga",
+  "probas": [
+   0.4938,
+   0.2753,
+   0.2309
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   1.72,
+   3.4,
+   4.1
+  ],
+  "resultat": null
+ },
+ "2506298": {
+  "date": "2026-11-22",
+  "ligue": "La Liga",
+  "equipeDomicile": "Racing de Santander",
+  "equipeExterieur": "Real Sociedad",
+  "probas": [
+   0.295,
+   0.2662,
+   0.4388
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   2.9,
+   3.9,
+   1.88
+  ],
+  "resultat": null
+ },
+ "2482249": {
+  "date": "2026-11-22",
+  "ligue": "Serie A",
+  "equipeDomicile": "Sassuolo",
+  "equipeExterieur": "Genoa",
+  "probas": [
+   0.3832,
+   0.2869,
+   0.3299
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   2.5,
+   3.2,
+   2.4
+  ],
+  "resultat": null
+ },
+ "2482250": {
+  "date": "2026-11-22",
+  "ligue": "Serie A",
+  "equipeDomicile": "AC Milan",
+  "equipeExterieur": "Frosinone",
+  "probas": [
+   0.5637,
+   0.2401,
+   0.1962
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   1.5,
+   4.2,
+   4.6
+  ],
+  "resultat": null
+ },
+ "2482253": {
+  "date": "2026-11-22",
+  "ligue": "Serie A",
+  "equipeDomicile": "Atalanta",
+  "equipeExterieur": "Inter Milan",
+  "probas": [
+   0.1866,
+   0.2309,
+   0.5825
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   4.5,
+   4.4,
+   1.48
+  ],
+  "resultat": null
+ },
+ "2482254": {
+  "date": "2026-11-22",
+  "ligue": "Serie A",
+  "equipeDomicile": "Bologna",
+  "equipeExterieur": "Udinese",
+  "probas": [
+   0.5795,
+   0.2395,
+   0.181
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   1.62,
+   3.65,
+   4.2
+  ],
+  "resultat": null
+ },
+ "2482252": {
+  "date": "2026-11-22",
+  "ligue": "Serie A",
+  "equipeDomicile": "Juventus",
+  "equipeExterieur": "Venezia",
+  "probas": [
+   0.6742,
+   0.2136,
+   0.1122
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   1.25,
+   5.25,
+   8.0
+  ],
+  "resultat": null
+ },
+ "2508415": {
+  "date": "2026-11-22",
+  "ligue": "Bundesliga",
+  "equipeDomicile": "Werder Bremen",
+  "equipeExterieur": "Hamburg",
+  "probas": [
+   0.4997,
+   0.2577,
+   0.2426
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   1.5,
+   4.2,
+   4.5
+  ],
+  "resultat": null
+ },
+ "2508419": {
+  "date": "2026-11-22",
+  "ligue": "Bundesliga",
+  "equipeDomicile": "Augsburg",
+  "equipeExterieur": "Mainz",
+  "probas": [
+   0.4278,
+   0.2576,
+   0.3146
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   2.45,
+   3.7,
+   2.2
+  ],
+  "resultat": null
+ },
+ "2527824": {
+  "date": "2026-11-22",
+  "ligue": "Süper Lig",
+  "equipeDomicile": "Konyaspor",
+  "equipeExterieur": "Beşiktaş",
+  "probas": [
+   0.2486,
+   0.2611,
+   0.4903
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   4.6,
+   4.0,
+   1.54
+  ],
+  "resultat": null
+ },
+ "2527827": {
+  "date": "2026-11-22",
+  "ligue": "Süper Lig",
+  "equipeDomicile": "Trabzonspor",
+  "equipeExterieur": "Eyüpspor",
+  "probas": [
+   0.8205,
+   0.1146,
+   0.065
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   1.09,
+   8.0,
+   13.0
+  ],
+  "resultat": null
+ },
+ "2527828": {
+  "date": "2026-11-22",
+  "ligue": "Süper Lig",
+  "equipeDomicile": "Kasımpaşa",
+  "equipeExterieur": "Alanyaspor",
+  "probas": [
+   0.5047,
+   0.2662,
+   0.2292
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   1.82,
+   3.45,
+   3.6
+  ],
+  "resultat": null
+ },
+ "2527829": {
+  "date": "2026-11-22",
+  "ligue": "Süper Lig",
+  "equipeDomicile": "Erzurumspor",
+  "equipeExterieur": "Göztepe",
+  "probas": [
+   0.3294,
+   0.2695,
+   0.4011
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   2.55,
+   3.25,
+   2.4
+  ],
+  "resultat": null
+ },
+ "2490315": {
+  "date": "2026-11-22",
+  "ligue": "Ekstraklasa",
+  "equipeDomicile": "Wisła Płock",
+  "equipeExterieur": "Legia Warsaw",
+  "probas": [
+   0.2605,
+   0.2704,
+   0.4691
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   2.75,
+   3.25,
+   2.1
+  ],
+  "resultat": null
+ },
+ "2490320": {
+  "date": "2026-11-22",
+  "ligue": "Ekstraklasa",
+  "equipeDomicile": "GKS Katowice",
+  "equipeExterieur": "Lech Poznań",
+  "probas": [
+   0.2412,
+   0.2448,
+   0.5139
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   2.7,
+   3.6,
+   2.0
+  ],
+  "resultat": null
+ },
+ "2490321": {
+  "date": "2026-11-22",
+  "ligue": "Ekstraklasa",
+  "equipeDomicile": "Raków Częstochowa",
+  "equipeExterieur": "Widzew Łódź",
+  "probas": [
+   0.4182,
+   0.2753,
+   0.3065
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   1.96,
+   3.35,
+   2.95
+  ],
+  "resultat": null
+ },
+ "2539989": {
+  "date": "2026-11-22",
+  "ligue": "Super League",
+  "equipeDomicile": "Olympiacos",
+  "equipeExterieur": "Iraklis 1908",
+  "probas": [
+   0.735,
+   0.1788,
+   0.0862
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   1.12,
+   6.25,
+   10.5
+  ],
+  "resultat": null
+ },
+ "2539990": {
+  "date": "2026-11-22",
+  "ligue": "Super League",
+  "equipeDomicile": "Panathinaikos",
+  "equipeExterieur": "OFI",
+  "probas": [
+   0.6746,
+   0.2011,
+   0.1243
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   1.17,
+   5.9,
+   8.0
+  ],
+  "resultat": null
+ },
+ "2539991": {
+  "date": "2026-11-22",
+  "ligue": "Super League",
+  "equipeDomicile": "PAOK",
+  "equipeExterieur": "Kifisia",
+  "probas": [
+   0.6699,
+   0.1997,
+   0.1304
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   1.29,
+   4.5,
+   6.75
+  ],
+  "resultat": null
+ },
+ "2539992": {
+  "date": "2026-11-22",
+  "ligue": "Super League",
+  "equipeDomicile": "Panetolikos",
+  "equipeExterieur": "Volos",
+  "probas": [
+   0.4834,
+   0.2774,
+   0.2392
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   2.1,
+   3.1,
+   2.85
+  ],
+  "resultat": null
+ },
+ "2539994": {
+  "date": "2026-11-22",
+  "ligue": "Super League",
+  "equipeDomicile": "Levadiakos",
+  "equipeExterieur": "Atromitos",
+  "probas": [
+   0.3913,
+   0.2938,
+   0.3149
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   2.25,
+   2.85,
+   2.8
+  ],
+  "resultat": null
+ },
+ "2399199": {
+  "date": "2026-11-22",
+  "ligue": "Eliteserien",
+  "equipeDomicile": "Aalesund",
+  "equipeExterieur": "Rosenborg",
+  "probas": [
+   0.2059,
+   0.2044,
+   0.5897
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   3.75,
+   4.1,
+   1.54
+  ],
+  "resultat": null
+ },
+ "2399201": {
+  "date": "2026-11-22",
+  "ligue": "Eliteserien",
+  "equipeDomicile": "KFUM-Kameratene Oslo",
+  "equipeExterieur": "Brann",
+  "probas": [
+   0.3593,
+   0.2563,
+   0.3844
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   2.5,
+   3.55,
+   2.15
+  ],
+  "resultat": null
+ },
+ "2399202": {
+  "date": "2026-11-22",
+  "ligue": "Eliteserien",
+  "equipeDomicile": "Kristiansund",
+  "equipeExterieur": "Sandefjord",
+  "probas": [
+   0.3697,
+   0.2632,
+   0.3671
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   2.35,
+   3.65,
+   2.2
+  ],
+  "resultat": null
+ },
+ "2399204": {
+  "date": "2026-11-22",
+  "ligue": "Eliteserien",
+  "equipeDomicile": "Sarpsborg 08",
+  "equipeExterieur": "Lillestrøm",
+  "probas": [
+   0.3852,
+   0.2619,
+   0.3529
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   1.98,
+   3.75,
+   2.65
+  ],
+  "resultat": null
+ },
+ "2481876": {
+  "date": "2026-11-22",
+  "ligue": "Superliga",
+  "equipeDomicile": "Sønderjyske",
+  "equipeExterieur": "Odense BK",
+  "probas": [
+   0.3531,
+   0.2747,
+   0.3721
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   2.6,
+   3.55,
+   2.05
+  ],
+  "resultat": null
+ },
+ "2481877": {
+  "date": "2026-11-22",
+  "ligue": "Superliga",
+  "equipeDomicile": "FC Nordsjælland",
+  "equipeExterieur": "FC Copenhagen",
+  "probas": [
+   0.3424,
+   0.2669,
+   0.3907
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   2.25,
+   3.35,
+   2.45
+  ],
+  "resultat": null
+ },
+ "2481878": {
+  "date": "2026-11-22",
+  "ligue": "Superliga",
+  "equipeDomicile": "AC Horsens",
+  "equipeExterieur": "Silkeborg IF",
+  "probas": [
+   0.4399,
+   0.2625,
+   0.2976
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   2.1,
+   3.3,
+   2.65
+  ],
+  "resultat": null
+ },
+ "2481881": {
+  "date": "2026-11-22",
+  "ligue": "Superliga",
+  "equipeDomicile": "Viborg",
+  "equipeExterieur": "Randers FC",
+  "probas": [
+   0.641,
+   0.2077,
+   0.1514
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   1.47,
+   4.1,
+   4.4
+  ],
+  "resultat": null
+ },
+ "2493404": {
+  "date": "2026-11-22",
+  "ligue": "Super League",
+  "equipeDomicile": "Basel",
+  "equipeExterieur": "Luzern",
+  "probas": [
+   0.4047,
+   0.2669,
+   0.3284
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   2.05,
+   3.75,
+   2.5
+  ],
+  "resultat": null
+ },
+ "2493408": {
+  "date": "2026-11-22",
+  "ligue": "Super League",
+  "equipeDomicile": "Zürich",
+  "equipeExterieur": "St. Gallen",
+  "probas": [
+   0.3307,
+   0.2641,
+   0.4051
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   2.85,
+   3.65,
+   1.9
+  ],
+  "resultat": null
+ },
+ "2493409": {
+  "date": "2026-11-22",
+  "ligue": "Super League",
+  "equipeDomicile": "Lausanne-Sport",
+  "equipeExterieur": "Vaduz",
+  "probas": [
+   0.3857,
+   0.2727,
+   0.3416
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   1.92,
+   3.65,
+   2.85
+  ],
+  "resultat": null
+ },
+ "2499775": {
+  "date": "2026-11-22",
+  "ligue": "Bundesliga",
+  "equipeDomicile": "Austria Vienna",
+  "equipeExterieur": "Red Bull Salzburg",
+  "probas": [
+   0.1808,
+   0.2099,
+   0.6093
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   3.9,
+   3.9,
+   1.58
+  ],
+  "resultat": null
+ },
+ "2499777": {
+  "date": "2026-11-22",
+  "ligue": "Bundesliga",
+  "equipeDomicile": "Wolfsberger AC",
+  "equipeExterieur": "SV Ried",
+  "probas": [
+   0.3371,
+   0.2742,
+   0.3887
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   2.6,
+   3.5,
+   2.1
+  ],
+  "resultat": null
+ },
+ "2398976": {
+  "date": "2026-11-22",
+  "ligue": "Allsvenskan",
+  "equipeDomicile": "Brommapojkarna",
+  "equipeExterieur": "Halmstad",
+  "probas": [
+   0.5381,
+   0.2532,
+   0.2086
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   1.94,
+   3.5,
+   2.9
+  ],
+  "resultat": null
+ },
+ "2398982": {
+  "date": "2026-11-22",
+  "ligue": "Allsvenskan",
+  "equipeDomicile": "Sirius",
+  "equipeExterieur": "Djurgården",
+  "probas": [
+   0.3929,
+   0.2682,
+   0.3389
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   2.15,
+   3.35,
+   2.55
+  ],
+  "resultat": null
+ },
+ "2477956": {
+  "date": "2026-11-22",
+  "ligue": "Allsvenskan",
+  "equipeDomicile": "Häcken",
+  "equipeExterieur": "Elfsborg",
+  "probas": [
+   0.4915,
+   0.2496,
+   0.2588
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   1.7,
+   3.7,
+   3.4
   ],
   "resultat": null
  }
