@@ -2084,8 +2084,8 @@
    1.73
   ],
   "mise": 0.1667,
-  "statut": "en_attente",
-  "gain": null
+  "statut": "perdu",
+  "gain": -0.1667
  },
  {
   "idEvent": "2494107",
@@ -2102,8 +2102,8 @@
    1.73
   ],
   "mise": 0.1818,
-  "statut": "en_attente",
-  "gain": null
+  "statut": "gagne",
+  "gain": 0.8181
  },
  {
   "idEvent": "2506289",
@@ -2120,8 +2120,8 @@
    0.91
   ],
   "mise": 0.0952,
-  "statut": "en_attente",
-  "gain": null
+  "statut": "perdu",
+  "gain": -0.0952
  },
  {
   "idEvent": "2506295",
@@ -2138,8 +2138,8 @@
    1.78
   ],
   "mise": 0.1739,
-  "statut": "en_attente",
-  "gain": null
+  "statut": "perdu",
+  "gain": -0.1739
  },
  {
   "idEvent": "2482250",
@@ -2156,8 +2156,8 @@
    1.25
   ],
   "mise": 0.2174,
-  "statut": "en_attente",
-  "gain": null
+  "statut": "perdu",
+  "gain": -0.2174
  },
  {
   "idEvent": "2482252",
@@ -2174,8 +2174,8 @@
    0.95
   ],
   "mise": 0.125,
-  "statut": "en_attente",
-  "gain": null
+  "statut": "perdu",
+  "gain": -0.125
  },
  {
   "idEvent": "2527824",
@@ -2192,8 +2192,8 @@
    1.54
   ],
   "mise": 0.2174,
-  "statut": "en_attente",
-  "gain": null
+  "statut": "perdu",
+  "gain": -0.2174
  },
  {
   "idEvent": "2539989",
@@ -2210,8 +2210,8 @@
    0.92
   ],
   "mise": 0.0952,
-  "statut": "en_attente",
-  "gain": null
+  "statut": "perdu",
+  "gain": -0.0952
  },
  {
   "idEvent": "2539990",
@@ -2228,8 +2228,8 @@
    0.95
   ],
   "mise": 0.125,
-  "statut": "en_attente",
-  "gain": null
+  "statut": "perdu",
+  "gain": -0.125
  },
  {
   "idEvent": "2539991",
@@ -2246,6 +2246,24 @@
    1.26
   ],
   "mise": 0.1481,
+  "statut": "perdu",
+  "gain": -0.1481
+ },
+ {
+  "idEvent": "2398979",
+  "date": "2026-11-23",
+  "ligue": "Allsvenskan",
+  "equipeDomicile": "Hammarby",
+  "equipeExterieur": "IFK Göteborg",
+  "issue": "exterieure",
+  "coteBookmaker": 8.0,
+  "bookmaker": "Winamax",
+  "coteModele": 6.3,
+  "butsAttendus": [
+   2.06,
+   0.92
+  ],
+  "mise": 0.125,
   "statut": "en_attente",
   "gain": null
  }

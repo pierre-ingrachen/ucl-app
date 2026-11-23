@@ -86,8 +86,8 @@
   "coteModele": 5.34,
   "probaModele": 0.1873,
   "mise": 0.1818,
-  "statut": "en_attente",
-  "gain": null
+  "statut": "gagne",
+  "gain": 0.8181
  },
  {
   "idEvent": "2506295",
@@ -101,8 +101,8 @@
   "coteModele": 5.36,
   "probaModele": 0.1867,
   "mise": 0.1739,
-  "statut": "en_attente",
-  "gain": null
+  "statut": "perdu",
+  "gain": -0.1739
  },
  {
   "idEvent": "2527824",
@@ -116,7 +116,7 @@
   "coteModele": 4.54,
   "probaModele": 0.2202,
   "mise": 0.2174,
-  "statut": "en_attente",
-  "gain": null
+  "statut": "perdu",
+  "gain": -0.2174
  }
 ]

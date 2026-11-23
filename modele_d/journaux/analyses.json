@@ -3669,7 +3669,7 @@
    7.0,
    9.5
   ],
-  "resultat": null
+  "resultat": "domicile"
  },
  "2489178": {
   "date": "2026-11-22",
@@ -3687,7 +3687,7 @@
    3.75,
    3.75
   ],
-  "resultat": null
+  "resultat": "exterieure"
  },
  "2489180": {
   "date": "2026-11-22",
@@ -3705,7 +3705,7 @@
    9.0,
    14.0
   ],
-  "resultat": null
+  "resultat": "domicile"
  },
  "2489181": {
   "date": "2026-11-22",
@@ -3723,7 +3723,7 @@
    3.9,
    1.6
   ],
-  "resultat": null
+  "resultat": "exterieure"
  },
  "2496789": {
   "date": "2026-11-22",
@@ -3741,7 +3741,7 @@
    3.35,
    1.96
   ],
-  "resultat": null
+  "resultat": "exterieure"
  },
  "2496793": {
   "date": "2026-11-22",
@@ -3759,7 +3759,7 @@
    4.6,
    1.31
   ],
-  "resultat": null
+  "resultat": "exterieure"
  },
  "2496795": {
   "date": "2026-11-22",
@@ -3777,7 +3777,7 @@
    3.3,
    1.86
   ],
-  "resultat": null
+  "resultat": "domicile"
  },
  "2494102": {
   "date": "2026-11-22",
@@ -3795,7 +3795,7 @@
    4.0,
    4.0
   ],
-  "resultat": null
+  "resultat": "domicile"
  },
  "2494107": {
   "date": "2026-11-22",
@@ -3813,7 +3813,7 @@
    4.1,
    1.42
   ],
-  "resultat": null
+  "resultat": "domicile"
  },
  "2489553": {
   "date": "2026-11-22",
@@ -3831,7 +3831,7 @@
    4.8,
    5.75
   ],
-  "resultat": null
+  "resultat": "exterieure"
  },
  "2489557": {
   "date": "2026-11-22",
@@ -3849,7 +3849,7 @@
    3.25,
    2.25
   ],
-  "resultat": null
+  "resultat": "nul"
  },
  "2489559": {
   "date": "2026-11-22",
@@ -3867,7 +3867,7 @@
    5.5,
    8.5
   ],
-  "resultat": null
+  "resultat": "domicile"
  },
  "2506289": {
   "date": "2026-11-22",
@@ -3885,7 +3885,7 @@
    7.25,
    10.5
   ],
-  "resultat": null
+  "resultat": "domicile"
  },
  "2506295": {
   "date": "2026-11-22",
@@ -3903,7 +3903,7 @@
    4.1,
    1.45
   ],
-  "resultat": null
+  "resultat": "exterieure"
  },
  "2506296": {
   "date": "2026-11-22",
@@ -3921,7 +3921,7 @@
    3.4,
    4.1
   ],
-  "resultat": null
+  "resultat": "domicile"
  },
  "2506298": {
   "date": "2026-11-22",
@@ -3939,7 +3939,7 @@
    3.9,
    1.88
   ],
-  "resultat": null
+  "resultat": "domicile"
  },
  "2482249": {
   "date": "2026-11-22",
@@ -3957,7 +3957,7 @@
    3.2,
    2.4
   ],
-  "resultat": null
+  "resultat": "exterieure"
  },
  "2482250": {
   "date": "2026-11-22",
@@ -3975,7 +3975,7 @@
    4.2,
    4.6
   ],
-  "resultat": null
+  "resultat": "domicile"
  },
  "2482253": {
   "date": "2026-11-22",
@@ -3993,7 +3993,7 @@
    4.4,
    1.48
   ],
-  "resultat": null
+  "resultat": "nul"
  },
  "2482254": {
   "date": "2026-11-22",
@@ -4011,7 +4011,7 @@
    3.65,
    4.2
   ],
-  "resultat": null
+  "resultat": "nul"
  },
  "2482252": {
   "date": "2026-11-22",
@@ -4029,7 +4029,7 @@
    5.25,
    8.0
   ],
-  "resultat": null
+  "resultat": "domicile"
  },
  "2508415": {
   "date": "2026-11-22",
@@ -4047,7 +4047,7 @@
    4.2,
    4.5
   ],
-  "resultat": null
+  "resultat": "domicile"
  },
  "2508419": {
   "date": "2026-11-22",
@@ -4065,7 +4065,7 @@
    3.7,
    2.2
   ],
-  "resultat": null
+  "resultat": "domicile"
  },
  "2527824": {
   "date": "2026-11-22",
@@ -4083,7 +4083,7 @@
    4.0,
    1.54
   ],
-  "resultat": null
+  "resultat": "exterieure"
  },
  "2527827": {
   "date": "2026-11-22",
@@ -4101,7 +4101,7 @@
    8.0,
    13.0
   ],
-  "resultat": null
+  "resultat": "domicile"
  },
  "2527828": {
   "date": "2026-11-22",
@@ -4119,7 +4119,7 @@
    3.45,
    3.6
   ],
-  "resultat": null
+  "resultat": "domicile"
  },
  "2527829": {
   "date": "2026-11-22",
@@ -4137,7 +4137,7 @@
    3.25,
    2.4
   ],
-  "resultat": null
+  "resultat": "exterieure"
  },
  "2490315": {
   "date": "2026-11-22",
@@ -4209,7 +4209,7 @@
    6.25,
    10.5
   ],
-  "resultat": null
+  "resultat": "domicile"
  },
  "2539990": {
   "date": "2026-11-22",
@@ -4227,7 +4227,7 @@
    5.9,
    8.0
   ],
-  "resultat": null
+  "resultat": "domicile"
  },
  "2539991": {
   "date": "2026-11-22",
@@ -4245,7 +4245,7 @@
    4.5,
    6.75
   ],
-  "resultat": null
+  "resultat": "domicile"
  },
  "2539992": {
   "date": "2026-11-22",
@@ -4263,7 +4263,7 @@
    3.1,
    2.85
   ],
-  "resultat": null
+  "resultat": "domicile"
  },
  "2539994": {
   "date": "2026-11-22",
@@ -4281,7 +4281,7 @@
    2.85,
    2.8
   ],
-  "resultat": null
+  "resultat": "nul"
  },
  "2399199": {
   "date": "2026-11-22",
@@ -4299,7 +4299,7 @@
    4.1,
    1.54
   ],
-  "resultat": null
+  "resultat": "nul"
  },
  "2399201": {
   "date": "2026-11-22",
@@ -4317,7 +4317,7 @@
    3.55,
    2.15
   ],
-  "resultat": null
+  "resultat": "exterieure"
  },
  "2399202": {
   "date": "2026-11-22",
@@ -4335,7 +4335,7 @@
    3.65,
    2.2
   ],
-  "resultat": null
+  "resultat": "nul"
  },
  "2399204": {
   "date": "2026-11-22",
@@ -4353,7 +4353,7 @@
    3.75,
    2.65
   ],
-  "resultat": null
+  "resultat": "exterieure"
  },
  "2481876": {
   "date": "2026-11-22",
@@ -4371,7 +4371,7 @@
    3.55,
    2.05
   ],
-  "resultat": null
+  "resultat": "exterieure"
  },
  "2481877": {
   "date": "2026-11-22",
@@ -4389,7 +4389,7 @@
    3.35,
    2.45
   ],
-  "resultat": null
+  "resultat": "domicile"
  },
  "2481878": {
   "date": "2026-11-22",
@@ -4407,7 +4407,7 @@
    3.3,
    2.65
   ],
-  "resultat": null
+  "resultat": "domicile"
  },
  "2481881": {
   "date": "2026-11-22",
@@ -4425,7 +4425,7 @@
    4.1,
    4.4
   ],
-  "resultat": null
+  "resultat": "nul"
  },
  "2493404": {
   "date": "2026-11-22",
@@ -4497,7 +4497,7 @@
    3.9,
    1.58
   ],
-  "resultat": null
+  "resultat": "domicile"
  },
  "2499777": {
   "date": "2026-11-22",
@@ -4515,7 +4515,7 @@
    3.5,
    2.1
   ],
-  "resultat": null
+  "resultat": "exterieure"
  },
  "2398976": {
   "date": "2026-11-22",
@@ -4533,7 +4533,7 @@
    3.5,
    2.9
   ],
-  "resultat": null
+  "resultat": "exterieure"
  },
  "2398982": {
   "date": "2026-11-22",
@@ -4551,7 +4551,7 @@
    3.35,
    2.55
   ],
-  "resultat": null
+  "resultat": "domicile"
  },
  "2477956": {
   "date": "2026-11-22",
@@ -4568,6 +4568,168 @@
    1.7,
    3.7,
    3.4
+  ],
+  "resultat": "domicile"
+ },
+ "2494106": {
+  "date": "2026-11-23",
+  "ligue": "Premier League",
+  "equipeDomicile": "Brentford",
+  "equipeExterieur": "Everton",
+  "probas": [
+   0.4649,
+   0.2613,
+   0.2738
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   2.15,
+   3.3,
+   2.75
+  ],
+  "resultat": null
+ },
+ "2506292": {
+  "date": "2026-11-23",
+  "ligue": "La Liga",
+  "equipeDomicile": "Levante",
+  "equipeExterieur": "Elche",
+  "probas": [
+   0.4287,
+   0.2889,
+   0.2825
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   2.05,
+   3.4,
+   2.85
+  ],
+  "resultat": null
+ },
+ "2482257": {
+  "date": "2026-11-23",
+  "ligue": "Serie A",
+  "equipeDomicile": "Monza",
+  "equipeExterieur": "Fiorentina",
+  "probas": [
+   0.2987,
+   0.2678,
+   0.4335
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   3.3,
+   3.65,
+   1.82
+  ],
+  "resultat": null
+ },
+ "2527823": {
+  "date": "2026-11-23",
+  "ligue": "Süper Lig",
+  "equipeDomicile": "İstanbul Başakşehir",
+  "equipeExterieur": "Çorum",
+  "probas": [
+   0.5914,
+   0.2273,
+   0.1814
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   1.76,
+   3.55,
+   3.3
+  ],
+  "resultat": null
+ },
+ "2490323": {
+  "date": "2026-11-23",
+  "ligue": "Ekstraklasa",
+  "equipeDomicile": "Wieczysta Kraków",
+  "equipeExterieur": "Motor Lublin",
+  "probas": [
+   0.3436,
+   0.2769,
+   0.3795
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   2.15,
+   3.5,
+   2.45
+  ],
+  "resultat": null
+ },
+ "2539993": {
+  "date": "2026-11-23",
+  "ligue": "Super League",
+  "equipeDomicile": "Asteras Tripolis",
+  "equipeExterieur": "Aris",
+  "probas": [
+   0.2946,
+   0.2833,
+   0.4221
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   2.95,
+   3.05,
+   2.1
+  ],
+  "resultat": null
+ },
+ "2481880": {
+  "date": "2026-11-23",
+  "ligue": "Superliga",
+  "equipeDomicile": "Brøndby",
+  "equipeExterieur": "FC Midtjylland",
+  "probas": [
+   0.2689,
+   0.2533,
+   0.4778
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   2.25,
+   3.5,
+   2.3
+  ],
+  "resultat": null
+ },
+ "2398979": {
+  "date": "2026-11-23",
+  "ligue": "Allsvenskan",
+  "equipeDomicile": "Hammarby",
+  "equipeExterieur": "IFK Göteborg",
+  "probas": [
+   0.653,
+   0.1967,
+   0.1502
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   1.17,
+   5.8,
+   8.0
+  ],
+  "resultat": null
+ },
+ "2398981": {
+  "date": "2026-11-23",
+  "ligue": "Allsvenskan",
+  "equipeDomicile": "Örgryte",
+  "equipeExterieur": "Kalmar",
+  "probas": [
+   0.3895,
+   0.2887,
+   0.3218
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   3.0,
+   3.4,
+   1.92
   ],
   "resultat": null
  }
