@@ -4587,7 +4587,7 @@
    3.3,
    2.75
   ],
-  "resultat": null
+  "resultat": "domicile"
  },
  "2506292": {
   "date": "2026-11-23",
@@ -4605,7 +4605,7 @@
    3.4,
    2.85
   ],
-  "resultat": null
+  "resultat": "nul"
  },
  "2482257": {
   "date": "2026-11-23",
@@ -4623,7 +4623,7 @@
    3.65,
    1.82
   ],
-  "resultat": null
+  "resultat": "domicile"
  },
  "2527823": {
   "date": "2026-11-23",
@@ -4641,7 +4641,7 @@
    3.55,
    3.3
   ],
-  "resultat": null
+  "resultat": "domicile"
  },
  "2490323": {
   "date": "2026-11-23",
@@ -4677,7 +4677,7 @@
    3.05,
    2.1
   ],
-  "resultat": null
+  "resultat": "exterieure"
  },
  "2481880": {
   "date": "2026-11-23",
@@ -4695,7 +4695,7 @@
    3.5,
    2.3
   ],
-  "resultat": null
+  "resultat": "exterieure"
  },
  "2398979": {
   "date": "2026-11-23",
@@ -4713,7 +4713,7 @@
    5.8,
    8.0
   ],
-  "resultat": null
+  "resultat": "domicile"
  },
  "2398981": {
   "date": "2026-11-23",
@@ -4730,6 +4730,42 @@
    3.0,
    3.4,
    1.92
+  ],
+  "resultat": "domicile"
+ },
+ "2494476": {
+  "date": "2026-11-24",
+  "ligue": "Premiership",
+  "equipeDomicile": "Hibernian",
+  "equipeExterieur": "Dundee",
+  "probas": [
+   0.4915,
+   0.2593,
+   0.2492
+  ],
+  "bookmaker": "Unibet",
+  "cotes": [
+   1.42,
+   3.55,
+   4.05
+  ],
+  "resultat": null
+ },
+ "2625478": {
+  "date": "2026-11-24",
+  "ligue": "Premiership",
+  "equipeDomicile": "Rangers",
+  "equipeExterieur": "Aberdeen",
+  "probas": [
+   0.7538,
+   0.1563,
+   0.0899
+  ],
+  "bookmaker": "Unibet",
+  "cotes": [
+   1.14,
+   4.95,
+   7.6
   ],
   "resultat": null
  }

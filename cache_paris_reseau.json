@@ -2264,6 +2264,24 @@
    0.92
   ],
   "mise": 0.125,
+  "statut": "perdu",
+  "gain": -0.125
+ },
+ {
+  "idEvent": "2494476",
+  "date": "2026-11-24",
+  "ligue": "Premiership",
+  "equipeDomicile": "Hibernian",
+  "equipeExterieur": "Dundee",
+  "issue": "exterieure",
+  "coteBookmaker": 4.05,
+  "bookmaker": "Unibet",
+  "coteModele": 2.93,
+  "butsAttendus": [
+   1.42,
+   1.28
+  ],
+  "mise": 0.2469,
   "statut": "en_attente",
   "gain": null
  }
