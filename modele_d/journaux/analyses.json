@@ -2535,7 +2535,7 @@
    3.6,
    3.55
   ],
-  "resultat": null
+  "resultat": "exterieure"
  },
  "2490318": {
   "date": "2026-11-20",
@@ -2553,7 +2553,7 @@
    3.3,
    2.4
   ],
-  "resultat": null
+  "resultat": "domicile"
  },
  "2399203": {
   "date": "2026-11-20",
@@ -3291,7 +3291,7 @@
    3.4,
    1.66
   ],
-  "resultat": null
+  "resultat": "domicile"
  },
  "2490319": {
   "date": "2026-11-21",
@@ -3309,7 +3309,7 @@
    3.4,
    2.4
   ],
-  "resultat": null
+  "resultat": "domicile"
  },
  "2490322": {
   "date": "2026-11-21",
@@ -3399,7 +3399,7 @@
    5.2,
    4.9
   ],
-  "resultat": null
+  "resultat": "domicile"
  },
  "2493406": {
   "date": "2026-11-21",
@@ -3417,7 +3417,7 @@
    5.0,
    5.8
   ],
-  "resultat": null
+  "resultat": "domicile"
  },
  "2493407": {
   "date": "2026-11-21",
@@ -3435,7 +3435,7 @@
    3.75,
    3.8
   ],
-  "resultat": null
+  "resultat": "domicile"
  },
  "2499778": {
   "date": "2026-11-21",
@@ -4155,7 +4155,7 @@
    3.25,
    2.1
   ],
-  "resultat": null
+  "resultat": "exterieure"
  },
  "2490320": {
   "date": "2026-11-22",
@@ -4173,7 +4173,7 @@
    3.6,
    2.0
   ],
-  "resultat": null
+  "resultat": "exterieure"
  },
  "2490321": {
   "date": "2026-11-22",
@@ -4461,7 +4461,7 @@
    3.65,
    1.9
   ],
-  "resultat": null
+  "resultat": "nul"
  },
  "2493409": {
   "date": "2026-11-22",
@@ -4479,7 +4479,7 @@
    3.65,
    2.85
   ],
-  "resultat": null
+  "resultat": "nul"
  },
  "2499775": {
   "date": "2026-11-22",
@@ -4659,7 +4659,7 @@
    3.5,
    2.45
   ],
-  "resultat": null
+  "resultat": "domicile"
  },
  "2539993": {
   "date": "2026-11-23",
@@ -4749,7 +4749,7 @@
    3.55,
    4.05
   ],
-  "resultat": null
+  "resultat": "domicile"
  },
  "2625478": {
   "date": "2026-11-24",
@@ -4767,6 +4767,6 @@
    4.95,
    7.6
   ],
-  "resultat": null
+  "resultat": "domicile"
  }
 }

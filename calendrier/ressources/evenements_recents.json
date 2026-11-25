@@ -1,23 +1,23 @@
 {
 "couvert_jusqu_au": {
-"4328": "2026-11-24",
-"4330": "2026-11-24",
-"4331": "2026-11-24",
-"4332": "2026-11-24",
-"4334": "2026-11-24",
-"4335": "2026-11-24",
-"4336": "2026-11-24",
-"4337": "2026-11-24",
-"4338": "2026-11-24",
-"4339": "2026-11-24",
-"4340": "2026-11-24",
-"4344": "2026-11-24",
-"4347": "2026-11-24",
-"4358": "2026-11-24",
-"4480": "2026-11-24",
-"4481": "2026-11-24",
-"4621": "2026-11-24",
-"5071": "2026-11-24"
+"4328": "2026-11-25",
+"4330": "2026-11-25",
+"4331": "2026-11-25",
+"4332": "2026-11-25",
+"4334": "2026-11-25",
+"4335": "2026-11-25",
+"4336": "2026-11-25",
+"4337": "2026-11-25",
+"4338": "2026-11-25",
+"4339": "2026-11-25",
+"4340": "2026-11-25",
+"4344": "2026-11-25",
+"4347": "2026-11-25",
+"4358": "2026-11-25",
+"4480": "2026-11-25",
+"4481": "2026-11-25",
+"4621": "2026-11-25",
+"5071": "2026-11-25"
 },
 "evenements": {
 "2398919": {
@@ -5600,6 +5600,90 @@
 "strHomeTeam": "Motor Lublin",
 "strSeason": "2026-2027"
 },
+"2490315": {
+"dateEvent": "2026-11-22",
+"idAwayTeam": "133992",
+"idEvent": "2490315",
+"idHomeTeam": "135659",
+"idLeague": "4422",
+"intAwayScore": "1",
+"intHomeScore": "0",
+"strAwayTeam": "Legia Warsaw",
+"strHomeTeam": "Wisła Płock",
+"strSeason": "2026-2027"
+},
+"2490316": {
+"dateEvent": "2026-11-21",
+"idAwayTeam": "135296",
+"idEvent": "2490316",
+"idHomeTeam": "135496",
+"idLeague": "4422",
+"intAwayScore": "0",
+"intHomeScore": "2",
+"strAwayTeam": "Górnik Zabrze",
+"strHomeTeam": "Zagłębie Lubin",
+"strSeason": "2026-2027"
+},
+"2490317": {
+"dateEvent": "2026-11-20",
+"idAwayTeam": "133952",
+"idEvent": "2490317",
+"idHomeTeam": "135302",
+"idLeague": "4422",
+"intAwayScore": "2",
+"intHomeScore": "1",
+"strAwayTeam": "Śląsk Wrocław",
+"strHomeTeam": "Pogoń Szczecin",
+"strSeason": "2026-2027"
+},
+"2490318": {
+"dateEvent": "2026-11-20",
+"idAwayTeam": "135298",
+"idEvent": "2490318",
+"idHomeTeam": "135300",
+"idLeague": "4422",
+"intAwayScore": "0",
+"intHomeScore": "2",
+"strAwayTeam": "Korona Kielce",
+"strHomeTeam": "Piast Gliwice",
+"strSeason": "2026-2027"
+},
+"2490319": {
+"dateEvent": "2026-11-21",
+"idAwayTeam": "135297",
+"idEvent": "2490319",
+"idHomeTeam": "135294",
+"idLeague": "4422",
+"intAwayScore": "1",
+"intHomeScore": "3",
+"strAwayTeam": "Jagiellonia Białystok",
+"strHomeTeam": "Cracovia",
+"strSeason": "2026-2027"
+},
+"2490320": {
+"dateEvent": "2026-11-22",
+"idAwayTeam": "134010",
+"idEvent": "2490320",
+"idHomeTeam": "142467",
+"idLeague": "4422",
+"intAwayScore": "1",
+"intHomeScore": "0",
+"strAwayTeam": "Lech Poznań",
+"strHomeTeam": "GKS Katowice",
+"strSeason": "2026-2027"
+},
+"2490323": {
+"dateEvent": "2026-11-23",
+"idAwayTeam": "147435",
+"idEvent": "2490323",
+"idHomeTeam": "152462",
+"idLeague": "4422",
+"intAwayScore": "1",
+"intHomeScore": "2",
+"strAwayTeam": "Motor Lublin",
+"strHomeTeam": "Wieczysta Kraków",
+"strSeason": "2026-2027"
+},
 "2493326": {
 "dateEvent": "2026-07-25",
 "idAwayTeam": "134391",
@@ -6534,6 +6618,66 @@
 "intHomeScore": "0",
 "strAwayTeam": "Zürich",
 "strHomeTeam": "Servette",
+"strSeason": "2026-2027"
+},
+"2493405": {
+"dateEvent": "2026-11-21",
+"idAwayTeam": "134394",
+"idEvent": "2493405",
+"idHomeTeam": "134001",
+"idLeague": "4675",
+"intAwayScore": "2",
+"intHomeScore": "3",
+"strAwayTeam": "Thun",
+"strHomeTeam": "Young Boys",
+"strSeason": "2026-2027"
+},
+"2493406": {
+"dateEvent": "2026-11-21",
+"idAwayTeam": "134391",
+"idEvent": "2493406",
+"idHomeTeam": "136037",
+"idLeague": "4675",
+"intAwayScore": "1",
+"intHomeScore": "2",
+"strAwayTeam": "Grasshoppers",
+"strHomeTeam": "Lugano",
+"strSeason": "2026-2027"
+},
+"2493407": {
+"dateEvent": "2026-11-21",
+"idAwayTeam": "133991",
+"idEvent": "2493407",
+"idHomeTeam": "135947",
+"idLeague": "4675",
+"intAwayScore": "0",
+"intHomeScore": "2",
+"strAwayTeam": "Servette",
+"strHomeTeam": "Sion",
+"strSeason": "2026-2027"
+},
+"2493408": {
+"dateEvent": "2026-11-22",
+"idAwayTeam": "134406",
+"idEvent": "2493408",
+"idHomeTeam": "134396",
+"idLeague": "4675",
+"intAwayScore": "2",
+"intHomeScore": "2",
+"strAwayTeam": "St. Gallen",
+"strHomeTeam": "Zürich",
+"strSeason": "2026-2027"
+},
+"2493409": {
+"dateEvent": "2026-11-22",
+"idAwayTeam": "134320",
+"idEvent": "2493409",
+"idHomeTeam": "138990",
+"idLeague": "4675",
+"intAwayScore": "2",
+"intHomeScore": "2",
+"strAwayTeam": "Vaduz",
+"strHomeTeam": "Lausanne-Sport",
 "strSeason": "2026-2027"
 },
 "2494040": {
@@ -7734,6 +7878,18 @@
 "intHomeScore": "2",
 "strAwayTeam": "Motherwell",
 "strHomeTeam": "St Johnstone",
+"strSeason": "2026-2027"
+},
+"2494476": {
+"dateEvent": "2026-11-24",
+"idAwayTeam": "133942",
+"idEvent": "2494476",
+"idHomeTeam": "133646",
+"idLeague": "4330",
+"intAwayScore": "1",
+"intHomeScore": "2",
+"strAwayTeam": "Dundee",
+"strHomeTeam": "Hibernian",
 "strSeason": "2026-2027"
 },
 "2494477": {
@@ -12534,6 +12690,18 @@
 "intHomeScore": "0",
 "strAwayTeam": "AEK Athens",
 "strHomeTeam": "Kalamata",
+"strSeason": "2026-2027"
+},
+"2625478": {
+"dateEvent": "2026-11-24",
+"idAwayTeam": "133638",
+"idEvent": "2625478",
+"idHomeTeam": "133642",
+"idLeague": "4330",
+"intAwayScore": "2",
+"intHomeScore": "3",
+"strAwayTeam": "Aberdeen",
+"strHomeTeam": "Rangers",
 "strSeason": "2026-2027"
 }
 }
