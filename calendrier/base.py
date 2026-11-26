@@ -12,9 +12,11 @@ Les saisons terminees ne sont plus jamais reecrites. La saison en cours est mise
 (tour, stade, logos) par une valeur vide. Le snapshot initial vient de `migration_tsdb.py`.
 """
 import json
+import logging
 import os
 import threading
 
+journal = logging.getLogger("calendrier.base")
 RACINE_BASE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "base")
 
 # Champs conserves par evenement (ceux que le site, les modeles et l'API utilisent).
@@ -25,6 +27,10 @@ CHAMPS = ("idEvent", "idLeague", "strLeague", "strLeagueBadge", "strSeason", "in
 # Champs qui changent d'un match a l'autre en cours de saison : ceux-la sont toujours remplaces.
 CHAMPS_DYNAMIQUES = ("dateEvent", "strTime", "strTimestamp", "intHomeScore", "intAwayScore", "strStatus",
                      "strPostponed")
+
+
+def _joue(e):
+    return e.get("intHomeScore") not in (None, "") and e.get("intAwayScore") not in (None, "")
 
 
 def reduire(evenement):
@@ -134,6 +140,12 @@ class Base:
                 cle = str(e["idEvent"])
                 if cle in existants:
                     courant = existants[cle]
+                    if _joue(courant) and not _joue(e) and e.get("dateEvent") != courant.get("dateEvent"):
+                        # Un match joue ne perd jamais son score ni sa date (evenement fournisseur mal rattache).
+                        journal.warning("Mise a jour refusee pour %s (%s - %s, joue le %s) : date %s sans score",
+                                        cle, courant.get("strHomeTeam"), courant.get("strAwayTeam"),
+                                        courant.get("dateEvent"), e.get("dateEvent"))
+                        continue
                     for champ, valeur in e.items():
                         if champ in CHAMPS_DYNAMIQUES:
                             courant[champ] = valeur

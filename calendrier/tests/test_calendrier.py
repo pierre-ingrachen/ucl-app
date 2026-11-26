@@ -135,6 +135,28 @@ class TestNormalisation(unittest.TestCase):
         self.assertEqual(a.logo("2"), "")
 
 
+class TestGrasshopperZurich(unittest.TestCase):
+    """Bug du 2026-11-22 : « Grasshopper Club Zürich » (ESPN) etait pris pour le FC Zürich."""
+    SUISSE = {"equipes": {"10": {"nom": "Zurich", "badge": "", "ligues": ["4675"]},
+                          "11": {"nom": "Grasshoppers", "badge": "", "ligues": ["4675"]},
+                          "12": {"nom": "FC Basel", "badge": "", "ligues": ["4675"]}}, "ligues": {}}
+
+    def test_noms_fournisseurs(self):
+        a = Annuaire(donnees=self.SUISSE, pont={})
+        for nom in ("Grasshopper Club Zürich", "Grasshopper Zürich", "Grasshoppers Zurich", "GC Zürich", "Grasshoppers"):
+            self.assertEqual(a.resoudre(nom, "4675"), "11", nom)
+        for nom in ("FC Zürich", "Zurich", "FC Zurich"):
+            self.assertEqual(a.resoudre(nom, "4675"), "10", nom)
+
+    def test_fin_de_nom_trompeuse_jamais_devinee(self):
+        # Sans alias, un nom « <autre club> <ville d'un club> » est ambigu, jamais attribue au club de la ville.
+        a = Annuaire(donnees={"equipes": {"20": {"nom": "Ville", "badge": "", "ligues": ["4675"]},
+                                          "21": {"nom": "Sauterelles", "badge": "", "ligues": ["4675"]}}, "ligues": {}},
+                     pont={})
+        self.assertIsNone(a.resoudre("Sauterelle Club Ville", "4675"))
+        self.assertEqual(a.resoudre("FC Ville", "4675"), "20")
+
+
 class TestLigues(unittest.TestCase):
     def test_saison(self):
         self.assertEqual(saison("4328", date(2026, 11, 13)), "2026-2027")
@@ -261,6 +283,16 @@ class TestRattachement(unittest.TestCase):
         e2, _ = source.rattacher([o], [])
         self.assertEqual(e1[0]["idEvent"], e2[0]["idEvent"])
         self.assertEqual(e1[0]["idEvent"], "x4334-1-2-2026-11-22")
+
+    def test_match_deja_joue_jamais_ecrase_par_un_autre(self):
+        # PSG-OM joue le 22/08 (1-2) : un PSG-OM annonce le 28/11 n'est pas ce match (pas de report d'un match joue).
+        loc = local("JOUE", "1", "2", "2026-08-22")
+        loc.update(intHomeScore="1", intAwayScore="2")
+        res, nb = source.rattacher([brut_evt("Paris Saint-Germain", "Marseille", "2026-11-28")], [loc])
+        self.assertEqual((nb, res[0]["idEvent"]), (0, "x4334-1-2-2026-11-28"))
+        # Le meme match a +/- 2 jours (fuseau horaire, score tardif) reste rattache.
+        res, nb = source.rattacher([brut_evt("Paris Saint-Germain", "Marseille", "2026-08-23")], [loc])
+        self.assertEqual((nb, res[0]["idEvent"]), (1, "JOUE"))
 
     def test_saison_differente_non_rattachee(self):
         loc = local("OLD", "1", "2", "2026-11-22", saison_="2025-2026")

@@ -31,6 +31,7 @@ HORIZON_JOURS = 8             # matchs a venir demandes (le site affiche 7 jours
 RECUL_JOURS = 2               # on re-telecharge les 2 derniers jours deja couverts (scores tardifs)
 RECUL_MAX_JOURS = 120         # plafond du rattrapage au premier run
 TOLERANCE_REPORT_JOURS = 120  # un match deplace de moins de 120 jours reste le meme match
+TOLERANCE_MATCH_JOUE_JOURS = 2  # ... sauf s'il est deja joue (score connu) : alors seulement a +/- 2 jours
 CHAMPS_RECENTS = ("idEvent", "idLeague", "strSeason", "idHomeTeam", "idAwayTeam", "strHomeTeam", "strAwayTeam",
                   "dateEvent", "intHomeScore", "intAwayScore")  # le cache ne garde que le strict necessaire
 CLES_SCORE = ("intHomeScore", "intAwayScore", "strStatus", "strPostponed", "source")
@@ -40,6 +41,10 @@ CLES_DYNAMIQUES = ("dateEvent", "strTime", "strTimestamp", "intHomeScore", "intA
 
 def _sans_id(e):
     return e.get("idEvent") is None
+
+
+def _joue(e):
+    return e.get("intHomeScore") not in (None, "") and e.get("intAwayScore") not in (None, "")
 
 
 def identifiant_stable(e):
@@ -61,9 +66,12 @@ def rattacher(evenements, locaux):
     for e in sorted(evenements, key=lambda x: x["dateEvent"]):
         candidats = [l for l in par_cle.get((e["idLeague"], e["strSeason"], e["idHomeTeam"], e["idAwayTeam"]), [])
                      if l["idEvent"] not in utilises]
+        # Un match local deja joue ne peut pas etre « reporte » : un evenement fournisseur a une autre date
+        # est un autre match (ex. 2026-11-22 : Grasshoppers-Basel du 28/11 mal nomme avait ecrase Zürich-Basel
+        # joue le 22/08).
         candidats = [l for l in candidats
                      if abs((date.fromisoformat(l["dateEvent"]) - date.fromisoformat(e["dateEvent"])).days)
-                     <= TOLERANCE_REPORT_JOURS] if candidats else []
+                     <= (TOLERANCE_MATCH_JOUE_JOURS if _joue(l) else TOLERANCE_REPORT_JOURS)] if candidats else []
         if candidats:
             local = min(candidats, key=lambda l: abs((date.fromisoformat(l["dateEvent"])
                                                       - date.fromisoformat(e["dateEvent"])).days))

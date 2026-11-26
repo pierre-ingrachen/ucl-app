@@ -41,6 +41,10 @@ ALIAS_NOMS = {
     "Erzurum BB": "Erzurumspor", "AGF": "AGF Aarhus", "F.C. København": "FC Copenhagen",
     "C.D. Nacional": "Nacional de Madeira", "KFUM Oslo": "KFUM-Kameratene Oslo",
     "CSU Craiova": "Universitatea Craiova", "SC Rheindorf Altach": "SCR Altach", "SV Josko Ried": "SV Ried", "WSG Swarovski Tirol": "WSG Tirol",
+    "FC Luzern": "Lucerne", "Luzern": "Lucerne",
+    # ESPN : « Grasshopper Club Zürich » finit par « Zürich » et etait pris pour le FC Zürich (2026-11-22).
+    "Grasshopper Club Zürich": "Grasshoppers", "Grasshopper Zürich": "Grasshoppers",
+    "Grasshoppers Zürich": "Grasshoppers", "Grasshopper Club": "Grasshoppers", "GC Zürich": "Grasshoppers",
 }
 
 
@@ -75,6 +79,18 @@ def _score(a, b):
     if len(court) >= 5 and court in long_:
         return 0.9
     return SequenceMatcher(None, a, b).ratio()
+
+
+def _suffixe_trompeur(cle, cle_club, autres):
+    """Vrai si `cle` ne ressemble a `cle_club` que par sa fin (souvent la ville : « Grasshopper Club
+    Zürich » / « Zürich ») alors que son debut designe un autre club de la ligue (« Grasshoppers ») :
+    le rapprochement est alors ambigu, jamais tranche au hasard."""
+    if cle == cle_club or len(cle) <= len(cle_club) or not cle.endswith(cle_club) or cle.startswith(cle_club):
+        return False
+    debut = cle[:-len(cle_club)]
+    return len(debut) >= 4 and any(
+        SequenceMatcher(None, debut, a).find_longest_match(0, len(debut), 0, len(a)).size >= max(4, (len(debut) + 1) // 2)
+        for a in autres)
 
 
 def _lire(fichier, defaut):
@@ -120,6 +136,10 @@ class Annuaire:
             return None
         if len(notes) > 1 and notes[0][0] < 1.0 and notes[0][0] - notes[1][0] < MARGE_AMBIGUITE:
             self.inconnus[(id_ligue, nom)] = f"ambigu : {self.equipes[notes[0][1]]['nom']} / {self.equipes[notes[1][1]]['nom']}"
+            return None
+        candidats = self._candidats(id_ligue)
+        if _suffixe_trompeur(cle, candidats[notes[0][1]], [c for i, c in candidats.items() if i != notes[0][1]]):
+            self.inconnus[(id_ligue, nom)] = f"ambigu (fin du nom = {self.equipes[notes[0][1]]['nom']}, debut = un autre club)"
             return None
         if cle_pont and notes[0][0] >= SEUIL_MEMORISATION:  # un rapprochement douteux n'est jamais fige
             self.pont[cle_pont] = notes[0][1]

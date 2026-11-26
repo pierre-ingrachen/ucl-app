@@ -52,6 +52,16 @@ class TestBase(unittest.TestCase):
         self.assertEqual((e["intHomeScore"], e["strStatus"], e["strTime"]), ("2", "FT", "20:00:00"))
         self.assertEqual((e["strVenue"], e["intRound"]), ("Parc", "13"))
 
+    def test_upsert_ne_deplace_jamais_un_match_joue(self):
+        self.base.ecrire_saison("4334", "2026-2027", [evt("1", jour="2026-08-22", intHomeScore="1", intAwayScore="2",
+                                                          strStatus="FT")])
+        self.base.upsert([evt("1", jour="2026-11-28")])  # evenement a venir mal rattache : refuse
+        e = self.base.evenement("1")
+        self.assertEqual((e["dateEvent"], e["intHomeScore"], e["intAwayScore"], e["strStatus"]),
+                         ("2026-08-22", "1", "2", "FT"))
+        self.base.upsert([evt("1", jour="2026-08-22", intHomeScore="2", intAwayScore="2", strStatus="FT")])
+        self.assertEqual(self.base.evenement("1")["intHomeScore"], "2")  # une correction de score passe toujours
+
     def test_upsert_ajoute_un_match_inconnu_et_reste_idempotent(self):
         self.assertEqual(self.base.upsert([evt("7")]), (0, 1))
         chemin = self.base.chemin_saison("4334", "2026-2027")
