@@ -4443,7 +4443,7 @@
    3.75,
    2.5
   ],
-  "resultat": null
+  "resultat": "exterieure"
  },
  "2493408": {
   "date": "2026-11-22",
@@ -4768,5 +4768,221 @@
    7.6
   ],
   "resultat": "domicile"
+ },
+ "2514035": {
+  "date": "2026-11-27",
+  "ligue": "Primeira Liga",
+  "equipeDomicile": "Marítimo",
+  "equipeExterieur": "Nacional de Madeira",
+  "probas": [
+   0.3992,
+   0.2965,
+   0.3043
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   1.96,
+   3.1,
+   3.1
+  ],
+  "resultat": null
+ },
+ "2489187": {
+  "date": "2026-11-27",
+  "ligue": "Eredivisie",
+  "equipeDomicile": "Groningen",
+  "equipeExterieur": "Willem II",
+  "probas": [
+   0.6781,
+   0.1856,
+   0.1363
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   1.33,
+   4.6,
+   5.5
+  ],
+  "resultat": null
+ },
+ "2494118": {
+  "date": "2026-11-27",
+  "ligue": "Premier League",
+  "equipeDomicile": "Nottingham Forest",
+  "equipeExterieur": "Chelsea",
+  "probas": [
+   0.3982,
+   0.2745,
+   0.3274
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   2.35,
+   3.3,
+   2.55
+  ],
+  "resultat": null
+ },
+ "2489566": {
+  "date": "2026-11-27",
+  "ligue": "Ligue 1",
+  "equipeDomicile": "Brest",
+  "equipeExterieur": "Paris FC",
+  "probas": [
+   0.3756,
+   0.2722,
+   0.3522
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   3.05,
+   3.25,
+   2.05
+  ],
+  "resultat": null
+ },
+ "2506302": {
+  "date": "2026-11-27",
+  "ligue": "La Liga",
+  "equipeDomicile": "Levante",
+  "equipeExterieur": "Racing de Santander",
+  "probas": [
+   0.5059,
+   0.262,
+   0.2321
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   1.9,
+   3.85,
+   3.1
+  ],
+  "resultat": null
+ },
+ "2482265": {
+  "date": "2026-11-27",
+  "ligue": "Serie A",
+  "equipeDomicile": "Venezia",
+  "equipeExterieur": "Bologna",
+  "probas": [
+   0.2232,
+   0.2577,
+   0.5191
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   3.1,
+   3.2,
+   2.05
+  ],
+  "resultat": null
+ },
+ "2508822": {
+  "date": "2026-11-27",
+  "ligue": "Bundesliga",
+  "equipeDomicile": "Werder Bremen",
+  "equipeExterieur": "Borussia Mönchengladbach",
+  "probas": [
+   0.5267,
+   0.2544,
+   0.2189
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   1.64,
+   4.0,
+   3.85
+  ],
+  "resultat": null
+ },
+ "2527835": {
+  "date": "2026-11-27",
+  "ligue": "Süper Lig",
+  "equipeDomicile": "Alanyaspor",
+  "equipeExterieur": "Konyaspor",
+  "probas": [
+   0.4442,
+   0.2852,
+   0.2706
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   2.25,
+   3.0,
+   2.45
+  ],
+  "resultat": null
+ },
+ "2527836": {
+  "date": "2026-11-27",
+  "ligue": "Süper Lig",
+  "equipeDomicile": "Rizespor",
+  "equipeExterieur": "Kasımpaşa",
+  "probas": [
+   0.3995,
+   0.2787,
+   0.3218
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   1.74,
+   3.4,
+   3.25
+  ],
+  "resultat": null
+ },
+ "2490328": {
+  "date": "2026-11-27",
+  "ligue": "Ekstraklasa",
+  "equipeDomicile": "Górnik Zabrze",
+  "equipeExterieur": "Wisła Płock",
+  "probas": [
+   0.6241,
+   0.2239,
+   0.152
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   1.4,
+   4.2,
+   5.2
+  ],
+  "resultat": null
+ },
+ "2490331": {
+  "date": "2026-11-27",
+  "ligue": "Ekstraklasa",
+  "equipeDomicile": "Raków Częstochowa",
+  "equipeExterieur": "Piast Gliwice",
+  "probas": [
+   0.3647,
+   0.2739,
+   0.3614
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   1.74,
+   3.7,
+   3.3
+  ],
+  "resultat": null
+ },
+ "2481882": {
+  "date": "2026-11-27",
+  "ligue": "Superliga",
+  "equipeDomicile": "Sønderjyske",
+  "equipeExterieur": "Brøndby",
+  "probas": [
+   0.314,
+   0.2726,
+   0.4134
+  ],
+  "bookmaker": "Winamax",
+  "cotes": [
+   3.8,
+   3.8,
+   1.62
+  ],
+  "resultat": null
  }
 }
