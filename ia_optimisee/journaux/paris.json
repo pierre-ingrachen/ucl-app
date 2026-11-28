@@ -118,5 +118,35 @@
   "mise": 0.2174,
   "statut": "perdu",
   "gain": -0.2174
+ },
+ {
+  "idEvent": "2482264",
+  "date": "2026-11-28",
+  "ligue": "Serie A",
+  "equipeDomicile": "Frosinone",
+  "equipeExterieur": "Parma",
+  "issue": "exterieure",
+  "coteBookmaker": 4.9,
+  "bookmaker": "Winamax",
+  "coteModele": 4.85,
+  "probaModele": 0.2061,
+  "mise": 0.2041,
+  "statut": "en_attente",
+  "gain": null
+ },
+ {
+  "idEvent": "2508823",
+  "date": "2026-11-28",
+  "ligue": "Bundesliga",
+  "equipeDomicile": "Mainz",
+  "equipeExterieur": "Union Berlin",
+  "issue": "exterieure",
+  "coteBookmaker": 5.2,
+  "bookmaker": "Winamax",
+  "coteModele": 4.6,
+  "probaModele": 0.2172,
+  "mise": 0.1923,
+  "statut": "en_attente",
+  "gain": null
  }
 ]

@@ -2284,5 +2284,167 @@
   "mise": 0.2469,
   "statut": "perdu",
   "gain": -0.2469
+ },
+ {
+  "idEvent": "2489561",
+  "date": "2026-11-28",
+  "ligue": "Ligue 1",
+  "equipeDomicile": "Angers",
+  "equipeExterieur": "Lens",
+  "issue": "domicile",
+  "coteBookmaker": 4.1,
+  "bookmaker": "Winamax",
+  "coteModele": 3.19,
+  "butsAttendus": [
+   1.19,
+   1.43
+  ],
+  "mise": 0.2439,
+  "statut": "en_attente",
+  "gain": null
+ },
+ {
+  "idEvent": "2489564",
+  "date": "2026-11-28",
+  "ligue": "Ligue 1",
+  "equipeDomicile": "Paris Saint-Germain",
+  "equipeExterieur": "Lorient",
+  "issue": "exterieure",
+  "coteBookmaker": 10.5,
+  "bookmaker": "Winamax",
+  "coteModele": 6.63,
+  "butsAttendus": [
+   2.12,
+   0.91
+  ],
+  "mise": 0.0952,
+  "statut": "en_attente",
+  "gain": null
+ },
+ {
+  "idEvent": "2506300",
+  "date": "2026-11-28",
+  "ligue": "La Liga",
+  "equipeDomicile": "Málaga",
+  "equipeExterieur": "Athletic Bilbao",
+  "issue": "domicile",
+  "coteBookmaker": 4.3,
+  "bookmaker": "Winamax",
+  "coteModele": 2.92,
+  "butsAttendus": [
+   1.32,
+   1.45
+  ],
+  "mise": 0.2326,
+  "statut": "en_attente",
+  "gain": null
+ },
+ {
+  "idEvent": "2506308",
+  "date": "2026-11-28",
+  "ligue": "La Liga",
+  "equipeDomicile": "Elche",
+  "equipeExterieur": "Atlético Madrid",
+  "issue": "domicile",
+  "coteBookmaker": 5.5,
+  "bookmaker": "Winamax",
+  "coteModele": 4.01,
+  "butsAttendus": [
+   1.05,
+   1.6
+  ],
+  "mise": 0.1818,
+  "statut": "en_attente",
+  "gain": null
+ },
+ {
+  "idEvent": "2482263",
+  "date": "2026-11-28",
+  "ligue": "Serie A",
+  "equipeDomicile": "Inter Milan",
+  "equipeExterieur": "Genoa",
+  "issue": "exterieure",
+  "coteBookmaker": 8.0,
+  "bookmaker": "Winamax",
+  "coteModele": 5.14,
+  "butsAttendus": [
+   1.87,
+   0.98
+  ],
+  "mise": 0.125,
+  "statut": "en_attente",
+  "gain": null
+ },
+ {
+  "idEvent": "2508823",
+  "date": "2026-11-28",
+  "ligue": "Bundesliga",
+  "equipeDomicile": "Mainz",
+  "equipeExterieur": "Union Berlin",
+  "issue": "exterieure",
+  "coteBookmaker": 5.2,
+  "bookmaker": "Winamax",
+  "coteModele": 3.58,
+  "butsAttendus": [
+   1.45,
+   1.07
+  ],
+  "mise": 0.1923,
+  "statut": "en_attente",
+  "gain": null
+ },
+ {
+  "idEvent": "2508825",
+  "date": "2026-11-28",
+  "ligue": "Bundesliga",
+  "equipeDomicile": "Hamburg",
+  "equipeExterieur": "Bayern Munich",
+  "issue": "domicile",
+  "coteBookmaker": 6.75,
+  "bookmaker": "Winamax",
+  "coteModele": 4.67,
+  "butsAttendus": [
+   1.04,
+   1.82
+  ],
+  "mise": 0.1481,
+  "statut": "en_attente",
+  "gain": null
+ },
+ {
+  "idEvent": "2399207",
+  "date": "2026-11-28",
+  "ligue": "Eliteserien",
+  "equipeDomicile": "Bodø/Glimt",
+  "equipeExterieur": "KFUM-Kameratene Oslo",
+  "issue": "exterieure",
+  "coteBookmaker": 13.5,
+  "bookmaker": "Winamax",
+  "coteModele": 8.8,
+  "butsAttendus": [
+   2.49,
+   0.89
+  ],
+  "mise": 0.0741,
+  "statut": "en_attente",
+  "gain": null
+ },
+ {
+  "idEvent": "2494498",
+  "date": "2026-11-28",
+  "ligue": "Premiership",
+  "equipeDomicile": "Rangers",
+  "equipeExterieur": "Falkirk",
+  "issue": "exterieure",
+  "coteBookmaker": 7.7,
+  "bookmaker": "Unibet",
+  "coteModele": 3.92,
+  "butsAttendus": [
+   1.8,
+   1.2
+  ],
+  "mise": 0.1299,
+  "statut": "en_attente",
+  "gain": null
  }
 ]

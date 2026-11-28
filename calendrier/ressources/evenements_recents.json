@@ -1,23 +1,23 @@
 {
 "couvert_jusqu_au": {
-"4328": "2026-11-27",
-"4330": "2026-11-27",
-"4331": "2026-11-27",
-"4332": "2026-11-27",
-"4334": "2026-11-27",
-"4335": "2026-11-27",
-"4336": "2026-11-27",
-"4337": "2026-11-27",
-"4338": "2026-11-27",
-"4339": "2026-11-27",
-"4340": "2026-11-27",
-"4344": "2026-11-27",
-"4347": "2026-11-27",
-"4358": "2026-11-27",
-"4480": "2026-11-27",
-"4481": "2026-11-27",
-"4621": "2026-11-27",
-"5071": "2026-11-27"
+"4328": "2026-11-28",
+"4330": "2026-11-28",
+"4331": "2026-11-28",
+"4332": "2026-11-28",
+"4334": "2026-11-28",
+"4335": "2026-11-28",
+"4336": "2026-11-28",
+"4337": "2026-11-28",
+"4338": "2026-11-28",
+"4339": "2026-11-28",
+"4340": "2026-11-28",
+"4344": "2026-11-28",
+"4347": "2026-11-28",
+"4358": "2026-11-28",
+"4480": "2026-11-28",
+"4481": "2026-11-28",
+"4621": "2026-11-28",
+"5071": "2026-11-28"
 },
 "evenements": {
 "2398919": {
@@ -1964,6 +1964,18 @@
 "strHomeTeam": "Viborg",
 "strSeason": "2026-2027"
 },
+"2481882": {
+"dateEvent": "2026-11-27",
+"idAwayTeam": "133893",
+"idEvent": "2481882",
+"idHomeTeam": "133897",
+"idLeague": "4340",
+"intAwayScore": "1",
+"intHomeScore": "1",
+"strAwayTeam": "Brøndby",
+"strHomeTeam": "Sønderjyske",
+"strSeason": "2026-2027"
+},
 "2482178": {
 "dateEvent": "2026-09-20",
 "idAwayTeam": "133678",
@@ -2924,6 +2936,18 @@
 "strHomeTeam": "Monza",
 "strSeason": "2026-2027"
 },
+"2482265": {
+"dateEvent": "2026-11-27",
+"idAwayTeam": "134781",
+"idEvent": "2482265",
+"idHomeTeam": "134234",
+"idLeague": "4332",
+"intAwayScore": "0",
+"intHomeScore": "0",
+"strAwayTeam": "Bologna",
+"strHomeTeam": "Venezia",
+"strSeason": "2026-2027"
+},
 "2489120": {
 "dateEvent": "2026-09-19",
 "idAwayTeam": "133759",
@@ -3680,6 +3704,18 @@
 "strHomeTeam": "Telstar",
 "strSeason": "2026-2027"
 },
+"2489187": {
+"dateEvent": "2026-11-27",
+"idAwayTeam": "133827",
+"idEvent": "2489187",
+"idHomeTeam": "133762",
+"idLeague": "4337",
+"intAwayScore": "1",
+"intHomeScore": "1",
+"strAwayTeam": "Willem II",
+"strHomeTeam": "Groningen",
+"strSeason": "2026-2027"
+},
 "2489498": {
 "dateEvent": "2026-09-19",
 "idAwayTeam": "134789",
@@ -4434,6 +4470,18 @@
 "intHomeScore": "1",
 "strAwayTeam": "Toulouse",
 "strHomeTeam": "Lens",
+"strSeason": "2026-2027"
+},
+"2489566": {
+"dateEvent": "2026-11-27",
+"idAwayTeam": "135465",
+"idEvent": "2489566",
+"idHomeTeam": "133704",
+"idLeague": "4334",
+"intAwayScore": "0",
+"intHomeScore": "1",
+"strAwayTeam": "Paris FC",
+"strHomeTeam": "Brest",
 "strSeason": "2026-2027"
 },
 "2490189": {
@@ -7532,6 +7580,18 @@
 "strHomeTeam": "Coventry City",
 "strSeason": "2026-2027"
 },
+"2494118": {
+"dateEvent": "2026-11-27",
+"idAwayTeam": "133610",
+"idEvent": "2494118",
+"idHomeTeam": "133720",
+"idLeague": "4328",
+"intAwayScore": "2",
+"intHomeScore": "3",
+"strAwayTeam": "Chelsea",
+"strHomeTeam": "Nottingham Forest",
+"strSeason": "2026-2027"
+},
 "2494446": {
 "dateEvent": "2026-09-19",
 "idAwayTeam": "133638",
@@ -8732,6 +8792,18 @@
 "strHomeTeam": "Genk",
 "strSeason": "2026-2027"
 },
+"2496799": {
+"dateEvent": "2026-11-27",
+"idAwayTeam": "133783",
+"idEvent": "2496799",
+"idHomeTeam": "133775",
+"idLeague": "4338",
+"intAwayScore": "2",
+"intHomeScore": "2",
+"strAwayTeam": "Kortrijk",
+"strHomeTeam": "Oud-Heverlee Leuven",
+"strSeason": "2026-2027"
+},
 "2499739": {
 "dateEvent": "2026-09-20",
 "idAwayTeam": "137743",
@@ -9233,6 +9305,18 @@
 "intAwayScore": "3",
 "intHomeScore": "0",
 "strAwayTeam": "Rapid Vienna",
+"strHomeTeam": "Grazer AK",
+"strSeason": "2026-2027"
+},
+"2499786": {
+"dateEvent": "2026-11-27",
+"idAwayTeam": "137742",
+"idEvent": "2499786",
+"idHomeTeam": "139415",
+"idLeague": "4621",
+"intAwayScore": "3",
+"intHomeScore": "2",
+"strAwayTeam": "SCR Altach",
 "strHomeTeam": "Grazer AK",
 "strSeason": "2026-2027"
 },
@@ -10076,6 +10160,18 @@
 "strHomeTeam": "Racing de Santander",
 "strSeason": "2026-2027"
 },
+"2506302": {
+"dateEvent": "2026-11-27",
+"idAwayTeam": "133726",
+"idEvent": "2506302",
+"idHomeTeam": "133732",
+"idLeague": "4335",
+"intAwayScore": "3",
+"intHomeScore": "1",
+"strAwayTeam": "Racing de Santander",
+"strHomeTeam": "Levante",
+"strSeason": "2026-2027"
+},
 "2508360": {
 "dateEvent": "2026-09-18",
 "idAwayTeam": "134690",
@@ -10832,6 +10928,18 @@
 "strHomeTeam": "Elversberg",
 "strSeason": "2026-2027"
 },
+"2508822": {
+"dateEvent": "2026-11-27",
+"idAwayTeam": "134779",
+"idEvent": "2508822",
+"idHomeTeam": "133662",
+"idLeague": "4331",
+"intAwayScore": "3",
+"intHomeScore": "3",
+"strAwayTeam": "Borussia Mönchengladbach",
+"strHomeTeam": "Werder Bremen",
+"strSeason": "2026-2027"
+},
 "2513943": {
 "dateEvent": "2026-10-19",
 "idAwayTeam": "134113",
@@ -11370,6 +11478,18 @@
 "intHomeScore": "2",
 "strAwayTeam": "Benfica",
 "strHomeTeam": "Estrela Amadora",
+"strSeason": "2026-2027"
+},
+"2514035": {
+"dateEvent": "2026-11-27",
+"idAwayTeam": "134109",
+"idEvent": "2514035",
+"idHomeTeam": "134023",
+"idLeague": "4344",
+"intAwayScore": "2",
+"intHomeScore": "1",
+"strAwayTeam": "Nacional de Madeira",
+"strHomeTeam": "Marítimo",
 "strSeason": "2026-2027"
 },
 "2527769": {
@@ -12126,6 +12246,30 @@
 "intHomeScore": "2",
 "strAwayTeam": "Fenerbahçe",
 "strHomeTeam": "Kocaelispor",
+"strSeason": "2026-2027"
+},
+"2527835": {
+"dateEvent": "2026-11-27",
+"idAwayTeam": "133835",
+"idEvent": "2527835",
+"idHomeTeam": "135676",
+"idLeague": "4339",
+"intAwayScore": "2",
+"intHomeScore": "1",
+"strAwayTeam": "Konyaspor",
+"strHomeTeam": "Alanyaspor",
+"strSeason": "2026-2027"
+},
+"2527836": {
+"dateEvent": "2026-11-27",
+"idAwayTeam": "133834",
+"idEvent": "2527836",
+"idHomeTeam": "133885",
+"idLeague": "4339",
+"intAwayScore": "2",
+"intHomeScore": "3",
+"strAwayTeam": "Kasımpaşa",
+"strHomeTeam": "Rizespor",
 "strSeason": "2026-2027"
 },
 "2539947": {
